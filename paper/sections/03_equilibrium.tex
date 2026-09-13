@@ -1,0 +1,99 @@
+\section{Equilibrium Characterization}\label{sec:equilibrium}
+
+\subsection{Product-market payoffs}
+
+When both firms survive, the Cournot equilibrium is
+\begin{equation}
+x_D=p_D=\frac{1}{2+\gamma},
+\qquad
+\pi_D=\frac{1}{(2+\gamma)^2}.
+\label{eq:duopoly}
+\end{equation}
+When only one firm survives,
+\begin{equation}
+x_M=p_M=\frac12,
+\qquad
+\pi_M=\frac14.
+\label{eq:monopoly}
+\end{equation}
+Define the disaster-state scarcity-rent wedge
+\begin{equation}
+\Delta(\gamma)\equiv \pi_M-\pi_D
+=\frac{\gamma(\gamma+4)}{4(\gamma+2)^2}.
+\label{eq:delta}
+\end{equation}
+For $\gamma>0$, $\Delta>0$, and
+\begin{equation}
+\Delta'(\gamma)=\frac{2}{(\gamma+2)^3}>0.
+\label{eq:delta-derivative}
+\end{equation}
+Thus closer substitutes increase the profit gain from being the sole surviving producer relative to competing in the disaster state.
+
+\subsection{Backup choice}
+
+Fix primary locations and public policies. Let $s_i$ and $s_j$ be the firms' primary failure probabilities and let $J$ be their joint primary failure probability. After integrating over disaster states, firm $i$'s expected profit can be written as
+\begin{equation}
+\Pi_i
+=\pi_D-\pi_D s_i(1-r_i)
++\Delta s_j(1-r_j)
+-\Delta J(1-r_i)(1-r_j)
+-\frac{k}{2}r_i^2.
+\label{eq:expected-profit}
+\end{equation}
+The interior first-order condition is
+\begin{equation}
+kr_i=\pi_D s_i+\Delta J(1-r_j).
+\label{eq:backup-foc}
+\end{equation}
+The own second derivative is $-k<0$, so the best response is unique conditional on the rival's readiness.
+
+\begin{proposition}[Strategic substitution in backup readiness]\label{prop:strategic-sub}
+On the interior continuation branch,
+\begin{equation}
+\frac{\partial r_i^{BR}}{\partial r_j}=-\frac{\Delta J}{k}<0
+\end{equation}
+whenever $\gamma>0$ and $J>0$.
+\end{proposition}
+
+The economic force is specific to competition in the disruption state. A rival that remains productive after a common disruption eliminates the monopoly component of the firm's contingency payoff and therefore lowers its incentive to maintain backup readiness. Proposition~\ref{prop:strategic-sub} is a mechanism lemma, not a novelty claim.
+
+For symmetric public risk $q$, the two location configurations deliver especially transparent expressions. If primary plants are co-located,
+\begin{equation}
+r^C(q)=\frac{q\pi_M}{k+q\Delta}.
+\label{eq:rC}
+\end{equation}
+If primary plants are geographically dispersed,
+\begin{equation}
+r^D(q)=\frac{q(\pi_D+q\Delta)}{k+q^2\Delta}.
+\label{eq:rD}
+\end{equation}
+Both are increasing in $q$, hence decreasing in public protection. Both are also decreasing in $\gamma$:
+\begin{equation}
+\frac{\partial r^C}{\partial \gamma}<0,
+\qquad
+\frac{\partial r^D}{\partial \gamma}<0.
+\label{eq:gamma-r}
+\end{equation}
+The latter comparative static follows because a larger scarcity-rent wedge makes the value of backup more dependent on the rival's failure rather than on preserving competitive production in every state.
+
+\subsection{Primary location}
+
+Let $\Pi^{XY}_i$ denote firm $i$'s equilibrium continuation profit when firm $1$ locates in $X\in\{A,B\}$ and firm $2$ in $Y\in\{A,B\}$. For firm 1, define
+\begin{align}
+d_A&\equiv \Pi^{AA}_1-\Pi^{BA}_1,\\
+d_B&\equiv \Pi^{AB}_1-\Pi^{BB}_1.
+\end{align}
+If the rival chooses $A$ with probability $p$, the deterministic payoff difference between choosing $A$ and $B$ is
+\begin{equation}
+D(p)=p d_A+(1-p)d_B.
+\end{equation}
+With the uniform location-fit shock, an interior symmetric location equilibrium satisfies
+\begin{equation}
+p=\frac12+\frac{D(p)}{2H},
+\end{equation}
+so
+\begin{equation}
+p=\frac{H+d_B}{2H-d_A+d_B}.
+\label{eq:location-prob}
+\end{equation}
+At symmetric public policies $a_A=a_B$, symmetry implies $p=1/2$. Off the symmetric policy path, equation~\eqref{eq:location-prob} captures the plant-attraction effect of a unilateral protection increase.

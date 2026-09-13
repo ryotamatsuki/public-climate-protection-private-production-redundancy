@@ -1,0 +1,85 @@
+\section{Model}\label{sec:model}
+
+There are two jurisdictions, $A$ and $B$, two ex ante symmetric firms, and a representative consumer. Jurisdictions choose place-based climate protection, firms choose primary production locations and geographic backup readiness, localized disasters are realized, and surviving firms compete in the product market. The model is deliberately static. Its purpose is to isolate one interaction: local competition for mobile production changes public protection, while public protection changes firms' private production redundancy.
+
+\subsection{Product market}
+
+Consumer utility is
+\begin{equation}
+U(x_1,x_2)=x_1+x_2-\frac12\left(x_1^2+x_2^2+2\gamma x_1x_2\right),
+\qquad 0\leq \gamma<1,
+\label{eq:utility}
+\end{equation}
+where $x_i$ is consumption of firm $i$'s product and $\gamma$ indexes product substitutability. The corresponding inverse demands are
+\begin{equation}
+p_i=1-x_i-\gamma x_j.
+\label{eq:inverse-demand}
+\end{equation}
+Marginal production cost is normalized to zero. If both firms are available after the disaster state is realized, they compete in quantities. If only one firm is available, it is a monopolist. If neither firm is available, output is zero.
+
+\subsection{Public protection and localized risk}
+
+Jurisdiction $j\in\{A,B\}$ chooses public climate protection
+\begin{equation}
+a_j\in[0,\bar a].
+\end{equation}
+Protection lowers the probability that primary production located in $j$ is disrupted:
+\begin{equation}
+q_j=q_0-a_j,
+\qquad 0<\bar a<q_0<1.
+\label{eq:risk}
+\end{equation}
+The resource cost of protection is $c a_j^2/2$, with $c>0$. The linear risk technology is a normalization; the mechanism requires only that greater public protection reduce location-specific production risk at a real resource cost.
+
+Localized shocks generate correlation in primary production failures. If both firms place their primary plants in the same jurisdiction $j$, their primary plants fail jointly with probability $J=q_j$. If they locate in different jurisdictions, regional shocks are independent and joint primary failure occurs with probability
+\begin{equation}
+J=q_Aq_B.
+\label{eq:joint-risk}
+\end{equation}
+
+\subsection{Primary location and geographic backup readiness}
+
+Firm $i$ chooses a primary production location $L_i\in\{A,B\}$. Let
+\begin{equation}
+s_i=q_{L_i}
+\end{equation}
+be the failure probability of its primary production. After primary locations are chosen, firm $i$ chooses backup readiness $r_i\in[0,1]$. Conditional on primary failure, backup production is available with probability $r_i$. Maintaining readiness costs
+\begin{equation}
+C_i^R(r_i)=\frac{k}{2}r_i^2,
+\qquad k>0.
+\label{eq:backup-cost}
+\end{equation}
+This reduced-form readiness choice captures costly alternative facilities, pre-arranged production capacity, or other geographically separate production options. It is smooth by construction; none of the main results depends on crossing a fixed-cost threshold.
+
+To avoid a knife-edge winner-take-all location response, each firm has an idiosyncratic payoff advantage for $A$ relative to $B$,
+\begin{equation}
+\varepsilon_i\sim U[-H,H],\qquad H>0.
+\label{eq:location-shock}
+\end{equation}
+independently across firms. This term is a location-fit or purification device and is not treated as a social resource cost. Given continuation profits, firm $i$ chooses $A$ when its deterministic payoff advantage of $A$ plus $\varepsilon_i$ is nonnegative.
+
+\subsection{Governments and welfare}
+
+Let $\mathcal S(a_A,a_B)$ denote expected national product-market surplus net of private backup costs, after location and backup choices are resolved. A primary plant located in a jurisdiction generates local employment, tax-base, or immobile-factor benefits summarized by $b>0$. If $p$ denotes the symmetric probability that a firm chooses $A$, jurisdiction $A$'s payoff is
+\begin{equation}
+G_A=\frac12\mathcal S+2bp-\frac{c}{2}a_A^2,
+\label{eq:government-payoff}
+\end{equation}
+and $B$ is symmetric. A coordinated planner values the same real product-market surplus and both local plant benefits:
+\begin{equation}
+W=\mathcal S+2b-\frac{c}{2}(a_A^2+a_B^2).
+\label{eq:national-welfare}
+\end{equation}
+Because there are always two primary plants, $2b$ is constant at the national level. The decentralized governments therefore have a plant-attraction motive that is absent from the planner's location accounting.
+
+\subsection{Timing and equilibrium concept}
+
+The game proceeds as follows.
+\begin{enumerate}[label=\arabic*.]
+\item Jurisdictions simultaneously choose $(a_A,a_B)$.
+\item Firms simultaneously choose primary locations, conditional on their location-fit shocks.
+\item Firms simultaneously choose backup readiness $(r_1,r_2)$.
+\item Localized disaster states are realized.
+\item Surviving firms compete in quantities.
+\end{enumerate}
+We solve by backward induction. The analysis uses the interior continuation region verified for the stated policy domain. Upstream deviations are evaluated by re-solving the downstream location and backup subgames rather than holding on-path continuation formulas fixed.

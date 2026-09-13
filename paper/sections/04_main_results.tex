@@ -1,0 +1,70 @@
+\section{Local Protection Competition and the Main Result}\label{sec:main}
+
+The preceding section isolates two responses to public protection. First, a safer jurisdiction becomes more attractive as a primary production location. Second, lower primary risk reduces firms' willingness to maintain geographically separate backup capacity. This section shows that the interaction of those responses can reverse the social policy ranking.
+
+\subsection{The two marginal incentives}
+
+At a symmetric policy profile, define the planner's marginal payoff from a common increase in public protection by
+\begin{equation}
+M_S(\gamma)\equiv \left.\frac{dW(a,a)}{da}\right|_{a=0},
+\label{eq:MS}
+\end{equation}
+and define jurisdiction $A$'s marginal payoff from a unilateral increase by
+\begin{equation}
+M_L(\gamma)\equiv \left.\frac{\partial G_A(a_A,0)}{\partial a_A}\right|_{a_A=0}.
+\label{eq:ML}
+\end{equation}
+The planner internalizes the change in product-market surplus and private redundancy. A local government internalizes only its assigned share of national market surplus but additionally values the increase in its expected primary-plant count.
+
+For the rational parameter vector
+\begin{equation}
+\theta_0=
+\left(
+\gamma,q_0,k,H,b,c,\bar a
+\right)
+=
+\left(
+\frac{12}{25},\frac3{10},\frac{169}{3000},\frac1{100},\frac{11}{200},3,\frac2{25}
+\right),
+\label{eq:witness}
+\end{equation}
+exact rational evaluation gives
+\begin{equation}
+M_S(12/25)<0<M_L(12/25).
+\label{eq:marginal-conflict}
+\end{equation}
+Thus, at the same policy profile, coordinated welfare falls when both jurisdictions add protection, while a jurisdiction gains from adding protection unilaterally.
+
+\begin{theorem}[Protection--Attraction Conflict]\label{thm:main}
+There exists a nonempty open set of primitives for which coordinated welfare is maximized by zero additional local climate protection while the decentralized jurisdictional game has a strictly positive symmetric protection equilibrium. At the canonical rational witness in \eqref{eq:witness}, the coordinated optimum is $(a_A,a_B)=(0,0)$ and the positive symmetric decentralized equilibrium satisfies
+\begin{equation}
+a^{LG}\in(0.02301968485,\;0.02301968495).
+\label{eq:alg-interval}
+\end{equation}
+All material downstream continuation equilibria used to evaluate first-stage deviations remain interior on the frozen policy domain.
+\end{theorem}
+
+The proof is computer-assisted but not calibration-based. Exact rational polynomials certify the relevant marginal signs and isolate the unique symmetric government first-order-condition root at the canonical witness. A deterministic whole-domain continuation audit independently re-solves location and backup choices for government deviations. The strict sign and interiority conditions, together with the simple government root, imply persistence in an open neighborhood of primitives. Appendix~\ref{app:verification} documents the certificate and separates exact algebra from numerical global-deviation checks.
+
+\subsection{A product-substitutability interval}
+
+Holding $(q_0,k,H,b,c,\bar a)$ at the witness values and varying $\gamma$, exact root isolation identifies a local-government threshold
+\begin{equation}
+\gamma_L\in(0.4745893334177,\;0.4745893334186)
+\end{equation}
+and a planner threshold
+\begin{equation}
+\gamma_S\in(0.4982912217039,\;0.4982912217048).
+\end{equation}
+Hence $\gamma_L<\gamma_S$. For $\gamma$ between these thresholds, the local marginal incentive at zero is positive while the coordinated marginal incentive is negative. Figure~\ref{fig:policy-regime} shows the corresponding symmetric policy comparison. The figure is an exposition device generated from the frozen model; the theorem itself rests on the exact witness and verification record.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=.78\textwidth]{../figures/policy_regime.pdf}
+\caption{Public protection and product substitutability. The vertical lines mark the exact root-isolation thresholds $\gamma_L$ and $\gamma_S$. The plotted policies are generated from the frozen symmetric-policy equations; they are not additional calibrated moments.}
+\label{fig:policy-regime}
+\end{figure}
+
+\subsection{Economic interpretation}
+
+The theorem is not a general statement that climate protection is inefficient. The conflict arises in a specific margin of place-based industrial resilience. Public protection has an engineering benefit: it lowers the probability that a primary production site fails. But it also changes firms' organizational response. Safer primary production reduces the private value of maintaining costly geographic backup capacity. Once that endogenous reduction in backup capacity makes an additional common protection increment socially undesirable, a coordinated planner stops. A local government need not stop because the same protection increment attracts primary production from the competing jurisdiction. The decentralized policy therefore remains positive even though its national marginal value has turned negative.

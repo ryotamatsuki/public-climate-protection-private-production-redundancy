@@ -1,20 +1,26 @@
 #!/usr/bin/env python3
 """
-Exact Stage 11A global certificate for PCPPR.
+Exact Stage 11C global certificate for PCPPR.
 
 The certificate uses exact rational-function arithmetic over QQ(x,y)
 and tensor-product Bernstein coefficients on rectangles.
 
 Certified statements at the canonical witness:
-1. every downstream continuation used by the theorem is interior and regular
-   on the full policy square [0, 2/25]^2;
-2. dW/da_A < 0 and dW/da_B < 0 on the full policy square, hence (0,0)
+1. every backup continuation used by the theorem is interior and regular on
+   the full policy square [0, 2/25]^2;
+2. the private-information location best-response map is globally affine on
+   the full policy square: both endpoint choice probabilities lie strictly in
+   (0,1), its slope has absolute value below one, and the simultaneous
+   location-probability fixed point is therefore unique and interior;
+3. dW/da_A < 0 and dW/da_B < 0 on the full policy square, hence (0,0)
    is the unique coordinated optimum;
-3. the diagonal local-government FOC has exactly one root alpha in
+4. the diagonal local-government FOC has exactly one root alpha in
    (0, 2/25);
-4. for every rival action y in the exact isolating interval for alpha,
+5. for every rival action y in the exact isolating interval for alpha,
    d^2 G_A / da_A^2 < 0 on the full own-action interval. Therefore, at
-   y=alpha, the stationary point x=alpha is the unique global best response.
+   y=alpha, the stationary point x=alpha is the unique global best response;
+6. the equilibrium deterministic location advantage is exactly zero on the
+   symmetric policy path, which supports the fit-payoff robustness argument.
 
 No floating-point arithmetic is used in the certificate.
 """
@@ -96,11 +102,22 @@ dB = AB["p1"] - BB["p1"]
 location_den = 2*H - dA + dB
 p = (H + dB) / location_den
 
+# Endpoint probabilities of the affine private-information best response:
+# u0 is the probability of choosing A when the rival chooses A with prob. 0;
+# u1 is the same probability when the rival chooses A with prob. 1.
+u0 = (H + dB) / (2*H)
+u1 = (H + dA) / (2*H)
+B = (dA - dB) / (2*H)
+
 ES = (p*p*AA["S"]
       + 2*p*(1-p)*AB["S"]
       + (1-p)*(1-p)*BB["S"])
 W = ES + 2*b - c*(x*x + y*y)/2
 GA = ES/2 + 2*b*p - c*x*x/2
+
+# Deterministic location advantage evaluated at the equilibrium mixing
+# probability. On every symmetric policy profile it is exactly zero.
+D_eq = p*dA + (1-p)*dB
 
 
 def bernstein_coeffs(poly, x0, x1, y0, y1):
@@ -175,12 +192,20 @@ def certify_between_zero_one(frac, rect):
 
 FULL = (Q(0), abar, Q(0), abar)
 
-# Regularity and interiority of every downstream continuation.
+# Regularity and interiority of every backup continuation.
 for obj in (AA, AB, BA, BB):
     assert strict_sign_rational(obj["bden"], FULL) > 0
     certify_between_zero_one(obj["r1"], FULL)
     certify_between_zero_one(obj["r2"], FULL)
 
+# Exact location-subgame certificate. Endpoint probabilities in (0,1) imply
+# the uniform-shock best response never clips at zero or one. |B|<1 makes
+# that affine best-response map a contraction, so the simultaneous Bayesian
+# location game has a unique interior probability fixed point.
+certify_between_zero_one(u0, FULL)
+certify_between_zero_one(u1, FULL)
+assert strict_sign_rational(1-B, FULL) > 0
+assert strict_sign_rational(1+B, FULL) > 0
 assert strict_sign_rational(location_den, FULL) > 0
 certify_between_zero_one(p, FULL)
 
@@ -224,8 +249,16 @@ hi = Q(int(hi_sp.p), int(hi_sp.q))
 LOCAL = (Q(0), abar, lo, hi)
 assert strict_sign_rational(ddGdxx, LOCAL) < 0
 
+# Symmetric-policy fit-payoff robustness. The selected perturbation payoff of
+# the two firms is R(D)=H/2-D^2/(2H), hence never exceeds H/2. The exact
+# equilibrium deterministic advantage is zero on x=y, so the upper bound is
+# attained at both symmetric policy candidates used in the theorem.
+assert diagonal_poly(D_eq.numer).is_zero
+
 print("planner: exact Bernstein certificate PASS")
-print("continuations: exact regularity/interiority certificate PASS")
+print("backup continuations: exact regularity/interiority certificate PASS")
+print("location subgame: exact no-clipping + uniqueness certificate PASS")
 print("local FOC root interval:", lo_sp, hi_sp)
 print("local global best response: exact root isolation + strict-concavity certificate PASS")
-print("PASS Stage 11A rigorous global certificate")
+print("fit-payoff robustness: symmetric deterministic location advantage is exactly zero")
+print("PASS Stage 11C rigorous global certificate")

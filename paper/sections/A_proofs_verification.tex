@@ -1,0 +1,44 @@
+\section{Proofs and Verification}\label{app:verification}
+
+This appendix records the analytical identities used in the paper and the computer-assisted verification protocol for the main existence result. The reproducibility package separates symbolic certificates, numerical continuation audits, and an independent state-enumeration payoff evaluator.
+
+\subsection{Product-market and backup results}
+
+The Cournot first-order conditions from \eqref{eq:inverse-demand} are
+\begin{equation}
+1-2x_i-\gamma x_j=0.
+\end{equation}
+Symmetry yields $x_i=1/(2+\gamma)$ and \eqref{eq:duopoly}; the monopoly result \eqref{eq:monopoly} is immediate. Subtracting profits gives \eqref{eq:delta}, and direct differentiation gives \eqref{eq:delta-derivative}.
+
+To obtain \eqref{eq:expected-profit}, enumerate four production-availability states after primary and backup outcomes. Differentiating with respect to $r_i$ gives
+\begin{equation}
+\frac{\partial\Pi_i}{\partial r_i}
+=\pi_D s_i+\Delta J(1-r_j)-kr_i,
+\end{equation}
+which yields \eqref{eq:backup-foc}. The cross-best-response derivative in Proposition~\ref{prop:strategic-sub} follows directly. Under symmetry, substituting $J=q$ for co-location and $J=q^2$ for dispersion gives \eqref{eq:rC} and \eqref{eq:rD}. Their derivatives with respect to $q$ are positive on the frozen interior region. Differentiation with respect to $\Delta$, combined with $\Delta'(\gamma)>0$, gives \eqref{eq:gamma-r}.
+
+\subsection{Exact threshold certificates}
+
+At the rational values $(q_0,k,H,b,c,\bar a)=(3/10,169/3000,1/100,11/200,3,2/25)$, the marginal objects $M_S(\gamma)$ and $M_L(\gamma)$ are rational functions of $\gamma$. Their exact numerator and denominator coefficients are stored in the reproducibility artifact \texttt{docs/certificate\_polynomials.json}. Exact real-root isolation establishes that the relevant numerator root of $M_L$ lies in
+\begin{equation}
+(0.4745893334177016,\;0.4745893334185960),
+\end{equation}
+and that the relevant numerator root of $M_S$ lies in
+\begin{equation}
+(0.4982912217039472,\;0.4982912217047885).
+\end{equation}
+The denominators have no root on the maintained $\gamma$ interval. Hence the ordering $\gamma_L<\gamma_S$ is exact, not a finite-difference pattern.
+
+At $\gamma=12/25$, the numerator polynomial of the symmetric local-government first-order condition has a unique root on $[0,2/25]$, isolated in the interval reported in \eqref{eq:alg-interval}. The symmetric planner derivative is negative throughout the corresponding symmetric policy domain; its exact derivative numerator has no root on that interval and is negative at zero.
+
+\subsection{Whole-domain continuation audit}\label{app:continuation}
+
+The first-stage game is sequential. A government deviation changes local failure risk, which changes location incentives and the backup subgame. The verification therefore re-solves the downstream location fixed point and backup Nash equilibrium after each material government deviation rather than substituting the deviation into on-path formulas.
+
+At the canonical witness, the independent numerical audit searches $a_A\in[0,\bar a]$ against the rival's candidate equilibrium policy using 2,001 policy points and bounded optimization. Throughout this domain, location probabilities and backup readiness remain strictly interior. The audit records zero unresolved continuation calls and zero numerical failures. A separate two-dimensional planner audit evaluates the full $(a_A,a_B)\in[0,\bar a]^2$ domain on a deterministic grid and from multiple continuous-optimization starting points; all checks select $(0,0)$ at the witness.
+
+The independent evaluator enumerates the four production-availability states directly from primitive probabilities and reconstructs expected profit and surplus without calling the candidate closed-form payoff routine. It agrees with the closed form at the maintained test points. This separation is intended to prevent a common-code error from serving simultaneously as derivation and verification.
+
+\subsection{Open-set argument}
+
+At the witness, the planner and local-government marginal inequalities are strict; the positive symmetric government root is simple and interior; location probabilities and backup choices are strictly interior; and the continuation mapping remains within the verified regular region. These objects are continuous in primitives. Hence the sign conflict and positive local equilibrium persist in a sufficiently small neighborhood of the witness. This gives the open-set part of Theorem~\ref{thm:main}. The theorem is therefore an existence result, not a claim that every parameter configuration generates excessive local protection.

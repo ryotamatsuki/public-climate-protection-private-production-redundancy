@@ -87,13 +87,24 @@ If the rival chooses $A$ with probability $p$, the deterministic payoff differen
 \begin{equation}
 D(p)=p d_A+(1-p)d_B.
 \end{equation}
-With the uniform location-fit shock, an interior symmetric location equilibrium satisfies
+Because $\varepsilon_i$ is privately observed, the firm's cutoff rule implies the affine Bayesian best response
 \begin{equation}
-p=\frac12+\frac{D(p)}{2H},
+BR(p)=\frac12+\frac{D(p)}{2H}
+=u_0+Bp,
+\label{eq:location-br}
 \end{equation}
-so
+where
+\begin{equation}
+u_0\equiv\frac{H+d_B}{2H},
+\qquad
+u_1\equiv\frac{H+d_A}{2H},
+\qquad
+B\equiv\frac{d_A-d_B}{2H}.
+\label{eq:location-endpoints}
+\end{equation}
+Here $u_0=BR(0)$ and $u_1=BR(1)$. Whenever $u_0,u_1\in(0,1)$, the affine expression is valid globally on $p\in[0,1]$: no probability clipping occurs at either endpoint or anywhere between them. If in addition $|B|<1$, $BR$ is a contraction and the simultaneous private-information location game has a unique interior probability fixed point. Solving $p=BR(p)$ gives
 \begin{equation}
 p=\frac{H+d_B}{2H-d_A+d_B}.
 \label{eq:location-prob}
 \end{equation}
-At symmetric public policies $a_A=a_B$, symmetry implies $p=1/2$. Off the symmetric policy path, equation~\eqref{eq:location-prob} captures the plant-attraction effect of a unilateral protection increase.
+At the canonical witness, the exact whole-domain certificate verifies $0<u_0,u_1<1$ and $|B|<1$ for every $(a_A,a_B)\in[0,\bar a]^2$. Thus equation~\eqref{eq:location-prob} is the unique location continuation after every admissible first-stage deviation, not merely a local interior solution. At symmetric public policies $a_A=a_B$, symmetry implies $p=1/2$ and $D=0$. Off the symmetric policy path, equation~\eqref{eq:location-prob} captures the plant-attraction effect of a unilateral protection increase.

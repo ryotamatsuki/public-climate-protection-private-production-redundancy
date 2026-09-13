@@ -1,6 +1,6 @@
 \section{Proofs and Verification}\label{app:verification}
 
-This appendix records the analytical identities used in the paper and the computer-assisted verification protocol for the main existence result. The reproducibility package separates symbolic certificates, numerical continuation audits, and an independent state-enumeration payoff evaluator.
+This appendix records the analytical identities used in the paper and the computer-assisted verification protocol for the main existence result. The reproducibility package separates exact symbolic certificates, an exact whole-domain Bernstein certificate, numerical stress tests, and an independent state-enumeration payoff evaluator.
 
 \subsection{Product-market and backup results}
 
@@ -29,16 +29,48 @@ and that the relevant numerator root of $M_S$ lies in
 \end{equation}
 The denominators have no root on the maintained $\gamma$ interval. Hence the ordering $\gamma_L<\gamma_S$ is exact, not a finite-difference pattern.
 
-At $\gamma=12/25$, the numerator polynomial of the symmetric local-government first-order condition has a unique root on $[0,2/25]$, isolated in the interval reported in \eqref{eq:alg-interval}. The symmetric planner derivative is negative throughout the corresponding symmetric policy domain; its exact derivative numerator has no root on that interval and is negative at zero.
+At $\gamma=12/25$, the diagonal local-government first-order condition has exactly one root on $[0,2/25]$. Exact root isolation in the Stage~11A certificate places it in the rational interval
+\begin{equation}
+\left(\frac{1649737}{71666359},\;\frac{380091}{16511564}\right),
+\end{equation}
+which is contained in the interval reported in \eqref{eq:alg-interval}.
 
-\subsection{Whole-domain continuation audit}\label{app:continuation}
+\subsection{Exact whole-domain certificate}\label{app:global-certificate}
 
-The first-stage game is sequential. A government deviation changes local failure risk, which changes location incentives and the backup subgame. The verification therefore re-solves the downstream location fixed point and backup Nash equilibrium after each material government deviation rather than substituting the deviation into on-path formulas.
+The decisive global statements in Theorem~\ref{thm:main} are certified by \texttt{scripts/verify\_global\_certificate.py}. The script reconstructs the canonical rational model over the exact rational-function field $\mathbb Q(a_A,a_B)$ and converts the relevant numerator and denominator polynomials to tensor-product Bernstein form on the policy rectangle
+\begin{equation}
+[0,\bar a]^2=[0,2/25]^2.
+\end{equation}
+Because a polynomial lies in the convex hull of its Bernstein coefficients on the rectangle, a strictly negative set of Bernstein coefficients proves strict negativity everywhere on the rectangle, and analogously for positivity.
 
-At the canonical witness, the independent numerical audit searches $a_A\in[0,\bar a]$ against the rival's candidate equilibrium policy using 2,001 policy points and bounded optimization. Throughout this domain, location probabilities and backup readiness remain strictly interior. The audit records zero unresolved continuation calls and zero numerical failures. A separate two-dimensional planner audit evaluates the full $(a_A,a_B)\in[0,\bar a]^2$ domain on a deterministic grid and from multiple continuous-optimization starting points; all checks select $(0,0)$ at the witness.
+First, the certificate verifies exact regularity and interiority of every downstream continuation used by the theorem: the backup linear-system denominators are strictly positive, each backup readiness satisfies $0<r_i<1$, the location fixed-point denominator is strictly positive, and the equilibrium location probability satisfies $0<p<1$ throughout the full policy square.
+
+Second, exact Bernstein coefficients establish
+\begin{equation}
+\frac{\partial W}{\partial a_A}<0
+\quad\text{and}\quad
+\frac{\partial W}{\partial a_B}<0
+\qquad\forall(a_A,a_B)\in[0,2/25]^2.
+\end{equation}
+Hence coordinated welfare is strictly decreasing in each policy coordinate on the entire admissible rectangle and the unique coordinated optimum is $(0,0)$.
+
+Third, let $\alpha$ denote the unique exact diagonal root of the local-government first-order condition. The same certificate proves that for every rival action in the exact isolating interval containing $\alpha$,
+\begin{equation}
+\frac{\partial^2G_A}{\partial a_A^2}<0
+\qquad\forall a_A\in[0,2/25].
+\end{equation}
+Therefore, at $a_B=\alpha$, jurisdiction $A$'s payoff is strictly concave in its own policy on the full feasible interval. Since the exact first-order condition satisfies $\partial G_A(\alpha,\alpha)/\partial a_A=0$, $a_A=\alpha$ is the unique global best response to $a_B=\alpha$. Symmetry gives the corresponding statement for jurisdiction $B$. Thus $(\alpha,\alpha)$ is a global Nash equilibrium of the first-stage policy game, not merely a local stationary point.
+
+No floating-point arithmetic enters these global sign certificates.
+
+\subsection{Numerical continuation audit}\label{app:continuation}
+
+The exact certificate establishes the theorem's global quantifiers. Numerical routines are retained only as independent stress tests. A government deviation changes local failure risk, which changes location incentives and the backup subgame, so the numerical audit re-solves the downstream location fixed point and backup Nash equilibrium after each material government deviation rather than substituting the deviation into on-path formulas.
+
+At the canonical witness, the audit searches $a_A\in[0,\bar a]$ against the rival's candidate equilibrium policy using 2,001 policy points and bounded optimization. Throughout this domain, location probabilities and backup readiness remain strictly interior. The audit records zero unresolved continuation calls and zero numerical failures. A separate two-dimensional planner audit evaluates the full $(a_A,a_B)\in[0,\bar a]^2$ domain on a deterministic grid and from multiple continuous-optimization starting points; all checks select $(0,0)$ at the witness.
 
 The independent evaluator enumerates the four production-availability states directly from primitive probabilities and reconstructs expected profit and surplus without calling the candidate closed-form payoff routine. It agrees with the closed form at the maintained test points. This separation is intended to prevent a common-code error from serving simultaneously as derivation and verification.
 
 \subsection{Open-set argument}
 
-At the witness, the planner and local-government marginal inequalities are strict; the positive symmetric government root is simple and interior; location probabilities and backup choices are strictly interior; and the continuation mapping remains within the verified regular region. These objects are continuous in primitives. Hence the sign conflict and positive local equilibrium persist in a sufficiently small neighborhood of the witness. This gives the open-set part of Theorem~\ref{thm:main}. The theorem is therefore an existence result, not a claim that every parameter configuration generates excessive local protection.
+At the witness, the planner inequalities are strict on the compact policy rectangle; the positive symmetric government root is simple, interior, and a strict global best response; location probabilities and backup choices are strictly interior; and the continuation mapping remains in the regular region. These objects are continuous in primitives. Compactness and the strict inequalities therefore imply that the policy ranking and the positive local equilibrium persist in a sufficiently small neighborhood of the witness. This gives the open-set part of Theorem~\ref{thm:main}. The theorem is an existence result, not a claim that every parameter configuration generates excessive local protection.

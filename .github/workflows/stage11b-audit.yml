@@ -1,0 +1,15 @@
+name: stage11b-audit
+on:
+  push:
+    branches:
+      - audit/stage11b-2026-09-13
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: pip install -r requirements.txt
+      - run: python audit/stage11b_independent_certificate_audit.py

@@ -5,8 +5,10 @@ Reproducibility and manuscript repository for the theory project **Public Climat
 ## Research status
 
 - Theory freeze: `PCPPR-THEORY-FREEZE-2026-09-06-v1`
-- Manuscript status: Stage 10 complete; draft prepared for hostile referee gate
-- Next gate: Stage 11 — hostile full-manuscript referee audit
+- Stage 10 reproducibility freeze commit: `62a3a4444783828dc313e974b5e798e30f1fe5a2`
+- Frozen ref: `freeze/pcppr-stage10-2026-09-13`
+- Stage 10 GitHub Actions validation: PASS
+- Manuscript status: Stage 10 complete; Stage 11 hostile referee gate in progress
 - Current target: *RAND Journal of Economics*
 
 ## Core result
@@ -17,11 +19,11 @@ The main result is a **Protection–Attraction Conflict**: there exists a nonemp
 
 ## Repository governance
 
-The frozen theory is authoritative. Verification code may test the frozen model but must not silently modify it.
+The frozen Stage 10 commit is the authoritative pre-audit baseline. Verification and audit code may test that baseline but must not silently modify it.
 
 Any change affecting equilibrium correctness, the policy-ranking theorem, parameter domains, welfare accounting, or the claim boundary must explicitly reopen the relevant research stage before being merged.
 
-## Planned reproducibility layout
+## Reproducibility layout
 
 ```text
 .
@@ -46,7 +48,7 @@ Any change affecting equilibrium correctness, the policy-ranking theorem, parame
 └── references/
 ```
 
-The Stage 10 local reproducibility package remains the canonical source until all frozen files are imported and checked against this repository.
+Generated figure/table objects and the manuscript PDF are rebuilt deterministically by the verification pipeline rather than treated as independent theory sources.
 
 ## Canonical environment
 
@@ -54,13 +56,14 @@ The Stage 10 local reproducibility package remains the canonical source until al
 - SymPy 1.14.0
 - NumPy 2.3.5
 - SciPy 1.17.0
+- Matplotlib 3.10.8
 - pytest
 - pdfLaTeX
 
-Once the frozen reproducibility package has been imported, the canonical validation entry point will be:
+Canonical validation entry point:
 
 ```bash
 make verify
 ```
 
-It must run symbolic identities and threshold certificates, the policy-root certificate, numerical global-deviation and planner audits, nested-benchmark checks, regression tests, deterministic exposition-object generation, and the manuscript build.
+It runs symbolic identities and threshold certificates, the policy-root certificate, numerical global-deviation and planner audits, nested-benchmark checks, regression tests, deterministic exposition-object generation, and the manuscript build.

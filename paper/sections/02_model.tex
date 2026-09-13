@@ -51,12 +51,12 @@ C_i^R(r_i)=\frac{k}{2}r_i^2,
 \end{equation}
 This reduced-form readiness choice captures costly alternative facilities, pre-arranged production capacity, or other geographically separate production options. It is smooth by construction; none of the main results depends on crossing a fixed-cost threshold.
 
-To avoid a knife-edge winner-take-all location response, each firm receives an idiosyncratic decision perturbation favoring $A$ relative to $B$,
+To avoid a knife-edge winner-take-all location response, each firm receives a privately observed idiosyncratic location-fit shifter favoring $A$ relative to $B$,
 \begin{equation}
 \varepsilon_i\sim U[-H,H],\qquad H>0,
 \label{eq:location-shock}
 \end{equation}
-independently across firms. We interpret $\varepsilon_i$ as a Harsanyi-style purification device for the discrete location decision, not as consumption, profit, or a real resource. It therefore affects the firm's location rule but is not itself a component of material social surplus. Given continuation profits, firm $i$ chooses $A$ when its deterministic payoff advantage of $A$ plus $\varepsilon_i$ is nonnegative. Equivalently, the welfare criterion evaluates the underlying material economy and integrates over the location distribution induced by the perturbation; it does not assign welfare weight to the perturbation draw itself.
+independently across firms. After public policies are chosen and before the simultaneous location decisions, firm $i$ privately observes $\varepsilon_i$. Each firm knows the distribution of the rival's shifter and forms beliefs over the rival's location choice in the usual Bayesian way. We use $\varepsilon_i$ as a smoothing device for the discrete location decision, not as consumption, accounting profit, or a real resource. It therefore affects the firm's cutoff rule but is not part of baseline material social surplus. Given continuation profits, firm $i$ chooses $A$ when its deterministic payoff advantage of $A$ plus $\varepsilon_i$ is nonnegative. Appendix~\ref{app:verification} also shows that counting the selected fit payoff in welfare leaves the canonical policy ranking unchanged.
 
 \subsection{Governments and welfare}
 
@@ -77,9 +77,9 @@ Because there are always two primary plants, $2b$ is constant at the national le
 The game proceeds as follows.
 \begin{enumerate}[label=\arabic*.]
 \item Jurisdictions simultaneously choose $(a_A,a_B)$.
-\item Firms simultaneously choose primary locations, conditional on their location-fit shocks.
-\item Firms simultaneously choose backup readiness $(r_1,r_2)$.
+\item Each firm privately observes its own $\varepsilon_i$; firms then simultaneously choose primary locations, forming beliefs over the rival's private draw.
+\item Firms simultaneously choose backup readiness $(r_1,r_2)$ after primary locations are observed.
 \item Localized disaster states are realized.
 \item Surviving firms compete in quantities.
 \end{enumerate}
-We solve by backward induction. The analysis uses the interior continuation region verified for the stated policy domain. Upstream deviations are evaluated by re-solving the downstream location and backup subgames rather than holding on-path continuation formulas fixed.
+We solve by backward induction. The location stage is a symmetric Bayesian Nash equilibrium in cutoff strategies. The analysis uses the interior continuation region verified for the stated policy domain. Upstream deviations are evaluated by re-solving the downstream location and backup subgames rather than holding on-path continuation formulas fixed.

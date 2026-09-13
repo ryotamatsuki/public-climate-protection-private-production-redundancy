@@ -17,6 +17,18 @@ To obtain \eqref{eq:expected-profit}, enumerate four production-availability sta
 \end{equation}
 which yields \eqref{eq:backup-foc}. The cross-best-response derivative in Proposition~\ref{prop:strategic-sub} follows directly. Under symmetry, substituting $J=q$ for co-location and $J=q^2$ for dispersion gives \eqref{eq:rC} and \eqref{eq:rD}. Their derivatives with respect to $q$ are positive on the frozen interior region. Differentiation with respect to $\Delta$, combined with $\Delta'(\gamma)>0$, gives \eqref{eq:gamma-r}.
 
+\subsection{Plant-attraction decomposition}
+
+At the symmetric origin, symmetry implies $\mathcal S_{a_A}=\mathcal S_{a_B}$, while the quadratic public-protection cost has zero marginal cost. Hence
+\begin{equation}
+M_S=\mathcal S_{a_A}+\mathcal S_{a_B}=2\mathcal S_{a_A}.
+\end{equation}
+From \eqref{eq:government-payoff},
+\begin{equation}
+M_L=\frac12\mathcal S_{a_A}+2b\lambda_0.
+\end{equation}
+Combining the two equations gives \eqref{eq:marginal-decomposition}. If $\lambda_0>0$ and $M_S<0$, rearrangement yields \eqref{eq:attraction-threshold}. This result uses only symmetry, the local plant-benefit term, and zero marginal public cost at the origin; it does not depend on the canonical rational parameter vector.
+
 \subsection{Exact threshold certificates}
 
 At the rational values $(q_0,k,H,b,c,\bar a)=(3/10,169/3000,1/100,11/200,3,2/25)$, the marginal objects $M_S(\gamma)$ and $M_L(\gamma)$ are rational functions of $\gamma$. Their exact numerator and denominator coefficients are stored in the reproducibility artifact \texttt{docs/certificate\_polynomials.json}. Exact real-root isolation establishes that the relevant numerator root of $M_L$ lies in
@@ -29,7 +41,7 @@ and that the relevant numerator root of $M_S$ lies in
 \end{equation}
 The denominators have no root on the maintained $\gamma$ interval. Hence the ordering $\gamma_L<\gamma_S$ is exact, not a finite-difference pattern.
 
-At $\gamma=12/25$, the diagonal local-government first-order condition has exactly one root on $[0,2/25]$. Exact root isolation in the Stage~11A certificate places it in the rational interval
+At $\gamma=12/25$, the diagonal local-government first-order condition has exactly one root on $[0,2/25]$. Exact root isolation in the Stage~11C certificate places it in the rational interval
 \begin{equation}
 \left(\frac{1649737}{71666359},\;\frac{380091}{16511564}\right),
 \end{equation}
@@ -43,9 +55,21 @@ The decisive global statements in Theorem~\ref{thm:main} are certified by \textt
 \end{equation}
 Because a polynomial lies in the convex hull of its Bernstein coefficients on the rectangle, a strictly negative set of Bernstein coefficients proves strict negativity everywhere on the rectangle, and analogously for positivity.
 
-First, the certificate verifies exact regularity and interiority of every downstream continuation used by the theorem: the backup linear-system denominators are strictly positive, each backup readiness satisfies $0<r_i<1$, the location fixed-point denominator is strictly positive, and the equilibrium location probability satisfies $0<p<1$ throughout the full policy square.
+First, the certificate verifies exact regularity and interiority of every backup continuation used by the theorem: the backup linear-system denominators are strictly positive and each backup readiness satisfies $0<r_i<1$ throughout the full policy square.
 
-Second, exact Bernstein coefficients establish
+Second, the certificate closes the location subgame globally. Define
+\begin{equation}
+u_0=\frac{H+d_B}{2H},\qquad
+u_1=\frac{H+d_A}{2H},\qquad
+B=\frac{d_A-d_B}{2H}.
+\end{equation}
+Exact Bernstein coefficients prove
+\begin{equation}
+0<u_0<1,\qquad 0<u_1<1,\qquad -1<B<1
+\end{equation}
+for every $(a_A,a_B)\in[0,2/25]^2$. Thus the private-information location best response is globally affine rather than clipped, and it is a contraction on the unit interval. The simultaneous location stage therefore has a unique interior probability fixed point after every admissible first-stage policy profile. The certificate additionally verifies positivity of the closed-form fixed-point denominator and $0<p<1$ on the full policy square.
+
+Third, exact Bernstein coefficients establish
 \begin{equation}
 \frac{\partial W}{\partial a_A}<0
 \quad\text{and}\quad
@@ -54,7 +78,7 @@ Second, exact Bernstein coefficients establish
 \end{equation}
 Hence coordinated welfare is strictly decreasing in each policy coordinate on the entire admissible rectangle and the unique coordinated optimum is $(0,0)$.
 
-Third, let $\alpha$ denote the unique exact diagonal root of the local-government first-order condition. The same certificate proves that for every rival action in the exact isolating interval containing $\alpha$,
+Fourth, let $\alpha$ denote the unique exact diagonal root of the local-government first-order condition. The same certificate proves that for every rival action in the exact isolating interval containing $\alpha$,
 \begin{equation}
 \frac{\partial^2G_A}{\partial a_A^2}<0
 \qquad\forall a_A\in[0,2/25].
@@ -62,6 +86,20 @@ Third, let $\alpha$ denote the unique exact diagonal root of the local-governmen
 Therefore, at $a_B=\alpha$, jurisdiction $A$'s payoff is strictly concave in its own policy on the full feasible interval. Since the exact first-order condition satisfies $\partial G_A(\alpha,\alpha)/\partial a_A=0$, $a_A=\alpha$ is the unique global best response to $a_B=\alpha$. Symmetry gives the corresponding statement for jurisdiction $B$. Thus $(\alpha,\alpha)$ is a global Nash equilibrium of the first-stage policy game, not merely a local stationary point.
 
 No floating-point arithmetic enters these global sign certificates.
+
+\subsection{Robustness to counting the selected location-fit payoff}\label{app:fit-robustness}
+
+The baseline welfare criterion treats $\varepsilon_i$ as a non-resource location-fit shifter. A natural robustness question is whether the theorem survives if the selected fit payoff is instead counted in welfare. Let $D\in[-H,H]$ be a firm's deterministic payoff advantage of $A$ over $B$. The firm chooses $A$ when $\varepsilon_i\ge -D$. The expected selected perturbation payoff for one firm is therefore
+\begin{equation}
+\frac{1}{2H}\int_{-D}^{H}\varepsilon\,d\varepsilon
+=\frac H4-\frac{D^2}{4H}.
+\end{equation}
+For the two symmetric firms the aggregate term is
+\begin{equation}
+R(D)=\frac H2-\frac{D^2}{2H}\leq \frac H2,
+\label{eq:fit-payoff}
+\end{equation}
+with equality if and only if $D=0$. At every symmetric policy profile, including both $(0,0)$ and $(\alpha,\alpha)$, symmetry implies $D=0$; the exact certificate verifies this identity on the full symmetric policy path. Since baseline coordinated welfare is already globally maximized at $(0,0)$ and $R(D)$ is also globally maximized there, adding $R(D)$ to coordinated welfare cannot change the planner optimum. Likewise, against $a_B=\alpha$, baseline $G_A$ is globally maximized at $a_A=\alpha$, and $R(D)$ is maximized at that same symmetric point. Adding any fixed nonnegative local share of $R(D)$ therefore leaves $a_A=\alpha$ a global best response. The canonical Protection--Attraction Conflict is thus robust to this alternative welfare convention.
 
 \subsection{Numerical continuation audit}\label{app:continuation}
 
@@ -73,4 +111,4 @@ The independent evaluator enumerates the four production-availability states dir
 
 \subsection{Open-set argument}
 
-At the witness, the planner inequalities are strict on the compact policy rectangle; the positive symmetric government root is simple, interior, and a strict global best response; location probabilities and backup choices are strictly interior; and the continuation mapping remains in the regular region. These objects are continuous in primitives. Compactness and the strict inequalities therefore imply that the policy ranking and the positive local equilibrium persist in a sufficiently small neighborhood of the witness. This gives the open-set part of Theorem~\ref{thm:main}. The theorem is an existence result, not a claim that every parameter configuration generates excessive local protection.
+At the witness, the planner inequalities are strict on the compact policy rectangle; the positive symmetric government root is simple, interior, and a strict global best response; the backup and location continuations are unique, strictly interior, and bounded away from their clipping or singularity boundaries; and the continuation mapping remains in the regular region. These objects are continuous in primitives. Compactness and the strict inequalities therefore imply that the policy ranking, continuation uniqueness, and positive local equilibrium persist in a sufficiently small neighborhood of the witness. This gives the open-set part of Theorem~\ref{thm:main}. The theorem is an existence result, not a claim that every parameter configuration generates excessive local protection.

@@ -16,6 +16,36 @@ M_L(\gamma)\equiv \left.\frac{\partial G_A(a_A,0)}{\partial a_A}\right|_{a_A=0}.
 \end{equation}
 The planner internalizes the change in product-market surplus and private redundancy. A local government internalizes only its assigned share of national market surplus but additionally values the increase in its expected primary-plant count.
 
+The wedge can be written without using the canonical witness. Let
+\begin{equation}
+\lambda_0\equiv
+\left.\frac{\partial p(a_A,a_B)}{\partial a_A}\right|_{(0,0)}
+\label{eq:lambda0}
+\end{equation}
+be the plant-attraction response at the symmetric origin.
+
+\begin{proposition}[Plant-attraction threshold]\label{prop:attraction-threshold}
+At the symmetric origin, under the quadratic protection cost in \eqref{eq:national-welfare},
+\begin{equation}
+M_L=\frac14 M_S+2b\lambda_0.
+\label{eq:marginal-decomposition}
+\end{equation}
+Hence if $\lambda_0>0$ and $M_S<0$, the local marginal incentive is positive if and only if
+\begin{equation}
+b>\frac{-M_S}{8\lambda_0}.
+\label{eq:attraction-threshold}
+\end{equation}
+\end{proposition}
+
+The identity follows directly from symmetry. At $(0,0)$, the marginal resource cost of protection is zero and $\mathcal S_{a_A}=\mathcal S_{a_B}$. Therefore $M_S=2\mathcal S_{a_A}$, whereas $M_L=\mathcal S_{a_A}/2+2b\lambda_0$. Equation~\eqref{eq:marginal-decomposition} follows. This decomposition is useful because it separates the national resilience margin from the purely jurisdictional attraction motive. If the social marginal can be written as $M_S=E_0+R_0$, where $E_0>0$ is the direct engineering effect of reducing primary risk while holding private redundancy fixed and $R_0<0$ is the induced private-redundancy response, then a marginal Protection--Attraction Conflict obtains whenever
+\begin{equation}
+-R_0>E_0
+\qquad\text{and}\qquad
+8b\lambda_0>-E_0-R_0.
+\label{eq:transparent-conflict}
+\end{equation}
+The first inequality says that redundancy crowd-out dominates the direct engineering benefit at the national margin; the second says that the local plant-attraction benefit is large enough to overturn one quarter of that national marginal loss. The full theorem below adds the global policy and equilibrium requirements.
+
 For the rational parameter vector
 \begin{equation}
 \theta_0=
@@ -41,10 +71,10 @@ There exists a nonempty open set of primitives for which coordinated welfare is 
 a^{LG}\in(0.02301968485,\;0.02301968495).
 \label{eq:alg-interval}
 \end{equation}
-All material downstream continuation equilibria used to evaluate first-stage deviations remain interior on the frozen policy domain.
+Every downstream continuation used to evaluate first-stage deviations is unique and interior on the frozen policy domain.
 \end{theorem}
 
-The proof is computer-assisted but exact at the global-policy step. Exact rational root isolation certifies the unique symmetric local-government first-order-condition root. Tensor-product Bernstein certificates over the full policy rectangle prove that coordinated welfare is strictly decreasing in each protection coordinate, that all continuation objects remain regular and interior, and that the local government's objective is strictly concave in its own policy when the rival chooses the isolated equilibrium root. Hence the isolated stationary point is a global best response and the positive symmetric profile is a Nash equilibrium. Numerical global-deviation routines are retained only as independent stress tests. Appendix~\ref{app:verification} documents the exact and numerical layers separately.
+The proof is computer-assisted but exact at the global-policy step. Exact rational root isolation certifies the unique symmetric local-government first-order-condition root. Tensor-product Bernstein certificates over the full policy rectangle prove that coordinated welfare is strictly decreasing in each protection coordinate, backup continuations remain regular and interior, the private-information location game is globally unclipped and has a unique interior probability fixed point, and the local government's objective is strictly concave in its own policy when the rival chooses the isolated equilibrium root. Hence the isolated stationary point is a global best response and the positive symmetric profile is a Nash equilibrium. Numerical global-deviation routines are retained only as independent stress tests. Appendix~\ref{app:verification} documents the exact and numerical layers separately.
 
 \subsection{A product-substitutability interval}
 
@@ -67,4 +97,4 @@ Hence $\gamma_L<\gamma_S$. For $\gamma$ between these thresholds, the local marg
 
 \subsection{Economic interpretation}
 
-The theorem is not a general statement that climate protection is inefficient. The conflict arises in a specific margin of place-based industrial resilience. Public protection has an engineering benefit: it lowers the probability that a primary production site fails. But it also changes firms' organizational response. Safer primary production reduces the private value of maintaining costly geographic backup capacity. Once that endogenous reduction in backup capacity makes an additional common protection increment socially undesirable, a coordinated planner stops. A local government need not stop because the same protection increment attracts primary production from the competing jurisdiction. The decentralized policy therefore remains positive even though its national marginal value has turned negative.
+The theorem is not a general statement that climate protection is inefficient. The conflict arises in a specific margin of place-based industrial resilience. Public protection has an engineering benefit: it lowers the probability that a primary production site fails. But it also changes firms' organizational response. Safer primary production reduces the private value of maintaining costly geographic backup capacity. Once that endogenous reduction in backup capacity makes an additional common protection increment socially undesirable, a coordinated planner stops. A local government need not stop because the same protection increment attracts primary production from the competing jurisdiction. Proposition~\ref{prop:attraction-threshold} shows that this wedge is not peculiar to the canonical rational witness: locally, the attraction term $2b\lambda_0$ need only exceed one quarter of the national marginal loss. The decentralized policy therefore can remain positive even after the national marginal value of further protection has turned negative.

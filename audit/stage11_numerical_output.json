@@ -1,0 +1,23 @@
+{
+  "target_freeze": "62a3a4444783828dc313e974b5e798e30f1fe5a2",
+  "planner_W00": 0.6183204099408616,
+  "planner_DE_argmax": [1.9084317459672206e-12, 8.178659138824429e-12],
+  "planner_DE_value": 0.6183204099408288,
+  "dW_da_201x201_range": [-0.20201077321095826, -0.0032412321113818544],
+  "dW_db_201x201_range": [-0.20201077321095826, -0.0032412321113818544],
+  "location_probability_full_square_range": [0.4204314998705003, 0.5795685001294997],
+  "backup_readiness_full_square_range": [0.6449838154101057, 0.9084740493006567],
+  "location_BR_endpoint_range": [0.3224593679835279, 0.6775406320164721],
+  "location_BR_slope_beta_range": [-0.245719675808187, -0.08404295730193856],
+  "backup_BR_absolute_slope_upper_bound": 0.46549144443965546,
+  "local_candidate": 0.023019684870403838,
+  "local_DE_best_response": 0.023019681923404738,
+  "local_payoff_gap_best_minus_candidate": 0.0,
+  "local_derivative_range": [-0.01148963486792914, 0.002097783793178715],
+  "local_derivative_sign_changes_on_1001_grid": 1,
+  "fit_inclusive_planner_argmax": [2.0503203301824868e-11, 1.2549912498105442e-11],
+  "fit_inclusive_local_best_response": 0.02301974539361634,
+  "fit_inclusive_payoff_gap": -1.6653345369377348e-16,
+  "solver_failures": 0,
+  "warning": "Deterministic hostile stress tests only; not an interval-arithmetic proof of globality."
+}

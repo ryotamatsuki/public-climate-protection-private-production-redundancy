@@ -16,13 +16,13 @@ expansions as category C rather than category A.
 For the diagonal local-government FOC (T12), the generator emits the exact
 isolating interval, exact endpoint values, and all 52 Bernstein coefficients
 of the degree-51 normalized formal derivative. Those proof-critical
-coefficients remain in Lean. They are represented by integer numerators and
-positive natural denominators so Lean can kernel-check strict negativity
-without normalizing 52 enormous Rational literals through `native_decide`.
-The source-to-certificate conversion is category C; endpoint signs,
-derivative-coefficient signs, and the generic Bernstein/root implications are
-checked in Lean. The kernel is not asked to re-expand the degree-52 FOC into
-multiple polynomial bases.
+coefficients remain in Lean. Each negative rational is encoded exactly as
+`-(m+1)/(d+1)` with `m,d : Nat`; this makes strict negativity structural rather
+than asking `native_decide` to normalize 52 enormous rational literals. The
+source-to-certificate conversion is category C; endpoint signs, exact
+coefficient representation, derivative-coefficient signs, and the generic
+Bernstein/root implications are checked in Lean. The kernel is not asked to
+re-expand the degree-52 FOC into multiple polynomial bases.
 """
 from __future__ import annotations
 
@@ -100,11 +100,6 @@ def normalized_bernstein_coeffs(poly, lo, hi):
     return beta
 
 
-def emit_fin_int_vector(name: str, xs) -> str:
-    body = ",\n    ".join(f"({int(x)} : ℤ)" for x in xs)
-    return f"def {name} : Fin {len(xs)} → ℤ := ![\n    {body}\n  ]\n"
-
-
 def emit_fin_nat_vector(name: str, xs) -> str:
     body = ",\n    ".join(str(int(x)) for x in xs)
     return f"def {name} : Fin {len(xs)} → ℕ := ![\n    {body}\n  ]\n"
@@ -152,6 +147,11 @@ assert strict_sign(foc_deriv_beta) < 0
 foc_nums, foc_dens = zip(*(rat_parts(q) for q in foc_deriv_beta))
 assert all(n < 0 for n in foc_nums)
 assert all(d > 0 for d in foc_dens)
+# Exact structural encoding: n/d = -(((-n)-1)+1) / ((d-1)+1).
+foc_num_magnitude_pred = [(-n) - 1 for n in foc_nums]
+foc_den_pred = [d - 1 for d in foc_dens]
+assert all(m >= 0 for m in foc_num_magnitude_pred)
+assert all(d >= 0 for d in foc_den_pred)
 
 source_sha256 = hashlib.sha256(SOURCE.read_bytes()).hexdigest()
 
@@ -200,32 +200,26 @@ parts = [
     "  native_decide\n\n",
 ]
 
-parts.append(emit_fin_int_vector("diagonalFOCDerivativeBernsteinNumerators", foc_nums))
-parts.append(emit_fin_nat_vector("diagonalFOCDerivativeBernsteinDenominators", foc_dens))
+parts.append(emit_fin_nat_vector(
+    "diagonalFOCDerivativeBernsteinNumeratorMagnitudePred", foc_num_magnitude_pred))
+parts.append(emit_fin_nat_vector(
+    "diagonalFOCDerivativeBernsteinDenominatorPred", foc_den_pred))
 parts.append(
     "\ndef diagonalFOCDerivativeBernsteinCoeffs : Fin 52 → ℚ := fun i =>\n"
-    "  (diagonalFOCDerivativeBernsteinNumerators i : ℚ) /\n"
-    "    (diagonalFOCDerivativeBernsteinDenominators i : ℚ)\n\n"
-)
-parts.append(
-    "theorem diagonalFOCDerivativeBernsteinNumerators_negative :\n"
-    "    ∀ i, diagonalFOCDerivativeBernsteinNumerators i < 0 := by\n"
-    "  native_decide\n\n"
-)
-parts.append(
-    "theorem diagonalFOCDerivativeBernsteinDenominators_positive :\n"
-    "    ∀ i, 0 < diagonalFOCDerivativeBernsteinDenominators i := by\n"
-    "  native_decide\n\n"
+    "  -(((diagonalFOCDerivativeBernsteinNumeratorMagnitudePred i + 1 : ℕ) : ℚ)) /\n"
+    "    ((diagonalFOCDerivativeBernsteinDenominatorPred i + 1 : ℕ) : ℚ)\n\n"
 )
 parts.append(
     "theorem diagonalFOCDerivativeBernsteinCoeffs_negative :\n"
     "    ∀ i, diagonalFOCDerivativeBernsteinCoeffs i < 0 := by\n"
     "  intro i\n"
-    "  have hn : (diagonalFOCDerivativeBernsteinNumerators i : ℚ) < 0 := by\n"
-    "    exact_mod_cast diagonalFOCDerivativeBernsteinNumerators_negative i\n"
-    "  have hd : (0 : ℚ) < (diagonalFOCDerivativeBernsteinDenominators i : ℚ) := by\n"
-    "    exact_mod_cast diagonalFOCDerivativeBernsteinDenominators_positive i\n"
-    "  exact div_neg_of_neg_of_pos hn hd\n\n"
+    "  have hn : (0 : ℚ) <\n"
+    "      ((diagonalFOCDerivativeBernsteinNumeratorMagnitudePred i + 1 : ℕ) : ℚ) := by\n"
+    "    positivity\n"
+    "  have hd : (0 : ℚ) <\n"
+    "      ((diagonalFOCDerivativeBernsteinDenominatorPred i + 1 : ℕ) : ℚ) := by\n"
+    "    positivity\n"
+    "  exact div_neg_of_neg_of_pos (neg_lt_zero.mpr hn) hd\n\n"
 )
 parts.append("end PCPPR.GeneratedCertificates\n")
 

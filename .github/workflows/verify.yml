@@ -28,7 +28,7 @@ jobs:
 
   lean-verification:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -77,11 +77,21 @@ jobs:
         run: |
           cd formal
           lake build PCPPR.CanonicalWitness
-      - name: Preflight T10-T13 proof layers
+      - name: Preflight T10 actual Bernstein basis
+        timeout-minutes: 5
+        run: |
+          cd formal
+          lake build PCPPR.Bernstein
+      - name: Preflight generated exact payload
+        timeout-minutes: 20
+        run: |
+          cd formal
+          lake build PCPPR.GeneratedCertificates
+      - name: Preflight T11-T14 proof layers
         timeout-minutes: 12
         run: |
           cd formal
-          lake build PCPPR.GlobalLocalGovernment PCPPR.TheoremCore
+          lake build PCPPR.GlobalPlanner PCPPR.GlobalLocalGovernment PCPPR.TheoremCore
       - name: Build Lean proof-critical core
         run: |
           cd formal

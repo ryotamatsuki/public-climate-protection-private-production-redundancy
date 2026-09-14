@@ -37,6 +37,36 @@ theorem endpoint_interior_implies_contraction
   rw [B_eq_u1_sub_u0 H dA dB hH, abs_lt]
   constructor <;> linarith [hu0.1, hu0.2, hu1.1, hu1.2]
 
+/-- T6 no-clipping lemma. If both endpoint cutoff probabilities are strictly
+inside (0,1), then every affine cutoff probability for p in [0,1] is also
+strictly inside (0,1). Thus the unclipped rule used in the paper coincides
+with the probability rule on the whole continuation domain. -/
+theorem endpoint_interior_implies_no_clipping
+    {H dA dB p : ℝ} (hH : H ≠ 0)
+    (hu0 : 0 < u0 H dB ∧ u0 H dB < 1)
+    (hu1 : 0 < u1 H dA ∧ u1 H dA < 1)
+    (hp : p ∈ Set.Icc (0 : ℝ) 1) :
+    0 < BR H dA dB p ∧ BR H dA dB p < 1 := by
+  have hform :
+      BR H dA dB p = (1 - p) * u0 H dB + p * u1 H dA := by
+    rw [BR_affine H dA dB p hH, B_eq_u1_sub_u0 H dA dB hH]
+    ring
+  rw [hform]
+  rcases hp with ⟨hp0, hp1⟩
+  have h1mp : 0 ≤ 1 - p := by linarith
+  by_cases hz : p = 0
+  · subst p
+    simpa using hu0
+  · have hp_pos : 0 < p := lt_of_le_of_ne hp0 hz.symm
+    have hnonneg0 : 0 ≤ (1 - p) * u0 H dB :=
+      mul_nonneg h1mp (le_of_lt hu0.1)
+    have hpos1 : 0 < p * u1 H dA := mul_pos hp_pos hu1.1
+    have hle0 : (1 - p) * u0 H dB ≤ (1 - p) * 1 :=
+      mul_le_mul_of_nonneg_left (le_of_lt hu0.2) h1mp
+    have hlt1 : p * u1 H dA < p * 1 :=
+      mul_lt_mul_of_pos_left hu1.2 hp_pos
+    constructor <;> nlinarith
+
 /-- Closed-form fixed point reported in paper equation (16). -/
 def pStar (H dA dB : ℝ) : ℝ := (H + dB) / (2 * H - dA + dB)
 

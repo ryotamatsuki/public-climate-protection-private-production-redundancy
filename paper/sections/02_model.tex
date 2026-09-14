@@ -15,7 +15,7 @@ where $x_i$ is consumption of firm $i$'s product and $\gamma$ indexes product su
 p_i=1-x_i-\gamma x_j.
 \label{eq:inverse-demand}
 \end{equation}
-Marginal production cost is normalized to zero. If both firms are available after the disaster state is realized, they compete in quantities. If only one firm is available, it is a monopolist. If neither firm is available, output is zero.
+Marginal production cost is normalized to zero. Whenever a firm is available through either its primary plant or its backup arrangement, it can supply the unconstrained Cournot quantity at this same marginal cost; there is no separate state-dependent capacity constraint. If both firms are available after the disaster state is realized, they compete in quantities. If only one firm is available, it is a monopolist. If neither firm is available, output is zero.
 
 \subsection{Public protection and localized risk}
 
@@ -31,11 +31,12 @@ q_j=q_0-a_j,
 \end{equation}
 The resource cost of protection is $c a_j^2/2$, with $c>0$. The linear risk technology is a normalization; the mechanism requires only that greater public protection reduce location-specific production risk at a real resource cost.
 
-Localized shocks generate correlation in primary production failures. If both firms place their primary plants in the same jurisdiction $j$, their primary plants fail jointly with probability $J=q_j$. If they locate in different jurisdictions, regional shocks are independent and joint primary failure occurs with probability
+Localized shocks generate correlation in primary production failures. Let $F_i\in\{0,1\}$ indicate failure of firm $i$'s primary production. If both firms place their primary plants in the same jurisdiction $j$, their primary plants fail jointly with probability $J=q_j$. If they locate in different jurisdictions, regional shocks are independent and joint primary failure occurs with probability
 \begin{equation}
 J=q_Aq_B.
 \label{eq:joint-risk}
 \end{equation}
+Thus $\Pr(F_i=1)=s_i$ and $\Pr(F_1=F_2=1)=J$, with the location configuration determining $s_i$ and $J$.
 
 \subsection{Primary location and geographic backup readiness}
 
@@ -46,9 +47,18 @@ s_i=q_{L_i}
 be the failure probability of its primary production. After primary locations are chosen, firm $i$ chooses backup readiness $r_i\in[0,1]$. Conditional on primary failure, backup production is available with probability $r_i$. Maintaining readiness costs
 \begin{equation}
 C_i^R(r_i)=\frac{k}{2}r_i^2,
-\qquad k>0.
+\qquad k>0,
 \label{eq:backup-cost}
 \end{equation}
+and this cost is paid ex ante and is state independent.
+
+The joint law of backup success is a maintained primitive. Conditional on public policies, primary locations, and the realized primary-failure vector $(F_1,F_2)$, backup-success draws are independent across firms. Whenever $F_i=1$, firm $i$'s backup is available with conditional probability $r_i$; conditional backup success does not otherwise depend on the regional shock that generated the primary-failure vector. The backup-success draws are also independent of the location-fit shocks introduced below. Equivalently, firm $i$ is unavailable with probability $s_i(1-r_i)$, while both firms are unavailable with probability
+\begin{equation}
+J(1-r_1)(1-r_2).
+\label{eq:joint-unavailability}
+\end{equation}
+This conditional-independence assumption is substantive: fixing only the marginal success probabilities $r_i$ would not determine the joint production-availability states. The reduced-form variable $r_i$ should therefore be read as the success probability of the firm's geographically separate contingency arrangement after its primary site fails; any hazard exposure specific to that arrangement is already incorporated into $r_i$, and there is no additional common backup shock in the baseline model.
+
 This reduced-form readiness choice captures costly alternative facilities, pre-arranged production capacity, or other geographically separate production options. It is smooth by construction; none of the main results depends on crossing a fixed-cost threshold.
 
 To avoid a knife-edge winner-take-all location response, each firm receives a privately observed idiosyncratic location-fit shifter favoring $A$ relative to $B$,
@@ -56,21 +66,21 @@ To avoid a knife-edge winner-take-all location response, each firm receives a pr
 \varepsilon_i\sim U[-H,H],\qquad H>0,
 \label{eq:location-shock}
 \end{equation}
-independently across firms. After public policies are chosen and before the simultaneous location decisions, firm $i$ privately observes $\varepsilon_i$. Each firm knows the distribution of the rival's shifter and forms beliefs over the rival's location choice in the usual Bayesian way. We use $\varepsilon_i$ as a smoothing device for the discrete location decision, not as consumption, accounting profit, or a real resource. It therefore affects the firm's cutoff rule but is not part of baseline material social surplus. Given continuation profits, firm $i$ chooses $A$ when its deterministic payoff advantage of $A$ plus $\varepsilon_i$ is nonnegative. Appendix~\ref{app:verification} also shows that counting the selected fit payoff in welfare leaves the canonical policy ranking unchanged.
+independently across firms and independently of all regional-disaster and backup-success draws. After public policies are chosen and before the simultaneous location decisions, firm $i$ privately observes $\varepsilon_i$. Each firm knows the distribution of the rival's shifter and forms beliefs over the rival's location choice in the usual Bayesian way. We use $\varepsilon_i$ as a smoothing device for the discrete location decision, not as consumption, accounting profit, or a real resource. It therefore affects the firm's cutoff rule but is not part of baseline material social surplus. Given continuation profits, firm $i$ chooses $A$ when its deterministic payoff advantage of $A$ plus $\varepsilon_i$ is nonnegative. Appendix~\ref{app:verification} also shows that counting the selected fit payoff in welfare leaves the canonical policy ranking unchanged.
 
 \subsection{Governments and welfare}
 
-Let $\mathcal S(a_A,a_B)$ denote expected national product-market surplus net of private backup costs, after location and backup choices are resolved. A primary plant located in a jurisdiction generates local employment, tax-base, or immobile-factor benefits summarized by $b>0$. If $p$ denotes the symmetric probability that a firm chooses $A$, jurisdiction $A$'s payoff is
+Let $\mathcal S(a_A,a_B)$ denote expected national product-market surplus net of private backup costs, after location and backup choices are resolved. A primary plant located in a jurisdiction generates local employment, tax-base, or immobile-factor benefits summarized by $b>0$. The baseline incidence rule assigns one half of national market surplus $\mathcal S$ to each jurisdiction. If $p$ denotes the symmetric probability that a firm chooses $A$, jurisdiction $A$'s payoff is
 \begin{equation}
 G_A=\frac12\mathcal S+2bp-\frac{c}{2}a_A^2,
 \label{eq:government-payoff}
 \end{equation}
-and $B$ is symmetric. A coordinated planner values the same real product-market surplus and both local plant benefits:
+and $B$ is symmetric. This equal-share rule is a maintained reduced-form incidence assumption, not an accounting identity derived from the product market. A coordinated planner values the same real product-market surplus and both local plant benefits:
 \begin{equation}
 W=\mathcal S+2b-\frac{c}{2}(a_A^2+a_B^2).
 \label{eq:national-welfare}
 \end{equation}
-Because there are always two primary plants, $2b$ is constant at the national level. The decentralized governments therefore have a plant-attraction motive that is absent from the planner's location accounting.
+Because there are always two primary plants, $2b$ is constant at the national level. With the equal-share incidence rule, $G_A+G_B=W$. The decentralized governments therefore have a plant-attraction motive that is absent from the planner's location accounting.
 
 \subsection{Timing and equilibrium concept}
 
@@ -79,7 +89,7 @@ The game proceeds as follows.
 \item Jurisdictions simultaneously choose $(a_A,a_B)$.
 \item Each firm privately observes its own $\varepsilon_i$; firms then simultaneously choose primary locations, forming beliefs over the rival's private draw.
 \item Firms simultaneously choose backup readiness $(r_1,r_2)$ after primary locations are observed.
-\item Localized disaster states are realized.
-\item Surviving firms compete in quantities.
+\item Localized primary-disaster states are realized; conditional on primary failures, backup success is realized according to the conditional-independence law above.
+\item Available firms compete in quantities.
 \end{enumerate}
-We solve by backward induction. The location stage is a symmetric Bayesian Nash equilibrium in cutoff strategies. The analysis uses the interior continuation region verified for the stated policy domain. Upstream deviations are evaluated by re-solving the downstream location and backup subgames rather than holding on-path continuation formulas fixed.
+We solve by backward induction. The location stage is a symmetric Bayesian Nash equilibrium in cutoff strategies. The analysis uses the interior continuation region certified for the stated policy domain. Upstream deviations are evaluated by re-solving the downstream location and backup subgames rather than holding on-path continuation formulas fixed.

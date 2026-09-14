@@ -44,7 +44,7 @@ The identity follows directly from symmetry. At $(0,0)$, the marginal resource c
 8b\lambda_0>-E_0-R_0.
 \label{eq:transparent-conflict}
 \end{equation}
-The first inequality says that redundancy crowd-out dominates the direct engineering benefit at the national margin; the second says that the local plant-attraction benefit is large enough to overturn one quarter of that national marginal loss. The full theorem below adds the global policy and equilibrium requirements.
+The first inequality says that redundancy crowd-out dominates the direct engineering benefit at the national margin; the second says that the local plant-attraction benefit is large enough to overturn one quarter of that national marginal loss. These inequalities characterize the marginal sign conflict $M_S<0<M_L$ under the stated decomposition; they are not, by themselves, sufficient for the global equilibrium result below. The theorem additionally establishes global planner optimality and a global local-government Nash equilibrium.
 
 For the rational parameter vector
 \begin{equation}
@@ -66,15 +66,15 @@ M_S(12/25)<0<M_L(12/25).
 Thus, at the same policy profile, coordinated welfare falls when both jurisdictions add protection, while a jurisdiction gains from adding protection unilaterally.
 
 \begin{theorem}[Protection--Attraction Conflict]\label{thm:main}
-There exists a nonempty open set of primitives for which coordinated welfare is maximized by zero additional local climate protection while the decentralized jurisdictional game has a strictly positive symmetric protection equilibrium. At the canonical rational witness in \eqref{eq:witness}, the coordinated optimum is $(a_A,a_B)=(0,0)$ and the positive symmetric decentralized equilibrium satisfies
+Within the maintained symmetric primitive family described in Section~\ref{sec:model}, there exists a nonempty open set of primitives for which coordinated welfare is maximized by zero additional local climate protection while the decentralized jurisdictional game has a strictly positive symmetric protection equilibrium. At the canonical rational witness in \eqref{eq:witness}, the coordinated optimum is uniquely $(a_A,a_B)=(0,0)$ and the positive symmetric decentralized equilibrium satisfies
 \begin{equation}
 a^{LG}\in(0.02301968485,\;0.02301968495).
 \label{eq:alg-interval}
 \end{equation}
-Every downstream continuation used to evaluate first-stage deviations is unique and interior on the frozen policy domain.
+Every downstream continuation used to evaluate first-stage deviations is unique and interior on the admissible policy domain $[0,\bar a]^2$.
 \end{theorem}
 
-The proof is computer-assisted but exact at the global-policy step. Exact rational root isolation certifies the unique symmetric local-government first-order-condition root. Tensor-product Bernstein certificates over the full policy rectangle prove that coordinated welfare is strictly decreasing in each protection coordinate, backup continuations remain regular and interior, the private-information location game is globally unclipped and has a unique interior probability fixed point, and the local government's objective is strictly concave in its own policy when the rival chooses the isolated equilibrium root. Hence the isolated stationary point is a global best response and the positive symmetric profile is a Nash equilibrium. Numerical global-deviation routines are retained only as independent stress tests. Appendix~\ref{app:verification} documents the exact and numerical layers separately.
+The proof is computer-assisted but exact at the global-policy step. Exact rational root isolation certifies the unique symmetric local-government first-order-condition root. Tensor-product Bernstein certificates over the full policy rectangle prove that coordinated welfare is strictly decreasing in each protection coordinate, backup continuations remain regular and interior, the private-information location game is globally unclipped and has a unique interior probability fixed point, and the local government's objective is strictly concave in its own policy when the rival chooses the isolated equilibrium root. Hence the isolated stationary point is a global best response and the positive symmetric profile is a Nash equilibrium. Numerical global-deviation routines are retained only as independent stress tests. Appendix~\ref{app:verification} states the supporting lemmas, the exact certificate principle, and the logical implication from the certified inequalities to Theorem~\ref{thm:main}.
 
 \subsection{A product-substitutability interval}
 
@@ -86,12 +86,12 @@ and a planner threshold
 \begin{equation}
 \gamma_S\in(0.4982912217039,\;0.4982912217048).
 \end{equation}
-Hence $\gamma_L<\gamma_S$. For $\gamma$ between these thresholds, the local marginal incentive at zero is positive while the coordinated marginal incentive is negative. Figure~\ref{fig:policy-regime} shows the corresponding symmetric policy comparison. The figure is an exposition device generated from the frozen model; the theorem itself rests on the exact witness and verification record.
+Hence $\gamma_L<\gamma_S$. For $\gamma$ between these thresholds, the local marginal incentive at zero is positive while the coordinated marginal incentive is negative. Figure~\ref{fig:policy-regime} shows the corresponding symmetric policy comparison. The figure is an exposition device generated from the model equations; the theorem itself rests on the exact witness and the certificates described in Appendix~\ref{app:verification}.
 
 \begin{figure}[t]
 \centering
 \includegraphics[width=.78\textwidth]{../figures/policy_regime.pdf}
-\caption{Public protection and product substitutability. The vertical lines mark the exact root-isolation thresholds $\gamma_L$ and $\gamma_S$. The plotted policies are generated from the frozen symmetric-policy equations; they are not additional calibrated moments.}
+\caption{Public protection and product substitutability. The vertical lines mark the exact root-isolation thresholds $\gamma_L$ and $\gamma_S$. The plotted policies are generated from the symmetric-policy equations; they are not additional calibrated moments.}
 \label{fig:policy-regime}
 \end{figure}
 

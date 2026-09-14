@@ -31,7 +31,7 @@ Thus closer substitutes increase the profit gain from being the sole surviving p
 
 \subsection{Backup choice}
 
-Fix primary locations and public policies. Let $s_i$ and $s_j$ be the firms' primary failure probabilities and let $J$ be their joint primary failure probability. After integrating over disaster states, firm $i$'s expected profit can be written as
+Fix primary locations and public policies. Let $s_i$ and $s_j$ be the firms' primary failure probabilities and let $J$ be their joint primary failure probability. Under the conditional-independence law in Section~\ref{sec:model}, firm $i$ is unavailable with probability $s_i(1-r_i)$ and both firms are unavailable with probability $J(1-r_i)(1-r_j)$. Enumerating the four final production-availability states therefore gives
 \begin{equation}
 \Pi_i
 =\pi_D-\pi_D s_i(1-r_i)
@@ -40,12 +40,17 @@ Fix primary locations and public policies. Let $s_i$ and $s_j$ be the firms' pri
 -\frac{k}{2}r_i^2.
 \label{eq:expected-profit}
 \end{equation}
-The interior first-order condition is
+For fixed $r_j$, this is a strictly concave quadratic function of $r_i$ on the entire feasible interval $[0,1]$, with curvature $-k$. Hence the global best response is
+\begin{equation}
+BR_i(r_j)=\operatorname{clip}_{[0,1]}
+\left\{\frac{\pi_D s_i+\Delta J(1-r_j)}{k}\right\}.
+\label{eq:backup-br-global}
+\end{equation}
+On the interior branch the first-order condition is
 \begin{equation}
 kr_i=\pi_D s_i+\Delta J(1-r_j).
 \label{eq:backup-foc}
 \end{equation}
-The own second derivative is $-k<0$, so the best response is unique conditional on the rival's readiness.
 
 \begin{proposition}[Strategic substitution in backup readiness]\label{prop:strategic-sub}
 On the interior continuation branch,
@@ -55,7 +60,7 @@ On the interior continuation branch,
 whenever $\gamma>0$ and $J>0$.
 \end{proposition}
 
-The economic force is specific to competition in the disruption state. A rival that remains productive after a common disruption eliminates the monopoly component of the firm's contingency payoff and therefore lowers its incentive to maintain backup readiness. Proposition~\ref{prop:strategic-sub} is a mechanism lemma, not a novelty claim.
+The economic force is specific to competition in the disruption state. A rival that remains productive after a common primary disruption eliminates the monopoly component of the firm's contingency payoff and therefore lowers its incentive to maintain backup readiness. Proposition~\ref{prop:strategic-sub} is a mechanism lemma, not a novelty claim. For the canonical parameter vector and every admissible public-policy profile, Appendix~\ref{app:verification} certifies that the unclipped linear best responses map into $(0,1)$ and form a contraction. Thus the backup continuation is unique, interior, and globally optimal for each firm; no boundary backup equilibrium is omitted.
 
 For symmetric public risk $q$, the two location configurations deliver especially transparent expressions. If primary plants are co-located,
 \begin{equation}
@@ -67,14 +72,14 @@ If primary plants are geographically dispersed,
 r^D(q)=\frac{q(\pi_D+q\Delta)}{k+q^2\Delta}.
 \label{eq:rD}
 \end{equation}
-Both are increasing in $q$, hence decreasing in public protection. Both are also decreasing in $\gamma$:
+Both are increasing in $q$, hence decreasing in public protection. Both are also decreasing in $\gamma$ on the maintained symmetric interior branch:
 \begin{equation}
 \frac{\partial r^C}{\partial \gamma}<0,
 \qquad
 \frac{\partial r^D}{\partial \gamma}<0.
 \label{eq:gamma-r}
 \end{equation}
-The latter comparative static follows because a larger scarcity-rent wedge makes the value of backup more dependent on the rival's failure rather than on preserving competitive production in every state.
+This level comparative static does not imply that a higher $\gamma$ strengthens the marginal response of readiness to public protection. In fact, at the canonical co-located symmetric origin, the cross-partial $r^C_{q\gamma}$ is strictly negative, so the magnitude of the protection-induced reduction in readiness is locally weaker when products are closer substitutes. Section~\ref{sec:institutions} states the empirical implication accordingly.
 
 \subsection{Primary location}
 
@@ -99,12 +104,14 @@ u_0\equiv\frac{H+d_B}{2H},
 \qquad
 u_1\equiv\frac{H+d_A}{2H},
 \qquad
-B\equiv\frac{d_A-d_B}{2H}.
+B\equiv\frac{d_A-d_B}{2H}=u_1-u_0.
 \label{eq:location-endpoints}
 \end{equation}
-Here $u_0=BR(0)$ and $u_1=BR(1)$. Whenever $u_0,u_1\in(0,1)$, the affine expression is valid globally on $p\in[0,1]$: no probability clipping occurs at either endpoint or anywhere between them. If in addition $|B|<1$, $BR$ is a contraction and the simultaneous private-information location game has a unique interior probability fixed point. Solving $p=BR(p)$ gives
+Here $u_0=BR(0)$ and $u_1=BR(1)$. Whenever $u_0,u_1\in(0,1)$, the affine expression is valid globally on $p\in[0,1]$: no probability clipping occurs at either endpoint or anywhere between them. Moreover, because $B=u_1-u_0$, the same endpoint inequalities imply $|B|<1$. Thus the best-response map is a contraction.
+
+For two ex ante symmetric firms, any Bayesian equilibrium in cutoff probabilities solves the same pair of affine best-response equations. The contraction therefore rules out both additional symmetric fixed points and asymmetric probability fixed points. Solving $p=BR(p)$ gives the unique interior equilibrium probability
 \begin{equation}
 p=\frac{H+d_B}{2H-d_A+d_B}.
 \label{eq:location-prob}
 \end{equation}
-At the canonical witness, the exact whole-domain certificate verifies $0<u_0,u_1<1$ and $|B|<1$ for every $(a_A,a_B)\in[0,\bar a]^2$. Thus equation~\eqref{eq:location-prob} is the unique location continuation after every admissible first-stage deviation, not merely a local interior solution. At symmetric public policies $a_A=a_B$, symmetry implies $p=1/2$ and $D=0$. Off the symmetric policy path, equation~\eqref{eq:location-prob} captures the plant-attraction effect of a unilateral protection increase.
+At the canonical witness, the exact whole-domain certificate verifies $0<u_0,u_1<1$ for every $(a_A,a_B)\in[0,\bar a]^2$ and separately verifies the associated denominator signs. Thus equation~\eqref{eq:location-prob} is the unique location continuation after every admissible first-stage deviation, not merely a local interior solution. At symmetric public policies $a_A=a_B$, symmetry implies $p=1/2$ and $D=0$. Off the symmetric policy path, equation~\eqref{eq:location-prob} captures the plant-attraction effect of a unilateral protection increase.

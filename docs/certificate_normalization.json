@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "convention": "For each object, stored_rational = normalization_factor * economic_object.",
+  "objects": {
+    "MS": {
+      "numerator_key": "MS_num",
+      "denominator_key": "MS_den",
+      "normalization_factor": "-80/3",
+      "economic_object": "d W(a,a)/d a evaluated at a=0, as a function of gamma"
+    },
+    "ML": {
+      "numerator_key": "ML_num",
+      "denominator_key": "ML_den",
+      "normalization_factor": "320",
+      "economic_object": "partial G_A(a_A,0)/partial a_A evaluated at a_A=0, as a function of gamma"
+    },
+    "F": {
+      "numerator_key": "F_num",
+      "denominator_key": "F_den",
+      "normalization_factor": "-76880",
+      "economic_object": "partial G_A(a_A,a_B)/partial a_A evaluated at a_A=a_B=a, at the canonical gamma"
+    },
+    "W": {
+      "numerator_key": "W_num",
+      "denominator_key": "W_den",
+      "normalization_factor": "-19220/3",
+      "economic_object": "d W(a,a)/d a, at the canonical gamma"
+    }
+  },
+  "warning": "The stored pairs are scaled algebraic certificates. Their roots are unchanged by any nonzero normalization factor, but signs must be interpreted only after applying the recorded factor. scripts/verify_normalization.py checks these identities against a primitive symbolic reconstruction."
+}

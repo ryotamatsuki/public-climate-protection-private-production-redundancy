@@ -1,11 +1,14 @@
 PYTHON ?= python
 
-.PHONY: verify symbolic policy global numerical benchmarks test objects paper clean
+.PHONY: verify symbolic normalization policy global numerical benchmarks test objects paper clean
 
-verify: symbolic policy global numerical benchmarks test objects paper
+verify: symbolic normalization policy global numerical benchmarks test objects paper
 
 symbolic:
 	$(PYTHON) scripts/verify_symbolic.py
+
+normalization:
+	$(PYTHON) scripts/verify_normalization.py
 
 policy:
 	$(PYTHON) scripts/verify_policy_certificate.py

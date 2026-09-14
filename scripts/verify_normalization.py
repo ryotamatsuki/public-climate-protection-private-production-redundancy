@@ -123,7 +123,7 @@ def expected_dual(qA: Dual, qB: Dual, g):
 
 def exact_zero(expr: sp.Expr) -> bool:
     num, _ = sp.fraction(sp.cancel(sp.together(expr)))
-    return sp.Poly(sp.expand(num)).is_zero
+    return num == 0
 
 
 def assert_scaled_identity(prefix: str, z: sp.Symbol, economic: sp.Expr):
@@ -133,7 +133,7 @@ def assert_scaled_identity(prefix: str, z: sp.Symbol, economic: sp.Expr):
     print(f'{prefix}: stored/economic = {factor}')
 
 
-# MS and ML at the symmetric origin, varying gamma.  Forward differentiation
+# MS and ML at the symmetric origin, varying gamma. Forward differentiation
 # evaluates the policy derivative at a=0 before symbolic simplification, so the
 # only remaining indeterminate is gamma.
 g = sp.symbols('gamma')
@@ -149,7 +149,7 @@ p_uni, S_uni = expected_dual(qA_unilateral, qB_unilateral, g)
 ML = S_uni.d / 2 + 2 * bplant * p_uni.d
 assert_scaled_identity('ML', g, ML)
 
-# F and W' at the canonical gamma.  The policy level a remains symbolic, but
+# F and W' at the canonical gamma. The policy level a remains symbolic, but
 # the derivative direction is propagated exactly without first building a
 # two-policy symbolic objective.
 a = sp.symbols('a')

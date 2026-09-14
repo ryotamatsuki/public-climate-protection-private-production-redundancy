@@ -1,15 +1,21 @@
 #!/usr/bin/env python3
-"""Generate exact rational data for the Lean certificate checker.
+"""Generate exact certificate data for the Lean checker.
 
 Source model/certificate implementation:
   scripts/verify_global_certificate.py
 Canonical manuscript/model SHA:
   77f0c0705e3759b4997b3b17355f0063c02673e1
 
-The generator does NOT emit a Boolean PASS as a theorem. It emits exact
-rational coefficient payloads and, for the diagonal local-government FOC, the
-polynomial itself plus an exact Bernstein representation of its normalized
-formal derivative. Lean rechecks all signs and polynomial identities.
+For the large bivariate Bernstein payloads we encode each exact rational
+coefficient by its signed numerator and positive denominator.  Lean checks the
+integer signs and denominator positivity; this is equivalent to checking the
+sign of the exact rational coefficient but avoids repeatedly normalizing very
+large Rational literals during compilation.
+
+For the diagonal local-government FOC (T12), the generator additionally emits
+the complete exact polynomial and the exact Bernstein representation of its
+normalized formal derivative.  Lean rechecks both coefficient signs and the
+polynomial identity; no root-count Boolean is imported as a theorem.
 """
 from __future__ import annotations
 
@@ -31,7 +37,10 @@ spec.loader.exec_module(mod)
 
 
 def rat_parts(q):
-    return int(q.numerator), int(q.denominator)
+    n, d = int(q.numerator), int(q.denominator)
+    if d <= 0:
+        raise RuntimeError("certificate rational denominator is not positive")
+    return n, d
 
 
 def lean_rat(q) -> str:
@@ -42,7 +51,6 @@ def lean_rat(q) -> str:
 
 
 def sympy_q(q):
-    """Convert a SymPy QQ element/Rational to the certificate field element."""
     if hasattr(q, "p") and hasattr(q, "q"):
         return mod.Q(int(q.p), int(q.q))
     return mod.Q(int(q.numerator), int(q.denominator))
@@ -62,17 +70,36 @@ def strict_sign(xs) -> int:
     raise RuntimeError("coefficient list has no uniform strict sign")
 
 
-def emit_list(name: str, xs) -> str:
-    body = ",\n    ".join(lean_rat(x) for x in xs)
-    return f"def {name} : List ℚ := [\n    {body}\n  ]\n"
+def emit_int_list(name: str, xs) -> str:
+    body = ",\n    ".join(f"({int(x)} : ℤ)" for x in xs)
+    return f"def {name} : List ℤ := [\n    {body}\n  ]\n"
 
 
-def emit_sign_theorem(name: str, sign: int) -> str:
+def emit_nat_list(name: str, xs) -> str:
+    body = ",\n    ".join(str(int(x)) for x in xs)
+    return f"def {name} : List ℕ := [\n    {body}\n  ]\n"
+
+
+def emit_rational_sign_payload(name: str, xs) -> str:
+    """Emit a cheap exact sign certificate for a list of rationals.
+
+    A rational has the sign of its numerator because every emitted denominator
+    is checked positive.  Numerators and denominators are retained separately,
+    so no information used by the sign certificate is hidden in Python.
+    """
+    sign = strict_sign(xs)
+    nums, dens = zip(*(rat_parts(q) for q in xs))
+    out = [emit_int_list(name + "Numerators", nums), emit_nat_list(name + "Denominators", dens)]
     if sign > 0:
-        prop = f"∀ q ∈ {name}, 0 < q"
+        prop = f"∀ z ∈ {name}Numerators, 0 < z"
     else:
-        prop = f"∀ q ∈ {name}, q < 0"
-    return f"theorem {name}_strict_sign : {prop} := by\n  native_decide\n"
+        prop = f"∀ z ∈ {name}Numerators, z < 0"
+    out.append(f"theorem {name}_numerator_strict_sign : {prop} := by\n  native_decide\n")
+    out.append(
+        f"theorem {name}_denominators_positive : "
+        f"∀ d ∈ {name}Denominators, 0 < d := by\n  native_decide\n"
+    )
+    return "".join(out)
 
 
 def poly_coeffs_ascending(poly):
@@ -131,8 +158,7 @@ py_n, py_d = bernstein(mod.dWdy, mod.FULL)
 # times the complete rational isolating interval for the rival root.
 lg_n, lg_d = bernstein(mod.ddGdxx, mod.LOCAL)
 
-# Root-bracketing data for the diagonal local-government FOC. The exact
-# manuscript interval is checked to contain the source certificate's isolated root.
+# Root-bracketing data for the diagonal local-government FOC.
 L = mod.Q(1649737, 71666359)
 U = mod.Q(380091, 16511564)
 assert L < mod.lo < mod.hi < U or (L <= mod.lo and mod.hi <= U)
@@ -173,8 +199,7 @@ for name, vals in [
     ("localSecondNumeratorCoeffs", lg_n),
     ("localSecondDenominatorCoeffs", lg_d),
 ]:
-    parts.append(emit_list(name, vals))
-    parts.append(emit_sign_theorem(name, strict_sign(vals)))
+    parts.append(emit_rational_sign_payload(name, vals))
     parts.append("\n")
 
 parts += [

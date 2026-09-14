@@ -33,8 +33,13 @@ MS=E0+R0. -/
 theorem social_conflict_iff
     {MS E0 R0 : ℝ} (hMS : MS = E0 + R0) :
     MS < 0 ↔ -R0 > E0 := by
-  rw [hMS]
-  linarith
+  constructor
+  · intro hneg
+    rw [hMS] at hneg
+    linarith
+  · intro hineq
+    rw [hMS]
+    linarith
 
 /-- Under the decomposition, the pair of transparent inequalities implies
 the marginal sign conflict.  This theorem deliberately makes no global

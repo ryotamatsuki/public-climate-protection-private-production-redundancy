@@ -43,9 +43,9 @@ def main() -> None:
         raise AssertionError("anonymous manuscript must retain an empty author field")
 
     manuscript = "\n".join([main_tex, intro, lit])
-    for token in ("Ryota Matsuki", "ryotamatsuki", "users.noreply.github.com"):
+    for token in ("github.com/", "users.noreply.github.com", "orcid.org/", "mailto:"):
         if token.lower() in manuscript.lower():
-            raise AssertionError(f"identifying token found in anonymous manuscript: {token}")
+            raise AssertionError(f"potential identifying link found in anonymous manuscript: {token}")
 
     if "Data and Code Availability" not in main_tex:
         raise AssertionError("anonymous data/code availability statement missing")

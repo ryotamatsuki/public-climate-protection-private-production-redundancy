@@ -4,6 +4,7 @@ import PCPPR.GeneratedCertificates
 import Mathlib.Analysis.Convex.Deriv
 
 open Set
+open scoped unitInterval
 
 namespace PCPPR.GlobalLocalGovernment
 
@@ -20,26 +21,27 @@ theorem strictConcave_stationary_unique_global_max
   have hαS : α ∈ S := ⟨le_of_lt hα.1, le_of_lt hα.2⟩
   have hαint : α ∈ interior S := by
     simpa [S, interior_Icc, habar.ne'] using hα
-  have hnegStrict : StrictConvexOn ℝ S (fun x => -G x) := by
-    simpa [S] using hconc.neg
-  have hnegStat : HasDerivAt (fun x => -G x) 0 α := by
-    simpa using hstat.neg
-  have hright : derivWithin (fun x => -G x) (Ioi α) α = 0 := by
+  have hnegStrict : StrictConvexOn ℝ S (-G) := by
+    rw [neg_strictConvexOn_iff]
+    simpa [S] using hconc
+  have hnegStat : HasDerivAt (-G) 0 α := hstat.neg
+  have hright : derivWithin (-G) (Ioi α) α = 0 := by
     exact hnegStat.hasDerivWithinAt.derivWithin (uniqueDiffWithinAt_Ioi α)
-  have hmin : IsMinOn (fun x => -G x) S α :=
+  have hmin : IsMinOn (-G) S α :=
     hnegStrict.convexOn.isMinOn_of_rightDeriv_eq_zero hαint hright
   have hmax : IsMaxOn G S α := by
     intro x hx
     have h := hmin hx
-    linarith
+    simpa only [Pi.neg_apply, neg_le_neg_iff] using h
   intro x hx hne
   have hle : G x ≤ G α := hmax hx
   have hneq : G x ≠ G α := by
     intro heq
     have hmaxx : IsMaxOn G S x := by
       intro y hy
-      have hymax := hmax hy
-      linarith
+      calc
+        G y ≤ G α := hmax hy
+        _ = G x := heq.symm
     have hxeq : x = α := hconc.eq_of_isMaxOn hmaxx hmax hx hαS
     exact hne hxeq
   exact lt_of_le_of_ne hle hneq
@@ -76,7 +78,7 @@ theorem existsUnique_root_in_interval
   · have hlt := hanti hαcc hβcc hab
     rw [hαzero, hβzero] at hlt
     linarith
-  · exact hab
+  · exact hab.symm
   · have hlt := hanti hβcc hαcc hba
     rw [hαzero, hβzero] at hlt
     linarith
@@ -169,7 +171,7 @@ theorem second_deriv_negative_stationary_unique_global_max
     (hstat : HasDerivAt G 0 α) :
     ∀ x ∈ Icc (0 : ℝ) abar, x ≠ α → G x < G α := by
   have hconc : StrictConcaveOn ℝ (Icc (0 : ℝ) abar) G :=
-    strictConcaveOn_of_deriv2_neg' (convex_Icc (0 : ℝ) abar) hcont hsecond
+    strictConcaveOn_of_deriv2_neg (convex_Icc (0 : ℝ) abar) hcont hsecond
   exact strictConcave_stationary_unique_global_max habar hα hconc hstat
 
 /-- Symmetric best-response implication: if the same strictly positive alpha

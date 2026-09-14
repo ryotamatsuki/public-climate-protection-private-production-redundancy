@@ -21,6 +21,9 @@ venv/
 # Generated manuscript PDF is imported intentionally only when frozen
 paper/*.pdf
 
+# Generated submission packages
+dist/
+
 # OS / editor
 .DS_Store
 Thumbs.db

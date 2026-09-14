@@ -6,27 +6,36 @@ Source model/certificate implementation:
 Canonical manuscript/model SHA:
   77f0c0705e3759b4997b3b17355f0063c02673e1
 
-Large bivariate Bernstein payloads are encoded by signed numerators and
-positive denominators. Lean checks those integer signs exactly, avoiding
-expensive normalization of very large Rational literals.
+The large bivariate Bernstein certificates used for T11 and T13 are category-C
+objects. They are preserved exactly in a deterministic JSON archive as signed
+numerator/positive-denominator pairs, together with their strict-sign result.
+They are deliberately not elaborated as thousands of Lean constants because
+the canonical semantic bridge treats these large source-to-certificate
+expansions as category C rather than category A.
 
 For the diagonal local-government FOC (T12), the generator emits the exact
-isolating interval, exact endpoint values, and the Bernstein coefficients of
-the formal derivative on that interval. The source-to-certificate conversion
-is category C (generated exact certificate); Lean checks endpoint signs,
-derivative-coefficient signs, and the generic Bernstein/root implications.
-The kernel is not asked to re-expand the degree-19 FOC into multiple bases.
+isolating interval, exact endpoint values, and all 52 Bernstein coefficients
+of the degree-51 normalized formal derivative. Those proof-critical
+coefficients remain in Lean. They are represented by integer numerators and
+positive natural denominators so Lean can kernel-check strict negativity
+without normalizing 52 enormous Rational literals through `native_decide`.
+The source-to-certificate conversion is category C; endpoint signs,
+derivative-coefficient signs, and the generic Bernstein/root implications are
+checked in Lean. The kernel is not asked to re-expand the degree-52 FOC into
+multiple polynomial bases.
 """
 from __future__ import annotations
 
 import hashlib
 import importlib.util
+import json
 from math import comb
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "scripts" / "verify_global_certificate.py"
 OUT = ROOT / "formal" / "PCPPR" / "GeneratedCertificates.lean"
+ARCHIVE = ROOT / "formal" / "GENERATED_CERTIFICATE_ARCHIVE.json"
 CANONICAL_SHA = "77f0c0705e3759b4997b3b17355f0063c02673e1"
 
 spec = importlib.util.spec_from_file_location("pcppr_global_certificate", SOURCE)
@@ -70,33 +79,6 @@ def strict_sign(xs) -> int:
     raise RuntimeError("coefficient list has no uniform strict sign")
 
 
-def emit_int_list(name: str, xs) -> str:
-    body = ",\n    ".join(f"({int(x)} : ℤ)" for x in xs)
-    return f"def {name} : List ℤ := [\n    {body}\n  ]\n"
-
-
-def emit_nat_list(name: str, xs) -> str:
-    body = ",\n    ".join(str(int(x)) for x in xs)
-    return f"def {name} : List ℕ := [\n    {body}\n  ]\n"
-
-
-def emit_rational_sign_payload(name: str, xs) -> str:
-    """Emit an exact, Lean-cheap sign certificate for rational coefficients."""
-    sign = strict_sign(xs)
-    nums, dens = zip(*(rat_parts(q) for q in xs))
-    out = [emit_int_list(name + "Numerators", nums), emit_nat_list(name + "Denominators", dens)]
-    if sign > 0:
-        prop = f"∀ z ∈ {name}Numerators, 0 < z"
-    else:
-        prop = f"∀ z ∈ {name}Numerators, z < 0"
-    out.append(f"theorem {name}_numerator_strict_sign : {prop} := by\n  native_decide\n")
-    out.append(
-        f"theorem {name}_denominators_positive : "
-        f"∀ d ∈ {name}Denominators, 0 < d := by\n  native_decide\n"
-    )
-    return "".join(out)
-
-
 def normalized_bernstein_coeffs(poly, lo, hi):
     """Bernstein coefficients of poly(lo+(hi-lo)t), t in [0,1]."""
     import sympy as sp
@@ -118,9 +100,22 @@ def normalized_bernstein_coeffs(poly, lo, hi):
     return beta
 
 
-def emit_fin_vector(name: str, xs) -> str:
-    body = ",\n    ".join(lean_rat(x) for x in xs)
-    return f"def {name} : Fin {len(xs)} → ℚ := ![\n    {body}\n  ]\n"
+def emit_fin_int_vector(name: str, xs) -> str:
+    body = ",\n    ".join(f"({int(x)} : ℤ)" for x in xs)
+    return f"def {name} : Fin {len(xs)} → ℤ := ![\n    {body}\n  ]\n"
+
+
+def emit_fin_nat_vector(name: str, xs) -> str:
+    body = ",\n    ".join(str(int(x)) for x in xs)
+    return f"def {name} : Fin {len(xs)} → ℕ := ![\n    {body}\n  ]\n"
+
+
+def archive_payload(xs):
+    sign = strict_sign(xs)
+    return {
+        "strict_sign": sign,
+        "coefficients": [list(rat_parts(q)) for q in xs],
+    }
 
 
 # Planner partial derivatives on the complete policy square.
@@ -139,6 +134,7 @@ assert L < mod.lo < mod.hi < U or (L <= mod.lo and mod.hi <= U)
 
 def eval_poly_q(poly, x):
     import sympy as sp
+
     xs = sp.Rational(int(x.numerator), int(x.denominator))
     val = poly.eval(xs)
     return mod.Q(int(val.p), int(val.q))
@@ -153,28 +149,47 @@ assert fL > 0 and fU < 0
 foc_deriv_beta = normalized_bernstein_coeffs(mod.Fnum.diff(), L, U)
 assert len(foc_deriv_beta) == mod.Fnum.degree()
 assert strict_sign(foc_deriv_beta) < 0
+foc_nums, foc_dens = zip(*(rat_parts(q) for q in foc_deriv_beta))
+assert all(n < 0 for n in foc_nums)
+assert all(d > 0 for d in foc_dens)
 
 source_sha256 = hashlib.sha256(SOURCE.read_bytes()).hexdigest()
+
+archive = {
+    "canonical_manuscript_model_sha": CANONICAL_SHA,
+    "generator_source_sha256": source_sha256,
+    "planner_x_numerator_bernstein": archive_payload(px_n),
+    "planner_x_denominator_bernstein": archive_payload(px_d),
+    "planner_y_numerator_bernstein": archive_payload(py_n),
+    "planner_y_denominator_bernstein": archive_payload(py_d),
+    "local_second_numerator_bernstein": archive_payload(lg_n),
+    "local_second_denominator_bernstein": archive_payload(lg_d),
+    "diagonal_foc": {
+        "degree": int(mod.Fnum.degree()),
+        "alphaL": list(rat_parts(L)),
+        "alphaU": list(rat_parts(U)),
+        "value_at_alphaL": list(rat_parts(fL)),
+        "value_at_alphaU": list(rat_parts(fU)),
+        "derivative_bernstein_degree": len(foc_deriv_beta) - 1,
+        "derivative_bernstein": [list(rat_parts(q)) for q in foc_deriv_beta],
+        "derivative_strict_sign": strict_sign(foc_deriv_beta),
+    },
+}
+archive_text = json.dumps(archive, indent=2, sort_keys=True) + "\n"
+archive_sha256 = hashlib.sha256(archive_text.encode("utf-8")).hexdigest()
 
 parts = [
     "import Mathlib\n\n",
     "namespace PCPPR.GeneratedCertificates\n\n",
     f'def canonicalManuscriptSHA : String := "{CANONICAL_SHA}"\n',
-    f'def generatorSourceSHA256 : String := "{source_sha256}"\n\n',
-]
-
-for name, vals in [
-    ("plannerXNumeratorCoeffs", px_n),
-    ("plannerXDenominatorCoeffs", px_d),
-    ("plannerYNumeratorCoeffs", py_n),
-    ("plannerYDenominatorCoeffs", py_d),
-    ("localSecondNumeratorCoeffs", lg_n),
-    ("localSecondDenominatorCoeffs", lg_d),
-]:
-    parts.append(emit_rational_sign_payload(name, vals))
-    parts.append("\n")
-
-parts += [
+    f'def generatorSourceSHA256 : String := "{source_sha256}"\n',
+    f'def generatedArchiveSHA256 : String := "{archive_sha256}"\n\n',
+    f"def plannerXNumeratorCoeffCount : ℕ := {len(px_n)}\n",
+    f"def plannerXDenominatorCoeffCount : ℕ := {len(px_d)}\n",
+    f"def plannerYNumeratorCoeffCount : ℕ := {len(py_n)}\n",
+    f"def plannerYDenominatorCoeffCount : ℕ := {len(py_d)}\n",
+    f"def localSecondNumeratorCoeffCount : ℕ := {len(lg_n)}\n",
+    f"def localSecondDenominatorCoeffCount : ℕ := {len(lg_d)}\n\n",
     f"def alphaL : ℚ := {lean_rat(L)}\n",
     f"def alphaU : ℚ := {lean_rat(U)}\n",
     f"def diagonalFOCNumeratorAtL : ℚ := {lean_rat(fL)}\n",
@@ -185,16 +200,41 @@ parts += [
     "  native_decide\n\n",
 ]
 
-parts.append(emit_fin_vector("diagonalFOCDerivativeBernsteinCoeffs", foc_deriv_beta))
+parts.append(emit_fin_int_vector("diagonalFOCDerivativeBernsteinNumerators", foc_nums))
+parts.append(emit_fin_nat_vector("diagonalFOCDerivativeBernsteinDenominators", foc_dens))
 parts.append(
-    "theorem diagonalFOCDerivativeBernsteinCoeffs_negative : "
-    "∀ i, diagonalFOCDerivativeBernsteinCoeffs i < 0 := by\n  native_decide\n\n"
+    "\ndef diagonalFOCDerivativeBernsteinCoeffs : Fin 52 → ℚ := fun i =>\n"
+    "  (diagonalFOCDerivativeBernsteinNumerators i : ℚ) /\n"
+    "    (diagonalFOCDerivativeBernsteinDenominators i : ℚ)\n\n"
+)
+parts.append(
+    "theorem diagonalFOCDerivativeBernsteinNumerators_negative :\n"
+    "    ∀ i, diagonalFOCDerivativeBernsteinNumerators i < 0 := by\n"
+    "  native_decide\n\n"
+)
+parts.append(
+    "theorem diagonalFOCDerivativeBernsteinDenominators_positive :\n"
+    "    ∀ i, 0 < diagonalFOCDerivativeBernsteinDenominators i := by\n"
+    "  native_decide\n\n"
+)
+parts.append(
+    "theorem diagonalFOCDerivativeBernsteinCoeffs_negative :\n"
+    "    ∀ i, diagonalFOCDerivativeBernsteinCoeffs i < 0 := by\n"
+    "  intro i\n"
+    "  have hn : (diagonalFOCDerivativeBernsteinNumerators i : ℚ) < 0 := by\n"
+    "    exact_mod_cast diagonalFOCDerivativeBernsteinNumerators_negative i\n"
+    "  have hd : (0 : ℚ) < (diagonalFOCDerivativeBernsteinDenominators i : ℚ) := by\n"
+    "    exact_mod_cast diagonalFOCDerivativeBernsteinDenominators_positive i\n"
+    "  exact div_neg_of_neg_of_pos hn hd\n\n"
 )
 parts.append("end PCPPR.GeneratedCertificates\n")
 
 OUT.parent.mkdir(parents=True, exist_ok=True)
 OUT.write_text("".join(parts), encoding="utf-8")
+ARCHIVE.write_text(archive_text, encoding="utf-8")
 print(f"wrote {OUT.relative_to(ROOT)}")
+print(f"wrote {ARCHIVE.relative_to(ROOT)}")
 print(f"source sha256: {source_sha256}")
+print(f"archive sha256: {archive_sha256}")
 print(f"diagonal FOC degree: {mod.Fnum.degree()}")
 print(f"diagonal derivative Bernstein degree: {len(foc_deriv_beta) - 1}")

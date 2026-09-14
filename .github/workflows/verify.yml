@@ -40,10 +40,16 @@ jobs:
             echo 'Formal verification source contains a forbidden placeholder.'
             exit 1
           fi
+      - name: Install pinned Lean toolchain
+        run: |
+          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
       - name: Build Lean proof-critical core
-        uses: leanprover/lean-action@v1
-        with:
-          lake-package-directory: formal
+        run: |
+          cd formal
+          lake update
+          lake exe cache get
+          lake build
       - name: Record theorem/axiom report
         run: |
           cd formal
@@ -55,4 +61,5 @@ jobs:
           path: |
             formal/PCPPR/GeneratedCertificates.lean
             formal/FORMAL_AXIOM_REPORT.txt
+            formal/lake-manifest.json
           if-no-files-found: error

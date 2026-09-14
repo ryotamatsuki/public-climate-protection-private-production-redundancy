@@ -1,13 +1,13 @@
 from __future__ import annotations
 
 import fnmatch
-import shutil
 import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
 OUT = DIST / "ERE_anonymous_replication.zip"
+PACKAGER = "scripts/build_ere_review_package.py"
 
 EXACT_FILES = {
     "Makefile",
@@ -47,6 +47,8 @@ def selected_files() -> list[Path]:
         if not p.is_file():
             continue
         rel = p.relative_to(ROOT).as_posix()
+        if rel == PACKAGER:
+            continue
         if any(fnmatch.fnmatch(rel, pattern) for pattern in PATTERNS):
             chosen.add(p)
     return sorted(chosen)
@@ -83,9 +85,6 @@ def main() -> None:
         zf.write(replication_readme, "README.md")
         for p in files:
             rel = p.relative_to(ROOT).as_posix()
-            # Exclude this packaging script itself from the review archive.
-            if rel == "scripts/build_ere_review_package.py":
-                continue
             zf.write(p, rel)
 
     # Re-open the archive and verify that forbidden metadata paths were not included.

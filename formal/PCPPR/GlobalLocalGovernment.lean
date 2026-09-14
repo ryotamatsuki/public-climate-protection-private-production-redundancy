@@ -83,9 +83,9 @@ theorem existsUnique_root_in_interval
 
 /-- T12 concrete generated-certificate layer.
 
-`F` is the canonical diagonal local-government FOC.  The generated certificate
+`F` is the canonical diagonal local-government FOC. The generated certificate
 (category C) supplies the exact endpoint values and the exact Bernstein
-representation of `F'` on the isolating interval.  Lean itself checks every
+representation of `F'` on the isolating interval. Lean itself checks every
 derivative Bernstein coefficient is negative, uses mathlib's actual Bernstein
 basis to derive `F' < 0`, and then proves existence and uniqueness of the root.
 
@@ -107,8 +107,8 @@ theorem generated_diagonal_FOC_unique_root
              (PCPPR.GeneratedCertificates.alphaU : ℝ)),
         ∃ t : I,
           deriv F x =
-            ∑ i : Fin 19,
-              bernstein 18 i t *
+            ∑ i : Fin 52,
+              bernstein 51 i t *
                 (PCPPR.GeneratedCertificates.diagonalFOCDerivativeBernsteinCoeffs i : ℝ)) :
     ∃! α : ℝ,
       α ∈ Ioo (PCPPR.GeneratedCertificates.alphaL : ℝ)
@@ -131,7 +131,7 @@ theorem generated_diagonal_FOC_unique_root
   have hU : F (PCPPR.GeneratedCertificates.alphaU : ℝ) < 0 := by
     rw [hUvalue]
     exact hUcert
-  have hβ : ∀ i : Fin 19,
+  have hβ : ∀ i : Fin 52,
       (PCPPR.GeneratedCertificates.diagonalFOCDerivativeBernsteinCoeffs i : ℝ) < 0 := by
     intro i
     exact_mod_cast
@@ -144,8 +144,8 @@ theorem generated_diagonal_FOC_unique_root
     intro x hx
     obtain ⟨t, ht⟩ := hderivCertificate x hx
     rw [ht]
-    exact PCPPR.Bernstein.bernstein_sum_negative 18 t
-      (fun i : Fin 19 =>
+    exact PCPPR.Bernstein.bernstein_sum_negative 51 t
+      (fun i : Fin 52 =>
         (PCPPR.GeneratedCertificates.diagonalFOCDerivativeBernsteinCoeffs i : ℝ)) hβ
   have hanti : StrictAntiOn F
       (Icc (PCPPR.GeneratedCertificates.alphaL : ℝ)
@@ -158,7 +158,7 @@ theorem generated_diagonal_FOC_unique_root
 
 /-- T13: the paper's certificate premise G''<0 on the full feasible interval,
 together with an interior stationary point, implies a unique global best
-response.  This theorem separates the generic implication from the exact
+response. This theorem separates the generic implication from the exact
 certificate supplying the second-derivative sign. -/
 theorem second_deriv_negative_stationary_unique_global_max
     {G : ℝ → ℝ} {abar α : ℝ}

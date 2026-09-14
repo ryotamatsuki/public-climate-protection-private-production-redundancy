@@ -1,4 +1,6 @@
 import PCPPR.CanonicalWitness
+import PCPPR.Bernstein
+import PCPPR.GeneratedCertificates
 import Mathlib.Analysis.Convex.Deriv
 
 open Set
@@ -42,10 +44,9 @@ theorem strictConcave_stationary_unique_global_max
     exact hne hxeq
   exact lt_of_le_of_ne hle hneq
 
-/-- T12 generic root-certificate logic.  Exact endpoint signs plus continuity
+/-- T12 generic root-certificate logic. Exact endpoint signs plus continuity
 and strict monotonicity establish one and only one zero in the open isolating
-interval.  A generated certificate supplies these premises for the diagonal
-local-government FOC. -/
+interval. -/
 theorem existsUnique_root_in_interval
     {F : ℝ → ℝ} {L U : ℝ}
     (hLU : L < U)
@@ -80,6 +81,81 @@ theorem existsUnique_root_in_interval
     rw [hαzero, hβzero] at hlt
     linarith
 
+/-- T12 concrete generated-certificate layer.
+
+`F` is the canonical diagonal local-government FOC.  The generated certificate
+(category C) supplies the exact endpoint values and the exact Bernstein
+representation of `F'` on the isolating interval.  Lean itself checks every
+derivative Bernstein coefficient is negative, uses mathlib's actual Bernstein
+basis to derive `F' < 0`, and then proves existence and uniqueness of the root.
+
+The `hderivCertificate` premise is the explicit semantic bridge from the
+canonical economic FOC to the generated coefficient payload; it is not a sign
+or root conclusion. -/
+theorem generated_diagonal_FOC_unique_root
+    {F : ℝ → ℝ}
+    (hcont : ContinuousOn F
+      (Icc (PCPPR.GeneratedCertificates.alphaL : ℝ)
+           (PCPPR.GeneratedCertificates.alphaU : ℝ)))
+    (hLvalue : F (PCPPR.GeneratedCertificates.alphaL : ℝ) =
+      (PCPPR.GeneratedCertificates.diagonalFOCNumeratorAtL : ℝ))
+    (hUvalue : F (PCPPR.GeneratedCertificates.alphaU : ℝ) =
+      (PCPPR.GeneratedCertificates.diagonalFOCNumeratorAtU : ℝ))
+    (hderivCertificate :
+      ∀ x ∈ interior
+        (Icc (PCPPR.GeneratedCertificates.alphaL : ℝ)
+             (PCPPR.GeneratedCertificates.alphaU : ℝ)),
+        ∃ t : I,
+          deriv F x =
+            ∑ i : Fin 19,
+              bernstein 18 i t *
+                (PCPPR.GeneratedCertificates.diagonalFOCDerivativeBernsteinCoeffs i : ℝ)) :
+    ∃! α : ℝ,
+      α ∈ Ioo (PCPPR.GeneratedCertificates.alphaL : ℝ)
+                  (PCPPR.GeneratedCertificates.alphaU : ℝ) ∧
+      F α = 0 := by
+  have hLUq := PCPPR.GeneratedCertificates.alpha_interval_order
+  have hLU : (PCPPR.GeneratedCertificates.alphaL : ℝ) <
+      (PCPPR.GeneratedCertificates.alphaU : ℝ) := by
+    exact_mod_cast hLUq.2
+  have hsign := PCPPR.GeneratedCertificates.diagonal_FOC_endpoint_sign_change
+  have hLcert : (0 : ℝ) <
+      (PCPPR.GeneratedCertificates.diagonalFOCNumeratorAtL : ℝ) := by
+    exact_mod_cast hsign.1
+  have hUcert :
+      (PCPPR.GeneratedCertificates.diagonalFOCNumeratorAtU : ℝ) < 0 := by
+    exact_mod_cast hsign.2
+  have hL : 0 < F (PCPPR.GeneratedCertificates.alphaL : ℝ) := by
+    rw [hLvalue]
+    exact hLcert
+  have hU : F (PCPPR.GeneratedCertificates.alphaU : ℝ) < 0 := by
+    rw [hUvalue]
+    exact hUcert
+  have hβ : ∀ i : Fin 19,
+      (PCPPR.GeneratedCertificates.diagonalFOCDerivativeBernsteinCoeffs i : ℝ) < 0 := by
+    intro i
+    exact_mod_cast
+      (PCPPR.GeneratedCertificates.diagonalFOCDerivativeBernsteinCoeffs_negative i)
+  have hderivNeg :
+      ∀ x ∈ interior
+        (Icc (PCPPR.GeneratedCertificates.alphaL : ℝ)
+             (PCPPR.GeneratedCertificates.alphaU : ℝ)),
+        deriv F x < 0 := by
+    intro x hx
+    obtain ⟨t, ht⟩ := hderivCertificate x hx
+    rw [ht]
+    exact PCPPR.Bernstein.bernstein_sum_negative 18 t
+      (fun i : Fin 19 =>
+        (PCPPR.GeneratedCertificates.diagonalFOCDerivativeBernsteinCoeffs i : ℝ)) hβ
+  have hanti : StrictAntiOn F
+      (Icc (PCPPR.GeneratedCertificates.alphaL : ℝ)
+           (PCPPR.GeneratedCertificates.alphaU : ℝ)) := by
+    exact strictAntiOn_of_deriv_neg
+      (convex_Icc (PCPPR.GeneratedCertificates.alphaL : ℝ)
+                  (PCPPR.GeneratedCertificates.alphaU : ℝ))
+      hcont hderivNeg
+  exact existsUnique_root_in_interval hLU hcont hL hU hanti
+
 /-- T13: the paper's certificate premise G''<0 on the full feasible interval,
 together with an interior stationary point, implies a unique global best
 response.  This theorem separates the generic implication from the exact
@@ -98,7 +174,7 @@ theorem second_deriv_negative_stationary_unique_global_max
 
 /-- Symmetric best-response implication: if the same strictly positive alpha
 is the unique global best response of each jurisdiction to alpha, then the
-symmetric profile is a positive Nash equilibrium.  No uniqueness claim for
+symmetric profile is a positive Nash equilibrium. No uniqueness claim for
 the entire policy-game equilibrium correspondence is made. -/
 theorem symmetric_positive_nash_of_unique_best_responses
     {GA GB : ℝ → ℝ → ℝ} {abar α : ℝ}

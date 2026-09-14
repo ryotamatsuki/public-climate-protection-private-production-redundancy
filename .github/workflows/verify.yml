@@ -1,7 +1,13 @@
 name: verify
 on:
   push:
+    branches: [main]
   pull_request:
+
+concurrency:
+  group: verify-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   verify:
     runs-on: ubuntu-latest

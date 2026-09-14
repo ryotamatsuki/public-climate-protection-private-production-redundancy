@@ -42,6 +42,44 @@ theorem strictConcave_stationary_unique_global_max
     exact hne hxeq
   exact lt_of_le_of_ne hle hneq
 
+/-- T12 generic root-certificate logic.  Exact endpoint signs plus continuity
+and strict monotonicity establish one and only one zero in the open isolating
+interval.  A generated certificate supplies these premises for the diagonal
+local-government FOC. -/
+theorem existsUnique_root_in_interval
+    {F : ℝ → ℝ} {L U : ℝ}
+    (hLU : L < U)
+    (hcont : ContinuousOn F (Icc L U))
+    (hL : 0 < F L)
+    (hU : F U < 0)
+    (hanti : StrictAntiOn F (Icc L U)) :
+    ∃! α : ℝ, α ∈ Ioo L U ∧ F α = 0 := by
+  have hzero : (0 : ℝ) ∈ Icc (F U) (F L) :=
+    ⟨le_of_lt hU, le_of_lt hL⟩
+  have himage : (0 : ℝ) ∈ F '' Icc L U :=
+    intermediate_value_Icc' (le_of_lt hLU) hcont hzero
+  obtain ⟨α, hαcc, hαzero⟩ := himage
+  have hαL : L < α := by
+    rcases hαcc.1.eq_or_lt with rfl | hlt
+    · linarith
+    · exact hlt
+  have hαU : α < U := by
+    rcases hαcc.2.eq_or_lt with rfl | hlt
+    · linarith
+    · exact hlt
+  refine ⟨α, ⟨⟨hαL, hαU⟩, hαzero⟩, ?_⟩
+  intro β hβ
+  rcases hβ with ⟨hβoo, hβzero⟩
+  have hβcc : β ∈ Icc L U := ⟨le_of_lt hβoo.1, le_of_lt hβoo.2⟩
+  rcases lt_trichotomy α β with hab | hab | hba
+  · have hlt := hanti hαcc hβcc hab
+    rw [hαzero, hβzero] at hlt
+    linarith
+  · exact hab
+  · have hlt := hanti hβcc hαcc hba
+    rw [hαzero, hβzero] at hlt
+    linarith
+
 /-- T13: the paper's certificate premise G''<0 on the full feasible interval,
 together with an interior stationary point, implies a unique global best
 response.  This theorem separates the generic implication from the exact
@@ -66,10 +104,10 @@ theorem symmetric_positive_nash_of_unique_best_responses
     {GA GB : ℝ → ℝ → ℝ} {abar α : ℝ}
     (hα : α ∈ Ioo (0 : ℝ) abar)
     (hA : ∀ x ∈ Icc (0 : ℝ) abar, GA x α ≤ GA α α)
-    (hB : ∀ y ∈ Icc (0 : ℝ) abar, GB α y ≤ GB α α) :
+    (hB : ∀ y ∈ Icc (0 : ℝ) abar, GB α y ≤ GB α alpha) :
     0 < α ∧
       (∀ x ∈ Icc (0 : ℝ) abar, GA x α ≤ GA α α) ∧
-      (∀ y ∈ Icc (0 : ℝ) abar, GB α y ≤ GB α α) := by
+      (∀ y ∈ Icc (0 : ℝ) abar, GB α y ≤ GB α alpha) := by
   exact ⟨hα.1, hA, hB⟩
 
 end PCPPR.GlobalLocalGovernment

@@ -5,10 +5,10 @@ Reproducibility and manuscript repository for the theory project **Public Climat
 ## Research status
 
 - Current theory freeze record: `PCPPR-THEORY-FREEZE-2026-09-14-v2`
-- Historical Stage 12 freeze commit: `134ff145a89afb78c587d10081caf1a4bdb1601f`
-- Current repair: Stage 12R independent-mathematical-audit repair
-- Stage 12 editorial verdict: RAND as a one-shot stretch, JEEM as the immediate fallback
-- Stage 13 submission formatting remains blocked until Stage 12R is merged, fully verified, and refrozen
+- Stage 12R merged checkpoint: `7a02e1b8558d8059c72287f2e226b74161ce36b3`
+- Stage 13 ERE submission package merged through PR #12
+- Current journal target: *Environmental and Resource Economics (ERE)*
+- Current phase: final ERE submission freeze / administrative metadata completion
 
 ## Core result
 
@@ -24,11 +24,28 @@ Every submission candidate must point to an explicit freeze commit. Any change a
 
 The auxiliary coefficient archive contains scaled rational-function representations. `docs/certificate_normalization.json` records the exact factors and `scripts/verify_normalization.py` reconstructs the corresponding economic functions from primitives to verify the identities.
 
+## ERE submission architecture
+
+The journal-facing package separates double-anonymous reviewer materials from non-anonymous editorial materials.
+
+- Anonymous manuscript source: `paper/main.tex`
+- Stage 13 report: `STAGE_13_REPORT.md`
+- Title page: `submission/ERE_title_page.tex`
+- Cover letter: `submission/ERE_cover_letter.md`
+- Submission checklist: `submission/ERE_submission_checklist.md`
+- Anonymous replication README: `submission/ERE_replication_README.md`
+- Review-only Makefile: `submission/ERE_review_Makefile`
+- Anonymous archive builder: `scripts/build_ere_review_package.py`
+- ERE format/anonymity verifier: `scripts/verify_ere_submission.py`
+
+`make verify` generates `dist/ERE_anonymous_replication.zip`. GitHub Actions uploads the same anonymous archive as the `ERE-anonymous-replication` workflow artifact after a successful verification run.
+
 ## Reproducibility layout
 
 ```text
 .
 ├── README.md
+├── STAGE_13_REPORT.md
 ├── docs/
 │   ├── THEORY_FREEZE.md
 │   ├── PROVENANCE.md
@@ -41,23 +58,15 @@ The auxiliary coefficient archive contains scaled rational-function representati
 ├── paper/
 │   ├── main.tex
 │   └── sections/
+├── submission/
 ├── scripts/
-│   ├── core_model.py
-│   ├── direct_evaluator.py
-│   ├── verify_symbolic.py
-│   ├── verify_normalization.py
-│   ├── verify_policy_certificate.py
-│   ├── verify_global_certificate.py
-│   ├── verify_numerical.py
-│   ├── verify_benchmarks.py
-│   └── generate_objects.py
 ├── tests/
 ├── figures/
 ├── tables/
 └── references/
 ```
 
-Generated figure/table objects and the manuscript PDF are rebuilt deterministically by the verification pipeline rather than treated as independent theory sources.
+Generated figure/table objects, manuscript PDFs, and the anonymous review archive are rebuilt deterministically by the verification pipeline rather than treated as independent theory sources.
 
 ## Canonical environment
 
@@ -75,4 +84,4 @@ Canonical validation entry point:
 make verify
 ```
 
-It runs symbolic identities and threshold certificates, primitive-to-certificate normalization identities, the policy-root certificate, the exact whole-domain certificate, numerical global-deviation and planner stress tests, nested-benchmark checks, regression tests, deterministic exposition-object generation, and the manuscript build.
+It runs symbolic identities and threshold certificates, primitive-to-certificate normalization identities, the policy-root certificate, the exact whole-domain certificate, numerical global-deviation and planner stress tests, nested-benchmark checks, regression tests, deterministic exposition-object generation, ERE format/anonymity checks, the manuscript build, the separate title-page build, and anonymous review-package generation.

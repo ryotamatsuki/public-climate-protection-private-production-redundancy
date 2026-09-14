@@ -22,6 +22,7 @@ jobs:
 
   lean-verification:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -44,11 +45,17 @@ jobs:
         run: |
           curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y
           echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
-      - name: Build Lean proof-critical core
+      - name: Resolve Lean dependencies
         run: |
           cd formal
           lake update
+      - name: Restore mathlib cache
+        run: |
+          cd formal
           lake exe cache get
+      - name: Build Lean proof-critical core
+        run: |
+          cd formal
           lake build
       - name: Record theorem/axiom report
         run: |

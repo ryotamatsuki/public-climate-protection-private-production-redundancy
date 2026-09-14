@@ -39,8 +39,10 @@ jobs:
         run: |
           python scripts/generate_lean_certificates.py
           cp formal/PCPPR/GeneratedCertificates.lean /tmp/GeneratedCertificates.lean
+          cp formal/GENERATED_CERTIFICATE_ARCHIVE.json /tmp/GENERATED_CERTIFICATE_ARCHIVE.json
           python scripts/generate_lean_certificates.py
           cmp /tmp/GeneratedCertificates.lean formal/PCPPR/GeneratedCertificates.lean
+          cmp /tmp/GENERATED_CERTIFICATE_ARCHIVE.json formal/GENERATED_CERTIFICATE_ARCHIVE.json
       - name: Verify pinned formal environment
         run: |
           test "$(cat formal/lean-toolchain)" = "leanprover/lean4:v4.32.1"
@@ -83,7 +85,7 @@ jobs:
           cd formal
           lake build PCPPR.Bernstein
       - name: Preflight generated exact payload
-        timeout-minutes: 20
+        timeout-minutes: 8
         run: |
           cd formal
           lake build PCPPR.GeneratedCertificates
@@ -119,6 +121,7 @@ jobs:
           name: PCPPR-formal-verification
           path: |
             formal/PCPPR/GeneratedCertificates.lean
+            formal/GENERATED_CERTIFICATE_ARCHIVE.json
             formal/FORMAL_AXIOM_REPORT.txt
             formal/FORMAL_VERIFICATION_RUN.txt
             formal/lake-manifest.json

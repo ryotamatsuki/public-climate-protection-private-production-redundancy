@@ -2,6 +2,7 @@ import PCPPR.GlobalPlanner
 import PCPPR.GlobalLocalGovernment
 
 open Set
+open scoped unitInterval
 
 namespace PCPPR.TheoremCore
 

@@ -59,7 +59,10 @@ theorem origin_unique_global_maximizer
     a = 0 ∧ b = 0 := by
   by_contra hne
   have hp : (a, b) ≠ (0, 0) := by
-    simpa [Prod.ext_iff] using hne
+    intro hpair
+    have ha0 : a = 0 := congrArg Prod.fst hpair
+    have hb0 : b = 0 := congrArg Prod.snd hpair
+    exact hne ⟨ha0, hb0⟩
   have hlt := origin_strictly_dominates habar hA hB ha hb hp
   linarith
 

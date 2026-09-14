@@ -1,21 +1,44 @@
-\section{Proofs and Verification}\label{app:verification}
+\section{Proofs and Computer-Assisted Certificates}\label{app:verification}
 
-This appendix records the analytical identities used in the paper and the computer-assisted verification protocol for the main existence result. The reproducibility package separates exact symbolic certificates, an exact whole-domain Bernstein certificate, numerical stress tests, and an independent state-enumeration payoff evaluator.
+This appendix separates the human-readable proof from the exact computations that certify its global inequalities. The logical structure is: (i) derive the continuation games from the probability primitives; (ii) state exact lemmas for continuation regularity, planner monotonicity, and the local government's global best response; (iii) prove Theorem~\ref{thm:main} from those lemmas; and (iv) establish persistence on an open neighborhood of the canonical witness. The accompanying code permits the algebraic certificates to be checked, but the theorem follows from the mathematical statements recorded here rather than from a development-history label or a numerical search.
 
-\subsection{Product-market and backup results}
+\subsection{Product-market and backup identities}
 
 The Cournot first-order conditions from \eqref{eq:inverse-demand} are
 \begin{equation}
 1-2x_i-\gamma x_j=0.
 \end{equation}
-Symmetry yields $x_i=1/(2+\gamma)$ and \eqref{eq:duopoly}; the monopoly result \eqref{eq:monopoly} is immediate. Subtracting profits gives \eqref{eq:delta}, and direct differentiation gives \eqref{eq:delta-derivative}.
+Symmetry yields $x_i=1/(2+\gamma)$ and \eqref{eq:duopoly}; the monopoly result \eqref{eq:monopoly} is immediate. Total product-market surplus is $(3+\gamma)/(2+\gamma)^2$ when both firms are available and $3/8$ when exactly one is available.
 
-To obtain \eqref{eq:expected-profit}, enumerate four production-availability states after primary and backup outcomes. Differentiating with respect to $r_i$ gives
+Let $m_i=s_i(1-r_i)$ be firm $i$'s unavailability probability. Under the conditional-independence primitive in Section~\ref{sec:model}, joint unavailability is
+\begin{equation}
+z=J(1-r_1)(1-r_2).
+\end{equation}
+Hence the probabilities of the four final availability states are
+\begin{align}
+\Pr(1,1)&=1-m_1-m_2+z,\\
+\Pr(1,0)&=m_2-z,\\
+\Pr(0,1)&=m_1-z,\\
+\Pr(0,0)&=z.
+\end{align}
+Multiplying these probabilities by the relevant duopoly or monopoly profits gives \eqref{eq:expected-profit}. For fixed $r_j$,
 \begin{equation}
 \frac{\partial\Pi_i}{\partial r_i}
 =\pi_D s_i+\Delta J(1-r_j)-kr_i,
+\qquad
+\frac{\partial^2\Pi_i}{\partial r_i^2}=-k<0,
 \end{equation}
-which yields \eqref{eq:backup-foc}. The cross-best-response derivative in Proposition~\ref{prop:strategic-sub} follows directly. Under symmetry, substituting $J=q$ for co-location and $J=q^2$ for dispersion gives \eqref{eq:rC} and \eqref{eq:rD}. Their derivatives with respect to $q$ are positive on the frozen interior region. Differentiation with respect to $\Delta$, combined with $\Delta'(\gamma)>0$, gives \eqref{eq:gamma-r}.
+so \eqref{eq:backup-br-global} is the global best response on $[0,1]$.
+
+\begin{lemma}[Unique interior continuation at the canonical witness]\label{lem:continuation}
+For the parameter vector in \eqref{eq:witness} and every policy pair $(a_A,a_B)\in[0,2/25]^2$, each location profile induces a unique interior backup Nash equilibrium. The subsequent private-information location game is globally unclipped and has a unique interior Bayesian equilibrium in cutoff probabilities. The Cournot continuation is unique in every final availability state.
+\end{lemma}
+
+\begin{proof}
+For each of the four primary-location profiles, the interior backup first-order conditions form a two-equation linear system. The exact certificate verifies on the full policy rectangle that its determinant is strictly positive, that both resulting readiness levels satisfy $0<r_i<1$, and that the linear best-response slopes have product strictly below one in absolute value. Because each firm's objective is globally strictly concave in its own readiness, the interior solution is the unique global backup Nash equilibrium and no boundary solution is omitted.
+
+For the location game, define $u_0,u_1,B$ as in \eqref{eq:location-endpoints}. Exact polynomial inequalities verify $0<u_0,u_1<1$ throughout the policy rectangle. Thus the affine cutoff best response never clips. Since $B=u_1-u_0$, these endpoint inequalities imply $|B|<1$, so the two-firm affine best-response system is a contraction. It therefore has a unique probability fixed point and cannot support a distinct asymmetric probability solution. The certificate also verifies that the denominator in \eqref{eq:location-prob} is strictly positive and that the resulting probability lies in $(0,1)$. The final Cournot games have the strictly concave quadratic objectives already solved above.
+\end{proof}
 
 \subsection{Plant-attraction decomposition}
 
@@ -27,65 +50,119 @@ From \eqref{eq:government-payoff},
 \begin{equation}
 M_L=\frac12\mathcal S_{a_A}+2b\lambda_0.
 \end{equation}
-Combining the two equations gives \eqref{eq:marginal-decomposition}. If $\lambda_0>0$ and $M_S<0$, rearrangement yields \eqref{eq:attraction-threshold}. This result uses only symmetry, the local plant-benefit term, and zero marginal public cost at the origin; it does not depend on the canonical rational parameter vector.
+Combining the two equations proves \eqref{eq:marginal-decomposition}; rearranging gives \eqref{eq:attraction-threshold}. If $M_S=E_0+R_0$ with $E_0>0$ and $R_0<0$, the pair of inequalities in \eqref{eq:transparent-conflict} is equivalent to the marginal sign conflict $M_S<0<M_L$ under this decomposition. It is a marginal characterization, not by itself a global-equilibrium theorem.
 
-\subsection{Exact threshold certificates}
+\subsection{Exact certificate method and normalization}\label{app:certificate-method}
 
-At the rational values $(q_0,k,H,b,c,\bar a)=(3/10,169/3000,1/100,11/200,3,2/25)$, the marginal objects $M_S(\gamma)$ and $M_L(\gamma)$ are rational functions of $\gamma$. Their exact numerator and denominator coefficients are stored in the reproducibility artifact \texttt{docs/certificate\_polynomials.json}. Exact real-root isolation establishes that the relevant numerator root of $M_L$ lies in
+All global sign statements below are evaluated with exact rational arithmetic. For a polynomial $P(a_A,a_B)$ of bidegree at most $(m,n)$, set
 \begin{equation}
-(0.4745893334177016,\;0.4745893334185960),
+x=\frac{a_A}{\bar a},\qquad y=\frac{a_B}{\bar a},
 \end{equation}
-and that the relevant numerator root of $M_S$ lies in
+so $(x,y)\in[0,1]^2$, and write
 \begin{equation}
-(0.4982912217039472,\;0.4982912217047885).
+P(\bar a x,\bar a y)
+=\sum_{i=0}^{m}\sum_{j=0}^{n}\beta_{ij}
+B_{i,m}(x)B_{j,n}(y),
+\qquad
+B_{i,m}(x)=\binom mi x^i(1-x)^{m-i}.
+\label{eq:bernstein-representation}
 \end{equation}
-The denominators have no root on the maintained $\gamma$ interval. Hence the ordering $\gamma_L<\gamma_S$ is exact, not a finite-difference pattern.
+Because the Bernstein basis is nonnegative and sums to one on the unit square, the polynomial lies in the convex hull of the coefficients $\{\beta_{ij}\}$. Therefore strictly positive coefficients certify $P>0$ everywhere on the rectangle, and strictly negative coefficients certify $P<0$. For every rational function whose sign is used below, the numerator and denominator are certified separately; the denominator is shown to have a fixed nonzero sign on the entire domain before the numerator sign is interpreted.
 
-At $\gamma=12/25$, the diagonal local-government first-order condition has exactly one root on $[0,2/25]$. Exact root isolation in the Stage~11C certificate places it in the rational interval
+The coefficient archive \texttt{docs/certificate\_polynomials.json} contains some univariate numerator/denominator pairs in scaled rather than economically normalized form. The companion file \texttt{docs/certificate\_normalization.json} records the convention
 \begin{equation}
-\left(\frac{1649737}{71666359},\;\frac{380091}{16511564}\right),
+R_{\mathrm{stored}}=\kappa R_{\mathrm{economic}}.
 \end{equation}
-which is contained in the interval reported in \eqref{eq:alg-interval}.
+The exact factors are
+\begin{center}
+\begin{tabular}{lrr}
+\toprule
+Object & $\kappa$ & Economic object \\
+\midrule
+$M_S$ & $-80/3$ & common-policy planner marginal at the origin \\
+$M_L$ & $320$ & unilateral local marginal at the origin \\
+$F$ & $-76880$ & diagonal local-government first-order condition \\
+$W'$ & $-19220/3$ & common-policy planner derivative \\
+\bottomrule
+\end{tabular}
+\end{center}
+Thus roots are invariant to the stored scaling, but signs cannot be read from the stored numerator without applying $\kappa$. The script \texttt{scripts/verify\_normalization.py} reconstructs the four economic objects from the primitives and verifies these rational-function identities exactly. This check is part of the reproducibility gate.
 
-\subsection{Exact whole-domain certificate}\label{app:global-certificate}
-
-The decisive global statements in Theorem~\ref{thm:main} are certified by \texttt{scripts/verify\_global\_certificate.py}. The script reconstructs the canonical rational model over the exact rational-function field $\mathbb Q(a_A,a_B)$ and converts the relevant numerator and denominator polynomials to tensor-product Bernstein form on the policy rectangle
+For reference, the exact root-isolation calculations varying $\gamma$ establish
+\begin{align}
+\gamma_L&\in(0.4745893334177016,\;0.4745893334185960),\\
+\gamma_S&\in(0.4982912217039472,\;0.4982912217047885),
+\end{align}
+with no denominator root on the maintained $\gamma$ interval. At $\gamma=12/25$, the diagonal local-government first-order condition has exactly one root on $[0,2/25]$, denoted $\alpha$, with
 \begin{equation}
-[0,\bar a]^2=[0,2/25]^2.
+\frac{1649737}{71666359}<\alpha<\frac{380091}{16511564}.
+\label{eq:alpha-exact-interval}
 \end{equation}
-Because a polynomial lies in the convex hull of its Bernstein coefficients on the rectangle, a strictly negative set of Bernstein coefficients proves strict negativity everywhere on the rectangle, and analogously for positivity.
 
-First, the certificate verifies exact regularity and interiority of every backup continuation used by the theorem: the backup linear-system denominators are strictly positive and each backup readiness satisfies $0<r_i<1$ throughout the full policy square.
+The role of each exact computation is summarized here:
+\begin{center}
+\begin{tabular}{p{.27\textwidth}p{.29\textwidth}p{.34\textwidth}}
+\toprule
+Mathematical statement & Certified object & Logical consequence \\
+\midrule
+Lemma~\ref{lem:continuation} & backup determinants/interiority; $u_0,u_1$; location denominator & unique interior downstream continuation on the full policy square \\
+Lemma~\ref{lem:planner-global} & numerators and denominators of $W_{a_A},W_{a_B}$ & unique planner optimum at the origin \\
+Lemma~\ref{lem:local-global} & exact root $\alpha$ and $G_{A,a_Aa_A}$ over own-policy $\times$ rival-root interval & $\alpha$ is the unique global best response to $\alpha$ \\
+Lemma~\ref{lem:open-set} & strict whole-domain margins plus simple root & persistence on a neighborhood of primitives \\
+\bottomrule
+\end{tabular}
+\end{center}
 
-Second, the certificate closes the location subgame globally. Define
+\begin{lemma}[Global planner monotonicity]\label{lem:planner-global}
+At the canonical witness,
 \begin{equation}
-u_0=\frac{H+d_B}{2H},\qquad
-u_1=\frac{H+d_A}{2H},\qquad
-B=\frac{d_A-d_B}{2H}.
+W_{a_A}(a_A,a_B)<0,
+\qquad
+W_{a_B}(a_A,a_B)<0
 \end{equation}
-Exact Bernstein coefficients prove
-\begin{equation}
-0<u_0<1,\qquad 0<u_1<1,\qquad -1<B<1
-\end{equation}
-for every $(a_A,a_B)\in[0,2/25]^2$. Thus the private-information location best response is globally affine rather than clipped, and it is a contraction on the unit interval. The simultaneous location stage therefore has a unique interior probability fixed point after every admissible first-stage policy profile. The certificate additionally verifies positivity of the closed-form fixed-point denominator and $0<p<1$ on the full policy square.
+for every $(a_A,a_B)\in[0,2/25]^2$. Hence $(0,0)$ is the unique coordinated optimum.
+\end{lemma}
 
-Third, exact Bernstein coefficients establish
-\begin{equation}
-\frac{\partial W}{\partial a_A}<0
-\quad\text{and}\quad
-\frac{\partial W}{\partial a_B}<0
-\qquad\forall(a_A,a_B)\in[0,2/25]^2.
-\end{equation}
-Hence coordinated welfare is strictly decreasing in each policy coordinate on the entire admissible rectangle and the unique coordinated optimum is $(0,0)$.
+\begin{proof}
+After substituting the unique continuation from Lemma~\ref{lem:continuation}, $W_{a_A}$ and $W_{a_B}$ are rational functions on the compact policy rectangle. Their denominators are certified to be strictly positive. After mapping the rectangle to $[0,1]^2$, every Bernstein coefficient of each numerator has the strict negative sign required for the corresponding derivative. Therefore each derivative is strictly negative on the complete rectangle, including its boundary. Moving either policy coordinate upward from zero strictly lowers welfare, so the unique maximizer is $(0,0)$.
+\end{proof}
 
-Fourth, let $\alpha$ denote the unique exact diagonal root of the local-government first-order condition. The same certificate proves that for every rival action in the exact isolating interval containing $\alpha$,
-\begin{equation}
-\frac{\partial^2G_A}{\partial a_A^2}<0
-\qquad\forall a_A\in[0,2/25].
-\end{equation}
-Therefore, at $a_B=\alpha$, jurisdiction $A$'s payoff is strictly concave in its own policy on the full feasible interval. Since the exact first-order condition satisfies $\partial G_A(\alpha,\alpha)/\partial a_A=0$, $a_A=\alpha$ is the unique global best response to $a_B=\alpha$. Symmetry gives the corresponding statement for jurisdiction $B$. Thus $(\alpha,\alpha)$ is a global Nash equilibrium of the first-stage policy game, not merely a local stationary point.
+\begin{lemma}[Global local-government best response]\label{lem:local-global}
+At the canonical witness, let $\alpha$ be the exact root in \eqref{eq:alpha-exact-interval}. Then $a_A=\alpha$ is jurisdiction $A$'s unique global best response to $a_B=\alpha$ on $[0,2/25]$, and symmetrically for jurisdiction $B$. Hence $(\alpha,\alpha)$ is a positive Nash equilibrium of the policy game.
+\end{lemma}
 
-No floating-point arithmetic enters these global sign certificates.
+\begin{proof}
+Exact real-root isolation gives a unique simple root of the diagonal first-order condition in the interval \eqref{eq:alpha-exact-interval}. To avoid treating the root as a floating-point constant, the whole-domain certificate takes the rival policy over the entire rational isolating interval containing $\alpha$. On the product of that interval and the full own-policy interval, the denominator of $G_{A,a_Aa_A}$ has fixed sign and the Bernstein coefficients of the appropriately normalized numerator certify
+\begin{equation}
+G_{A,a_Aa_A}<0.
+\end{equation}
+Thus $G_A(\cdot,\alpha)$ is strictly concave on the entire feasible interval. Since $G_{A,a_A}(\alpha,\alpha)=0$, strict concavity makes $\alpha$ the unique global maximizer, including against both boundary actions. Symmetry gives the same conclusion for jurisdiction $B$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main} at the canonical witness]
+Lemma~\ref{lem:continuation} makes every downstream continuation used in a first-stage deviation unique and interior. Lemma~\ref{lem:planner-global} gives the unique coordinated optimum $(0,0)$. Lemma~\ref{lem:local-global} gives the strictly positive symmetric first-stage Nash equilibrium $(\alpha,\alpha)$. These statements establish the policy-ranking reversal at the canonical witness. Lemma~\ref{lem:open-set} below extends the result to a nonempty open set within the maintained symmetric primitive family.
+\end{proof}
+
+\subsection{Open-set persistence}
+
+\begin{lemma}[Persistence around the canonical witness]\label{lem:open-set}
+There is a neighborhood of the canonical parameter vector, within the maintained symmetric primitive family, on which the unique planner optimum remains at zero, the downstream continuation remains unique and interior for every admissible policy, and a strictly positive symmetric local-government Nash equilibrium persists.
+\end{lemma}
+
+\begin{proof}
+Let $\theta$ collect the primitives and normalize public policies by $x_j=a_j/\bar a(\theta)$, so the policy domain is the fixed compact square $[0,1]^2$ for all nearby $\theta$. At the canonical vector $\theta_0$, the exact certificates establish strict inequalities for all denominator signs, backup-interiority bounds, location no-clipping conditions, and planner derivatives on that compact square. Because the relevant rational functions are continuous jointly in $(x_A,x_B,\theta)$ wherever the certified denominators remain nonzero, compactness converts each strict pointwise certificate at $\theta_0$ into a positive uniform margin. Those margins persist for all $\theta$ in a sufficiently small neighborhood of $\theta_0$. Consequently, the same continuation branch remains well-defined, unique, and interior, and both planner partial derivatives remain strictly negative throughout the normalized square. The coordinated optimum therefore remains at zero.
+
+For the local-government equilibrium, let $F(a,\theta)$ denote the symmetric first-order condition. At $(\alpha,\theta_0)$, $F=0$ and the root is simple because the certified own-policy second derivative is strictly negative. The implicit-function theorem therefore yields a unique continuous root $\alpha(\theta)$ near $\alpha$, with $0<\alpha(\theta)<\bar a(\theta)$ for nearby primitives. The strict-concavity certificate has a uniform negative margin on the compact own-policy interval when the rival action ranges over a neighborhood containing the root; continuity preserves that margin for nearby $\theta$. Hence $\alpha(\theta)$ remains the unique global best response to itself. This proves persistence of the positive symmetric Nash equilibrium and completes the nonempty-open-set part of the theorem.
+\end{proof}
+
+\subsection{Product-substitutability interaction}
+
+Equation~\eqref{eq:gamma-r} concerns the level of readiness on the symmetric interior branch. It does not assign a general sign to the interaction between substitutability and the marginal policy response. For the canonical co-located symmetric origin, exact differentiation gives
+\begin{equation}
+\left.\frac{\partial^2r^C}{\partial q\,\partial\gamma}\right|_{q=3/10,\,\gamma=12/25}
+=-\frac{26550065039062500}{13482801445834729}<0.
+\end{equation}
+Since $q=q_0-a$, this means that the marginal reduction in readiness caused by an increase in protection is locally weaker as $\gamma$ rises at this point. No opposite global interaction claim is used in the theorem.
 
 \subsection{Robustness to counting the selected location-fit payoff}\label{app:fit-robustness}
 
@@ -99,16 +176,10 @@ For the two symmetric firms the aggregate term is
 R(D)=\frac H2-\frac{D^2}{2H}\leq \frac H2,
 \label{eq:fit-payoff}
 \end{equation}
-with equality if and only if $D=0$. At every symmetric policy profile, including both $(0,0)$ and $(\alpha,\alpha)$, symmetry implies $D=0$; the exact certificate verifies this identity on the full symmetric policy path. Since baseline coordinated welfare is already globally maximized at $(0,0)$ and $R(D)$ is also globally maximized there, adding $R(D)$ to coordinated welfare cannot change the planner optimum. Likewise, against $a_B=\alpha$, baseline $G_A$ is globally maximized at $a_A=\alpha$, and $R(D)$ is maximized at that same symmetric point. Adding any fixed nonnegative local share of $R(D)$ therefore leaves $a_A=\alpha$ a global best response. The canonical Protection--Attraction Conflict is thus robust to this alternative welfare convention.
+with equality if and only if $D=0$. At every symmetric policy profile, including both $(0,0)$ and $(\alpha,\alpha)$, symmetry implies $D=0$. Since baseline coordinated welfare is globally maximized at $(0,0)$ and $R(D)$ is also globally maximized there, adding $R(D)$ to coordinated welfare cannot change the planner optimum. Likewise, against $a_B=\alpha$, baseline $G_A$ is globally maximized at $a_A=\alpha$, and $R(D)$ is maximized at that same symmetric point. Adding any fixed nonnegative local share of $R(D)$ therefore leaves $a_A=\alpha$ a global best response. This robustness statement depends on that specified nonnegative fixed-share allocation of the added fit term.
 
-\subsection{Numerical continuation audit}\label{app:continuation}
+\subsection{Numerical stress tests and reproducibility}\label{app:continuation}
 
-The exact certificate establishes the theorem's global quantifiers. Numerical routines are retained only as independent stress tests. A government deviation changes local failure risk, which changes location incentives and the backup subgame, so the numerical audit re-solves the downstream location fixed point and backup Nash equilibrium after each material government deviation rather than substituting the deviation into on-path formulas.
+The exact certificates establish the theorem's global quantifiers. Numerical routines are retained only as counterexample searches and implementation checks. At the canonical witness, the numerical audit evaluates unilateral government deviations on 2,001 policy points, searches the two-dimensional planner problem on a deterministic grid and from multiple continuous-optimization starting points, and re-solves downstream continuation choices after each material deviation. The separate state-enumeration evaluator constructs the four final availability probabilities directly from $s_i$, $J$, and the conditional-independence backup law rather than calling the closed-form expected-payoff expression.
 
-At the canonical witness, the audit searches $a_A\in[0,\bar a]$ against the rival's candidate equilibrium policy using 2,001 policy points and bounded optimization. Throughout this domain, location probabilities and backup readiness remain strictly interior. The audit records zero unresolved continuation calls and zero numerical failures. A separate two-dimensional planner audit evaluates the full $(a_A,a_B)\in[0,\bar a]^2$ domain on a deterministic grid and from multiple continuous-optimization starting points; all checks select $(0,0)$ at the witness.
-
-The independent evaluator enumerates the four production-availability states directly from primitive probabilities and reconstructs expected profit and surplus without calling the candidate closed-form payoff routine. It agrees with the closed form at the maintained test points. This separation is intended to prevent a common-code error from serving simultaneously as derivation and verification.
-
-\subsection{Open-set argument}
-
-At the witness, the planner inequalities are strict on the compact policy rectangle; the positive symmetric government root is simple, interior, and a strict global best response; the backup and location continuations are unique, strictly interior, and bounded away from their clipping or singularity boundaries; and the continuation mapping remains in the regular region. These objects are continuous in primitives. Compactness and the strict inequalities therefore imply that the policy ranking, continuation uniqueness, and positive local equilibrium persist in a sufficiently small neighborhood of the witness. This gives the open-set part of Theorem~\ref{thm:main}. The theorem is an existence result, not a claim that every parameter configuration generates excessive local protection.
+The reproducibility archive identifies the exact scripts corresponding to each lemma. \texttt{scripts/verify\_global\_certificate.py} generates the whole-domain Bernstein inequalities; \texttt{scripts/verify\_policy\_certificate.py} and \texttt{scripts/verify\_symbolic.py} perform exact root isolation; \texttt{scripts/verify\_normalization.py} checks the scaling of the auxiliary coefficient archive against primitive symbolic expressions; and the numerical routines serve only as independent stress tests. No floating-point computation is used to establish Lemmas~\ref{lem:continuation}--\ref{lem:local-global}.

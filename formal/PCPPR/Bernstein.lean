@@ -12,7 +12,7 @@ theorem exists_positive_weight
     (hsum : ∑ i, w i = 1) :
     ∃ i, 0 < w i := by
   by_contra h
-  push_neg at h
+  simp only [not_exists, not_lt] at h
   have hz : ∀ i, w i = 0 := by
     intro i
     exact le_antisymm (h i) (hw i)
@@ -48,7 +48,9 @@ theorem weighted_sum_positive
   · exact mul_nonneg (hw j) (le_of_lt (hβ j))
   · exact ⟨i, Finset.mem_univ i, mul_pos hi (hβ i)⟩
 
-/-- Tensor-product specialization used by bivariate certificates. -/
+/-- Tensor-product specialization used by bivariate certificates. The proof is
+performed as two successive finite convex combinations, avoiding any dependence
+on a particular product-Fintype enumeration identity. -/
 theorem tensor_weighted_sum_negative
     {ι κ : Type*} [Fintype ι] [Fintype κ] [Nonempty ι] [Nonempty κ]
     (wx : ι → ℝ) (wy : κ → ℝ) (β : ι → κ → ℝ)
@@ -56,21 +58,17 @@ theorem tensor_weighted_sum_negative
     (hsx : ∑ i, wx i = 1) (hsy : ∑ j, wy j = 1)
     (hβ : ∀ i j, β i j < 0) :
     (∑ i, ∑ j, (wx i * wy j) * β i j) < 0 := by
-  let w : ι × κ → ℝ := fun ij => wx ij.1 * wy ij.2
-  let c : ι × κ → ℝ := fun ij => β ij.1 ij.2
-  have hw : ∀ ij, 0 ≤ w ij := by
-    intro ij
-    exact mul_nonneg (hx ij.1) (hy ij.2)
-  have hsum : ∑ ij, w ij = 1 := by
-    simp [w, Finset.sum_mul, Finset.mul_sum, hsx, hsy]
-  have hc : ∀ ij, c ij < 0 := by
-    intro ij
-    exact hβ ij.1 ij.2
-  have h := weighted_sum_negative w c hw hsum hc
-  simpa [w, c, Finset.sum_product] using h
+  have hinner : ∀ i : ι, (∑ j : κ, wy j * β i j) < 0 := by
+    intro i
+    exact weighted_sum_negative wy (β i) hy hsy (hβ i)
+  have houter :
+      (∑ i : ι, wx i * (∑ j : κ, wy j * β i j)) < 0 := by
+    exact weighted_sum_negative wx
+      (fun i : ι => ∑ j : κ, wy j * β i j) hx hsx hinner
+  simpa [Finset.mul_sum, mul_assoc] using houter
 
 /-- T10: specialization to mathlib's actual univariate Bernstein basis on the
-unit interval.  Nonnegativity and partition of unity are discharged by
+unit interval. Nonnegativity and partition of unity are discharged by
 `bernstein_nonneg` and `bernstein.probability`, not left as caller hypotheses. -/
 theorem bernstein_sum_negative
     (n : ℕ) (x : I) (β : Fin (n + 1) → ℝ)
@@ -82,7 +80,7 @@ theorem bernstein_sum_negative
     (bernstein.probability n x) hβ
 
 /-- T10: actual tensor-product Bernstein basis used by the bivariate global
-certificates.  The only remaining hypothesis is strict negativity of the
+certificates. The only remaining hypothesis is strict negativity of the
 coefficient array. -/
 theorem tensor_bernstein_sum_negative
     (nx ny : ℕ) (x y : I)

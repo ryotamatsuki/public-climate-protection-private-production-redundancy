@@ -11,13 +11,11 @@ positive denominators. Lean checks those integer signs exactly, avoiding
 expensive normalization of very large Rational literals.
 
 For the diagonal local-government FOC (T12), the generator emits the exact
-isolating interval, endpoint values, the Bernstein coefficients of the FOC on
-the normalized interval, and the Bernstein coefficients of its formal
-derivative.  The source-to-certificate conversion is category C (generated
-exact certificate); Lean checks the endpoint and coefficient signs and the
-generic Bernstein/root implications.  We intentionally do not ask the Lean
-kernel to re-expand a degree-19 polynomial with huge rationals into two bases,
-which is computationally disproportionate and was causing CI to stall.
+isolating interval, exact endpoint values, and the Bernstein coefficients of
+the formal derivative on that interval. The source-to-certificate conversion
+is category C (generated exact certificate); Lean checks endpoint signs,
+derivative-coefficient signs, and the generic Bernstein/root implications.
+The kernel is not asked to re-expand the degree-19 FOC into multiple bases.
 """
 from __future__ import annotations
 
@@ -150,16 +148,11 @@ fL = eval_poly_q(mod.Fnum, L)
 fU = eval_poly_q(mod.Fnum, U)
 assert fL > 0 and fU < 0
 
-# Exact canonical FOC on normalized coordinate t in [0,1].
-# The derivative coefficients are for P'(L+(U-L)t); multiplication by the
-# positive affine scale (U-L) is unnecessary for a sign certificate.
-foc_beta = normalized_bernstein_coeffs(mod.Fnum, L, U)
+# Exact derivative sign certificate for P'(alpha) on alpha in [L,U].
+# Under alpha=L+(U-L)t, all Bernstein coefficients are strictly negative.
 foc_deriv_beta = normalized_bernstein_coeffs(mod.Fnum.diff(), L, U)
-assert len(foc_beta) == mod.Fnum.degree() + 1
 assert len(foc_deriv_beta) == mod.Fnum.degree()
 assert strict_sign(foc_deriv_beta) < 0
-assert foc_beta[0] == fL
-assert foc_beta[-1] == fU
 
 source_sha256 = hashlib.sha256(SOURCE.read_bytes()).hexdigest()
 
@@ -192,18 +185,10 @@ parts += [
     "  native_decide\n\n",
 ]
 
-parts.append(emit_fin_vector("diagonalFOCBernsteinCoeffs", foc_beta))
-parts.append("\n")
 parts.append(emit_fin_vector("diagonalFOCDerivativeBernsteinCoeffs", foc_deriv_beta))
 parts.append(
     "theorem diagonalFOCDerivativeBernsteinCoeffs_negative : "
     "∀ i, diagonalFOCDerivativeBernsteinCoeffs i < 0 := by\n  native_decide\n\n"
-)
-parts.append(
-    "theorem diagonalFOCBernstein_endpoint_coeff_signs :\n"
-    "    0 < diagonalFOCBernsteinCoeffs 0 ∧\n"
-    "      diagonalFOCBernsteinCoeffs (Fin.last 19) < 0 := by\n"
-    "  native_decide\n\n"
 )
 parts.append("end PCPPR.GeneratedCertificates\n")
 

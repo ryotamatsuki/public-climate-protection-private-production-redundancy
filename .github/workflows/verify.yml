@@ -28,7 +28,7 @@ jobs:
 
   lean-verification:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -41,10 +41,27 @@ jobs:
           cp formal/PCPPR/GeneratedCertificates.lean /tmp/GeneratedCertificates.lean
           python scripts/generate_lean_certificates.py
           cmp /tmp/GeneratedCertificates.lean formal/PCPPR/GeneratedCertificates.lean
-      - name: Reject proof placeholders
+      - name: Verify pinned formal environment
+        run: |
+          test "$(cat formal/lean-toolchain)" = "leanprover/lean4:v4.32.1"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          manifest = json.loads(Path('formal/lake-manifest.json').read_text())
+          packages = {p['name']: p for p in manifest['packages']}
+          assert packages['mathlib']['rev'] == '520045ab14e26149ee970e2e617ca04b09bde5d6'
+          assert packages['mathlib']['inputRev'] == 'v4.32.1'
+          assert all(p.get('rev') for p in manifest['packages'])
+          print('Pinned Lean/mathlib manifest verified.')
+          PY
+      - name: Reject proof placeholders and custom axioms
         run: |
           if grep -R -n -E '(^|[^A-Za-z])(sorry|admit)([^A-Za-z]|$)' formal --include='*.lean'; then
             echo 'Formal verification source contains a forbidden placeholder.'
+            exit 1
+          fi
+          if grep -R -n -E '^[[:space:]]*axiom[[:space:]]' formal/PCPPR formal/Main.lean --include='*.lean'; then
+            echo 'Formal verification source contains a custom axiom declaration.'
             exit 1
           fi
       - name: Install pinned Lean toolchain
@@ -55,6 +72,16 @@ jobs:
         run: |
           cd formal
           lake exe cache get
+      - name: Preflight T9 exact model arithmetic
+        timeout-minutes: 12
+        run: |
+          cd formal
+          lake build PCPPR.CanonicalWitness
+      - name: Preflight T10-T13 proof layers
+        timeout-minutes: 12
+        run: |
+          cd formal
+          lake build PCPPR.GlobalLocalGovernment PCPPR.TheoremCore
       - name: Build Lean proof-critical core
         run: |
           cd formal
@@ -63,6 +90,19 @@ jobs:
         run: |
           cd formal
           lake env lean Main.lean | tee FORMAL_AXIOM_REPORT.txt
+          if grep -q 'sorryAx' FORMAL_AXIOM_REPORT.txt; then
+            echo 'Axiom audit detected sorryAx.'
+            exit 1
+          fi
+      - name: Record formal verification provenance
+        run: |
+          {
+            echo "commit=${GITHUB_SHA}"
+            echo "canonical_manuscript_model_sha=77f0c0705e3759b4997b3b17355f0063c02673e1"
+            echo "lean=leanprover/lean4:v4.32.1"
+            echo "mathlib=520045ab14e26149ee970e2e617ca04b09bde5d6"
+            echo "workflow_run_id=${GITHUB_RUN_ID}"
+          } | tee formal/FORMAL_VERIFICATION_RUN.txt
       - name: Upload formal verification evidence
         uses: actions/upload-artifact@v4
         with:
@@ -70,5 +110,6 @@ jobs:
           path: |
             formal/PCPPR/GeneratedCertificates.lean
             formal/FORMAL_AXIOM_REPORT.txt
+            formal/FORMAL_VERIFICATION_RUN.txt
             formal/lake-manifest.json
           if-no-files-found: error

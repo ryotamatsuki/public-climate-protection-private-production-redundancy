@@ -10,7 +10,6 @@ OUT = DIST / "ERE_anonymous_replication.zip"
 PACKAGER = "scripts/build_ere_review_package.py"
 
 EXACT_FILES = {
-    "Makefile",
     "requirements.txt",
     "docs/certificate_normalization.json",
     "docs/certificate_polynomials.json",
@@ -76,28 +75,31 @@ def main() -> None:
         raise RuntimeError("no files selected for ERE review package")
 
     replication_readme = ROOT / "submission" / "ERE_replication_README.md"
+    review_makefile = ROOT / "submission" / "ERE_review_Makefile"
     assert_anonymous(replication_readme)
+    assert_anonymous(review_makefile)
 
     for p in files:
         assert_anonymous(p)
 
     with zipfile.ZipFile(OUT, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as zf:
         zf.write(replication_readme, "README.md")
+        zf.write(review_makefile, "Makefile")
         for p in files:
             rel = p.relative_to(ROOT).as_posix()
             zf.write(p, rel)
 
-    # Re-open the archive and verify that forbidden metadata paths were not included.
+    # Re-open the archive and verify that identifying or submission-only paths were not included.
     with zipfile.ZipFile(OUT) as zf:
         names = zf.namelist()
         forbidden_paths = [n for n in names if n.startswith(".git/") or n.startswith(".github/") or n.startswith("submission/")]
         if forbidden_paths:
             raise RuntimeError(f"forbidden paths in review package: {forbidden_paths}")
-        if "README.md" not in names:
-            raise RuntimeError("review package missing anonymized README")
+        if "README.md" not in names or "Makefile" not in names:
+            raise RuntimeError("review package missing anonymized README or review Makefile")
 
     print(f"ERE anonymous review package ready: {OUT.relative_to(ROOT)}")
-    print(f"files: {len(files)} source items + anonymized README")
+    print(f"files: {len(files)} source items + anonymized README + review Makefile")
 
 
 if __name__ == "__main__":

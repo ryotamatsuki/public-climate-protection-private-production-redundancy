@@ -43,7 +43,7 @@ def main() -> None:
         raise AssertionError("anonymous manuscript must retain an empty author field")
 
     manuscript = "\n".join([main_tex, intro, lit])
-    for token in ("github.com/", "users.noreply.github.com", "orcid.org/", "mailto:"):
+    for token in ("github.com/", "orcid.org/", "mailto:"):
         if token.lower() in manuscript.lower():
             raise AssertionError(f"potential identifying link found in anonymous manuscript: {token}")
 

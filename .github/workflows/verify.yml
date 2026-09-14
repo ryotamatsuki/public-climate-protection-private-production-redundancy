@@ -51,10 +51,6 @@ jobs:
         run: |
           curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y
           echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
-      - name: Resolve Lean dependencies
-        run: |
-          cd formal
-          lake update
       - name: Restore mathlib cache
         run: |
           cd formal

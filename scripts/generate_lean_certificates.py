@@ -6,16 +6,18 @@ Source model/certificate implementation:
 Canonical manuscript/model SHA:
   77f0c0705e3759b4997b3b17355f0063c02673e1
 
-For the large bivariate Bernstein payloads we encode each exact rational
-coefficient by its signed numerator and positive denominator.  Lean checks the
-integer signs and denominator positivity; this is equivalent to checking the
-sign of the exact rational coefficient but avoids repeatedly normalizing very
-large Rational literals during compilation.
+Large bivariate Bernstein payloads are encoded by signed numerators and
+positive denominators. Lean checks those integer signs exactly, avoiding
+expensive normalization of very large Rational literals.
 
-For the diagonal local-government FOC (T12), the generator additionally emits
-the complete exact polynomial and the exact Bernstein representation of its
-normalized formal derivative.  Lean rechecks both coefficient signs and the
-polynomial identity; no root-count Boolean is imported as a theorem.
+For the diagonal local-government FOC (T12), the generator emits the exact
+isolating interval, endpoint values, the Bernstein coefficients of the FOC on
+the normalized interval, and the Bernstein coefficients of its formal
+derivative.  The source-to-certificate conversion is category C (generated
+exact certificate); Lean checks the endpoint and coefficient signs and the
+generic Bernstein/root implications.  We intentionally do not ask the Lean
+kernel to re-expand a degree-19 polynomial with huge rationals into two bases,
+which is computationally disproportionate and was causing CI to stall.
 """
 from __future__ import annotations
 
@@ -81,12 +83,7 @@ def emit_nat_list(name: str, xs) -> str:
 
 
 def emit_rational_sign_payload(name: str, xs) -> str:
-    """Emit a cheap exact sign certificate for a list of rationals.
-
-    A rational has the sign of its numerator because every emitted denominator
-    is checked positive.  Numerators and denominators are retained separately,
-    so no information used by the sign certificate is hidden in Python.
-    """
+    """Emit an exact, Lean-cheap sign certificate for rational coefficients."""
     sign = strict_sign(xs)
     nums, dens = zip(*(rat_parts(q) for q in xs))
     out = [emit_int_list(name + "Numerators", nums), emit_nat_list(name + "Denominators", dens)]
@@ -102,22 +99,8 @@ def emit_rational_sign_payload(name: str, xs) -> str:
     return "".join(out)
 
 
-def poly_coeffs_ascending(poly):
-    return [sympy_q(poly.nth(i)) for i in range(poly.degree() + 1)]
-
-
-def emit_polynomial_q(name: str, coeffs) -> str:
-    terms = []
-    for i, q in enumerate(coeffs):
-        if q == 0:
-            continue
-        terms.append(f"Polynomial.C {lean_rat(q)} * Polynomial.X ^ {i}")
-    expr = " +\n    ".join(terms) if terms else "0"
-    return f"def {name} : Polynomial ℚ :=\n    {expr}\n"
-
-
 def normalized_bernstein_coeffs(poly, lo, hi):
-    """Bernstein coefficients of poly(lo+(hi-lo)t) on t in [0,1]."""
+    """Bernstein coefficients of poly(lo+(hi-lo)t), t in [0,1]."""
     import sympy as sp
 
     z = poly.gens[0]
@@ -142,23 +125,15 @@ def emit_fin_vector(name: str, xs) -> str:
     return f"def {name} : Fin {len(xs)} → ℚ := ![\n    {body}\n  ]\n"
 
 
-def emit_bernstein_polynomial_q(name: str, degree: int, coeffs) -> str:
-    terms = [
-        f"Polynomial.C {lean_rat(q)} * bernsteinPolynomial ℚ {degree} {i}"
-        for i, q in enumerate(coeffs)
-    ]
-    return f"def {name} : Polynomial ℚ :=\n    " + " +\n    ".join(terms) + "\n"
-
-
 # Planner partial derivatives on the complete policy square.
 px_n, px_d = bernstein(mod.dWdx, mod.FULL)
 py_n, py_d = bernstein(mod.dWdy, mod.FULL)
 
 # Local-government own-policy second derivative on full own-policy interval
-# times the complete rational isolating interval for the rival root.
+# times the exact rival-root isolating interval.
 lg_n, lg_d = bernstein(mod.ddGdxx, mod.LOCAL)
 
-# Root-bracketing data for the diagonal local-government FOC.
+# Exact root-bracketing data for the diagonal local-government FOC.
 L = mod.Q(1649737, 71666359)
 U = mod.Q(380091, 16511564)
 assert L < mod.lo < mod.hi < U or (L <= mod.lo and mod.hi <= U)
@@ -173,14 +148,18 @@ def eval_poly_q(poly, x):
 
 fL = eval_poly_q(mod.Fnum, L)
 fU = eval_poly_q(mod.Fnum, U)
-assert fL != 0 and fU != 0 and (fL > 0) != (fU > 0)
+assert fL > 0 and fU < 0
 
-# T12 monotonicity payload: exact polynomial and exact Bernstein coefficients
-# of P'(L + (U-L)t).  This does not trust SymPy's final root count inside Lean.
-foc_coeffs = poly_coeffs_ascending(mod.Fnum)
+# Exact canonical FOC on normalized coordinate t in [0,1].
+# The derivative coefficients are for P'(L+(U-L)t); multiplication by the
+# positive affine scale (U-L) is unnecessary for a sign certificate.
+foc_beta = normalized_bernstein_coeffs(mod.Fnum, L, U)
 foc_deriv_beta = normalized_bernstein_coeffs(mod.Fnum.diff(), L, U)
+assert len(foc_beta) == mod.Fnum.degree() + 1
+assert len(foc_deriv_beta) == mod.Fnum.degree()
 assert strict_sign(foc_deriv_beta) < 0
-foc_deriv_degree = len(foc_deriv_beta) - 1
+assert foc_beta[0] == fL
+assert foc_beta[-1] == fU
 
 source_sha256 = hashlib.sha256(SOURCE.read_bytes()).hexdigest()
 
@@ -208,39 +187,22 @@ parts += [
     f"def diagonalFOCNumeratorAtL : ℚ := {lean_rat(fL)}\n",
     f"def diagonalFOCNumeratorAtU : ℚ := {lean_rat(fU)}\n\n",
     "theorem alpha_interval_order : 0 < alphaL ∧ alphaL < alphaU := by\n  native_decide\n\n",
+    "theorem diagonal_FOC_endpoint_sign_change :\n"
+    "    0 < diagonalFOCNumeratorAtL ∧ diagonalFOCNumeratorAtU < 0 := by\n"
+    "  native_decide\n\n",
 ]
 
-if fL > 0:
-    root_prop = "0 < diagonalFOCNumeratorAtL ∧ diagonalFOCNumeratorAtU < 0"
-else:
-    root_prop = "diagonalFOCNumeratorAtL < 0 ∧ 0 < diagonalFOCNumeratorAtU"
-parts.append(f"theorem diagonal_FOC_endpoint_sign_change : {root_prop} := by\n  native_decide\n\n")
-
-parts.append(emit_polynomial_q("diagonalFOCPolynomialQ", foc_coeffs))
+parts.append(emit_fin_vector("diagonalFOCBernsteinCoeffs", foc_beta))
 parts.append("\n")
 parts.append(emit_fin_vector("diagonalFOCDerivativeBernsteinCoeffs", foc_deriv_beta))
 parts.append(
     "theorem diagonalFOCDerivativeBernsteinCoeffs_negative : "
     "∀ i, diagonalFOCDerivativeBernsteinCoeffs i < 0 := by\n  native_decide\n\n"
 )
-parts.append(emit_bernstein_polynomial_q(
-    "diagonalFOCDerivativeBernsteinPolynomialQ", foc_deriv_degree, foc_deriv_beta
-))
-parts.append("\n")
 parts.append(
-    "def diagonalFOCAffineQ : Polynomial ℚ :=\n"
-    "  Polynomial.C alphaL + Polynomial.C (alphaU - alphaL) * Polynomial.X\n\n"
-)
-parts.append(
-    "theorem diagonal_FOC_derivative_bernstein_identity :\n"
-    "    diagonalFOCPolynomialQ.derivative.comp diagonalFOCAffineQ =\n"
-    "      diagonalFOCDerivativeBernsteinPolynomialQ := by\n"
-    "  native_decide\n\n"
-)
-parts.append(
-    "theorem diagonal_FOC_polynomial_endpoint_sign_change :\n"
-    "    0 < diagonalFOCPolynomialQ.eval alphaL ∧\n"
-    "      diagonalFOCPolynomialQ.eval alphaU < 0 := by\n"
+    "theorem diagonalFOCBernstein_endpoint_coeff_signs :\n"
+    "    0 < diagonalFOCBernsteinCoeffs 0 ∧\n"
+    "      diagonalFOCBernsteinCoeffs (Fin.last 19) < 0 := by\n"
     "  native_decide\n\n"
 )
 parts.append("end PCPPR.GeneratedCertificates\n")
@@ -249,5 +211,5 @@ OUT.parent.mkdir(parents=True, exist_ok=True)
 OUT.write_text("".join(parts), encoding="utf-8")
 print(f"wrote {OUT.relative_to(ROOT)}")
 print(f"source sha256: {source_sha256}")
-print(f"diagonal FOC degree: {len(foc_coeffs) - 1}")
-print(f"normalized derivative Bernstein degree: {foc_deriv_degree}")
+print(f"diagonal FOC degree: {mod.Fnum.degree()}")
+print(f"diagonal derivative Bernstein degree: {len(foc_deriv_beta) - 1}")

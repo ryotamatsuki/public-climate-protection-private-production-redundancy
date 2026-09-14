@@ -104,10 +104,10 @@ theorem symmetric_positive_nash_of_unique_best_responses
     {GA GB : ℝ → ℝ → ℝ} {abar α : ℝ}
     (hα : α ∈ Ioo (0 : ℝ) abar)
     (hA : ∀ x ∈ Icc (0 : ℝ) abar, GA x α ≤ GA α α)
-    (hB : ∀ y ∈ Icc (0 : ℝ) abar, GB α y ≤ GB α alpha) :
+    (hB : ∀ y ∈ Icc (0 : ℝ) abar, GB α y ≤ GB α α) :
     0 < α ∧
       (∀ x ∈ Icc (0 : ℝ) abar, GA x α ≤ GA α α) ∧
-      (∀ y ∈ Icc (0 : ℝ) abar, GB α y ≤ GB α alpha) := by
+      (∀ y ∈ Icc (0 : ℝ) abar, GB α y ≤ GB α α) := by
   exact ⟨hα.1, hA, hB⟩
 
 end PCPPR.GlobalLocalGovernment

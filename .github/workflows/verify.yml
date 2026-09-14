@@ -13,3 +13,9 @@ jobs:
       - run: pip install -r requirements.txt
       - run: sudo apt-get update && sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra
       - run: make verify
+      - name: Upload anonymous ERE review package
+        uses: actions/upload-artifact@v4
+        with:
+          name: ERE-anonymous-replication
+          path: dist/ERE_anonymous_replication.zip
+          if-no-files-found: error

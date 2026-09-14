@@ -24,7 +24,8 @@ theorem strictConcave_stationary_unique_global_max
   have hnegStrict : StrictConvexOn ℝ S (-G) := by
     rw [neg_strictConvexOn_iff]
     simpa [S] using hconc
-  have hnegStat : HasDerivAt (-G) 0 α := hstat.neg
+  have hnegStat : HasDerivAt (-G) 0 α := by
+    simpa using hstat.neg
   have hright : derivWithin (-G) (Ioi α) α = 0 := by
     exact hnegStat.hasDerivWithinAt.derivWithin (uniqueDiffWithinAt_Ioi α)
   have hmin : IsMinOn (-G) S α :=

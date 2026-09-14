@@ -4,24 +4,25 @@ Reproducibility and manuscript repository for the theory project **Public Climat
 
 ## Research status
 
-- Theory freeze: `PCPPR-THEORY-FREEZE-2026-09-06-v1`
-- Stage 10 reproducibility freeze commit: `62a3a4444783828dc313e974b5e798e30f1fe5a2`
-- Frozen ref: `freeze/pcppr-stage10-2026-09-13`
-- Stage 10 GitHub Actions validation: PASS
-- Manuscript status: Stage 10 complete; Stage 11 hostile referee gate in progress
-- Current target: *RAND Journal of Economics*
+- Current theory freeze record: `PCPPR-THEORY-FREEZE-2026-09-14-v2`
+- Historical Stage 12 freeze commit: `134ff145a89afb78c587d10081caf1a4bdb1601f`
+- Current repair: Stage 12R independent-mathematical-audit repair
+- Stage 12 editorial verdict: RAND as a one-shot stretch, JEEM as the immediate fallback
+- Stage 13 submission formatting remains blocked until Stage 12R is merged, fully verified, and refrozen
 
 ## Core result
 
 The model combines decentralized place-based climate protection, endogenous primary plant location, costly geographic backup readiness, localized disaster risk, and differentiated-product oligopoly.
 
-The main result is a **Protection–Attraction Conflict**: there exists a nonempty open set of primitives in which coordinated welfare is maximized by zero additional local protection while the decentralized jurisdictional game has a strictly positive symmetric protection equilibrium. Public protection directly lowers disruption risk but can crowd out firms' private geographic redundancy; local governments may nevertheless continue protection because it attracts mobile primary production.
+The main result is a **Protection–Attraction Conflict**: within the maintained symmetric primitive family, there exists a nonempty open set in which coordinated welfare is maximized by zero additional local protection while the decentralized jurisdictional game has a strictly positive symmetric protection equilibrium. Public protection directly lowers disruption risk but can crowd out firms' private geographic redundancy; local governments may nevertheless continue protection because it attracts mobile primary production.
+
+The baseline probability law is explicit. Conditional on realized primary failures, backup-success draws are independent across firms, with success probability `r_i` for firm `i` when its primary plant fails. Hence joint final unavailability is `J(1-r_1)(1-r_2)`. This law is a primitive of the model rather than an implication of the marginal readiness probabilities alone.
 
 ## Repository governance
 
-The frozen Stage 10 commit is the authoritative pre-audit baseline. Verification and audit code may test that baseline but must not silently modify it.
+Every submission candidate must point to an explicit freeze commit. Any change affecting probability primitives, equilibrium correctness, the policy-ranking theorem, parameter domains, welfare accounting, benchmark definitions, or the claim boundary reopens the relevant research gate.
 
-Any change affecting equilibrium correctness, the policy-ranking theorem, parameter domains, welfare accounting, or the claim boundary must explicitly reopen the relevant research stage before being merged.
+The auxiliary coefficient archive contains scaled rational-function representations. `docs/certificate_normalization.json` records the exact factors and `scripts/verify_normalization.py` reconstructs the corresponding economic functions from primitives to verify the identities.
 
 ## Reproducibility layout
 
@@ -30,15 +31,23 @@ Any change affecting equilibrium correctness, the policy-ranking theorem, parame
 ├── README.md
 ├── docs/
 │   ├── THEORY_FREEZE.md
+│   ├── PROVENANCE.md
 │   ├── STAGE_10_REPORT.md
-│   └── PROVENANCE.md
+│   ├── STAGE_11A_REPORT.md
+│   ├── STAGE_11C_REPORT.md
+│   ├── STAGE_12_REPORT.md
+│   ├── certificate_polynomials.json
+│   └── certificate_normalization.json
 ├── paper/
 │   ├── main.tex
 │   └── sections/
 ├── scripts/
 │   ├── core_model.py
+│   ├── direct_evaluator.py
 │   ├── verify_symbolic.py
+│   ├── verify_normalization.py
 │   ├── verify_policy_certificate.py
+│   ├── verify_global_certificate.py
 │   ├── verify_numerical.py
 │   ├── verify_benchmarks.py
 │   └── generate_objects.py
@@ -66,4 +75,4 @@ Canonical validation entry point:
 make verify
 ```
 
-It runs symbolic identities and threshold certificates, the policy-root certificate, numerical global-deviation and planner audits, nested-benchmark checks, regression tests, deterministic exposition-object generation, and the manuscript build.
+It runs symbolic identities and threshold certificates, primitive-to-certificate normalization identities, the policy-root certificate, the exact whole-domain certificate, numerical global-deviation and planner stress tests, nested-benchmark checks, regression tests, deterministic exposition-object generation, and the manuscript build.

@@ -1,5 +1,7 @@
 import Mathlib
 
+open scoped unitInterval
+
 namespace PCPPR.Bernstein
 
 /-- A finite nonnegative partition of unity has at least one strictly positive weight. -/
@@ -18,9 +20,9 @@ theorem exists_positive_weight
     simp [hz]
   linarith
 
-/-- T10: generic finite Bernstein/convex-combination certificate logic.
-If basis weights are nonnegative and sum to one, and every coefficient is
-strictly negative, the weighted polynomial value is strictly negative. -/
+/-- T10: generic finite convex-combination certificate logic. If basis weights
+are nonnegative and sum to one, and every coefficient is strictly negative,
+the weighted value is strictly negative. -/
 theorem weighted_sum_negative
     {ι : Type*} [Fintype ι] [Nonempty ι]
     (w β : ι → ℝ)
@@ -46,9 +48,7 @@ theorem weighted_sum_positive
   · exact mul_nonneg (hw j) (le_of_lt (hβ j))
   · exact ⟨i, Finset.mem_univ i, mul_pos hi (hβ i)⟩
 
-/-- Tensor-product specialization used by bivariate Bernstein certificates.
-The theorem is basis-agnostic: callers supply nonnegativity and partition-of-
-unity properties for the actual Bernstein basis values at a point. -/
+/-- Tensor-product specialization used by bivariate certificates. -/
 theorem tensor_weighted_sum_negative
     {ι κ : Type*} [Fintype ι] [Fintype κ] [Nonempty ι] [Nonempty κ]
     (wx : ι → ℝ) (wy : κ → ℝ) (β : ι → κ → ℝ)
@@ -68,5 +68,36 @@ theorem tensor_weighted_sum_negative
     exact hβ ij.1 ij.2
   have h := weighted_sum_negative w c hw hsum hc
   simpa [w, c, Finset.sum_product] using h
+
+/-- T10: specialization to mathlib's actual univariate Bernstein basis on the
+unit interval.  Nonnegativity and partition of unity are discharged by
+`bernstein_nonneg` and `bernstein.probability`, not left as caller hypotheses. -/
+theorem bernstein_sum_negative
+    (n : ℕ) (x : I) (β : Fin (n + 1) → ℝ)
+    (hβ : ∀ k, β k < 0) :
+    (∑ k : Fin (n + 1), bernstein n k x * β k) < 0 := by
+  exact weighted_sum_negative
+    (fun k : Fin (n + 1) => bernstein n k x) β
+    (fun _ => bernstein_nonneg)
+    (bernstein.probability n x) hβ
+
+/-- T10: actual tensor-product Bernstein basis used by the bivariate global
+certificates.  The only remaining hypothesis is strict negativity of the
+coefficient array. -/
+theorem tensor_bernstein_sum_negative
+    (nx ny : ℕ) (x y : I)
+    (β : Fin (nx + 1) → Fin (ny + 1) → ℝ)
+    (hβ : ∀ i j, β i j < 0) :
+    (∑ i : Fin (nx + 1), ∑ j : Fin (ny + 1),
+      (bernstein nx i x * bernstein ny j y) * β i j) < 0 := by
+  exact tensor_weighted_sum_negative
+    (fun i : Fin (nx + 1) => bernstein nx i x)
+    (fun j : Fin (ny + 1) => bernstein ny j y)
+    β
+    (fun _ => bernstein_nonneg)
+    (fun _ => bernstein_nonneg)
+    (bernstein.probability nx x)
+    (bernstein.probability ny y)
+    hβ
 
 end PCPPR.Bernstein

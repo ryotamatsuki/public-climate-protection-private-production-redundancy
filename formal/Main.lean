@@ -45,8 +45,8 @@ open PCPPR
 #check TheoremCore.canonical_witness_core
 #check TheoremCore.canonical_witness_from_generated_certificates
 
--- T15 proof-critical axiom audit.  CI also rejects source-level sorry/admit and
--- custom `axiom` declarations before this file is elaborated.
+-- T15 proof-critical axiom audit. CI also rejects proof placeholders and
+-- custom axiom declarations before this file is elaborated.
 #print axioms ProductMarket.delta_identity
 #print axioms Backup.expectedProfit_state_eq_closed
 #print axioms Backup.strict_global_backup_optimum

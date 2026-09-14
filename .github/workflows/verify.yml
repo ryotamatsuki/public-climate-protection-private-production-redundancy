@@ -19,3 +19,40 @@ jobs:
           name: ERE-anonymous-replication
           path: dist/ERE_anonymous_replication.zip
           if-no-files-found: error
+
+  lean-verification:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: pip install -r requirements.txt
+      - name: Generate exact Lean certificate data
+        run: |
+          python scripts/generate_lean_certificates.py
+          cp formal/PCPPR/GeneratedCertificates.lean /tmp/GeneratedCertificates.lean
+          python scripts/generate_lean_certificates.py
+          cmp /tmp/GeneratedCertificates.lean formal/PCPPR/GeneratedCertificates.lean
+      - name: Reject proof placeholders
+        run: |
+          if grep -R -n -E '(^|[^A-Za-z])(sorry|admit)([^A-Za-z]|$)' formal --include='*.lean'; then
+            echo 'Formal verification source contains a forbidden placeholder.'
+            exit 1
+          fi
+      - name: Build Lean proof-critical core
+        uses: leanprover/lean-action@v1
+        with:
+          lake-package-directory: formal
+      - name: Record theorem/axiom report
+        run: |
+          cd formal
+          lake env lean Main.lean | tee FORMAL_AXIOM_REPORT.txt
+      - name: Upload formal verification evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: PCPPR-formal-verification
+          path: |
+            formal/PCPPR/GeneratedCertificates.lean
+            formal/FORMAL_AXIOM_REPORT.txt
+          if-no-files-found: error

@@ -103,8 +103,8 @@ theorem canonical_witness_from_generated_certificates
              (GeneratedCertificates.alphaU : ℝ)),
         ∃ t : I,
           deriv F x =
-            ∑ i : Fin 19,
-              bernstein 18 i t *
+            ∑ i : Fin 52,
+              bernstein 51 i t *
                 (GeneratedCertificates.diagonalFOCDerivativeBernsteinCoeffs i : ℝ))
     (hGAcont :
       ∀ alpha ∈ Ioo (GeneratedCertificates.alphaL : ℝ)

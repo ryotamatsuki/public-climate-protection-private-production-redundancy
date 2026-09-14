@@ -49,6 +49,8 @@ def main() -> None:
 
     if "Data and Code Availability" not in main_tex:
         raise AssertionError("anonymous data/code availability statement missing")
+    if "AI Assistance Disclosure" not in main_tex:
+        raise AssertionError("ERE AI-assistance disclosure missing")
 
     if "MartinHerranEtAl2026" not in intro or "MartinHerranEtAl2026" not in lit:
         raise AssertionError("closest ERE industrial-allocation paper must be positioned in introduction and literature review")

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import pathlib
+from dataclasses import dataclass
 import sympy as sp
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -15,22 +16,70 @@ bplant = sp.Rational(11, 200)
 c = sp.Rational(3, 1)
 
 
+@dataclass(frozen=True)
+class Dual:
+    """Exact forward-mode derivative pair (value, derivative)."""
+    v: sp.Expr
+    d: sp.Expr = sp.Integer(0)
+
+    @staticmethod
+    def coerce(x):
+        return x if isinstance(x, Dual) else Dual(sp.sympify(x), sp.Integer(0))
+
+    def __add__(self, other):
+        o = Dual.coerce(other)
+        return Dual(self.v + o.v, self.d + o.d)
+
+    __radd__ = __add__
+
+    def __neg__(self):
+        return Dual(-self.v, -self.d)
+
+    def __sub__(self, other):
+        return self + (-Dual.coerce(other))
+
+    def __rsub__(self, other):
+        return Dual.coerce(other) - self
+
+    def __mul__(self, other):
+        o = Dual.coerce(other)
+        return Dual(self.v * o.v, self.d * o.v + self.v * o.d)
+
+    __rmul__ = __mul__
+
+    def __truediv__(self, other):
+        o = Dual.coerce(other)
+        return Dual(self.v / o.v, (self.d * o.v - self.v * o.d) / o.v**2)
+
+    def __rtruediv__(self, other):
+        return Dual.coerce(other) / self
+
+    def __pow__(self, power: int):
+        if not isinstance(power, int):
+            raise TypeError('Dual powers must be integers')
+        if power == 0:
+            return Dual(sp.Integer(1), sp.Integer(0))
+        if power < 0:
+            return Dual(sp.Integer(1), sp.Integer(0)) / (self ** (-power))
+        return Dual(self.v**power, power * self.v**(power - 1) * self.d)
+
+
 def stored_rational(prefix: str, z: sp.Symbol) -> sp.Expr:
     num = sp.Poly.from_list(coeff[f'{prefix}_num'], gens=z, domain=sp.ZZ).as_expr()
     den = sp.Poly.from_list(coeff[f'{prefix}_den'], gens=z, domain=sp.ZZ).as_expr()
-    return sp.cancel(num / den)
+    return num / den
 
 
 def primitives(g):
     pi_d = 1 / (2 + g) ** 2
     pi_m = sp.Rational(1, 4)
-    delta = sp.cancel(pi_m - pi_d)
+    delta = pi_m - pi_d
     t_d = (3 + g) / (2 + g) ** 2
     t_m = sp.Rational(3, 8)
     return pi_d, delta, t_d, t_m
 
 
-def profile_from_q(qA, qB, l1: str, l2: str, g):
+def profile_dual(qA: Dual, qB: Dual, l1: str, l2: str, g):
     pi_d, delta, t_d, t_m = primitives(g)
     s1 = qA if l1 == 'A' else qB
     s2 = qA if l2 == 'A' else qB
@@ -40,76 +89,78 @@ def profile_from_q(qA, qB, l1: str, l2: str, g):
         J = qB
     else:
         J = qA * qB
-    den = k**2 - (delta * J) ** 2
-    r1 = sp.cancel((k * (pi_d * s1 + delta * J)
-                    - delta * J * (pi_d * s2 + delta * J)) / den)
-    r2 = sp.cancel((k * (pi_d * s2 + delta * J)
-                    - delta * J * (pi_d * s1 + delta * J)) / den)
-    profit1 = sp.cancel(pi_d - pi_d * s1 * (1 - r1)
-                        + delta * s2 * (1 - r2)
-                        - delta * J * (1 - r1) * (1 - r2)
-                        - k * r1**2 / 2)
+
+    den = k**2 - (delta * J)**2
+    r1 = (k * (pi_d * s1 + delta * J)
+          - delta * J * (pi_d * s2 + delta * J)) / den
+    r2 = (k * (pi_d * s2 + delta * J)
+          - delta * J * (pi_d * s1 + delta * J)) / den
+
+    profit1 = (pi_d - pi_d * s1 * (1 - r1)
+               + delta * s2 * (1 - r2)
+               - delta * J * (1 - r1) * (1 - r2)
+               - k * r1**2 / 2)
     m1 = s1 * (1 - r1)
     m2 = s2 * (1 - r2)
     z = J * (1 - r1) * (1 - r2)
-    surplus = sp.cancel(t_d + (t_m - t_d) * (m1 + m2)
-                        + (t_d - 2 * t_m) * z
-                        - k * (r1**2 + r2**2) / 2)
+    surplus = (t_d + (t_m - t_d) * (m1 + m2)
+               + (t_d - 2 * t_m) * z
+               - k * (r1**2 + r2**2) / 2)
     return profit1, surplus
 
 
-def expected_objects(aA, aB, g):
-    qA, qB = q0 - aA, q0 - aB
-    AA = profile_from_q(qA, qB, 'A', 'A', g)
-    AB = profile_from_q(qA, qB, 'A', 'B', g)
-    BA = profile_from_q(qA, qB, 'B', 'A', g)
-    BB = profile_from_q(qA, qB, 'B', 'B', g)
-    dA = sp.cancel(AA[0] - BA[0])
-    dB = sp.cancel(AB[0] - BB[0])
-    p = sp.cancel((H + dB) / (2 * H - dA + dB))
-    S = sp.cancel(p**2 * AA[1] + 2 * p * (1 - p) * AB[1] + (1 - p)**2 * BB[1])
-    W = sp.cancel(S + 2 * bplant - c * (aA**2 + aB**2) / 2)
-    GA = sp.cancel(S / 2 + 2 * bplant * p - c * aA**2 / 2)
-    return W, GA
+def expected_dual(qA: Dual, qB: Dual, g):
+    AA = profile_dual(qA, qB, 'A', 'A', g)
+    AB = profile_dual(qA, qB, 'A', 'B', g)
+    BA = profile_dual(qA, qB, 'B', 'A', g)
+    BB = profile_dual(qA, qB, 'B', 'B', g)
+    dA = AA[0] - BA[0]
+    dB = AB[0] - BB[0]
+    p = (H + dB) / (2 * H - dA + dB)
+    S = p**2 * AA[1] + 2 * p * (1 - p) * AB[1] + (1 - p)**2 * BB[1]
+    return p, S
+
+
+def exact_zero(expr: sp.Expr) -> bool:
+    num, _ = sp.fraction(sp.cancel(sp.together(expr)))
+    return sp.Poly(sp.expand(num)).is_zero
 
 
 def assert_scaled_identity(prefix: str, z: sp.Symbol, economic: sp.Expr):
     factor = sp.Rational(meta['objects'][prefix]['normalization_factor'])
     raw = stored_rational(prefix, z)
-    diff = sp.cancel(raw - factor * sp.cancel(economic))
-    assert diff == 0, f'{prefix} normalization identity failed: {diff}'
+    assert exact_zero(raw - factor * economic), f'{prefix} normalization identity failed'
     print(f'{prefix}: stored/economic = {factor}')
 
 
-# MS: common-policy derivative at the origin, varying gamma.
+# MS and ML at the symmetric origin, varying gamma.  Forward differentiation
+# evaluates the policy derivative at a=0 before symbolic simplification, so the
+# only remaining indeterminate is gamma.
 g = sp.symbols('gamma')
-a = sp.symbols('a')
-# Along the symmetric path p=1/2 by symmetry, which avoids introducing a
-# redundant location fixed-point expression into the common-policy derivative.
-q = q0 - a
-AA = profile_from_q(q, q, 'A', 'A', g)[1]
-AB = profile_from_q(q, q, 'A', 'B', g)[1]
-Ssym = sp.cancel((AA + AB) / 2)
-Wsym = sp.cancel(Ssym + 2 * bplant - c * a**2)
-MS = sp.cancel(sp.diff(Wsym, a).subs(a, 0))
+qA_common = Dual(q0, -1)
+qB_common = Dual(q0, -1)
+_, S_common = expected_dual(qA_common, qB_common, g)
+MS = S_common.d  # public-cost derivative is zero at the origin
 assert_scaled_identity('MS', g, MS)
 
-# ML: unilateral local-policy derivative at the symmetric origin.
-x = sp.symbols('x')
-_, GA_unilateral = expected_objects(x, sp.Integer(0), g)
-ML = sp.cancel(sp.diff(GA_unilateral, x).subs(x, 0))
+qA_unilateral = Dual(q0, -1)
+qB_unilateral = Dual(q0, 0)
+p_uni, S_uni = expected_dual(qA_unilateral, qB_unilateral, g)
+ML = S_uni.d / 2 + 2 * bplant * p_uni.d
 assert_scaled_identity('ML', g, ML)
 
-# F: diagonal local-government first-order condition at canonical gamma.
+# F and W' at the canonical gamma.  The policy level a remains symbolic, but
+# the derivative direction is propagated exactly without first building a
+# two-policy symbolic objective.
+a = sp.symbols('a')
 g0 = sp.Rational(12, 25)
-y = sp.symbols('y')
-_, GA_xy = expected_objects(x, y, g0)
-F = sp.cancel(sp.diff(GA_xy, x).subs(x, a).subs(y, a))
+q = q0 - a
+p_local, S_local = expected_dual(Dual(q, -1), Dual(q, 0), g0)
+F = S_local.d / 2 + 2 * bplant * p_local.d - c * a
 assert_scaled_identity('F', a, F)
 
-# W: common-policy planner derivative at canonical gamma.
-Wdiag = sp.cancel(Wsym.subs(g, g0))
-Wprime = sp.cancel(sp.diff(Wdiag, a))
+_, S_diag = expected_dual(Dual(q, -1), Dual(q, -1), g0)
+Wprime = S_diag.d - 2 * c * a
 assert_scaled_identity('W', a, Wprime)
 
 print('PASS auxiliary certificate normalization identities')

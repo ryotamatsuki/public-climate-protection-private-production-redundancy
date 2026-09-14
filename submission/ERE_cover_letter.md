@@ -8,7 +8,7 @@ The paper is intended to contribute to environmental economics in three ways. Fi
 
 The paper is distinct from work on environmental policy and industrial allocation, including Martín-Herrán, Martínez-García, and Morales (2026), because the policy instrument here is protection against disruption and the key welfare channel runs through firms’ endogenous geographic backup capacity and disaster-state market structure. It is also distinct from work showing that public flood protection affects private adaptation or location because those mechanisms are embedded here in a mobile oligopoly with strategic local-government competition, generating a policy-ranking reversal.
 
-The manuscript is original, is not published elsewhere, and is not under consideration by another journal. The anonymous manuscript and an anonymized replication archive are prepared for double-blind review. The public replication repository will be disclosed once the review process permits identification.
+The manuscript is original, is not published elsewhere, and is not under consideration by another journal. The anonymous manuscript and an anonymized replication archive are prepared for double-blind review. Following successful peer review and before final acceptance, the replication materials will be deposited in a public repository in accordance with the journal's replication-package policy.
 
 Thank you for considering the manuscript.
 

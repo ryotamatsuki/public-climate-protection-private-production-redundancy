@@ -1,8 +1,8 @@
 PYTHON ?= python
 
-.PHONY: verify symbolic normalization policy global numerical benchmarks test objects paper ere-review-package clean
+.PHONY: verify symbolic normalization policy global numerical benchmarks test objects ere-format paper ere-title-page ere-review-package clean
 
-verify: symbolic normalization policy global numerical benchmarks test objects paper ere-review-package
+verify: symbolic normalization policy global numerical benchmarks test objects ere-format paper ere-title-page ere-review-package
 
 symbolic:
 	$(PYTHON) scripts/verify_symbolic.py
@@ -28,14 +28,21 @@ test:
 objects:
 	$(PYTHON) scripts/generate_objects.py
 
+ere-format:
+	$(PYTHON) scripts/verify_ere_submission.py
+
 paper: objects
 	cd paper && pdflatex -interaction=nonstopmode -halt-on-error main.tex >/dev/null
 	cd paper && pdflatex -interaction=nonstopmode -halt-on-error main.tex >/dev/null
 	cd paper && pdflatex -interaction=nonstopmode -halt-on-error main.tex >/dev/null
+
+ere-title-page:
+	cd submission && pdflatex -interaction=nonstopmode -halt-on-error ERE_title_page.tex >/dev/null
 
 ere-review-package: objects
 	$(PYTHON) scripts/build_ere_review_package.py
 
 clean:
 	rm -f paper/*.aux paper/*.bbl paper/*.blg paper/*.log paper/*.out paper/*.pdf paper/*.toc
+	rm -f submission/*.aux submission/*.log submission/*.out submission/*.pdf
 	rm -rf dist

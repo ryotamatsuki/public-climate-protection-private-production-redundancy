@@ -1,8 +1,8 @@
 PYTHON ?= python
 
-.PHONY: verify symbolic normalization policy global numerical portability benchmarks test objects ere-format stage13-integration paper exposition ere-source-package ere-title-page ere-review-package clean
+.PHONY: verify symbolic normalization policy global numerical portability benchmarks test objects ere-format stage13-integration stage14-qa paper exposition ere-source-package ere-title-page ere-review-package clean
 
-verify: symbolic normalization policy global numerical portability benchmarks test objects ere-format stage13-integration paper exposition ere-source-package ere-title-page ere-review-package
+verify: symbolic normalization policy global numerical portability benchmarks test objects ere-format stage13-integration stage14-qa paper exposition ere-source-package ere-title-page ere-review-package
 
 symbolic:
 	$(PYTHON) scripts/verify_symbolic.py
@@ -36,6 +36,9 @@ ere-format:
 
 stage13-integration:
 	$(PYTHON) scripts/verify_stage13_integration.py
+
+stage14-qa:
+	$(PYTHON) scripts/verify_stage14_submission_qa.py
 
 paper: objects
 	cd paper && pdflatex -interaction=nonstopmode -halt-on-error main.tex >/dev/null

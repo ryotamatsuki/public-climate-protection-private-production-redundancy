@@ -11,8 +11,9 @@ Reproducibility and manuscript repository for the theory project **Public Climat
 - v2.4 portability/falsification retrofit: **CLOSED — headline CONDITIONALLY PORTABLE**
 - v2.5 exposition retrofit: **CLOSED**
 - Stage 12 v2.3+v2.4 journal-positioning recertification: **CLOSED**, merge `06c67fe65ad5d80e42808aab6e7bd9f3db33eddb`
+- Stage 13 integration refresh: **CLOSED**, merge `06609ae92d06911e93c633fa80c4137cc301641d`
 - Current journal target: *Environmental and Resource Economics (ERE)*
-- Current phase: **Stage 13 integration refresh**
+- Current phase: **Stage 14 submission QA — public-rule/repository QA in progress; authenticated portal + author confirmation remain fail-closed**
 
 ## Core result
 
@@ -34,17 +35,18 @@ The journal-facing package separates double-anonymous reviewer materials from no
 
 - Anonymous manuscript source: `paper/main.tex`
 - Stage 13 integration report: `STAGE_13_REPORT.md`
-- Stage 12 requirements baseline: `docs/STAGE_12_INITIAL_REQUIREMENTS_LEDGER_ERE_2026-09-25.md`
+- Stage 14 live QA report: `STAGE_14_REPORT.md`
+- Stage 14 live requirements ledger: `docs/STAGE_14_LIVE_REQUIREMENTS_LEDGER_ERE_2026-09-25.md`
 - Title page: `submission/ERE_title_page.tex`
 - Cover letter: `submission/ERE_cover_letter.md`
 - Submission checklist: `submission/ERE_submission_checklist.md`
+- AI provenance log: `docs/AI_PROVENANCE_LOG.md`
+- Author intellectual-contribution record: `docs/AUTHOR_INTELLECTUAL_CONTRIBUTION_RECORD.md`
 - Anonymous source-package builder: `scripts/build_verify_ere_source_package.py`
-- Anonymous replication README: `submission/ERE_replication_README.md`
-- Review-only Makefile: `submission/ERE_review_Makefile`
 - Anonymous replication builder: `scripts/build_ere_review_package.py`
 - ERE format/anonymity verifier: `scripts/verify_ere_submission.py`
 
-`make verify` generates both `dist/ERE_anonymous_manuscript_source.zip` and `dist/ERE_anonymous_replication.zip`. The source archive is extracted and clean-compiled in CI before it is accepted as a Stage-13 artifact.
+`make verify` generates both `dist/ERE_anonymous_manuscript_source.zip` and `dist/ERE_anonymous_replication.zip`. The source archive is extracted and clean-compiled in CI.
 
 ## Canonical validation
 
@@ -52,4 +54,4 @@ The journal-facing package separates double-anonymous reviewer materials from no
 make verify
 ```
 
-The gate runs symbolic identities, certificate-normalization checks, exact policy and whole-domain certificates, numerical stress tests, v2.4 portability diagnostics, benchmark checks, regression tests, deterministic exposition-object generation, ERE format/anonymity checks, a clean manuscript build, v2.5 exposition/page-arrival audit, clean-build source-package verification, title-page build, and anonymous replication-package generation. Lean verification runs as a separate pinned CI job.
+The gate runs symbolic identities, certificate-normalization checks, exact policy and whole-domain certificates, numerical stress tests, v2.4 portability diagnostics, benchmark checks, regression tests, deterministic exposition-object generation, ERE format/anonymity checks, Stage-13 integration regression, Stage-14 submission-QA regression, a clean manuscript build, v2.5 exposition/page-arrival audit, clean-build source-package verification, title-page build, and anonymous replication-package generation. Lean verification runs as a separate pinned CI job.

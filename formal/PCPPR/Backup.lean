@@ -55,7 +55,7 @@ theorem profit_difference_at_foc
       expectedProfitClosed πD Δ si sj J k rStar rj =
         -(k / 2) * (r - rStar)^2 := by
   unfold expectedProfitClosed
-  nlinarith
+  linear_combination (r - rStar) * hfoc
 
 /-- T4: because the objective is a quadratic with curvature -k, any
 interior FOC solution is the unique global maximizer on every subset that
@@ -103,8 +103,7 @@ to rival readiness is -Delta*J/k. -/
 theorem strategic_substitution_expression_neg
     {Δ J k : ℝ} (hΔ : 0 < Δ) (hJ : 0 < J) (hk : 0 < k) :
     -(Δ * J) / k < 0 := by
-  have hpos : 0 < Δ * J / k := div_pos (mul_pos hΔ hJ) hk
-  linarith
+  exact div_neg_of_neg_of_pos (neg_lt_zero.mpr (mul_pos hΔ hJ)) hk
 
 /-- Symmetric co-location readiness, paper equation (12). -/
 def rC (q πM k Δ : ℝ) : ℝ := q * πM / (k + q * Δ)

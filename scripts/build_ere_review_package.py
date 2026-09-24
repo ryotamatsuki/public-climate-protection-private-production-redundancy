@@ -13,6 +13,10 @@ EXACT_FILES = {
     "requirements.txt",
     "docs/certificate_normalization.json",
     "docs/certificate_polynomials.json",
+    "docs/v2_4_portability_results.json",
+    "formal/lakefile.lean",
+    "formal/lake-manifest.json",
+    "formal/lean-toolchain",
 }
 
 PATTERNS = (
@@ -24,6 +28,8 @@ PATTERNS = (
     "tests/*.py",
     "figures/*",
     "tables/*",
+    "formal/*.lean",
+    "formal/PCPPR/*.lean",
 )
 
 FORBIDDEN_TEXT = (
@@ -33,7 +39,7 @@ FORBIDDEN_TEXT = (
     "users.noreply.github.com",
 )
 
-TEXT_SUFFIXES = {".tex", ".py", ".md", ".txt", ".json", ".bib", ".csv", ".yml", ".yaml"}
+TEXT_SUFFIXES = {".tex", ".py", ".md", ".txt", ".json", ".bib", ".csv", ".yml", ".yaml", ".lean"}
 
 
 def selected_files() -> list[Path]:

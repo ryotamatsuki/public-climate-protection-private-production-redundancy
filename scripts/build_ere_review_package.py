@@ -98,7 +98,6 @@ def main() -> None:
             rel = p.relative_to(ROOT).as_posix()
             zf.write(p, rel)
 
-    # Re-open the archive and verify that identifying or submission-only paths were not included.
     with zipfile.ZipFile(OUT) as zf:
         names = zf.namelist()
         forbidden_paths = [n for n in names if n.startswith(".git/") or n.startswith(".github/") or n.startswith("submission/")]

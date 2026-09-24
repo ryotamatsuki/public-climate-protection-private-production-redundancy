@@ -62,9 +62,9 @@ ax.set_xlim(0.44,0.54)
 ax.set_ylim(bottom=0)
 fig.tight_layout()
 fig.savefig(FIG/'policy_regime.pdf',bbox_inches='tight')
+fig.savefig(FIG/'policy_regime.eps',format='eps',bbox_inches='tight')
 plt.close(fig)
 
-# Welfare-channel decomposition at the canonical witness gamma=12/25.
 par=Params(gamma=12/25)
 AA=profile(0,0,'A','A',par); AB=profile(0,0,'A','B',par)
 def fixed_r_welfare(a):

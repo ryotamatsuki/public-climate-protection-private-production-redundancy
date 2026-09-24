@@ -1,0 +1,28 @@
+{
+  "alternative_A_nonlinear_risk": {
+    "planner_grid_max_policy": [0.0, 0.0],
+    "planner_W00": 0.6183204099408616,
+    "planner_multistart_policies": [[0.0,0.0],[0.0,0.0],[0.0,0.0],[0.0,0.0],[0.0,0.0],[0.0,0.0]],
+    "continuation_failures": 0,
+    "location_probability_range": [0.43806635006441436, 0.5619336499355856],
+    "backup_readiness_range": [0.6738088112038685, 0.9084740493006567],
+    "max_location_contraction_bound": 0.22589881285814406,
+    "symmetric_local_equilibria": [0.010410751608615642],
+    "max_unilateral_deviation_gain_grid": -1.9865997735735164e-11,
+    "origin_MS_forward_diff": -0.006485023185121008,
+    "origin_ML_forward_diff": 0.0019308903920212117
+  },
+  "alternative_B_logistic_location": {
+    "planner_grid_max_policy": [0.0, 0.0],
+    "planner_W00": 0.6183204099408617,
+    "planner_multistart_policies": [[0.0,0.0],[0.0,0.0],[0.0,0.0],[0.0,0.0],[0.0,0.0],[0.0,0.0]],
+    "continuation_failures": 0,
+    "location_probability_range": [0.4210053729765765, 0.5789946270234235],
+    "backup_readiness_range": [0.6449838154101057, 0.9084740493006567],
+    "max_location_contraction_bound": 0.245719675808187,
+    "symmetric_local_equilibria": [0.02301968297612232],
+    "max_unilateral_deviation_gain_grid": -2.871836102258385e-11,
+    "origin_MS_forward_diff": -0.00648503406530665,
+    "origin_ML_forward_diff": 0.0019308937226902856
+  }
+}

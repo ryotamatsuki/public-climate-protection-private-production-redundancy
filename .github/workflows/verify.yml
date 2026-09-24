@@ -1,7 +1,13 @@
 name: verify
 on:
   push:
+    branches: [main]
   pull_request:
+
+concurrency:
+  group: verify-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -18,4 +24,118 @@ jobs:
         with:
           name: ERE-anonymous-replication
           path: dist/ERE_anonymous_replication.zip
+          if-no-files-found: error
+
+  lean-verification:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: pip install -r requirements.txt
+      - name: Generate exact Lean certificate data
+        run: |
+          python scripts/generate_lean_certificates.py
+          cp formal/PCPPR/GeneratedCertificates.lean /tmp/GeneratedCertificates.lean
+          cp formal/GENERATED_CERTIFICATE_ARCHIVE.json /tmp/GENERATED_CERTIFICATE_ARCHIVE.json
+          python scripts/generate_lean_certificates.py
+          cmp /tmp/GeneratedCertificates.lean formal/PCPPR/GeneratedCertificates.lean
+          cmp /tmp/GENERATED_CERTIFICATE_ARCHIVE.json formal/GENERATED_CERTIFICATE_ARCHIVE.json
+      - name: Verify pinned formal environment
+        run: |
+          test "$(cat formal/lean-toolchain)" = "leanprover/lean4:v4.32.1"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          manifest = json.loads(Path('formal/lake-manifest.json').read_text())
+          packages = {p['name']: p for p in manifest['packages']}
+          assert packages['mathlib']['rev'] == '520045ab14e26149ee970e2e617ca04b09bde5d6'
+          assert packages['mathlib']['inputRev'] == 'v4.32.1'
+          assert all(p.get('rev') for p in manifest['packages'])
+          print('Pinned Lean/mathlib manifest verified.')
+          PY
+      - name: Reject proof placeholders and custom axioms
+        run: |
+          if grep -R -n -E '(^|[^A-Za-z])(sorry|admit)([^A-Za-z]|$)' formal --include='*.lean'; then
+            echo 'Formal verification source contains a forbidden placeholder.'
+            exit 1
+          fi
+          if grep -R -n -E '^[[:space:]]*axiom[[:space:]]' formal/PCPPR formal/Main.lean --include='*.lean'; then
+            echo 'Formal verification source contains a custom axiom declaration.'
+            exit 1
+          fi
+      - name: Install pinned Lean toolchain
+        run: |
+          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Restore mathlib cache
+        run: |
+          cd formal
+          lake exe cache get
+      - name: Preflight T9 exact model arithmetic
+        timeout-minutes: 12
+        run: |
+          cd formal
+          lake build PCPPR.CanonicalWitness
+      - name: Preflight T10 actual Bernstein basis
+        timeout-minutes: 5
+        run: |
+          cd formal
+          lake build PCPPR.Bernstein
+      - name: Preflight generated exact payload
+        timeout-minutes: 8
+        run: |
+          cd formal
+          lake build PCPPR.GeneratedCertificates
+      - name: Preflight T11-T14 proof layers
+        timeout-minutes: 12
+        run: |
+          cd formal
+          lake build PCPPR.GlobalPlanner PCPPR.GlobalLocalGovernment PCPPR.TheoremCore
+      - name: Build Lean proof-critical core
+        run: |
+          cd formal
+          lake build \
+            PCPPR.Primitives \
+            PCPPR.ProductMarket \
+            PCPPR.Availability \
+            PCPPR.Backup \
+            PCPPR.Location \
+            PCPPR.Welfare \
+            PCPPR.MarginalDecomposition \
+            PCPPR.Bernstein \
+            PCPPR.CanonicalWitness \
+            PCPPR.GeneratedCertificates \
+            PCPPR.GlobalPlanner \
+            PCPPR.GlobalLocalGovernment \
+            PCPPR.TheoremCore
+      - name: Record theorem/axiom report
+        run: |
+          cd formal
+          lake env lean Main.lean | tee FORMAL_AXIOM_REPORT.txt
+          if grep -q 'sorryAx' FORMAL_AXIOM_REPORT.txt; then
+            echo 'Axiom audit detected sorryAx.'
+            exit 1
+          fi
+      - name: Record formal verification provenance
+        run: |
+          {
+            echo "commit=${GITHUB_SHA}"
+            echo "canonical_manuscript_model_sha=77f0c0705e3759b4997b3b17355f0063c02673e1"
+            echo "lean=leanprover/lean4:v4.32.1"
+            echo "mathlib=520045ab14e26149ee970e2e617ca04b09bde5d6"
+            echo "workflow_run_id=${GITHUB_RUN_ID}"
+          } | tee formal/FORMAL_VERIFICATION_RUN.txt
+      - name: Upload formal verification evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: PCPPR-formal-verification
+          path: |
+            formal/PCPPR/GeneratedCertificates.lean
+            formal/GENERATED_CERTIFICATE_ARCHIVE.json
+            formal/FORMAL_AXIOM_REPORT.txt
+            formal/FORMAL_VERIFICATION_RUN.txt
+            formal/lake-manifest.json
           if-no-files-found: error

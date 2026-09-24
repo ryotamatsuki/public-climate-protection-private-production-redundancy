@@ -26,6 +26,18 @@ jobs:
           path: dist/ERE_anonymous_replication.zip
           if-no-files-found: error
 
+      - name: Upload ERE Stage-14 QA bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: ERE-stage14-qa-bundle
+          path: |
+            paper/main.pdf
+            submission/ERE_title_page.pdf
+            dist/ERE_anonymous_manuscript_source.zip
+            dist/ERE_anonymous_replication.zip
+            figures/policy_regime.eps
+          if-no-files-found: error
+
   lean-verification:
     runs-on: ubuntu-latest
     timeout-minutes: 60

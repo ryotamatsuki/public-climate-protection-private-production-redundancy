@@ -97,7 +97,20 @@ jobs:
       - name: Build Lean proof-critical core
         run: |
           cd formal
-          lake build
+          lake build \
+            PCPPR.Primitives \
+            PCPPR.ProductMarket \
+            PCPPR.Availability \
+            PCPPR.Backup \
+            PCPPR.Location \
+            PCPPR.Welfare \
+            PCPPR.MarginalDecomposition \
+            PCPPR.Bernstein \
+            PCPPR.CanonicalWitness \
+            PCPPR.GeneratedCertificates \
+            PCPPR.GlobalPlanner \
+            PCPPR.GlobalLocalGovernment \
+            PCPPR.TheoremCore
       - name: Record theorem/axiom report
         run: |
           cd formal

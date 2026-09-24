@@ -2,6 +2,8 @@ import Mathlib
 
 namespace PCPPR.Location
 
+noncomputable section
+
 /-- Deterministic payoff advantage of A when the rival chooses A with probability p. -/
 def D (p dA dB : ℝ) : ℝ := p * dA + (1 - p) * dB
 
@@ -57,7 +59,7 @@ theorem endpoint_interior_implies_no_clipping
   by_cases hz : p = 0
   · subst p
     simpa using hu0
-  · have hp_pos : 0 < p := lt_of_le_of_ne hp0 hz.symm
+  · have hp_pos : 0 < p := lt_of_le_of_ne hp0 (Ne.symm hz)
     have hnonneg0 : 0 ≤ (1 - p) * u0 H dB :=
       mul_nonneg h1mp (le_of_lt hu0.1)
     have hpos1 : 0 < p * u1 H dA := mul_pos hp_pos hu1.1
@@ -115,9 +117,10 @@ theorem affine_pair_unique
     (h1 : p1 = u + slope * p2)
     (h2 : p2 = u + slope * p1) : p1 = p ∧ p2 = p := by
   have heq : p1 = p2 := no_asymmetric_probability_fixed_point hs h1 h2
-  subst p2
-  have hp1 : p1 = u + slope * p1 := h1
-  have huniq := affine_fixed_point_unique hs hp1 hp
-  exact ⟨huniq, huniq⟩
+  have hp1 : p1 = u + slope * p1 := by
+    rw [← heq] at h1
+    exact h1
+  have huniq : p1 = p := affine_fixed_point_unique hs hp1 hp
+  exact ⟨huniq, heq.symm.trans huniq⟩
 
 end PCPPR.Location

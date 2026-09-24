@@ -7,7 +7,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
 OUT = DIST / "ERE_anonymous_replication.zip"
-PACKAGER = "scripts/build_ere_review_package.py"
+EXCLUDED_SCRIPTS = {
+    "scripts/build_ere_review_package.py",
+    "scripts/build_verify_ere_source_package.py",
+}
 
 EXACT_FILES = {
     "requirements.txt",
@@ -52,7 +55,7 @@ def selected_files() -> list[Path]:
         if not p.is_file():
             continue
         rel = p.relative_to(ROOT).as_posix()
-        if rel == PACKAGER:
+        if rel in EXCLUDED_SCRIPTS:
             continue
         if any(fnmatch.fnmatch(rel, pattern) for pattern in PATTERNS):
             chosen.add(p)

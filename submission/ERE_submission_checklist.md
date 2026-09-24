@@ -29,6 +29,8 @@ Stage-12 v2.3+v2.4 recertification merge: `06c67fe65ad5d80e42808aab6e7bd9f3db33e
 - [x] v2.4 status remains CONDITIONALLY PORTABLE.
 - [x] No theory primitive, theorem, witness, welfare definition, or certificate changed in Stage 14.
 - [x] Cover letter remains within the certified contribution boundary.
+- [x] v2.7 reviewer-verifiability audit completed with PASS.
+- [x] Model-to-certificate bridge equations and proof boundaries preserved in the current manuscript.
 
 ## Human-only accountability
 

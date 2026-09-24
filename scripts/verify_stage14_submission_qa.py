@@ -16,6 +16,7 @@ author_record = read("docs/AUTHOR_INTELLECTUAL_CONTRIBUTION_RECORD.md")
 manuscript = read("paper/main.tex")
 checklist = read("submission/ERE_submission_checklist.md")
 readme = read("README.md")
+reviewer_report = read("docs/REVIEWER_VERIFIABILITY_REPORT.md")
 
 require(report, "PUBLIC-RULE / REPOSITORY QA: PASS", "public-rule QA verdict")
 require(report, "FULL STAGE-14 CLOSURE: HOLD", "fail-closed Stage-14 verdict")
@@ -28,6 +29,9 @@ require(author_record, "PERSONAL AUTHOR CONFIRMATION PENDING", "human confirmati
 require(manuscript, r"\section*{AI Assistance Disclosure}", "manuscript AI disclosure")
 require(manuscript, r"\section*{Data and Code Availability}", "data/code availability statement")
 require(checklist, "Authenticated Editorial Manager checks", "portal checklist")
+require(reviewer_report, "PASS — REVIEWER VERIFIABILITY", "v2.7 reviewer-verifiability verdict")
+require(reviewer_report, "No item is classified **BRIDGE NEEDED**, **APPENDIX DETAIL NEEDED**, or **SUBSTANTIVE DEFECT**", "v2.7 clean-room closure")
+require(report, "v2.7 reviewer-verifiability audit PASS recorded", "Stage-14 v2.7 closure record")
 require(readme, "Stage 14 submission QA", "current phase")
 
 for forbidden in [

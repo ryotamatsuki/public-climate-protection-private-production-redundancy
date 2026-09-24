@@ -7,12 +7,19 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
 OUT = DIST / "ERE_anonymous_replication.zip"
-PACKAGER = "scripts/build_ere_review_package.py"
+EXCLUDED_SCRIPTS = {
+    "scripts/build_ere_review_package.py",
+    "scripts/build_verify_ere_source_package.py",
+}
 
 EXACT_FILES = {
     "requirements.txt",
     "docs/certificate_normalization.json",
     "docs/certificate_polynomials.json",
+    "docs/v2_4_portability_results.json",
+    "formal/lakefile.lean",
+    "formal/lake-manifest.json",
+    "formal/lean-toolchain",
 }
 
 PATTERNS = (
@@ -24,6 +31,8 @@ PATTERNS = (
     "tests/*.py",
     "figures/*",
     "tables/*",
+    "formal/*.lean",
+    "formal/PCPPR/*.lean",
 )
 
 FORBIDDEN_TEXT = (
@@ -33,7 +42,7 @@ FORBIDDEN_TEXT = (
     "users.noreply.github.com",
 )
 
-TEXT_SUFFIXES = {".tex", ".py", ".md", ".txt", ".json", ".bib", ".csv", ".yml", ".yaml"}
+TEXT_SUFFIXES = {".tex", ".py", ".md", ".txt", ".json", ".bib", ".csv", ".yml", ".yaml", ".lean"}
 
 
 def selected_files() -> list[Path]:
@@ -46,7 +55,7 @@ def selected_files() -> list[Path]:
         if not p.is_file():
             continue
         rel = p.relative_to(ROOT).as_posix()
-        if rel == PACKAGER:
+        if rel in EXCLUDED_SCRIPTS:
             continue
         if any(fnmatch.fnmatch(rel, pattern) for pattern in PATTERNS):
             chosen.add(p)

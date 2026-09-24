@@ -23,7 +23,17 @@ From the root of the anonymized archive, run:
 make verify
 ```
 
-The command executes the symbolic checks, primitive-to-certificate normalization identities, exact policy and whole-domain certificates, numerical stress tests, nested-benchmark checks, regression tests, deterministic object generation, and the LaTeX build.
+The command executes the symbolic checks, primitive-to-certificate normalization identities, exact policy and whole-domain certificates, numerical stress tests, the pre-specified v2.4 portability diagnostics, nested-benchmark checks, regression tests, deterministic object generation, the exposition/page-arrival audit, and the LaTeX build.
+
+## Formal verification
+
+The archive also contains the pinned Lean 4/mathlib proof-critical formalization. After installing the toolchain declared in `formal/lean-toolchain`, run:
+
+```bash
+make formal-verify
+```
+
+A successful Lean build certifies only the encoded statements under their encoded assumptions; it does not by itself certify economic interpretation, novelty, or unformalized model scope.
 
 ## Interpretation of computer-assisted proofs
 

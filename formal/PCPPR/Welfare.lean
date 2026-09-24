@@ -3,6 +3,8 @@ import PCPPR.ProductMarket
 
 namespace PCPPR.Welfare
 
+noncomputable section
+
 open PCPPR.Availability
 
 /-- Product-market surplus obtained by enumerating the four availability states,
@@ -28,5 +30,7 @@ theorem surplus_state_eq_closed
   unfold surplusByStates surplusClosed
   unfold p11 p10 p01 m z
   ring
+
+end
 
 end PCPPR.Welfare

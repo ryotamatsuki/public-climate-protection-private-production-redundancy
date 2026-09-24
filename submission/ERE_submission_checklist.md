@@ -1,57 +1,95 @@
-# ERE submission checklist
+# ERE submission checklist — refreshed Stage 14
 
 Target: **Environmental and Resource Economics**
+Refresh date: **2026-09-25**
 
-Input theory checkpoint: `7a02e1b8558d8059c72287f2e226b74161ce36b3` (`freeze-pcppr-stage12r-2026-09-14`).
-Stage 13 submission checkpoint: `b1bc210e8dce59455466fa2113e1c178c5756208` (`checkpoint-stage13-ere-2026-09-14`).
+Current certified lineage:
 
-## Journal-format requirements
+- Stage-12R theory refreeze: `PCPPR-THEORY-FREEZE-2026-09-14-v2`
+- Formal Verification Gate merged: `fc0c9cee8b83f0373659965b1615094e91e05c96`
+- v2.2 structural-absorption retrofit merged: `52ffb2f134e507557b736c3fa2f6082794abba1f`
+- v2.4 portability/falsification retrofit merged: `7cf7117e6319c7c595a3d10ef5475cc74a97c209`
+- v2.5 exposition retrofit merged: `ea67d654f3a44a19ede96dafacdf2419160a8496`
 
-- [x] Anonymous manuscript prepared for double-anonymous review.
-- [x] Separate title-page file prepared.
-- [x] Abstract length within the journal range (150–250 words).
-- [x] Six keywords.
-- [x] Mathematical manuscript retained in LaTeX.
-- [x] Anonymous Data and Code Availability statement included in manuscript.
-- [x] Separate Statements and Declarations section included in title page.
-- [x] Author affiliation, city/country, corresponding e-mail, and ORCID finalized.
-- [x] Funding statement finalized: no external funding.
-- [x] Competing-interest statement finalized: none declared.
-- [x] Sole-author contribution statement finalized.
-- [x] AI-assistance disclosure included and author responsibility stated.
+## Current official ERE requirements
 
-## Editorial positioning
+Official sources re-opened on 2026-09-25:
 
-- [x] Climate adaptation and endogenous private resilience are the opening research question.
-- [x] General marginal decomposition is surfaced in the introduction.
-- [x] Martín-Herrán et al. (2026) is distinguished near the front.
-- [x] Grames et al. (2019) and the 2026 Zhao–Yang–Zhang working paper are explicitly separated from the paper's full-game contribution.
-- [x] No claim of novelty for public/private adaptation crowd-out itself.
-- [x] No change to Stage 12R theorem architecture or canonical witness.
+- https://link.springer.com/journal/10640/submission-guidelines
+- https://link.springer.com/journal/10640/how-to-publish-with-us
+- https://www.springernature.com/gp/policies/editorial-policies/ai-manuscript-preparation
+- https://www.springernature.com/gp/policies/editorial-policies/using-ai-in-research
 
-## Double-anonymous replication package
+- [x] Double-blind manuscript with separate title page.
+- [x] Abstract within 150–250 words.
+- [x] 4–6 keywords (six supplied).
+- [x] Mathematical manuscript retained in LaTeX, which ERE explicitly permits.
+- [x] All relevant editable manuscript source files packaged for upload.
+- [x] Exact anonymous source ZIP is extracted and clean-compiled in CI.
+- [x] Data Availability statement included.
+- [x] Reviewer-accessible anonymized replication archive supplied; no empirical dataset is used.
+- [x] Public persistent replication deposit reserved for the journal's post-review / pre-acceptance requirement.
+- [x] Funding, competing interests, ethics/data/code, and author-contribution statements included on title page.
+- [x] Current Springer Nature AI-use policy reconciled with the manuscript.
+- [x] AI, COMPUTATION, FORMAL, and AUTHOR verification roles are not collapsed.
+- [x] DOI links use full https://doi.org/... form where available.
+- [x] Figure 1 generated as PDF for LaTeX and EPS companion artwork for portal use.
+- [x] Main-text exhibit architecture remains one figure + two tables.
+- [x] v2.5 page-arrival / exposition audit is part of `make verify`.
+- [x] v2.4 portability diagnostics are part of `make verify`.
+- [x] Lean source and pinned formal environment are included in the anonymized reviewer archive.
 
-- [x] Reviewer-facing replication README prepared without identifying information.
-- [x] Anonymized ZIP generated from required code, certificates, tests, generated outputs, and instructions.
-- [x] ZIP contains no Git metadata, usernames, local absolute paths, author names, e-mail addresses, or identifying repository URLs.
-- [x] GitHub Actions uploads the anonymous ZIP as a workflow artifact.
-- [x] Accepted-version availability wording is reserved for replacement with a persistent public repository after review.
+## Double-anonymous package
 
-## References and source files
+- [x] Anonymous manuscript contains no author field content.
+- [x] Title page is separate.
+- [x] Reviewer replication ZIP forbidden-token scan covers manuscript/code/formal source.
+- [x] No Git metadata, submission-only files, author names, e-mail addresses, ORCID, or identifying repository URLs are included in the reviewer ZIP.
+- [x] Formal Lean source is present but does not identify the author.
+- [x] Reviewer Makefile reproduces computational, portability, exposition, and manuscript checks.
+- [x] Formal build is separately available via `make formal-verify`.
 
-- [x] DOI links use `https://doi.org/...` where supplied in the manuscript reference list.
-- [x] Zhao–Yang–Zhang (2026) is identified in text as a working paper rather than presented as a journal article.
-- [x] LaTeX build completes without unresolved citations or cross-references under the repository verification pipeline.
-- [x] Editable LaTeX source files are retained for portal upload.
-- [x] Figure placement/caption style and generated-object reproducibility checked.
+## Exact upload set
 
-## Final preflight
+Prepared locally/by CI:
 
-- [x] Full `make verify` passed on Stage 13 and will be rerun on the Stage 14 final branch head.
-- [x] Title page builds separately.
-- [x] Anonymous manuscript visually inspected for identifying information and layout problems.
-- [x] Anonymous review artifact digest recorded from Stage 13 main run.
-- [x] Cover letter finalized.
-- [x] Exact upload set defined: anonymous manuscript/source files, separate title page, cover letter, and anonymized replication archive.
-- [x] Portal metadata prepared: title, abstract, six keywords, JEL H73/L13/Q54/R38, author details, declarations, and AI-use disclosure.
-- [ ] Actual upload/submission in the ERE portal (outside the Stage 14 repository gate).
+1. anonymous manuscript PDF;
+2. `ERE_anonymous_manuscript_source.zip` — editable LaTeX/source package, clean-build certified;
+3. separate title-page PDF/source;
+4. cover letter;
+5. `ERE_anonymous_replication.zip`;
+6. EPS companion artwork if Editorial Manager requests a separate figure designation.
+
+## AI / accountability
+
+- [x] `docs/AI_PROVENANCE_LOG.md` records material AI use.
+- [x] `docs/AI_DISCLOSURE_RECONCILIATION.md` maps actual use to disclosure wording and placement.
+- [x] `docs/AUTHOR_INTELLECTUAL_CONTRIBUTION_RECORD.md` records the central claim/assumptions/proof logic and explicitly reserves personal author sign-off for Stage 15.
+- [x] Manuscript does not claim that AI/computation/Lean constitutes author verification.
+- [ ] Personal author approval of the exact final commit/PDF/package — Stage 15 only.
+
+## Fees
+
+- [x] ERE is hybrid.
+- [x] Subscription publishing has no APC.
+- [x] OA is optional; current official APC is £2490 / $3390 / €2790 plus applicable tax.
+- [x] No mandatory submission fee was identified on the current official journal pages.
+
+## Remaining authenticated-portal items
+
+- [ ] Confirm article type / section in Editorial Manager.
+- [ ] Confirm file designations for anonymous manuscript source, title page, replication material, and figure.
+- [ ] Complete author/declaration/AI/data-code portal fields.
+- [ ] Supply or skip optional reviewer suggestions as appropriate.
+- [ ] Inspect all portal warnings.
+- [ ] Inspect the Editorial Manager-generated review PDF for anonymity, equations, references, figure/table placement, and declarations.
+- [ ] Record personal author sign-off on the exact frozen package.
+- [ ] Submit.
+
+## Stage-14 status
+
+All non-portal technical items are designed to close under CI. The final Stage-14 verdict may be no stronger than:
+
+**CONDITIONAL PASS — AUTHENTICATED PORTAL PREFLIGHT + PERSONAL AUTHOR SIGN-OFF REQUIRED**
+
+until the two human/portal-only items above are completed.

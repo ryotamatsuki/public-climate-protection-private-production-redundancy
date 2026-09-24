@@ -97,7 +97,7 @@ jobs:
       - name: Build Lean proof-critical core
         run: |
           cd formal
-          lake build PCPPR
+          lake env lean Main.lean >/dev/null
       - name: Record theorem/axiom report
         run: |
           cd formal

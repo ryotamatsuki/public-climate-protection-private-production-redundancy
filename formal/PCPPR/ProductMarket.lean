@@ -38,7 +38,8 @@ theorem symmetric_cournot_foc_solution {γ x : ℝ} (hden : 2 + γ ≠ 0)
 theorem delta_identity (γ : ℝ) (hden : 2 + γ ≠ 0) :
     delta γ = γ * (γ + 4) / (4 * (γ + 2)^2) := by
   unfold delta piM piD
-  have hden' : γ + 2 ≠ 0 := by linarith
+  have hden' : γ + 2 ≠ 0 := by
+    simpa [add_comm] using hden
   field_simp [hden, hden']
   ring
 

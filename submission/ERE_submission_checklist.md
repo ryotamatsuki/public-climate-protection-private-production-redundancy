@@ -3,6 +3,7 @@
 Target: **Environmental and Resource Economics**  
 Refresh date: **2026-09-25**  
 Input Stage-13 merge: `06609ae92d06911e93c633fa80c4137cc301641d`
+Stage-12 v2.3+v2.4 recertification merge: `06c67fe65ad5d80e42808aab6e7bd9f3db33eddb`
 
 ## Public-rule and package checks
 

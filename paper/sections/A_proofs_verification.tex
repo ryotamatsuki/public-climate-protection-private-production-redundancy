@@ -158,7 +158,7 @@ W_{a_B}=\frac{P_B(a_A,a_B)}{Q_B(a_A,a_B)}
 \]
 for explicit polynomials $P_A,P_B,Q_A,Q_B$ with rational coefficients at the canonical witness.
 
-The exact certificate applies the argument in Section~\ref{app:certificate-method} to these four polynomials on $[0,2/25]^2$. It verifies that every Bernstein coefficient needed for $Q_A$ and $Q_B$ has the positive sign, so
+The exact certificate applies the argument in Section~\ref{app:certificate-method} to these four polynomials on $[0,2/25]^2$. It verifies that the relevant Bernstein coefficients of $Q_A$ and $Q_B$ are strictly positive, so
 \[
 Q_A>0,\qquad Q_B>0
 \]
@@ -189,53 +189,7 @@ denote the first-order condition along the symmetric policy line. Exact real-roo
 G_{A,a_A}(\alpha,\alpha)=0.
 \]
 
-A stationary point is not yet enough for a global best response, so the remaining step is to prove strict concavity in jurisdiction $A
-
-\begin{proof}[Proof of Theorem~\ref{thm:main} at the canonical witness]
-Lemma~\ref{lem:continuation} makes every downstream continuation used in a first-stage deviation unique and interior. Lemma~\ref{lem:planner-global} gives the unique coordinated optimum $(0,0)$. Lemma~\ref{lem:local-global} gives the strictly positive symmetric first-stage Nash equilibrium $(\alpha,\alpha)$. These statements establish the policy-ranking reversal at the canonical witness. Lemma~\ref{lem:open-set} below extends the result to a nonempty open set within the maintained symmetric primitive family.
-\end{proof}
-
-\subsection{Open-set persistence}
-
-\begin{lemma}[Persistence around the canonical witness]\label{lem:open-set}
-There is a neighborhood of the canonical parameter vector, within the maintained symmetric primitive family, on which the unique planner optimum remains at zero, the downstream continuation remains unique and interior for every admissible policy, and a strictly positive symmetric local-government Nash equilibrium persists.
-\end{lemma}
-
-\begin{proof}
-Let $\theta$ collect the primitives and normalize public policies by $x_j=a_j/\bar a(\theta)$, so the policy domain is the fixed compact square $[0,1]^2$ for all nearby $\theta$. At the canonical vector $\theta_0$, the exact certificates establish strict inequalities for all denominator signs, backup-interiority bounds, location no-clipping conditions, and planner derivatives on that compact square. Because the relevant rational functions are continuous jointly in $(x_A,x_B,\theta)$ wherever the certified denominators remain nonzero, compactness converts each strict pointwise certificate at $\theta_0$ into a positive uniform margin. Those margins persist for all $\theta$ in a sufficiently small neighborhood of $\theta_0$. Consequently, the same continuation branch remains well-defined, unique, and interior, and both planner partial derivatives remain strictly negative throughout the normalized square. The coordinated optimum therefore remains at zero.
-
-For the local-government equilibrium, let $F(a,\theta)$ denote the symmetric first-order condition. At $(\alpha,\theta_0)$, $F=0$ and the root is simple because the certified own-policy second derivative is strictly negative. The implicit-function theorem therefore yields a unique continuous root $\alpha(\theta)$ near $\alpha$, with $0<\alpha(\theta)<\bar a(\theta)$ for nearby primitives. The strict-concavity certificate has a uniform negative margin on the compact own-policy interval when the rival action ranges over a neighborhood containing the root; continuity preserves that margin for nearby $\theta$. Hence $\alpha(\theta)$ remains the unique global best response to itself. This proves persistence of the positive symmetric Nash equilibrium and completes the nonempty-open-set part of the theorem.
-\end{proof}
-
-\subsection{Product-substitutability interaction}
-
-Equation~\eqref{eq:gamma-r} concerns the level of readiness on the symmetric interior branch. It does not assign a general sign to the interaction between substitutability and the marginal policy response. For the canonical co-located symmetric origin, exact differentiation gives
-\begin{equation}
-\left.\frac{\partial^2r^C}{\partial q\,\partial\gamma}\right|_{q=3/10,\,\gamma=12/25}
-=-\frac{26550065039062500}{13482801445834729}<0.
-\end{equation}
-Since $q=q_0-a$, this means that the marginal reduction in readiness caused by an increase in protection is locally weaker as $\gamma$ rises at this point. No opposite global interaction claim is used in the theorem.
-
-\subsection{Robustness to counting the selected location-fit payoff}\label{app:fit-robustness}
-
-The baseline welfare criterion treats $\varepsilon_i$ as a non-resource location-fit shifter. A natural robustness question is whether the theorem survives if the selected fit payoff is instead counted in welfare. Let $D\in[-H,H]$ be a firm's deterministic payoff advantage of $A$ over $B$. The firm chooses $A$ when $\varepsilon_i\ge -D$. The expected selected perturbation payoff for one firm is therefore
-\begin{equation}
-\frac{1}{2H}\int_{-D}^{H}\varepsilon\,d\varepsilon
-=\frac H4-\frac{D^2}{4H}.
-\end{equation}
-For the two symmetric firms the aggregate term is
-\begin{equation}
-R(D)=\frac H2-\frac{D^2}{2H}\leq \frac H2,
-\label{eq:fit-payoff}
-\end{equation}
-with equality if and only if $D=0$. At every symmetric policy profile, including both $(0,0)$ and $(\alpha,\alpha)$, symmetry implies $D=0$. Since baseline coordinated welfare is globally maximized at $(0,0)$ and $R(D)$ is also globally maximized there, adding $R(D)$ to coordinated welfare cannot change the planner optimum. Likewise, against $a_B=\alpha$, baseline $G_A$ is globally maximized at $a_A=\alpha$, and $R(D)$ is maximized at that same symmetric point. Adding any fixed nonnegative local share of $R(D)$ therefore leaves $a_A=\alpha$ a global best response. This robustness statement depends on that specified nonnegative fixed-share allocation of the added fit term.
-
-\subsection{Numerical stress tests and reproducibility}\label{app:continuation}
-
-The exact certificates establish the theorem's global quantifiers. Numerical routines are retained only as counterexample searches and implementation checks. At the canonical witness, the numerical audit evaluates unilateral government deviations on 2,001 policy points, searches the two-dimensional planner problem on a deterministic grid and from multiple continuous-optimization starting points, and re-solves downstream continuation choices after each material deviation. The separate state-enumeration evaluator constructs the four final availability probabilities directly from $s_i$, $J$, and the conditional-independence backup law rather than calling the closed-form expected-payoff expression.
-
-The reproducibility archive identifies the exact scripts corresponding to each lemma. \texttt{scripts/verify\_global\_certificate.py} generates the whole-domain Bernstein inequalities; \texttt{scripts/verify\_policy\_certificate.py} and \texttt{scripts/verify\_symbolic.py} perform exact root isolation; \texttt{scripts/verify\_normalization.py} checks the scaling of the auxiliary coefficient archive against primitive symbolic expressions; and the numerical routines serve only as independent stress tests. No floating-point computation is used to establish Lemmas~\ref{lem:continuation}--\ref{lem:local-global}.
-s own policy. After substituting the unique downstream continuation, write
+A stationary point is not yet enough for a global best response. The remaining step is to prove strict concavity in the own policy of jurisdiction $A$. After substituting the unique downstream continuation, write
 \[
 G_{A,a_Aa_A}(a_A,a_B)
 =
@@ -243,59 +197,13 @@ G_{A,a_Aa_A}(a_A,a_B)
 \]
 Because $\alpha$ is represented by an isolating interval rather than by a floating-point number, the certificate lets the rival action $a_B$ range over the entire rational interval containing $\alpha$, while $a_A$ ranges over its full feasible interval $[0,2/25]$.
 
-On that rectangle, the Bernstein certificate establishes a fixed nonzero sign for $Q_G$ and the corresponding opposite sign for $P_G$, after the recorded normalization is applied. By the weighted-average argument in Section~\ref{app:certificate-method}, this proves
+On that rectangle, the Bernstein certificate establishes fixed nonzero signs for the numerator and denominator which, after the recorded normalization is applied, imply
 \begin{equation}
-G_{A,a_Aa_A}<0
+G_{A,a_Aa_A}<0.
 \end{equation}
-throughout the whole own-policy interval for every rival action in the isolating interval, and therefore in particular when $a_B=\alpha$.
+The weighted-average argument in Section~\ref{app:certificate-method} makes this a whole-rectangle inequality rather than a finite-grid check. In particular, it holds for every feasible $a_A$ when $a_B=\alpha$.
 
-Hence $G_A(\cdot,\alpha)$ is strictly concave on the entire feasible interval. A strictly concave function has at most one stationary point, and any such point is its unique global maximizer. Since $G_{A,a_A}(\alpha,\alpha)=0$, $a_A=\alpha$ is jurisdiction $A
-
-\begin{proof}[Proof of Theorem~\ref{thm:main} at the canonical witness]
-Lemma~\ref{lem:continuation} makes every downstream continuation used in a first-stage deviation unique and interior. Lemma~\ref{lem:planner-global} gives the unique coordinated optimum $(0,0)$. Lemma~\ref{lem:local-global} gives the strictly positive symmetric first-stage Nash equilibrium $(\alpha,\alpha)$. These statements establish the policy-ranking reversal at the canonical witness. Lemma~\ref{lem:open-set} below extends the result to a nonempty open set within the maintained symmetric primitive family.
-\end{proof}
-
-\subsection{Open-set persistence}
-
-\begin{lemma}[Persistence around the canonical witness]\label{lem:open-set}
-There is a neighborhood of the canonical parameter vector, within the maintained symmetric primitive family, on which the unique planner optimum remains at zero, the downstream continuation remains unique and interior for every admissible policy, and a strictly positive symmetric local-government Nash equilibrium persists.
-\end{lemma}
-
-\begin{proof}
-Let $\theta$ collect the primitives and normalize public policies by $x_j=a_j/\bar a(\theta)$, so the policy domain is the fixed compact square $[0,1]^2$ for all nearby $\theta$. At the canonical vector $\theta_0$, the exact certificates establish strict inequalities for all denominator signs, backup-interiority bounds, location no-clipping conditions, and planner derivatives on that compact square. Because the relevant rational functions are continuous jointly in $(x_A,x_B,\theta)$ wherever the certified denominators remain nonzero, compactness converts each strict pointwise certificate at $\theta_0$ into a positive uniform margin. Those margins persist for all $\theta$ in a sufficiently small neighborhood of $\theta_0$. Consequently, the same continuation branch remains well-defined, unique, and interior, and both planner partial derivatives remain strictly negative throughout the normalized square. The coordinated optimum therefore remains at zero.
-
-For the local-government equilibrium, let $F(a,\theta)$ denote the symmetric first-order condition. At $(\alpha,\theta_0)$, $F=0$ and the root is simple because the certified own-policy second derivative is strictly negative. The implicit-function theorem therefore yields a unique continuous root $\alpha(\theta)$ near $\alpha$, with $0<\alpha(\theta)<\bar a(\theta)$ for nearby primitives. The strict-concavity certificate has a uniform negative margin on the compact own-policy interval when the rival action ranges over a neighborhood containing the root; continuity preserves that margin for nearby $\theta$. Hence $\alpha(\theta)$ remains the unique global best response to itself. This proves persistence of the positive symmetric Nash equilibrium and completes the nonempty-open-set part of the theorem.
-\end{proof}
-
-\subsection{Product-substitutability interaction}
-
-Equation~\eqref{eq:gamma-r} concerns the level of readiness on the symmetric interior branch. It does not assign a general sign to the interaction between substitutability and the marginal policy response. For the canonical co-located symmetric origin, exact differentiation gives
-\begin{equation}
-\left.\frac{\partial^2r^C}{\partial q\,\partial\gamma}\right|_{q=3/10,\,\gamma=12/25}
-=-\frac{26550065039062500}{13482801445834729}<0.
-\end{equation}
-Since $q=q_0-a$, this means that the marginal reduction in readiness caused by an increase in protection is locally weaker as $\gamma$ rises at this point. No opposite global interaction claim is used in the theorem.
-
-\subsection{Robustness to counting the selected location-fit payoff}\label{app:fit-robustness}
-
-The baseline welfare criterion treats $\varepsilon_i$ as a non-resource location-fit shifter. A natural robustness question is whether the theorem survives if the selected fit payoff is instead counted in welfare. Let $D\in[-H,H]$ be a firm's deterministic payoff advantage of $A$ over $B$. The firm chooses $A$ when $\varepsilon_i\ge -D$. The expected selected perturbation payoff for one firm is therefore
-\begin{equation}
-\frac{1}{2H}\int_{-D}^{H}\varepsilon\,d\varepsilon
-=\frac H4-\frac{D^2}{4H}.
-\end{equation}
-For the two symmetric firms the aggregate term is
-\begin{equation}
-R(D)=\frac H2-\frac{D^2}{2H}\leq \frac H2,
-\label{eq:fit-payoff}
-\end{equation}
-with equality if and only if $D=0$. At every symmetric policy profile, including both $(0,0)$ and $(\alpha,\alpha)$, symmetry implies $D=0$. Since baseline coordinated welfare is globally maximized at $(0,0)$ and $R(D)$ is also globally maximized there, adding $R(D)$ to coordinated welfare cannot change the planner optimum. Likewise, against $a_B=\alpha$, baseline $G_A$ is globally maximized at $a_A=\alpha$, and $R(D)$ is maximized at that same symmetric point. Adding any fixed nonnegative local share of $R(D)$ therefore leaves $a_A=\alpha$ a global best response. This robustness statement depends on that specified nonnegative fixed-share allocation of the added fit term.
-
-\subsection{Numerical stress tests and reproducibility}\label{app:continuation}
-
-The exact certificates establish the theorem's global quantifiers. Numerical routines are retained only as counterexample searches and implementation checks. At the canonical witness, the numerical audit evaluates unilateral government deviations on 2,001 policy points, searches the two-dimensional planner problem on a deterministic grid and from multiple continuous-optimization starting points, and re-solves downstream continuation choices after each material deviation. The separate state-enumeration evaluator constructs the four final availability probabilities directly from $s_i$, $J$, and the conditional-independence backup law rather than calling the closed-form expected-payoff expression.
-
-The reproducibility archive identifies the exact scripts corresponding to each lemma. \texttt{scripts/verify\_global\_certificate.py} generates the whole-domain Bernstein inequalities; \texttt{scripts/verify\_policy\_certificate.py} and \texttt{scripts/verify\_symbolic.py} perform exact root isolation; \texttt{scripts/verify\_normalization.py} checks the scaling of the auxiliary coefficient archive against primitive symbolic expressions; and the numerical routines serve only as independent stress tests. No floating-point computation is used to establish Lemmas~\ref{lem:continuation}--\ref{lem:local-global}.
-s unique global best response to $a_B=\alpha$, including against both boundary actions. Symmetry gives the same conclusion for jurisdiction $B$, so $(\alpha,\alpha)$ is a positive Nash equilibrium.
+Hence $G_A(\cdot,\alpha)$ is strictly concave on the entire feasible interval. A strictly concave function has at most one stationary point, and any such point is its unique global maximizer. Since $G_{A,a_A}(\alpha,\alpha)=0$, $a_A=\alpha$ is jurisdiction $A$'s unique global best response to $a_B=\alpha$, including against both boundary actions. Symmetry gives the same conclusion for jurisdiction $B$, so $(\alpha,\alpha)$ is a positive Nash equilibrium.
 \end{proof}
 
 \begin{proof}[Proof of Theorem~\ref{thm:main} at the canonical witness]

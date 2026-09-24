@@ -35,7 +35,7 @@ For the parameter vector in \eqref{eq:witness} and every policy pair $(a_A,a_B)\
 \end{lemma}
 
 \begin{proof}
-For each of the four primary-location profiles, the interior backup first-order conditions form a two-equation linear system. The exact certificate verifies on the full policy rectangle that its determinant is strictly positive, that both resulting readiness levels satisfy $0<r_i<1$, and that the linear best-response slopes have product strictly below one in absolute value. Because each firm's objective is globally strictly concave in its own readiness, the interior solution is the unique global backup Nash equilibrium and no boundary solution is omitted.
+For each of the four primary-location profiles, the interior backup first-order conditions are the two-equation linear system in \eqref{eq:backup-linear-system}. The exact certificate verifies on the full policy rectangle that its determinant is strictly positive, that both resulting readiness levels satisfy $0<r_i<1$, and that the linear best-response slopes have product strictly below one in absolute value. Because each firm's objective is globally strictly concave in its own readiness, the interior solution is the unique global backup Nash equilibrium and no boundary solution is omitted.
 
 For the location game, define $u_0,u_1,B$ as in \eqref{eq:location-endpoints}. Exact polynomial inequalities verify $0<u_0,u_1<1$ throughout the policy rectangle. Thus the affine cutoff best response never clips. Since $B=u_1-u_0$, these endpoint inequalities imply $|B|<1$, so the two-firm affine best-response system is a contraction. It therefore has a unique probability fixed point and cannot support a distinct asymmetric probability solution. The certificate also verifies that the denominator in \eqref{eq:location-prob} is strictly positive and that the resulting probability lies in $(0,1)$. The final Cournot games have the strictly concave quadratic objectives already solved above.
 \end{proof}
@@ -150,7 +150,7 @@ for every $(a_A,a_B)\in[0,2/25]^2$. Hence $(0,0)$ is the unique coordinated opti
 \end{lemma}
 
 \begin{proof}
-Substitute the unique downstream continuation from Lemma~\ref{lem:continuation} into national welfare. Differentiating the resulting rational expression gives
+Substitute the unique downstream continuation from Lemma~\ref{lem:continuation} into the location-weighted surplus in \eqref{eq:expected-surplus-location}, and then into national welfare \eqref{eq:national-welfare}. Because the backup solutions and the location probability are rational functions of policy, the resulting welfare function is rational. Differentiating it gives
 \[
 W_{a_A}=\frac{P_A(a_A,a_B)}{Q_A(a_A,a_B)},
 \qquad

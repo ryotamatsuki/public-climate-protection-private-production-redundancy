@@ -25,6 +25,17 @@ jobs:
           name: ERE-anonymous-replication
           path: dist/ERE_anonymous_replication.zip
           if-no-files-found: error
+      - name: Upload Stage-13 integration bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: ERE-stage13-integration-bundle
+          path: |
+            paper/main.pdf
+            submission/ERE_title_page.pdf
+            dist/ERE_anonymous_manuscript_source.zip
+            dist/ERE_anonymous_replication.zip
+            figures/policy_regime.eps
+          if-no-files-found: error
 
   lean-verification:
     runs-on: ubuntu-latest
@@ -97,20 +108,7 @@ jobs:
       - name: Build Lean proof-critical core
         run: |
           cd formal
-          lake build \
-            PCPPR.Primitives \
-            PCPPR.ProductMarket \
-            PCPPR.Availability \
-            PCPPR.Backup \
-            PCPPR.Location \
-            PCPPR.Welfare \
-            PCPPR.MarginalDecomposition \
-            PCPPR.Bernstein \
-            PCPPR.CanonicalWitness \
-            PCPPR.GeneratedCertificates \
-            PCPPR.GlobalPlanner \
-            PCPPR.GlobalLocalGovernment \
-            PCPPR.TheoremCore
+          lake build             PCPPR.Primitives             PCPPR.ProductMarket             PCPPR.Availability             PCPPR.Backup             PCPPR.Location             PCPPR.Welfare             PCPPR.MarginalDecomposition             PCPPR.Bernstein             PCPPR.CanonicalWitness             PCPPR.GeneratedCertificates             PCPPR.GlobalPlanner             PCPPR.GlobalLocalGovernment             PCPPR.TheoremCore
       - name: Record theorem/axiom report
         run: |
           cd formal
@@ -122,8 +120,9 @@ jobs:
       - name: Record formal verification provenance
         run: |
           {
-            echo "commit=${GITHUB_SHA}"
-            echo "canonical_manuscript_model_sha=77f0c0705e3759b4997b3b17355f0063c02673e1"
+            echo "integration_commit=${GITHUB_SHA}"
+            echo "canonical_theory_freeze_sha=7a02e1b8558d8059c72287f2e226b74161ce36b3"
+            echo "formal_gate_merge_sha=fc0c9cee8b83f0373659965b1615094e91e05c96"
             echo "lean=leanprover/lean4:v4.32.1"
             echo "mathlib=520045ab14e26149ee970e2e617ca04b09bde5d6"
             echo "workflow_run_id=${GITHUB_RUN_ID}"

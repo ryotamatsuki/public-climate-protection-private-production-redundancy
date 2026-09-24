@@ -5,10 +5,14 @@ Reproducibility and manuscript repository for the theory project **Public Climat
 ## Research status
 
 - Current theory freeze record: `PCPPR-THEORY-FREEZE-2026-09-14-v2`
-- Stage 12R merged checkpoint: `7a02e1b8558d8059c72287f2e226b74161ce36b3`
-- Stage 13 ERE submission package merged through PR #12
+- Stage 12R theory checkpoint: `7a02e1b8558d8059c72287f2e226b74161ce36b3`
+- Formal Verification Gate: **PASS / CLOSED**, merge `fc0c9cee8b83f0373659965b1615094e91e05c96`
+- v2.2 structural-absorption retrofit: **CLOSED**
+- v2.4 portability/falsification retrofit: **CLOSED — headline CONDITIONALLY PORTABLE**
+- v2.5 exposition retrofit: **CLOSED**
+- Stage 12 v2.3+v2.4 journal-positioning recertification: **CLOSED**, merge `06c67fe65ad5d80e42808aab6e7bd9f3db33eddb`
 - Current journal target: *Environmental and Resource Economics (ERE)*
-- Current phase: final ERE submission freeze / administrative metadata completion
+- Current phase: **Stage 13 integration refresh**
 
 ## Core result
 
@@ -16,72 +20,36 @@ The model combines decentralized place-based climate protection, endogenous prim
 
 The main result is a **Protection–Attraction Conflict**: within the maintained symmetric primitive family, there exists a nonempty open set in which coordinated welfare is maximized by zero additional local protection while the decentralized jurisdictional game has a strictly positive symmetric protection equilibrium. Public protection directly lowers disruption risk but can crowd out firms' private geographic redundancy; local governments may nevertheless continue protection because it attracts mobile primary production.
 
-The baseline probability law is explicit. Conditional on realized primary failures, backup-success draws are independent across firms, with success probability `r_i` for firm `i` when its primary plant fails. Hence joint final unavailability is `J(1-r_1)(1-r_2)`. This law is a primitive of the model rather than an implication of the marginal readiness probabilities alone.
+The exact global theorem is baseline-family specific. Pre-specified v2.4 diagnostics under a nonlinear risk technology and logistic location heterogeneity preserve the canonical planner-zero/local-positive ranking, supporting **conditional portability** without enlarging the exact theorem.
 
 ## Repository governance
 
 Every submission candidate must point to an explicit freeze commit. Any change affecting probability primitives, equilibrium correctness, the policy-ranking theorem, parameter domains, welfare accounting, benchmark definitions, or the claim boundary reopens the relevant research gate.
 
-The auxiliary coefficient archive contains scaled rational-function representations. `docs/certificate_normalization.json` records the exact factors and `scripts/verify_normalization.py` reconstructs the corresponding economic functions from primitives to verify the identities.
+AI, deterministic computation, formal verification, and author judgment are recorded as distinct evidence types. A successful Lean build certifies encoded statements under encoded assumptions; it does not substitute for author judgment, economic interpretation, novelty assessment, or final submission approval.
 
 ## ERE submission architecture
 
 The journal-facing package separates double-anonymous reviewer materials from non-anonymous editorial materials.
 
 - Anonymous manuscript source: `paper/main.tex`
-- Stage 13 report: `STAGE_13_REPORT.md`
+- Stage 13 integration report: `STAGE_13_REPORT.md`
+- Stage 12 requirements baseline: `docs/STAGE_12_INITIAL_REQUIREMENTS_LEDGER_ERE_2026-09-25.md`
 - Title page: `submission/ERE_title_page.tex`
 - Cover letter: `submission/ERE_cover_letter.md`
 - Submission checklist: `submission/ERE_submission_checklist.md`
+- Anonymous source-package builder: `scripts/build_verify_ere_source_package.py`
 - Anonymous replication README: `submission/ERE_replication_README.md`
 - Review-only Makefile: `submission/ERE_review_Makefile`
-- Anonymous archive builder: `scripts/build_ere_review_package.py`
+- Anonymous replication builder: `scripts/build_ere_review_package.py`
 - ERE format/anonymity verifier: `scripts/verify_ere_submission.py`
 
-`make verify` generates `dist/ERE_anonymous_replication.zip`. GitHub Actions uploads the same anonymous archive as the `ERE-anonymous-replication` workflow artifact after a successful verification run.
+`make verify` generates both `dist/ERE_anonymous_manuscript_source.zip` and `dist/ERE_anonymous_replication.zip`. The source archive is extracted and clean-compiled in CI before it is accepted as a Stage-13 artifact.
 
-## Reproducibility layout
-
-```text
-.
-├── README.md
-├── STAGE_13_REPORT.md
-├── docs/
-│   ├── THEORY_FREEZE.md
-│   ├── PROVENANCE.md
-│   ├── STAGE_10_REPORT.md
-│   ├── STAGE_11A_REPORT.md
-│   ├── STAGE_11C_REPORT.md
-│   ├── STAGE_12_REPORT.md
-│   ├── certificate_polynomials.json
-│   └── certificate_normalization.json
-├── paper/
-│   ├── main.tex
-│   └── sections/
-├── submission/
-├── scripts/
-├── tests/
-├── figures/
-├── tables/
-└── references/
-```
-
-Generated figure/table objects, manuscript PDFs, and the anonymous review archive are rebuilt deterministically by the verification pipeline rather than treated as independent theory sources.
-
-## Canonical environment
-
-- Python 3.13+
-- SymPy 1.14.0
-- NumPy 2.3.5
-- SciPy 1.17.0
-- Matplotlib 3.10.8
-- pytest
-- pdfLaTeX
-
-Canonical validation entry point:
+## Canonical validation
 
 ```bash
 make verify
 ```
 
-It runs symbolic identities and threshold certificates, primitive-to-certificate normalization identities, the policy-root certificate, the exact whole-domain certificate, numerical global-deviation and planner stress tests, nested-benchmark checks, regression tests, deterministic exposition-object generation, ERE format/anonymity checks, the manuscript build, the separate title-page build, and anonymous review-package generation.
+The gate runs symbolic identities, certificate-normalization checks, exact policy and whole-domain certificates, numerical stress tests, v2.4 portability diagnostics, benchmark checks, regression tests, deterministic exposition-object generation, ERE format/anonymity checks, a clean manuscript build, v2.5 exposition/page-arrival audit, clean-build source-package verification, title-page build, and anonymous replication-package generation. Lean verification runs as a separate pinned CI job.

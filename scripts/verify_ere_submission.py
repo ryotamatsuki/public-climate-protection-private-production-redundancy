@@ -8,6 +8,7 @@ MAIN = ROOT / "paper" / "main.tex"
 INTRO = ROOT / "paper" / "sections" / "01_introduction.tex"
 LIT = ROOT / "paper" / "sections" / "08_literature.tex"
 REFS = ROOT / "references" / "references.tex"
+TITLE_PAGE = ROOT / "submission" / "ERE_title_page.tex"
 
 
 def strip_tex_commands(text: str) -> str:
@@ -23,6 +24,7 @@ def main() -> None:
     intro = INTRO.read_text(encoding="utf-8")
     lit = LIT.read_text(encoding="utf-8")
     refs = REFS.read_text(encoding="utf-8")
+    title_page = TITLE_PAGE.read_text(encoding="utf-8")
 
     abstract_match = re.search(r"\\begin\{abstract\}(.*?)\\end\{abstract\}", main_tex, flags=re.S)
     if not abstract_match:
@@ -51,6 +53,14 @@ def main() -> None:
         raise AssertionError("anonymous data/code availability statement missing")
     if "AI Assistance Disclosure" not in main_tex:
         raise AssertionError("ERE AI-assistance disclosure missing")
+    if "do not substitute for author judgment" not in main_tex:
+        raise AssertionError("AI disclosure must preserve the human-accountability boundary")
+    if "independently checked against" in main_tex:
+        raise AssertionError("stale AI-verification boilerplate found")
+    if "implemented and verified the computer-assisted analysis" in title_page:
+        raise AssertionError("title-page contribution statement conflates author and tool verification")
+    if "those tools are not authors" not in title_page:
+        raise AssertionError("title-page contribution statement missing tool/authorship boundary")
 
     if "MartinHerranEtAl2026" not in intro or "MartinHerranEtAl2026" not in lit:
         raise AssertionError("closest ERE industrial-allocation paper must be positioned in introduction and literature review")

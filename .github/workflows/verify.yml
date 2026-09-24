@@ -97,7 +97,7 @@ jobs:
       - name: Build Lean proof-critical core
         run: |
           cd formal
-          lake env lean Main.lean >/dev/null
+          lake env lean Main.lean
       - name: Record theorem/axiom report
         run: |
           cd formal

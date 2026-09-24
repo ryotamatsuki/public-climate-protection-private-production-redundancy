@@ -2,6 +2,8 @@ import Mathlib
 
 namespace PCPPR
 
+noncomputable section
+
 /-- Primitive parameter vector used by the paper.  The formal development keeps
 parameter restrictions separate from the raw record so that every theorem makes
 its own assumptions explicit. -/

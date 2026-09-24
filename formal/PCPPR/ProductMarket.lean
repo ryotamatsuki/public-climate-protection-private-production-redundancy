@@ -2,6 +2,8 @@ import PCPPR.Primitives
 
 namespace PCPPR.ProductMarket
 
+noncomputable section
+
 /-- Symmetric Cournot quantity/price when both products are available. -/
 def xD (γ : ℝ) : ℝ := 1 / (2 + γ)
 
@@ -36,7 +38,8 @@ theorem symmetric_cournot_foc_solution {γ x : ℝ} (hden : 2 + γ ≠ 0)
 theorem delta_identity (γ : ℝ) (hden : 2 + γ ≠ 0) :
     delta γ = γ * (γ + 4) / (4 * (γ + 2)^2) := by
   unfold delta piM piD
-  field_simp [hden]
+  have hden' : γ + 2 ≠ 0 := by linarith
+  field_simp [hden, hden']
   ring
 
 /-- Delta is strictly positive for positive product substitutability. -/
@@ -53,5 +56,7 @@ headline theorem; this lemma kernel-checks the sign of the reported expression. 
 theorem delta_derivative_expression_pos {γ : ℝ} (hγ : 0 ≤ γ) :
     0 < 2 / (γ + 2)^3 := by
   positivity
+
+end
 
 end PCPPR.ProductMarket

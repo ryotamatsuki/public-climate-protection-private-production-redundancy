@@ -55,7 +55,10 @@ theorem profit_difference_at_foc
       expectedProfitClosed πD Δ si sj J k rStar rj =
         -(k / 2) * (r - rStar)^2 := by
   unfold expectedProfitClosed
-  linear_combination (r - rStar) * hfoc
+  have hpi : πD * si = k * rStar - Δ * J * (1 - rj) := by
+    linarith [hfoc]
+  rw [hpi]
+  ring
 
 /-- T4: because the objective is a quadratic with curvature -k, any
 interior FOC solution is the unique global maximizer on every subset that

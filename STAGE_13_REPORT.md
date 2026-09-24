@@ -11,7 +11,7 @@ The historical 2026-09-14 Stage-13 record is preserved at `docs/STAGE_13_HISTORI
 
 ## Executive integration verdict
 
-**CONDITIONAL GO — INTEGRATION COMPLETE; CI EVIDENCE PENDING**
+**INTEGRATED MANUSCRIPT READY FOR SUBMISSION QA**
 
 The manuscript and ERE package have been refreshed against the current certified research lineage:
 
@@ -206,9 +206,12 @@ A new `scripts/verify_stage13_integration.py` is part of `make verify`. It block
 ## 13. Remaining blockers
 
 ### Technical
-- final branch `make verify`: **PENDING**
-- final Lean regression / axiom report: **PENDING**
-- Stage-13 integration artifact upload: **PENDING**
+- full `make verify`: **PASS** — GitHub Actions run `36059227489`
+- Stage-13 cross-document integration regression: **PASS**
+- clean-build anonymous manuscript source ZIP: **PASS**
+- anonymous replication-package build: **PASS**
+- Stage-13 integration bundle artifact upload: **PASS**
+- Lean proof-critical regression / axiom report: **PASS** — GitHub Actions run `36059227489`
 
 ### Human-only / next-stage
 - pre-2026-09-14 material-AI-use confirmation;
@@ -216,8 +219,10 @@ A new `scripts/verify_stage13_integration.py` is part of `make verify`. It block
 - Stage-14 live journal-rule refresh and authenticated-portal checks;
 - Stage-15 final package sign-off.
 
-## 14. Current verdict
+## 14. Final verdict
 
-**CONDITIONAL GO — bounded evidence completion only.**
+**INTEGRATED MANUSCRIPT READY FOR SUBMISSION QA**
 
-If the technical CI gates are green, the manuscript/package is integrated and may advance to Stage 14 submission QA. The human-only accountability items remain fail-closed for Stage 14/15 and are not converted into automated PASS claims.
+The Stage-13 manuscript/package integration is technically closed. The theory remains unchanged and all repository verification, source-package, reviewer-package, exposition, portability, and Lean regression gates are green.
+
+This verdict does **not** convert the two human-only accountability items into PASS. Stage 14 disclosure reconciliation must remain fail-closed until the author resolves the pre-2026-09-14 AI-use-history question and personally confirms the retrospective intellectual-contribution record. Stage 15 separately requires approval of the exact final frozen package.

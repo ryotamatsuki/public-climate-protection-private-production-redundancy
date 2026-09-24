@@ -2,7 +2,7 @@
 
 ## Executive verdict
 
-**CONDITIONAL PASS — CI PAGE-ARRIVAL AUDIT PENDING**
+**PASS — v2.5 EXPOSITION STREAMLINING CLOSED**
 
 Primary exposition profile: **GENERAL THEORY / THEORY-FIRST**
 
@@ -139,7 +139,21 @@ The repository now contains scripts/verify_exposition_v25.py, invoked by make ve
 
 The automated audit extracts actual section page numbers from paper/main.aux, verifies monotone section order, applies the workflow's soft Introduction heuristic, checks the main-text exhibit inventory, and blocks known exposition regressions.
 
-**Actual page landmarks will be recorded here after the first green CI run on this branch.**
+Actual post-build page landmarks from CI run `36018207132`:
+
+- Introduction: page 1
+- Model: page 3
+- Equilibrium Characterization: page 6
+- Protection–Attraction Conflict: page 9
+- Welfare: page 12
+- Nested Benchmarks: page 13
+- Institutional Interpretation: page 14
+- Related Literature: page 16
+- Discussion: page 17
+- Conclusion: page 18
+- Proofs / Appendix: page 19
+
+The Introduction occupies roughly two manuscript pages before the Model begins, comfortably within the v2.5 soft diagnostic. The full model is reached by page 3, the first headline-results section by page 9, and the proof appendix by page 19. No earlier milestone is delayed by material that can be moved later without loss.
 
 ## 9. v2.5 regression guard
 
@@ -154,12 +168,12 @@ make verify now includes the exposition audit. It fails if:
 
 ## 10. Stage-13-equivalent streamlining verdict
 
-**PASS subject only to actual-page CI confirmation.**
+**PASS.**
 
 No Stage-10 architecture failure was found. No substantive research rollback is required.
 
 ## 11. Routing
 
-After green page-arrival/verify/Lean regression evidence:
+CI run `36018207132` returned green repository verification including the new exposition audit. The corresponding Lean regression is required to remain green before merge.
 
 **v2.5 CLOSED → proceed to refreshed Stage 14 QA and freeze.**

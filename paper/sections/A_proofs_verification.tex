@@ -54,7 +54,21 @@ Combining the two equations proves \eqref{eq:marginal-decomposition}; rearrangin
 
 \subsection{Exact certificate method and normalization}\label{app:certificate-method}
 
-All global sign statements below are evaluated with exact rational arithmetic. For a polynomial $P(a_A,a_B)$ of bidegree at most $(m,n)$, set
+All global sign statements below are evaluated with exact rational arithmetic. The certificate uses one elementary observation repeatedly: a weighted average of strictly negative numbers is strictly negative, provided all weights are nonnegative and sum to one. The Bernstein basis supplies exactly such weights.
+
+To see the idea in one variable before using the general formula, consider a quadratic polynomial written as
+\begin{equation}
+P(x)=\beta_0(1-x)^2+\beta_1\,2x(1-x)+\beta_2x^2,
+\qquad 0\leq x\leq 1.
+\label{eq:bernstein-simple}
+\end{equation}
+The three weights $(1-x)^2$, $2x(1-x)$, and $x^2$ are all nonnegative and satisfy
+\[
+(1-x)^2+2x(1-x)+x^2=1.
+\]
+Hence $P(x)$ is a weighted average of $\beta_0,\beta_1,\beta_2$. If all three coefficients are strictly negative, then $P(x)<0$ for every $x\in[0,1]$; if all are strictly positive, then $P(x)>0$ everywhere. This is a whole-interval statement, not a check on a finite grid.
+
+The same argument extends directly to the two policy variables. For a polynomial $P(a_A,a_B)$ of bidegree at most $(m,n)$, normalize the policy rectangle by setting
 \begin{equation}
 x=\frac{a_A}{\bar a},\qquad y=\frac{a_B}{\bar a},
 \end{equation}
@@ -67,7 +81,19 @@ B_{i,m}(x)B_{j,n}(y),
 B_{i,m}(x)=\binom mi x^i(1-x)^{m-i}.
 \label{eq:bernstein-representation}
 \end{equation}
-Because the Bernstein basis is nonnegative and sums to one on the unit square, the polynomial lies in the convex hull of the coefficients $\{\beta_{ij}\}$. Therefore strictly positive coefficients certify $P>0$ everywhere on the rectangle, and strictly negative coefficients certify $P<0$. For every rational function whose sign is used below, the numerator and denominator are certified separately; the denominator is shown to have a fixed nonzero sign on the entire domain before the numerator sign is interpreted.
+For every $x\in[0,1]$, each $B_{i,m}(x)$ is nonnegative and $\sum_i B_{i,m}(x)=1$; the same is true in $y$. Therefore the products $B_{i,m}(x)B_{j,n}(y)$ are nonnegative and sum to one over $(i,j)$. Equation~\eqref{eq:bernstein-representation} is thus a weighted average of the coefficients $\{\beta_{ij}\}$. Consequently,
+\[
+\beta_{ij}<0\ \text{for all }(i,j)
+\quad\Longrightarrow\quad
+P(a_A,a_B)<0
+\]
+throughout the full policy rectangle, and the analogous statement holds for strictly positive coefficients.
+
+The objects used below are generally rational functions rather than polynomials. If
+\[
+R(a_A,a_B)=\frac{P(a_A,a_B)}{Q(a_A,a_B)},
+\]
+the certificate first establishes that $Q$ has a fixed nonzero sign on the entire rectangle and then applies the Bernstein argument separately to $P$ and $Q$. The sign of $R$ then follows from the signs of its numerator and denominator. Thus, for example, certifying $Q>0$ and $P<0$ on the whole rectangle proves $R<0$ everywhere. No floating-point approximation or finite-grid interpolation is used in this implication.
 
 The coefficient archive \texttt{docs/certificate\_polynomials.json} contains some univariate numerator/denominator pairs in scaled rather than economically normalized form. The companion file \texttt{docs/certificate\_normalization.json} records the convention
 \begin{equation}
@@ -124,7 +150,29 @@ for every $(a_A,a_B)\in[0,2/25]^2$. Hence $(0,0)$ is the unique coordinated opti
 \end{lemma}
 
 \begin{proof}
-After substituting the unique continuation from Lemma~\ref{lem:continuation}, $W_{a_A}$ and $W_{a_B}$ are rational functions on the compact policy rectangle. Their denominators are certified to be strictly positive. After mapping the rectangle to $[0,1]^2$, every Bernstein coefficient of each numerator has the strict negative sign required for the corresponding derivative. Therefore each derivative is strictly negative on the complete rectangle, including its boundary. Moving either policy coordinate upward from zero strictly lowers welfare, so the unique maximizer is $(0,0)$.
+Substitute the unique downstream continuation from Lemma~\ref{lem:continuation} into national welfare. Differentiating the resulting rational expression gives
+\[
+W_{a_A}=\frac{P_A(a_A,a_B)}{Q_A(a_A,a_B)},
+\qquad
+W_{a_B}=\frac{P_B(a_A,a_B)}{Q_B(a_A,a_B)}
+\]
+for explicit polynomials $P_A,P_B,Q_A,Q_B$ with rational coefficients at the canonical witness.
+
+The exact certificate applies the argument in Section~\ref{app:certificate-method} to these four polynomials on $[0,2/25]^2$. It verifies that the relevant Bernstein coefficients of $Q_A$ and $Q_B$ are strictly positive, so
+\[
+Q_A>0,\qquad Q_B>0
+\]
+throughout the full rectangle. It also verifies that every Bernstein coefficient of $P_A$ and $P_B$ is strictly negative, so
+\[
+P_A<0,\qquad P_B<0
+\]
+throughout the same rectangle. Therefore
+\[
+W_{a_A}<0,\qquad W_{a_B}<0
+\]
+at every feasible policy pair, including the boundary.
+
+Starting from $(0,0)$, increasing either coordinate while holding the other fixed strictly lowers welfare. Hence no point with $a_A>0$ or $a_B>0$ can maximize $W$, and $(0,0)$ is the unique coordinated optimum.
 \end{proof}
 
 \begin{lemma}[Global local-government best response]\label{lem:local-global}
@@ -132,11 +180,30 @@ At the canonical witness, let $\alpha$ be the exact root in \eqref{eq:alpha-exac
 \end{lemma}
 
 \begin{proof}
-Exact real-root isolation gives a unique simple root of the diagonal first-order condition in the interval \eqref{eq:alpha-exact-interval}. To avoid treating the root as a floating-point constant, the whole-domain certificate takes the rival policy over the entire rational isolating interval containing $\alpha$. On the product of that interval and the full own-policy interval, the denominator of $G_{A,a_Aa_A}$ has fixed sign and the Bernstein coefficients of the appropriately normalized numerator certify
+Let
+\[
+F(a)=G_{A,a_A}(a,a)
+\]
+denote the first-order condition along the symmetric policy line. Exact real-root isolation shows that $F$ has exactly one root on $[0,2/25]$, and that this root $\alpha$ lies in the rational interval in \eqref{eq:alpha-exact-interval}. Thus
+\[
+G_{A,a_A}(\alpha,\alpha)=0.
+\]
+
+A stationary point is not yet enough for a global best response. The remaining step is to prove strict concavity in the own policy of jurisdiction $A$. After substituting the unique downstream continuation, write
+\[
+G_{A,a_Aa_A}(a_A,a_B)
+=
+\frac{P_G(a_A,a_B)}{Q_G(a_A,a_B)}.
+\]
+Because $\alpha$ is represented by an isolating interval rather than by a floating-point number, the certificate lets the rival action $a_B$ range over the entire rational interval containing $\alpha$, while $a_A$ ranges over its full feasible interval $[0,2/25]$.
+
+On that rectangle, the Bernstein certificate establishes fixed nonzero signs for the numerator and denominator which, after the recorded normalization is applied, imply
 \begin{equation}
 G_{A,a_Aa_A}<0.
 \end{equation}
-Thus $G_A(\cdot,\alpha)$ is strictly concave on the entire feasible interval. Since $G_{A,a_A}(\alpha,\alpha)=0$, strict concavity makes $\alpha$ the unique global maximizer, including against both boundary actions. Symmetry gives the same conclusion for jurisdiction $B$.
+The weighted-average argument in Section~\ref{app:certificate-method} makes this a whole-rectangle inequality rather than a finite-grid check. In particular, it holds for every feasible $a_A$ when $a_B=\alpha$.
+
+Hence $G_A(\cdot,\alpha)$ is strictly concave on the entire feasible interval. A strictly concave function has at most one stationary point, and any such point is its unique global maximizer. Since $G_{A,a_A}(\alpha,\alpha)=0$, $a_A=\alpha$ is jurisdiction $A$'s unique global best response to $a_B=\alpha$, including against both boundary actions. Symmetry gives the same conclusion for jurisdiction $B$, so $(\alpha,\alpha)$ is a positive Nash equilibrium.
 \end{proof}
 
 \begin{proof}[Proof of Theorem~\ref{thm:main} at the canonical witness]

@@ -187,7 +187,7 @@ A new `scripts/verify_stage13_integration.py` is part of `make verify`. It block
 - loss of the portability-diagnostic distinction;
 - AI/Lean-to-author verification conflation;
 - unrecorded human sign-off;
-- obvious workflow placeholders/TODOs.
+- obvious unfinished workflow placeholders.
 
 ## 12. Changes made
 

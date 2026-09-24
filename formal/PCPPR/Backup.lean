@@ -3,6 +3,8 @@ import PCPPR.ProductMarket
 
 namespace PCPPR.Backup
 
+noncomputable section
+
 open PCPPR.Availability
 
 /-- Expected profit obtained by enumerating final availability states. -/
@@ -129,5 +131,7 @@ theorem rD_solves_symmetric_foc
   unfold rD
   field_simp [hden]
   ring
+
+end
 
 end PCPPR.Backup

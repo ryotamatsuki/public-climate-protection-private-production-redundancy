@@ -123,4 +123,6 @@ theorem affine_pair_unique
   have huniq : p1 = p := affine_fixed_point_unique hs hp1 hp
   exact ⟨huniq, heq.symm.trans huniq⟩
 
+end
+
 end PCPPR.Location

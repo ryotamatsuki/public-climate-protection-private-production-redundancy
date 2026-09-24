@@ -31,4 +31,6 @@ def backupCost (k r : ℝ) : ℝ := k * r^2 / 2
 /-- Public-protection resource cost. -/
 def protectionCost (c a : ℝ) : ℝ := c * a^2 / 2
 
+end
+
 end PCPPR

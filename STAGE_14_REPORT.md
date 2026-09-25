@@ -80,7 +80,22 @@ Current ERE status remains hybrid. The subscription route carries no APC. The cu
 
 This is informational only; Stage 14 does not require choosing OA.
 
-## 7. Authenticated portal items
+## 7. v2.7 reviewer-verifiability closure
+
+**PASS — REVIEWER VERIFIABILITY.**
+
+The prospective v2.7 specialist-referee audit is recorded in `docs/REVIEWER_VERIFIABILITY_REPORT.md`. The audit reconstructs the full proof-critical chain from manuscript primitives through backup and location continuation, location-weighted surplus, policy rational functions, exact certificates, globality lemmas, and the headline theorem.
+
+The recent proof-exposition repairs make the two previously implicit bridges explicit:
+
+- the backup first-order conditions are displayed as the 2x2 linear system whose determinant/interiority are certified;
+- profile-specific surplus is explicitly aggregated across the four location profiles before entering the planner and local-government policy objectives.
+
+The audit finds no remaining **BRIDGE NEEDED**, **APPENDIX DETAIL NEEDED**, or **SUBSTANTIVE DEFECT** item. Large generated polynomial expansions, Bernstein coefficient lists, and root-isolation traces remain appropriately delegated to the reproducibility archive.
+
+This PASS closes the latest-workflow reviewer-verifiability delta. It does not substitute for the author's personal intellectual-contribution confirmation or for authenticated portal QA.
+
+## 8. Authenticated portal items
 
 The following are deliberately **UNVERIFIED**, not guessed:
 
@@ -92,7 +107,7 @@ The following are deliberately **UNVERIFIED**, not guessed:
 
 These require an actual authenticated submission draft and must be recorded before Stage 14 can be fully closed.
 
-## 8. Human-only accountability item
+## 9. Human-only accountability item
 
 `docs/AUTHOR_INTELLECTUAL_CONTRIBUTION_RECORD.md` remains:
 
@@ -102,7 +117,7 @@ Repository QA cannot convert that statement to PASS. The author must personally 
 
 The historical-AI-use question is no longer blank: documented pre-2026-09-14 material use has been added to the provenance log. The remaining human action is confirmation that the reconstructed record is materially complete and that the intellectual-contribution record accurately reflects the author's own understanding and intended contribution.
 
-## 9. Stage-14 regression gate
+## 10. Stage-14 regression gate
 
 `scripts/verify_stage14_submission_qa.py` is added to `make verify`. It prevents:
 
@@ -111,9 +126,10 @@ The historical-AI-use question is no longer blank: documented pre-2026-09-14 mat
 - loss of the manuscript AI disclosure or data/code statement;
 - loss of reconstructed pre-2026-09-14 provenance entries;
 - accidental representation of authenticated portal items as verified;
-- accidental conversion of the personal author confirmation to an automated PASS.
+- accidental conversion of the personal author confirmation to an automated PASS;
+- loss of the v2.7 reviewer-verifiability report or PASS verdict.
 
-## 10. Closure status
+## 11. Closure status
 
 ### Completed now
 - live public ERE requirements refresh;
@@ -122,6 +138,7 @@ The historical-AI-use question is no longer blank: documented pre-2026-09-14 mat
 - historical AI provenance reconstruction;
 - stale Stage-14 record archived;
 - Stage-14 regression gate added;
+- v2.7 reviewer-verifiability audit PASS recorded;
 - package remains theory-frozen.
 
 ### Still required for full Stage-14 closure

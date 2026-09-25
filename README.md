@@ -10,10 +10,11 @@ Reproducibility and manuscript repository for the theory project **Public Climat
 - v2.2 structural-absorption retrofit: **CLOSED**
 - v2.4 portability/falsification retrofit: **CLOSED — headline CONDITIONALLY PORTABLE**
 - v2.5 exposition retrofit: **CLOSED**
+- v2.7 reviewer-verifiability audit: **PASS / CLOSED**
 - Stage 12 v2.3+v2.4 journal-positioning recertification: **CLOSED**, merge `06c67fe65ad5d80e42808aab6e7bd9f3db33eddb`
 - Stage 13 integration refresh: **CLOSED**, merge `06609ae92d06911e93c633fa80c4137cc301641d`
 - Current journal target: *Environmental and Resource Economics (ERE)*
-- Current phase: **Stage 14 submission QA — public-rule/repository QA in progress; authenticated portal + author confirmation remain fail-closed**
+- Current phase: **Stage 14 submission QA — technical/public-rule/v2.7 QA PASS; authenticated portal + author confirmation remain fail-closed**
 
 ## Core result
 
@@ -42,6 +43,7 @@ The journal-facing package separates double-anonymous reviewer materials from no
 - Submission checklist: `submission/ERE_submission_checklist.md`
 - AI provenance log: `docs/AI_PROVENANCE_LOG.md`
 - Author intellectual-contribution record: `docs/AUTHOR_INTELLECTUAL_CONTRIBUTION_RECORD.md`
+- Reviewer-verifiability report: `docs/REVIEWER_VERIFIABILITY_REPORT.md`
 - Anonymous source-package builder: `scripts/build_verify_ere_source_package.py`
 - Anonymous replication builder: `scripts/build_ere_review_package.py`
 - ERE format/anonymity verifier: `scripts/verify_ere_submission.py`

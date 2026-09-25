@@ -10,7 +10,7 @@ The previous Stage-14 record has been preserved at `docs/STAGE_14_HISTORICAL_202
 ## Executive verdict
 
 **PUBLIC-RULE / REPOSITORY QA: PASS**  
-**FULL STAGE-14 CLOSURE: HOLD — AUTHOR + AUTHENTICATED-PORTAL ITEMS REMAIN**
+**FULL STAGE-14 CLOSURE: HOLD — AUTHENTICATED-PORTAL ITEMS REMAIN**
 
 Stage 14 has been re-opened against the live 2026-09-25 ERE instructions rather than inheriting the historical PASS. No theory, theorem, witness, equilibrium concept, welfare definition, or proof certificate is changed.
 
@@ -109,13 +109,11 @@ These require an actual authenticated submission draft and must be recorded befo
 
 ## 9. Human-only accountability item
 
-`docs/AUTHOR_INTELLECTUAL_CONTRIBUTION_RECORD.md` remains:
+**PASS — AUTHOR CONFIRMATION RECORDED.**
 
-**RETROSPECTIVE CONTENT RECORD PREPARED — PERSONAL AUTHOR CONFIRMATION PENDING**
+On 2026-09-25, the author explicitly confirmed all five required intellectual-contribution items and confirmed that the reconstructed AI provenance is materially complete. The confirmation is recorded in `docs/AUTHOR_INTELLECTUAL_CONTRIBUTION_RECORD.md`.
 
-Repository QA cannot convert that statement to PASS. The author must personally confirm the recorded question/mechanism, material assumptions, proof logic, limitations, and maximum defensible claim.
-
-The historical-AI-use question is no longer blank: documented pre-2026-09-14 material use has been added to the provenance log. The remaining human action is confirmation that the reconstructed record is materially complete and that the intellectual-contribution record accurately reflects the author's own understanding and intended contribution.
+This closes the human-only Stage-14 accountability item. The confirmation was not inferred by automated QA.
 
 ## 10. Stage-14 regression gate
 
@@ -126,7 +124,7 @@ The historical-AI-use question is no longer blank: documented pre-2026-09-14 mat
 - loss of the manuscript AI disclosure or data/code statement;
 - loss of reconstructed pre-2026-09-14 provenance entries;
 - accidental representation of authenticated portal items as verified;
-- accidental conversion of the personal author confirmation to an automated PASS;
+- loss of the recorded author-confirmation state or replacement by an automated/inferred confirmation;
 - loss of the v2.7 reviewer-verifiability report or PASS verdict.
 
 ## 11. Closure status
@@ -139,15 +137,15 @@ The historical-AI-use question is no longer blank: documented pre-2026-09-14 mat
 - stale Stage-14 record archived;
 - Stage-14 regression gate added;
 - v2.7 reviewer-verifiability audit PASS recorded;
+- author intellectual-contribution and AI-provenance confirmation recorded;
 - package remains theory-frozen.
 
 ### Still required for full Stage-14 closure
-1. author personal confirmation of the intellectual-contribution/provenance reconstruction;
-2. authenticated Editorial Manager article-type/file/declaration review;
-3. generated review-PDF inspection.
+1. authenticated Editorial Manager article-type/file/declaration review;
+2. generated review-PDF inspection.
 
 ## Final Stage-14 status
 
 **TECHNICAL / PUBLIC-RULE QA READY.**
 
-The repository is ready to enter the authenticated Editorial Manager submission-draft step, but Stage 14 remains fail-closed until the human confirmation and portal-only checks are completed. Stage 15 final package freeze/sign-off is not yet authorized.
+The repository is ready to enter the authenticated Editorial Manager submission-draft step. Stage 14 remains fail-closed only on the portal-only checks and generated review-PDF inspection. Stage 15 final package freeze/sign-off is not yet authorized.

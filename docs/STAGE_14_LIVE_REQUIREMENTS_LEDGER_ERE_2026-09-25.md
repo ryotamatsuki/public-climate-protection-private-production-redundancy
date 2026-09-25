@@ -26,7 +26,7 @@ Official sources re-opened on 2026-09-25:
 | Figures | Electronic; EPS preferred for vector graphics; captions and accessibility expectations apply. | PASS for current generated policy-regime figure |
 | Statements/declarations | Relevant declarations required; competing interests explicitly required. | PASS in identified title page |
 | LLM / AI authorship | LLMs do not satisfy authorship criteria. | PASS |
-| Material LLM use | Material LLM use must be documented in Methods or a suitable alternative section when there is no Methods section. AI-assisted copy editing alone need not be declared. Human accountability required. | PASS in manuscript `AI Assistance Disclosure`, subject to author personal confirmation below |
+| Material LLM use | Material LLM use must be documented in Methods or a suitable alternative section when there is no Methods section. AI-assisted copy editing alone need not be declared. Human accountability required. | PASS in manuscript `AI Assistance Disclosure`; author personal confirmation recorded 2026-09-25 |
 | Data availability | All original research requires a data availability statement. | PASS |
 | Research data sharing | Datasets on which conclusions rely must be available to reviewers/readers; this theoretical paper uses no empirical dataset. | PASS with theory-paper interpretation |
 | Replication package | Following successful peer review and before final acceptance, software/code/data/output must be posted in a public repository and the journal checklist completed. | PASS as future-state contract; anonymous reviewer package already prepared |
@@ -45,8 +45,7 @@ Stage 14 cannot be declared fully closed solely from public instructions. It req
 
 1. public-rule QA to remain green;
 2. historical AI provenance reconciliation;
-3. personal author confirmation of the intellectual-contribution record;
-4. authenticated portal field/file-designation review;
-5. review-PDF inspection.
+3. authenticated portal field/file-designation review;
+4. review-PDF inspection.
 
 Any portal field that contradicts this ledger takes precedence and must be recorded before Stage 15.

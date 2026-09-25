@@ -2,7 +2,7 @@
 
 Updated: 2026-09-25
 
-Status: **RETROSPECTIVE CONTENT RECORD PREPARED — PERSONAL AUTHOR CONFIRMATION PENDING**
+Status: **PERSONALLY CONFIRMED BY AUTHOR — 2026-09-25**
 
 This record states the central research judgments that the sole author must personally confirm. It does not treat AI, deterministic computation, or Lean as evidence of human understanding.
 
@@ -59,14 +59,18 @@ A nonempty open set exists in the maintained symmetric primitive family where th
 
 AI assistance, deterministic computation, and Lean formal verification provide evidence with distinct scopes. They do not establish author understanding, author judgment, or final approval.
 
-## Personal confirmation required before Stage 14/15 closure
+## Personal confirmation
 
-The author must personally confirm that:
+On 2026-09-25, the author explicitly confirmed all five required items and stated that the AI provenance record is materially complete.
+
+Accordingly, the author confirms that:
 
 - the question and five-step mechanism above match the intended contribution;
 - the material assumptions and limitations above are understood and accepted;
 - the proof/equilibrium logic above matches the intended mathematical argument;
 - the maximum defensible claim above is accepted;
-- any additional material AI use before 2026-09-14 has either been added to the provenance log or is confirmed absent.
+- the reconstructed AI provenance is materially complete, including material AI use before 2026-09-14.
+
+This confirmation is author-controlled and was not inferred or supplied by automated QA.
 
 A separate Stage-15 sign-off must still approve the exact final commit/PDF/package.

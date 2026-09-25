@@ -19,13 +19,14 @@ readme = read("README.md")
 reviewer_report = read("docs/REVIEWER_VERIFIABILITY_REPORT.md")
 
 require(report, "PUBLIC-RULE / REPOSITORY QA: PASS", "public-rule QA verdict")
-require(report, "FULL STAGE-14 CLOSURE: HOLD", "fail-closed Stage-14 verdict")
+require(report, "FULL STAGE-14 CLOSURE: HOLD — AUTHENTICATED-PORTAL ITEMS REMAIN", "fail-closed Stage-14 verdict")
 require(report, "UNVERIFIED", "portal-only unresolved state")
 require(ledger, "Article type", "live article-type ledger row")
 require(ledger, "UNVERIFIED — PORTAL ONLY", "portal-only ledger state")
 require(ai_log, "2026-09-06", "pre-2026-09-14 AI provenance")
 require(ai_log, "2026-09-13", "Stage-11-era AI provenance")
-require(author_record, "PERSONAL AUTHOR CONFIRMATION PENDING", "human confirmation boundary")
+require(author_record, "PERSONALLY CONFIRMED BY AUTHOR — 2026-09-25", "author confirmation state")
+require(author_record, "AI provenance record is materially complete", "author AI-provenance confirmation")
 require(manuscript, r"\section*{AI Assistance Disclosure}", "manuscript AI disclosure")
 require(manuscript, r"\section*{Data and Code Availability}", "data/code availability statement")
 require(checklist, "Authenticated Editorial Manager checks", "portal checklist")
@@ -37,6 +38,7 @@ require(readme, "Stage 14 submission QA", "current phase")
 for forbidden in [
     "Final verdict: PASS. The repository is ready for the external ERE portal-submission step.",
     "FULL STAGE-14 CLOSURE: PASS",
+    "PERSONAL AUTHOR CONFIRMATION PENDING",
 ]:
     if forbidden in report:
         raise SystemExit(f"Stage-14 QA failure: stale/unsafe closure wording present: {forbidden!r}")

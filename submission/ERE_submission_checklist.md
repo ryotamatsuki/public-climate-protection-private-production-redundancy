@@ -34,8 +34,8 @@ Stage-12 v2.3+v2.4 recertification merge: `06c67fe65ad5d80e42808aab6e7bd9f3db33e
 
 ## Human-only accountability
 
-- [ ] Author personally confirms the intellectual-contribution record.
-- [ ] Author personally confirms that the reconstructed AI provenance is materially complete.
+- [x] Author personally confirms the intellectual-contribution record.
+- [x] Author personally confirms that the reconstructed AI provenance is materially complete.
 - [ ] Exact final package approval — Stage 15 only.
 
 ## Authenticated Editorial Manager checks

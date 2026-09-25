@@ -14,7 +14,7 @@ Reproducibility and manuscript repository for the theory project **Public Climat
 - Stage 12 v2.3+v2.4 journal-positioning recertification: **CLOSED**, merge `06c67fe65ad5d80e42808aab6e7bd9f3db33eddb`
 - Stage 13 integration refresh: **CLOSED**, merge `06609ae92d06911e93c633fa80c4137cc301641d`
 - Current journal target: *Environmental and Resource Economics (ERE)*
-- Current phase: **Stage 14 submission QA — technical/public-rule/v2.7 QA PASS; authenticated portal + author confirmation remain fail-closed**
+- Current phase: **Stage 14 submission QA — technical/public-rule/v2.7/author-confirmation PASS; authenticated portal checks remain fail-closed**
 
 ## Core result
 

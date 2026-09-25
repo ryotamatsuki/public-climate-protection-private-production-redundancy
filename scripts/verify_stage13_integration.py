@@ -39,8 +39,12 @@ def main() -> None:
         raise AssertionError("title page lost the tool/authorship boundary")
     if "Historical coverage boundary" not in texts["provenance"]:
         raise AssertionError("AI provenance log does not disclose incomplete pre-repository historical coverage")
-    if "PERSONAL AUTHOR CONFIRMATION PENDING" not in texts["author_record"]:
-        raise AssertionError("author record must not imply unrecorded human sign-off")
+    pending = "PERSONAL AUTHOR CONFIRMATION PENDING" in texts["author_record"]
+    confirmed = "PERSONALLY CONFIRMED BY AUTHOR — 2026-09-25" in texts["author_record"]
+    if not (pending or confirmed):
+        raise AssertionError("author record has neither the Stage-13 pending state nor a later explicit author-confirmed state")
+    if confirmed and "This confirmation is author-controlled and was not inferred or supplied by automated QA." not in texts["author_record"]:
+        raise AssertionError("later author confirmation lacks the explicit human-control boundary")
 
     active = "\n".join(
         texts[k] for k in ("stage13", "checklist", "cover", "manuscript", "title")

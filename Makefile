@@ -1,8 +1,8 @@
 PYTHON ?= python
 
-.PHONY: verify symbolic normalization policy global numerical portability benchmarks test objects ere-format stage13-integration stage14-qa paper exposition ere-source-package ere-title-page ere-review-package clean
+.PHONY: verify symbolic normalization policy global numerical portability benchmarks test objects ere-format stage13-integration stage14-qa stage15-presubmission paper exposition ere-source-package ere-title-page ere-review-package ere-submission-bundle clean
 
-verify: symbolic normalization policy global numerical portability benchmarks test objects ere-format stage13-integration stage14-qa paper exposition ere-source-package ere-title-page ere-review-package
+verify: symbolic normalization policy global numerical portability benchmarks test objects ere-format stage13-integration stage14-qa stage15-presubmission paper exposition ere-source-package ere-title-page ere-review-package ere-submission-bundle
 
 symbolic:
 	$(PYTHON) scripts/verify_symbolic.py
@@ -40,6 +40,9 @@ stage13-integration:
 stage14-qa:
 	$(PYTHON) scripts/verify_stage14_submission_qa.py
 
+stage15-presubmission:
+	$(PYTHON) scripts/verify_stage15_presubmission.py
+
 paper: objects
 	cd paper && pdflatex -interaction=nonstopmode -halt-on-error main.tex >/dev/null
 	cd paper && pdflatex -interaction=nonstopmode -halt-on-error main.tex >/dev/null
@@ -56,6 +59,9 @@ ere-title-page:
 
 ere-review-package: objects
 	$(PYTHON) scripts/build_ere_review_package.py
+
+ere-submission-bundle: paper ere-source-package ere-title-page ere-review-package stage15-presubmission
+	$(PYTHON) scripts/build_ere_submission_bundle.py
 
 clean:
 	rm -f paper/*.aux paper/*.bbl paper/*.blg paper/*.log paper/*.out paper/*.pdf paper/*.toc

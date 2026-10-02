@@ -2,11 +2,10 @@
 
 This supersedes the former Stage-15 upload candidate for the repaired
 manuscript and is governed by
-`PCPPR-THEORY-FREEZE-2026-10-02-v3`.
+`PCPPR-THEORY-FREEZE-2026-10-03-v4`.
 Historical Stage records are retained as history, not current scientific
 certification. The build records the source commit and per-component SHA-256
-hashes. Regenerate the bundle from the final green main commit after PR #31 is
-merged.
+hashes. Regenerate the bundle from the final green main commit after the v4 recertification PR is merged.
 
 | Component | Generated file | Audience / designation |
 |---|---|---|
@@ -32,8 +31,10 @@ that a blocked endpoint has become operational.
 
 ## Current freeze controls
 
-- `STAGE_15_V3_REPORT.md`
-- `submission/ERE_STAGE15_V3_SCIENTIFIC_OBJECT.lock`
+- `STAGE_15_V4_REPORT.md`
+- `submission/ERE_STAGE15_V4_SCIENTIFIC_OBJECT.lock`
+- `docs/STAGE_6_RECERTIFICATION_2026-10-03.md`
+- `docs/STAGE_7_5A_RECERTIFICATION_2026-10-03.md`
 
 Only artifacts regenerated from the green main-branch merge commit are final
 repository-side submission objects.

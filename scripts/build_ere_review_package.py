@@ -10,6 +10,8 @@ OUT = DIST / "ERE_anonymous_replication.zip"
 EXCLUDED_SCRIPTS = {
     "scripts/build_ere_review_package.py",
     "scripts/build_verify_ere_source_package.py",
+    "scripts/build_ere_submission_bundle.py",
+    "scripts/verify_stage15_presubmission.py",
 }
 
 EXACT_FILES = {

@@ -14,7 +14,7 @@ Reproducibility and manuscript repository for the theory project **Public Climat
 - Stage 12 v2.3+v2.4 journal-positioning recertification: **CLOSED**, merge `06c67fe65ad5d80e42808aab6e7bd9f3db33eddb`
 - Stage 13 integration refresh: **CLOSED**, merge `06609ae92d06911e93c633fa80c4137cc301641d`
 - Current journal target: *Environmental and Resource Economics (ERE)*
-- Current phase: **Stage 14 submission QA — technical/public-rule/v2.7/author-confirmation PASS; authenticated portal checks remain fail-closed**
+- Current phase: **Stage 15 pre-submission repository freeze PASS; full Stage 15 HOLD because the official linked submission endpoint is not currently live and authenticated portal checks remain fail-closed**
 
 ## Core result
 
@@ -37,7 +37,10 @@ The journal-facing package separates double-anonymous reviewer materials from no
 - Anonymous manuscript source: `paper/main.tex`
 - Stage 13 integration report: `STAGE_13_REPORT.md`
 - Stage 14 live QA report: `STAGE_14_REPORT.md`
-- Stage 14 live requirements ledger: `docs/STAGE_14_LIVE_REQUIREMENTS_LEDGER_ERE_2026-09-25.md`
+- Latest live requirements ledger: `docs/STAGE_14_LIVE_REQUIREMENTS_LEDGER_ERE_2026-10-02.md`
+- Stage 15 report: `STAGE_15_REPORT.md`
+- Stage 15 upload manifest: `submission/ERE_STAGE15_UPLOAD_MANIFEST.md`
+- Stage 15 scientific-object lock: `submission/ERE_STAGE15_SCIENTIFIC_OBJECT.lock`
 - Title page: `submission/ERE_title_page.tex`
 - Cover letter: `submission/ERE_cover_letter.md`
 - Submission checklist: `submission/ERE_submission_checklist.md`
@@ -48,7 +51,7 @@ The journal-facing package separates double-anonymous reviewer materials from no
 - Anonymous replication builder: `scripts/build_ere_review_package.py`
 - ERE format/anonymity verifier: `scripts/verify_ere_submission.py`
 
-`make verify` generates both `dist/ERE_anonymous_manuscript_source.zip` and `dist/ERE_anonymous_replication.zip`. The source archive is extracted and clean-compiled in CI.
+`make verify` generates `dist/ERE_anonymous_manuscript_source.zip`, `dist/ERE_anonymous_replication.zip`, and the single transport artifact `dist/ERE_submission_ready_bundle.zip`. The source archive is extracted and clean-compiled in CI. The transport bundle is repository-complete but does not substitute for the live Editorial Manager review-PDF check.
 
 ## Canonical validation
 
@@ -56,4 +59,4 @@ The journal-facing package separates double-anonymous reviewer materials from no
 make verify
 ```
 
-The gate runs symbolic identities, certificate-normalization checks, exact policy and whole-domain certificates, numerical stress tests, v2.4 portability diagnostics, benchmark checks, regression tests, deterministic exposition-object generation, ERE format/anonymity checks, Stage-13 integration regression, Stage-14 submission-QA regression, a clean manuscript build, v2.5 exposition/page-arrival audit, clean-build source-package verification, title-page build, and anonymous replication-package generation. Lean verification runs as a separate pinned CI job.
+The gate runs symbolic identities, certificate-normalization checks, exact policy and whole-domain certificates, numerical stress tests, v2.4 portability diagnostics, benchmark checks, regression tests, deterministic exposition-object generation, ERE format/anonymity checks, Stage-13 integration regression, Stage-14 submission-QA regression, Stage-15 scientific-object/fail-closed regression, a clean manuscript build, v2.5 exposition/page-arrival audit, clean-build source-package verification, title-page build, anonymous replication-package generation, and final submission-ready bundle generation. Lean verification runs as a separate pinned CI job.

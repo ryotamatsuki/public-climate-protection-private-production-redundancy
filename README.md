@@ -12,14 +12,14 @@ curve, two proof defects, an incomplete mechanism/novelty comparison, and
 standalone anonymous-package failures. The audit repair retains the canonical
 primitives and global baseline ranking while correcting those objects and
 narrowing the claims. See `docs/INDEPENDENT_AUDIT_REPAIRS_2026-10-02.md` for the
-issue-to-evidence map and validation. Earlier Stage 13--15 PASS/freeze records
-are historical records for their old candidate, not certifications of this
-revision. The Stage 15 pre-submission repository freeze was reopened for these
-repairs; its scientific-object lock is not silently renewed.
+issue-to-evidence map and validation. Earlier Stage 13--15 PASS/freeze records are historical records for their old
+candidate, not certifications of this revision. The independent-audit repair is
+now re-frozen as `PCPPR-THEORY-FREEZE-2026-10-02-v3`, with a new
+CI-enforced scientific-object lock and Stage-15 v3 report.
 
-The resulting submission candidate remains subject to author scientific review
-and live journal-portal requirements. No automated check establishes editorial
-novelty, journal acceptance, or final submission authorization.
+The resulting submission candidate remains subject to live journal-portal
+requirements and final submission authorization. No automated check establishes
+editorial novelty or journal acceptance.
 
 ## Main result and boundary
 
@@ -84,5 +84,12 @@ The anonymous archive's corresponding commands are also `make verify` and
 `make formal-verify`; neither depends on the editorial title page or the paper's
 Git history. Formal dependency installation requires the Git command and
 network access, even though the extracted project has no Git metadata.
-Historical Stage verifiers are retained for provenance but are excluded from
-the current scientific reproduction gate.
+
+Current freeze controls:
+- `docs/THEORY_FREEZE.md`: v3 theory freeze.
+- `submission/ERE_STAGE15_V3_SCIENTIFIC_OBJECT.lock`: exact Git-object lock.
+- `STAGE_15_V3_REPORT.md`: repaired pre-submission freeze report.
+- `scripts/verify_v3_freeze.py`: CI gate enforcing the lock.
+
+Historical Stage verifiers and the former Stage-15 lock are retained for
+provenance but are not current scientific certifications.

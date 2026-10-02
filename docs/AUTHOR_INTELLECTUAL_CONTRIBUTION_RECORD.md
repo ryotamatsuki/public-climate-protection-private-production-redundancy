@@ -78,16 +78,15 @@ A separate Stage-15 sign-off must still approve the exact final commit/PDF/packa
 
 ## 2026-10-03 v4 re-confirmation gate
 
-Status: **PENDING EXPLICIT AUTHOR SCIENTIFIC CONFIRMATION**
+Status: **PERSONALLY RECONFIRMED BY AUTHOR — 2026-10-03**
 
 The 2026-10-03 v2.5 hostile re-certification and Stage-6 / Stage-7.5A refresh
-post-date the personal confirmation above. The author's instruction to carry
-the workflow through recertification and toward v4 freeze is recorded as
-authorization to perform the work, but is not treated by itself as evidence of
-the substantive scientific judgments required by workflow v2.5.
+post-date the personal confirmation above. On 2026-10-03 the author explicitly
+responded: “5点確認。v4 freezeを承認します”. This is recorded as the author's
+personal scientific reconfirmation of the five items below, not merely as
+authorization to run tools or merge code.
 
-Before Stage 8 v4 freeze closes, the author must explicitly confirm the current
-scientific object on these five points:
+The author explicitly reconfirmed the current scientific object on these five points:
 
 1. **Mechanism:** public protection lowers primary risk; lower risk reduces
    privately chosen geographic contingency readiness; the induced private
@@ -111,7 +110,7 @@ scientific object on these five points:
    Nash equilibrium; diagnostics support only conditional portability and do
    not establish a universal climate-adaptation overprovision result.
 
-Once these points are explicitly confirmed by the author, update this section
-to **PERSONALLY RECONFIRMED BY AUTHOR — 2026-10-03** and cite the confirming
-interaction. No AI, computation, formal proof, or CI result may substitute for
-that confirmation.
+This confirmation closes the workflow-v2.5 human-accountability gate for the
+v4 scientific freeze. It does not approve future theory changes, later
+submission-package changes, or portal-generated files; those require their own
+applicable sign-off.

@@ -1,6 +1,6 @@
 # AI Provenance Log
 
-Updated: 2026-09-25
+Updated: 2026-10-03
 
 This log records material AI use by reference. It is not a transcript archive. Verification actors are kept distinct: AUTHOR, AI, COMPUTATION, FORMAL, EXTERNAL HUMAN.
 
@@ -16,6 +16,7 @@ This log records material AI use by reference. It is not a transcript archive. V
 | 2026-09-24 | OpenAI ChatGPT GPT-5.6 Sol | v2.5 exposition streamlining | Removed redundancy, compressed benchmark prose, added exposition regression audit | Adopted | clean manuscript build + page-arrival audit | AI + COMPUTATION | docs/EXPOSITION_STREAMLINING_REPORT_2026-09-24.md |
 | 2026-09-25 | OpenAI ChatGPT GPT-5.6 Sol + current journal evidence | Stage-12 v2.3+v2.4 recertification | broad candidate universe, explicit exclusions, journal-fit matrix, ERE selected as Primary | Adopted | official journal evidence + repository CI/Lean regression | AI + COMPUTATION | docs/STAGE_12_REPORT.md; docs/STAGE_12_CANDIDATE_UNIVERSE_LEDGER_2026-09-25.md |
 | 2026-09-25 | OpenAI ChatGPT GPT-5.6 Sol | Stage-13 integration refresh | source-package clean-build gate, reviewer package update, disclosure/accountability wording, package synchronization | Adopted | deterministic package QA + manuscript build + Lean regression | AI + COMPUTATION + FORMAL | STAGE_13_REPORT.md |
+| 2026-10-03 | OpenAI ChatGPT GPT-5.6 Sol + SciSpace/web literature search | Workflow-v2.5 hostile re-certification and Stage-6/7.5A repair | Located omitted protection/investment parent literature; rebuilt theorem-absorption map; narrowed portability evidence interpretation; prepared v4 human-accountability gate | Adopted pending author scientific confirmation | independent model reconstruction, exact-code audit, primary-source literature comparison, repository CI to follow | AI + COMPUTATION | docs/V25_HOSTILE_RECERTIFICATION_2026-10-03.md; docs/STAGE_6_RECERTIFICATION_2026-10-03.md; docs/STAGE_7_5A_RECERTIFICATION_2026-10-03.md |
 | 2026-09-25 | OpenAI ChatGPT GPT-5.6 Sol + current ERE official guidance | Stage-14 live submission QA | live requirements ledger; historical provenance reconstruction; portal/human fail-closed separation | Adopted subject to CI and author/portal completion | official-source comparison + repository regression | AI + COMPUTATION | STAGE_14_REPORT.md; docs/STAGE_14_LIVE_REQUIREMENTS_LEDGER_ERE_2026-09-25.md |
 
 ## Historical coverage boundary

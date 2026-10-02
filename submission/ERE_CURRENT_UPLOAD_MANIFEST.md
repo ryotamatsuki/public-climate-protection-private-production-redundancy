@@ -1,9 +1,12 @@
 # ERE upload components — independent-audit repair
 
-This supersedes the Stage-15 upload candidate for the repaired manuscript.
+This supersedes the former Stage-15 upload candidate for the repaired
+manuscript and is governed by
+`PCPPR-THEORY-FREEZE-2026-10-02-v3`.
 Historical Stage records are retained as history, not current scientific
 certification. The build records the source commit and per-component SHA-256
-hashes. Regenerate the bundle from the final committed source.
+hashes. Regenerate the bundle from the final green main commit after PR #31 is
+merged.
 
 | Component | Generated file | Audience / designation |
 |---|---|---|
@@ -25,3 +28,12 @@ current official portal, article type, file designations, declaration fields,
 and the portal-generated reviewer PDF before author submission. The dated
 requirements ledger records unresolved live-portal items; it is not a claim
 that a blocked endpoint has become operational.
+
+
+## Current freeze controls
+
+- `STAGE_15_V3_REPORT.md`
+- `submission/ERE_STAGE15_V3_SCIENTIFIC_OBJECT.lock`
+
+Only artifacts regenerated from the green main-branch merge commit are final
+repository-side submission objects.

@@ -15,7 +15,7 @@ FILES = {
     ROOT / "submission" / "ERE_title_page.pdf": "02_title_page/ERE_title_page.pdf",
     ROOT / "dist" / "ERE_anonymous_manuscript_source.zip": "03_editable_source/ERE_anonymous_manuscript_source.zip",
     ROOT / "dist" / "ERE_anonymous_replication.zip": "04_replication/ERE_anonymous_replication.zip",
-    ROOT / "figures" / "policy_regime.eps": "05_artwork/policy_regime.eps",
+    ROOT / "figures" / "Fig1.eps": "05_artwork/Fig1.eps",
     ROOT / "submission" / "ERE_cover_letter.md": "06_cover_letter/ERE_cover_letter.md",
     ROOT / "submission" / "ERE_submission_checklist.md": "07_controls/ERE_submission_checklist.md",
     ROOT / "submission" / "ERE_CURRENT_UPLOAD_MANIFEST.md": "07_controls/ERE_CURRENT_UPLOAD_MANIFEST.md",

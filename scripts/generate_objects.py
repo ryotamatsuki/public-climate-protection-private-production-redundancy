@@ -28,18 +28,56 @@ def main():
     (TAB/'policy_regime.csv').unlink(missing_ok=True)
     gs = [float(Q(row['gamma'])) for row in rows]
     fig, ax = plt.subplots(figsize=(6.5, 4.0))
-    ax.plot(gs, [float(Q(row['MS'])) for row in rows],
-            label=r'Common-policy marginal $M_S
-        ax.text(root, 0.97, label, transform=ax.get_xaxis_transform(),
-                ha='right', va='top', fontsize=10)
-    ax.set(xlabel=r'Product substitutability $\gamma$',
-           ylabel='Marginal payoff at zero additional protection', xlim=(0.44, 0.54))
+    ax.plot(
+        gs,
+        [float(Q(row['MS'])) for row in rows],
+        label=r'Common-policy marginal $M_S$',
+        color='#1f77b4',
+        linestyle='-',
+        linewidth=1.8,
+    )
+    ax.plot(
+        gs,
+        [float(Q(row['ML'])) for row in rows],
+        label=r'Unilateral local marginal $M_L$',
+        color='#b44b27',
+        linestyle='-.',
+        linewidth=1.8,
+    )
+    ax.axhline(0, color='0.35', linewidth=0.8)
+    for root, label in (
+        (0.474589333418, r'$\gamma_L$'),
+        (0.498291221704, r'$\gamma_S$'),
+    ):
+        ax.axvline(root, color='0.55', linestyle=':', linewidth=0.9)
+        ax.text(
+            root,
+            0.97,
+            label,
+            transform=ax.get_xaxis_transform(),
+            ha='right',
+            va='top',
+            fontsize=10,
+        )
+    ax.set(
+        xlabel=r'Product substitutability $\gamma$',
+        ylabel='Marginal payoff at zero additional protection',
+        xlim=(0.44, 0.54),
+    )
     ax.legend(frameon=False, loc='lower right')
     fig.tight_layout()
     for suffix in ('pdf', 'eps'):
-        fig.savefig(FIG/f'policy_regime.{suffix}', bbox_inches='tight', metadata={'Creator': 'Matplotlib'})
+        fig.savefig(
+            FIG / f'policy_regime.{suffix}',
+            bbox_inches='tight',
+            metadata={'Creator': 'Matplotlib'},
+        )
     # Journal-facing vector artwork follows Springer figure-file naming.
-    fig.savefig(FIG/'Fig1.eps', bbox_inches='tight', metadata={'Creator': 'Matplotlib'})
+    fig.savefig(
+        FIG / 'Fig1.eps',
+        bbox_inches='tight',
+        metadata={'Creator': 'Matplotlib'},
+    )
     plt.close(fig)
     channels = canonical_channels()
     with (TAB/'channel_decomposition.csv').open('w', newline='') as f:

@@ -11,7 +11,7 @@ hashes. Regenerate the bundle from the final committed source.
 | Separate title page | `submission/ERE_title_page.pdf` | Editorial author information/declarations |
 | Editable anonymous source | `dist/ERE_anonymous_manuscript_source.zip` | Manuscript source; anonymous |
 | Anonymous replication | `dist/ERE_anonymous_replication.zip` | Reviewer supplementary code/certificates |
-| Vector artwork | `figures/policy_regime.eps` | Figure artwork; exact origin marginals |
+| Vector artwork | `figures/Fig1.eps` | Figure 1 vector artwork; exact origin marginals with non-color line encoding |
 | Cover letter | `submission/ERE_cover_letter.md` | Editorial only |
 | Transport bundle | `dist/ERE_submission_ready_bundle.zip` | Author/editorial transport only; contains identifying material |
 

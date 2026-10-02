@@ -1,4 +1,4 @@
-"""Execute the advertised commands from the actual anonymous ZIP, without Git."""
+"""Execute the advertised commands without the paper's Git metadata or history."""
 from __future__ import annotations
 import argparse
 from pathlib import Path
@@ -40,7 +40,8 @@ def main():
             report=work/'formal/FORMAL_AXIOM_REPORT.txt'
             assert report.is_file() and 'sorryAx' not in report.read_text()
             (ROOT/'dist/anonymous-FORMAL_AXIOM_REPORT.txt').write_bytes(report.read_bytes())
-    print(f'actual anonymous ZIP: make {target} completed without editorial files or Git')
+        assert not (work/'.git').exists(), 'reproduction unexpectedly created project Git metadata'
+    print(f'actual anonymous ZIP: make {target} completed without editorial files or a project Git checkout')
 
 
 if __name__=='__main__':

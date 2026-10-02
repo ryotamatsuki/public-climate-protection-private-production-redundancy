@@ -42,7 +42,8 @@ origin slopes/densities create some of their agreement by construction.
 
 ## Reproduce
 
-Use Python 3.13, the direct dependency pins in `requirements.txt`, and LaTeX:
+Use Python 3.13, the direct dependency pins in `requirements.txt`, GNU Make,
+and LaTeX:
 
 ```bash
 python -m pip install -r requirements.txt
@@ -54,7 +55,7 @@ certificates, the diagonal-root derivative and clipped-backup contraction,
 numerical FOC/deviation searches, the exact mechanism benchmark, regression
 tests, exact exhibit checks, anonymous and editorial format checks separately,
 LaTeX builds, and reproduction from the actual anonymous ZIP in a temporary
-Git-free directory. It creates:
+directory without a project Git checkout. It creates:
 
 - `paper/main.pdf`: anonymous manuscript.
 - `submission/ERE_title_page.pdf`: separate editorial identity/declarations.
@@ -80,6 +81,8 @@ model-specific premises, unformalized bridges/open-set persistence, and
 axiom report. The full economic theorem is not a closed Lean statement.
 
 The anonymous archive's corresponding commands are also `make verify` and
-`make formal-verify`; neither depends on the editorial title page or Git.
+`make formal-verify`; neither depends on the editorial title page or the paper's
+Git history. Formal dependency installation requires the Git command and
+network access, even though the extracted project has no Git metadata.
 Historical Stage verifiers are retained for provenance but are excluded from
 the current scientific reproduction gate.

@@ -3,10 +3,16 @@
 The pinned project uses Lean 4.32.1 and mathlib revision
 `520045ab14e26149ee970e2e617ca04b09bde5d6` with transitive revisions in
 `lake-manifest.json`. From the archive root, install `requirements.txt` and the
-Lean toolchain, then run `make formal-verify`. That target regenerates both
+Lean toolchain and Git command, then run `make formal-verify`. Network access
+is needed for the pinned external dependencies; the paper's Git checkout or
+history is not needed. That target regenerates both
 `PCPPR/GeneratedCertificates.lean` and `GENERATED_CERTIFICATE_ARCHIVE.json`,
-restores the mathlib cache, builds the project, and prints theorem dependencies
-into `formal/FORMAL_AXIOM_REPORT.txt`. Generated certificates are also supplied
+restores the mathlib cache, builds all thirteen proof modules, and checks
+`Main.lean` with Lean to print theorem dependencies
+into `formal/FORMAL_AXIOM_REPORT.txt`. It does not link the optional native
+`pcppr` executable: that step would compile mathlib's C object files, which are
+not included in the proof cache. Every project proof module and the theorem
+report remain checked. Generated certificates are also supplied
 in the reviewer archive. Python exact verification is `make verify`.
 
 ## What is checked

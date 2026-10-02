@@ -53,7 +53,7 @@ formal-certificates:
 
 formal-verify: formal-certificates
 	cd formal && lake exe cache get
-	cd formal && lake build
+	cd formal && lake build PCPPR.Primitives PCPPR.ProductMarket PCPPR.Availability PCPPR.Backup PCPPR.Location PCPPR.Welfare PCPPR.MarginalDecomposition PCPPR.Bernstein PCPPR.CanonicalWitness PCPPR.GeneratedCertificates PCPPR.GlobalPlanner PCPPR.GlobalLocalGovernment PCPPR.TheoremCore
 	cd formal && lake env lean Main.lean > FORMAL_AXIOM_REPORT.txt
 
 ere-source-package: objects

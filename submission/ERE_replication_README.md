@@ -12,7 +12,8 @@ python -m pip install -r requirements.txt
 ```
 
 The requirements specify SymPy 1.14.0, NumPy 2.3.5, SciPy 1.17.0,
-Matplotlib 3.10.8 and pytest 9.1.1. A standard LaTeX distribution with
+Matplotlib 3.10.8 and pytest 9.1.1. GNU Make is needed to run the targets.
+A standard LaTeX distribution with
 `amsmath`, `amsthm`, `mathtools`, `booktabs`, `natbib`, `microtype`, `setspace`,
 `hyperref`, `xurl`, `enumitem`, `caption` and `geometry` is required. Debian/Ubuntu's
 `texlive-latex-base`, `texlive-latex-recommended` and `texlive-latex-extra`
@@ -40,8 +41,9 @@ journal-readiness decisions.
 
 ## Formal verification
 
-Install the toolchain declared in `formal/lean-toolchain` using elan, ensure
-`lake` is on PATH, and run:
+Install the toolchain declared in `formal/lean-toolchain` using elan and the
+Git command for fetching pinned external Lean dependencies. Ensure `lake`
+and `git` are on PATH, and run:
 
 ```bash
 make formal-verify
@@ -49,7 +51,10 @@ make formal-verify
 
 The target explicitly regenerates its certificate dependencies, obtains the
 pinned mathlib cache (network access is needed on first installation), runs
-`lake build`, and writes `formal/FORMAL_AXIOM_REPORT.txt`. Full assumptions,
+the build of all thirteen proof modules, and writes
+`formal/FORMAL_AXIOM_REPORT.txt` by checking `Main.lean` with Lean. Linking the
+optional native executable is not part of proof reproduction; it would also
+compile mathlib C object files absent from the proof cache. Full assumptions,
 unformalized bridges, and the `native_decide` extended trust boundary are
 listed in `formal/README.md` and in the manuscript appendix. The final Lean
 theorem is a conditional implication, not a closed verification of the whole

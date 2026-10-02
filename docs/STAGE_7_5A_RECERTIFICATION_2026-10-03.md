@@ -203,6 +203,5 @@ authorized as a pre-freeze rescue exercise**.
 - negative/constructed features disclosed: PASS
 - formal-verification applicability: APPLICABLE
 - formal-verification state: PASS / bounded proof-critical core
-- author intellectual-contribution confirmation: required before Stage 8 and recorded
-  separately
-- routing: **GO → Stage 8 after author confirmation**
+- author intellectual-contribution confirmation: **PASS — personally reconfirmed 2026-10-03**
+- routing: **GO → Stage 8 v4 freeze**

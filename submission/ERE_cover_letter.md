@@ -17,13 +17,17 @@ incentives. The benchmark retains private firm choices and excludes protection
 benefits to lives and other assets.
 
 The contribution concerns adaptation appraisal under a restricted local
-protective-policy instrument. Grossman, Helpman, and Lhuillier (2023) already
-establish important private resilience distortions and policy implications for
-backup sourcing. Walz and Wellisch (1996) and Maurer and Walz (2000) establish
-competition for mobile oligopolistic firms through local inputs. This paper
-examines the protective input's endogenous industrial value when its private
-substitute responds, and establishes the resulting coordinated/decentralized
-ranking throughout the relevant deviation domain. An exact Delta=0 benchmark
+protective-policy instrument. Kousky, Luttmer, and Zeckhauser (2006) already
+show that government disaster protection can attract private investment to
+risk-prone locations, while explicitly setting aside substitution between
+public and private protective investment. Grossman, Helpman, and Lhuillier
+(2023) establish important private resilience distortions and policy
+implications for backup sourcing. Walz and Wellisch (1996) and Maurer and Walz
+(2000) establish competition for mobile oligopolistic firms through local
+inputs. This paper examines the protective input's endogenous industrial value
+when firms can substitute toward or away from geographic contingency readiness,
+and establishes the resulting coordinated/decentralized ranking throughout the
+relevant deviation domain. An exact Delta=0 benchmark
 shows that incremental disaster-state monopoly rents are not necessary;
 oligopoly changes readiness and correlated-risk responses. The paper therefore
 does not claim novelty for crowd-out, private resilience inefficiency, or plant

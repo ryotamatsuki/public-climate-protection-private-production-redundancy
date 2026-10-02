@@ -74,3 +74,43 @@ Accordingly, the author confirms that:
 This confirmation is author-controlled and was not inferred or supplied by automated QA.
 
 A separate Stage-15 sign-off must still approve the exact final commit/PDF/package.
+
+
+## 2026-10-03 v4 re-confirmation gate
+
+Status: **PERSONALLY RECONFIRMED BY AUTHOR — 2026-10-03**
+
+The 2026-10-03 v2.5 hostile re-certification and Stage-6 / Stage-7.5A refresh
+post-date the personal confirmation above. On 2026-10-03 the author explicitly
+responded: “5点確認。v4 freezeを承認します”. This is recorded as the author's
+personal scientific reconfirmation of the five items below, not merely as
+authorization to run tools or merge code.
+
+The author explicitly reconfirmed the current scientific object on these five points:
+
+1. **Mechanism:** public protection lowers primary risk; lower risk reduces
+   privately chosen geographic contingency readiness; the induced private
+   response can make the national industrial protection margin negative while
+   plant attraction keeps the local marginal incentive positive.
+2. **Proof/equilibrium logic:** backup uniqueness is for the clipped game;
+   the symmetric policy root is globally best-response certified; open-set
+   persistence uses the full diagonal derivative
+   (G_{A,a_Aa_A}+G_{A,a_Aa_B}) and persistence of the strict backup
+   contraction margin.
+3. **Delta=0 benchmark:** incremental sole-survivor rents are not necessary
+   for the policy conflict; the benchmark does not imply that market power is
+   irrelevant or that the result is general outside its solved specification.
+4. **Limitations / prior art:** Kousky--Luttmer--Zeckhauser (2006),
+   Mahmud--Barbier (2016), classic local-public-input competition, and related
+   public/private-protection theory absorb important component mechanisms.
+   The contribution is restricted to the full coupled policy-ranking theorem.
+5. **Maximum defensible claim:** a nonempty open set exists in the maintained
+   symmetric baseline family with a unique zero coordinated
+   protection-policy optimum and a strictly positive symmetric decentralized
+   Nash equilibrium; diagnostics support only conditional portability and do
+   not establish a universal climate-adaptation overprovision result.
+
+This confirmation closes the workflow-v2.5 human-accountability gate for the
+v4 scientific freeze. It does not approve future theory changes, later
+submission-package changes, or portal-generated files; those require their own
+applicable sign-off.

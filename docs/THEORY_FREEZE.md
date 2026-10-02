@@ -1,14 +1,15 @@
 # Canonical Theory Freeze
 
-Freeze ID: `PCPPR-THEORY-FREEZE-2026-10-02-v3`
+Freeze ID: `PCPPR-THEORY-FREEZE-2026-10-03-v4`
 
-Freeze date: **2026-10-02**
+Freeze date: **2026-10-03**
 
 Supersedes:
-- `PCPPR-THEORY-FREEZE-2026-09-14-v2`, which was reopened by the independent pre-submission audit after discovery of an invalid policy-equilibrium exhibit and proof gaps in backup-game uniqueness and open-set persistence;
+- `PCPPR-THEORY-FREEZE-2026-10-02-v3`, reopened by the workflow-v2.5 hostile re-certification because Stage-6 prior-art coverage and Stage-7.5A portability/human-accountability certification were stale after the independent audit repair;
+- `PCPPR-THEORY-FREEZE-2026-09-14-v2`;
 - `PCPPR-THEORY-FREEZE-2026-09-06-v1`.
 
-Version 3 retains the canonical primitive vector and baseline Protection--Attraction Conflict ranking, but freezes the repaired proof architecture: clipped-backup contraction for global continuation uniqueness, the full diagonal FOC derivative for open-set persistence, the exact origin-marginal exhibit, the narrowed mechanism/novelty claims, and the explicit formalization boundary.
+Version 4 retains the v3 canonical primitive vector, welfare formulas, and repaired proof architecture. It additionally freezes the refreshed Stage-6 theorem-absorption map, the corrected Stage-7.5A portability interpretation, the bounded formal-verification scope, and the author's explicit 2026-10-03 scientific reconfirmation.
 
 Working title: **Public Climate Protection and Private Production Redundancy**
 
@@ -90,3 +91,44 @@ The current repair and evidence are described in
 This v3 freeze covers the scientific object only. Live journal-portal fields,
 the portal-generated review PDF, and final submission authorization remain
 separate operational gates.
+
+
+## Workflow-v2.5 re-certification and v4 freeze, 2026-10-03
+
+The v3 scientific object was re-opened for certification rather than because a
+new mathematical defect was found.
+
+Stage 6 was re-run after locating closer parent literature, especially
+Kousky, Luttmer and Zeckhauser (2006), together with Mahmud and Barbier (2016)
+and application-neutral public/private prevention models. These papers absorb
+broad claims for protection-induced investment/location responses and
+public/private protection interaction. They do not supply a parent theorem
+from which the full planner-zero / local-positive policy ranking follows by
+direct specialization. Novelty therefore remains restricted to the coupled
+global policy-ranking result.
+
+Stage 7.5A was re-run with the diagnostic evidence narrowed. The nonlinear-risk
+diagnostic matches the baseline origin slope by construction; the logistic
+diagnostic matches the symmetric density response by construction. Their
+informative content is off-origin/off-diagonal continuation and deviation
+behavior. The exact theorem remains baseline-family-specific and the final
+classification remains **CONDITIONALLY PORTABLE**.
+
+The formal-verification state is **PASS / PROOF-CRITICAL CORE** with explicit
+generated-certificate premises, clipped-backup uniqueness and open-set
+persistence outside the final Lean theorem, and native-computation trust
+disclosed.
+
+On 2026-10-03 the author explicitly confirmed the current mechanism, repaired
+proof/equilibrium logic, Delta=0 benchmark interpretation, prior-art/limitation
+boundary, and maximum defensible claim, and explicitly approved the v4 freeze.
+
+Current recertification evidence:
+- `docs/STAGE_6_RECERTIFICATION_2026-10-03.md`
+- `docs/STAGE_7_5A_RECERTIFICATION_2026-10-03.md`
+- `docs/FORMAL_VERIFICATION_GATE_ADDENDUM_2026-10-03.md`
+- `docs/INDEPENDENT_SCIENTIFIC_CONFIRMATION_2026-10-03.md`
+- `docs/AUTHOR_INTELLECTUAL_CONTRIBUTION_RECORD.md`
+
+Live journal-portal fields, portal-generated review PDF inspection, and final
+submission authorization remain separate operational gates.

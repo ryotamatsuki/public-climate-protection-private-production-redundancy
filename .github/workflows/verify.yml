@@ -25,6 +25,12 @@ jobs:
           name: ERE-anonymous-replication
           path: dist/ERE_anonymous_replication.zip
           if-no-files-found: error
+      - name: Upload ERE Stage-15 pre-submission bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: ERE-stage15-pre-submission-bundle
+          path: dist/ERE_submission_ready_bundle.zip
+          if-no-files-found: error
       - name: Upload Stage-13 integration bundle
         uses: actions/upload-artifact@v4
         with:

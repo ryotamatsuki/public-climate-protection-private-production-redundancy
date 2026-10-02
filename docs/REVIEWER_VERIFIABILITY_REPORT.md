@@ -1,284 +1,217 @@
-# Historical audit — superseded for the repaired candidate
+# Reviewer Verifiability Report — v4
 
-The clean-verifiability conclusions in this earlier report did not identify the
-2026-10-02 figure, proof, and package defects. They do not apply to the repaired
-candidate. See `INDEPENDENT_AUDIT_REPAIRS_2026-10-02.md` for corrections and
-execution evidence. The original report follows for provenance.
+**Date:** 2026-10-03  
+**Canonical scientific freeze:** \`PCPPR-THEORY-FREEZE-2026-10-03-v4\`  
+**Audited canonical main:** \`8869e6f1b342bc73e7b5a3c09dc685d607e1ce91\`  
+**Workflow:** Theory Paper Research Pipeline v2.5 / Stage 13  
+**Map:** \`docs/REVIEWER_VERIFIABILITY_MAP.md\`
 
-# Reviewer Verifiability Report — 2026-09-25
+## Executive verdict
 
-## Verdict
+**PASS — REVIEWER VERIFIABILITY RE-CLOSED FOR V4**
 
-**PASS — REVIEWER VERIFIABILITY**
+The current paper is theorem-bearing and computer-assisted, so reviewer verifiability is a
+Stage-13 closure condition.
 
-Scope: **FULL**.
+A clean reconstruction of the headline result finds no proof-critical transition that
+requires the referee to guess an omitted object or open production code merely to identify
+the derivation.
 
-Reference checklist: `ryotamatsuki/research-paper-workflow/checklists/REVIEWER_VERIFIABILITY_CHECKLIST.md` (prospective v2.7 reviewer-verifiability refinement).
+The manuscript follows the governing rule:
 
-This audit asks whether a competent specialist referee can follow and audit the proof-critical chain from the manuscript-facing package without reverse-engineering missing conceptual bridges. It does not require every mechanical algebraic expansion, exact coefficient list, root-isolation trace, or proof-assistant kernel trace to appear in the PDF.
+> compress routine algebra; preserve conceptual bridges.
 
-No theorem, parameter, equilibrium concept, welfare definition, numerical result, or certificate is changed by this audit.
+## 1. Manuscript-facing proof architecture
 
-## 1. Headline-result map
+The current paper presents the complete conceptual chain:
 
-| Claim / result | Manuscript location | Derivation / proof location | Computational / formal artifact | State |
-|---|---|---|---|---|
-| Cournot / monopoly continuation and scarcity-rent wedge | Sec. 3 | App. A, Product-market and backup identities | `scripts/verify_symbolic.py`; Lean T1 | PASS |
-| Backup best response, strategic substitution, co-location / dispersion formulas | Sec. 3 | Sec. 3 proofs + App. A | `scripts/verify_global_certificate.py`; Lean T3–T5 | PASS |
-| Unique interior backup continuation on full policy square | Sec. 3 | Lemma “Unique interior continuation” | `scripts/verify_global_certificate.py`; Lean T4 | PASS |
-| Unique unclipped private-information location continuation | Sec. 3 | Lemma “Unique interior continuation” | `scripts/verify_global_certificate.py`; Lean T6 | PASS |
-| Plant-attraction marginal decomposition | Sec. 4 | Proposition “Plant-attraction threshold” | symbolic checks; Lean T8 | PASS |
-| Canonical marginal sign conflict | Sec. 4 / Sec. 5 | exact witness arithmetic | generated exact arithmetic; Lean T9 | PASS |
-| Global planner optimum at zero | Theorem 1 / App. A | Lemma “Global planner monotonicity” | Bernstein exact certificate; Lean T10–T11 | PASS |
-| Positive symmetric local-government equilibrium | Theorem 1 / App. A | Lemma “Global local-government best response” | exact root isolation + whole-domain concavity; Lean T12–T14 | PASS |
-| Open-set persistence around canonical witness | Theorem 1 / App. A | Lemma “Persistence around the canonical witness” | analytic compactness / continuity / implicit-function argument; explicitly outside Lean scope | PASS |
-| Fit-payoff robustness | App. A | “Robustness to counting the selected location-fit payoff” | exact symmetric-advantage identity in `verify_global_certificate.py` | PASS |
-
-## 2. Reviewer reconstruction
-
-A clean reconstruction was performed from the manuscript-facing mathematical chain.
-
-### 2.1 Primitives to downstream backup continuation
-
-The manuscript gives:
-
-- utility and inverse demand;
-- public protection and failure-risk mapping;
-- primary and joint failure probabilities;
-- backup readiness and its cost;
-- final-availability probabilities;
-- expected firm profit.
-
-The backup FOCs are no longer left as an implicit “two-equation system.” Equation `backup-linear-system` displays
-
-[
-\begin{pmatrix}
-k & \Delta J\\
-\Delta J & k
-\end{pmatrix}
-\begin{pmatrix}
-r_1\\r_2
-\end{pmatrix}
-=
-\begin{pmatrix}
-\pi_D s_1+\Delta J\\
-\pi_D s_2+\Delta J
-\end{pmatrix},
-]
-
-and identifies the determinant (k^2-(\Delta J)^2). A referee can therefore see the object whose determinant/interiority is later certified.
-
-**Finding:** PASS. No proof-critical bridge is missing.
-
-### 2.2 Backup continuation to location continuation
-
-The manuscript defines the four location-contingent equilibrium profits, the deterministic location differences (d_A,d_B), the affine cutoff best response, its endpoint probabilities (u_0,u_1), slope (B), and the unique fixed-point probability (p).
-
-The Appendix states exactly what the whole-domain certificate checks: endpoint interiority, no clipping, (|B|<1), denominator positivity, and interiority of the resulting fixed point. It also explains why these facts imply uniqueness rather than merely existence.
-
-**Finding:** PASS.
-
-### 2.3 State/profile objects to expected surplus and policy objectives
-
-The manuscript now explicitly defines (S^{XY}(a_A,a_B)) as profile-specific surplus after solving backup continuation and displays
-
-[
-\mathcal S(a_A,a_B)
-=
-p^2 S^{AA}
-+p(1-p)S^{AB}
-+p(1-p)S^{BA}
-+(1-p)^2S^{BB}.
-]
-
-It then states that substituting profile-specific backup solutions and the location probability into this aggregation, and then into (W) and (G_A), yields the rational policy functions used by the exact certificates.
-
-This closes the previously implicit bridge:
-
-[
+\[
 \text{primitives}
-\to r^{XY}
-\to S^{XY}
-\to p
-\to \mathcal S
-\to W,G_A
-\to \text{certificate target}.
-]
+\rightarrow
+\text{availability-state payoffs}
+\rightarrow
+\text{backup game}
+\rightarrow
+\text{location game}
+\rightarrow
+\text{national/local policy objectives}
+\rightarrow
+\text{planner and decentralized policy results}.
+\]
 
-**Finding:** PASS.
+Every high-stakes transition has an explicit displayed object or named lemma.
 
-### 2.4 Certificate target to global planner result
-
-The Appendix defines the rational structure
-
-[
-W_{a_A}=P_A/Q_A,qquad W_{a_B}=P_B/Q_B,
-]
-
-states the policy domain, explains the Bernstein weighted-average argument, certifies denominator positivity and numerator negativity, and then explicitly derives strict coordinatewise monotonicity and the unique optimum at ((0,0)).
-
-The manuscript need not print the mechanically generated expansions of (P_A,Q_A,P_B,Q_B); the exact script and certificate archive identify the delegated computation.
-
-**Finding:** PASS.
-
-### 2.5 Root isolation and concavity to decentralized equilibrium
-
-The Appendix defines
-
-[
-F(a)=G_{A,a_A}(a,a),
-]
-
-states the exact isolating interval for the unique root (alpha), and separately writes
-
-[
-G_{A,a_Aa_A}=P_G/Q_G.
-]
-
-It explains that root isolation supplies stationarity while the whole-domain Bernstein sign certificate supplies strict concavity over the full own-policy interval when the rival lies in the root enclosure. The proof then explicitly uses “stationary point + strict concavity” to obtain the unique global best response, including boundary actions.
-
-This avoids conflating an FOC solution with a global equilibrium.
-
-**Finding:** PASS.
-
-### 2.6 Lemmas to headline theorem
-
-The theorem proof explicitly combines:
-
-1. unique downstream continuation;
-2. unique planner optimum;
-3. unique positive symmetric local-government best response;
-4. open-set persistence.
-
-The canonical-witness result and the nonempty-open-set extension are visibly separated.
-
-**Finding:** PASS.
-
-## 3. Computer-assisted proof audit
-
-### Object
-
-The manuscript names the relevant rational functions, backup/location continuation objects, planner derivatives, diagonal local-government FOC, and local second derivative.
-
-### Domain
-
-The principal global certificates are stated on the full policy square ([0,2/25]^2), and the local-government concavity certificate uses the full own-action interval times the exact rival-root enclosure.
-
-### Certified property
-
-The manuscript distinguishes:
-
-- denominator sign;
-- backup interiority;
-- location no-clipping and contraction;
-- planner derivative negativity;
-- root uniqueness;
-- own-policy strict concavity;
-- symmetric deterministic location advantage.
-
-### Logical implication
-
-The Appendix explains the implication from each certified property to the corresponding lemma and from those lemmas to Theorem 1.
-
-### Reproduction mapping
-
-The manuscript-facing package identifies:
-
-- `scripts/verify_global_certificate.py`;
-- `scripts/verify_policy_certificate.py`;
-- `scripts/verify_symbolic.py`;
-- `scripts/verify_normalization.py`;
-- `docs/certificate_polynomials.json`;
-- `docs/certificate_normalization.json`.
-
-The formal layer is separately mapped in `docs/FORMALIZATION_TARGET_MAP.md`.
-
-**Finding:** PASS.
-
-## 4. Formal-verification scope mapping
-
-The manuscript and formal-verification records distinguish three classes:
-
-- Lean-derived claims;
-- maintained model assumptions;
-- generated exact certificates imported through explicit semantic bridges.
-
-The formal map explicitly excludes the open-neighborhood persistence theorem from the Lean claim. No manuscript language was found that upgrades selected Lean certification into a claim that Lean proves the entire economic theorem from primitives.
-
-**Finding:** PASS.
-
-## 5. Proof-exposition audit
-
-The current manuscript has visible proof environments for the material propositions and Appendix lemmas. The recent exposition repairs make the following transitions explicit:
-
-- FOC → backup 2×2 linear system;
-- state/profile surplus → location-weighted expected surplus;
-- expected surplus → policy rational functions;
-- rational functions → Bernstein sign objects;
-- root isolation + strict concavity → global best response;
-- lemma chain → theorem.
-
-Routine algebra remains compressed where it does not carry conceptual content.
-
-No remaining instance was identified where a specialist referee must open production code merely to discover what mathematical object is being proved.
-
-**Finding:** PASS.
-
-## 6. Clean-room gap classification
-
-| Potential gap | Classification | Resolution |
-|---|---|---|
-| Full symbolic expansion of large certificate polynomials not printed | ROUTINE / delegated mechanical detail | Acceptable; target objects, domain, property, and scripts are identified |
-| Full Bernstein coefficient lists not printed | ROUTINE / delegated mechanical detail | Acceptable; exact checker and coefficient archive are identified |
-| Root-isolation trace not printed | ROUTINE / delegated mechanical detail | Acceptable; exact interval and checking scripts are identified |
-| Open-set persistence not Lean-certified | Not a reviewer-verifiability defect | Analytic proof is stated; formal map explicitly marks it out of scope |
-| Full first-principles measure-theoretic construction of Uniform shocks not formalized | Not a reviewer-verifiability defect | Maintained primitive is visible and formal scope boundary is explicit |
-
-No item is classified **BRIDGE NEEDED**, **APPENDIX DETAIL NEEDED**, or **SUBSTANTIVE DEFECT** after the proof-exposition and model-to-certificate bridge repairs merged on 2026-09-25.
-
-## 7. Compression versus verifiability
+### Backup
 
 PASS.
 
-The current split follows the governing rule:
+The global feasible best response is explicitly clipped. The manuscript acknowledges that
+the unclipped response can exceed one for some rival actions and therefore does not use
+interior FOCs as a global equilibrium argument. The contraction bound is visible in the
+main text.
 
-> **Compress routine algebra; preserve proof-critical bridges.**
+### Location
 
-The manuscript contains the conceptual derivation chain. Mechanically generated large objects remain in the reproducibility archive.
+PASS.
 
-## 8. Stage-specific closure
+The location payoff differences, affine cutoff response, endpoint objects, contraction
+slope, and fixed point are displayed. The Appendix explains exactly which endpoint and
+denominator inequalities are computer-certified.
 
-### Stage 10 retrospective architecture check
+### Policy-object construction
 
-PASS retrospectively. The current manuscript contains the bridge equations and named certificate targets that a Stage-10 reviewer-verifiability map would require.
+PASS.
 
-### Stage 11 hostile reconstruction
+Profile-level surplus after backup is defined, then explicitly aggregated over the
+endogenous location probabilities. The government and planner objectives are already
+defined in the Model. No hidden “code-only welfare function” is needed.
 
-PASS. A complete headline chain was reconstructed from the manuscript-facing mathematical package without requiring production code to infer a missing conceptual step.
+### Planner globality
 
-### Stage 13 integrated-manuscript audit
+PASS.
 
-PASS. The integrated manuscript retains the proof-critical chain and the delegated computational/formal mapping.
+The Appendix identifies the rational derivative objects, explains the Bernstein
+weighted-average principle in a simple one-dimensional example, extends it to the policy
+rectangle, and states the sign implication. Large coefficient arrays are delegated to the
+archive.
 
-### Stage 14 final-package preflight
+### Local Nash equilibrium
 
-PASS at repository level. The current source package preserves the proof architecture.
+PASS.
 
-The authenticated ERE portal-generated review PDF must still be inspected after upload; this is a separate portal-only Stage-14 item and is not inferred here.
+The paper separates root isolation from global best-response verification. The symmetric
+FOC root is stationary; whole-own-domain strict concavity makes it the unique global best
+response. Boundary actions are covered.
 
-## 9. Final verdict
+### Open-set theorem
 
-**PASS — REVIEWER VERIFIABILITY**
+PASS.
 
-A competent specialist referee can identify the relevant mathematical objects, follow the non-routine derivation and proof chain, understand what is delegated to exact computation / Lean, and see why the certified properties imply the paper's conclusions.
+The current proof uses the full diagonal derivative
+\(G_{A,a_Aa_A}+G_{A,a_Aa_B}\) and explicitly preserves the clipped-backup contraction
+margin in the parameter neighborhood. The proof states that it does not establish
+uniqueness of all first-stage policy equilibria or asymmetric-primitive persistence.
 
-This verdict does not assert that every generated polynomial or coefficient can be reproduced manually from the PDF. It certifies that the manuscript-facing package is sufficiently explicit for specialist review and that delegated mechanical computations are mathematically identified and reproducible.
+## 2. Computer-assisted-proof audit
 
-## 10. Remaining non-v2.7 submission blockers
+For every exact certificate used in the headline theorem, the manuscript exposes:
 
-This report closes the reviewer-verifiability workflow delta only. It does not close:
+1. mathematical object;
+2. strategy/policy domain;
+3. certified sign/root/interiority property;
+4. logical implication for the economic claim.
 
-1. the author's personal intellectual-contribution / provenance confirmation;
-2. authenticated Editorial Manager article-type, file-designation, declaration, and warning checks;
-3. inspection of the portal-generated review PDF;
-4. Stage-15 approval of the exact final package.
+The delegated calculations are mechanical exact objects: Bernstein coefficients, rational
+numerator/denominator expansions, root-isolation traces, generated finite arithmetic, and
+formal-kernel details.
+
+Numerical optimization is explicitly described as counterexample search / implementation
+stress testing and is not used as proof of the headline theorem.
+
+**Computer-assisted-proof exposition: PASS.**
+
+## 3. Economic-paper readability
+
+The paper does not read like a verification report.
+
+- the Introduction contains no Lean or CI discussion;
+- the Model states economic primitives and timing first;
+- Sec. 3 solves economically interpretable continuation games;
+- Sec. 4 states the policy wedge and theorem;
+- Sec. 5 explains welfare channels;
+- Sec. 6 uses a benchmark to identify the minimal mechanism;
+- formal verification appears only in the Appendix after the economic proof is complete.
+
+The proof assistant is therefore an assurance layer, not the narrative spine.
+
+**Economic-paper readability: PASS.**
+
+## 4. Formal-verification statement fidelity
+
+PASS.
+
+The Appendix says explicitly that the final Lean theorem is conditional on supplied
+function/sign bridges and that clipped-backup uniqueness and open-set persistence remain
+outside the final Lean theorem. It also discloses the \`native_decide\` trust boundary.
+
+The manuscript does not claim “Lean proves the entire model.”
+
+## 5. Scope / quantifier readability
+
+PASS.
+
+A reader can distinguish:
+
+- unique downstream continuations;
+- unique planner optimum at the canonical witness;
+- existence of a strictly positive symmetric local policy Nash equilibrium;
+- no claim of uniqueness of all first-stage policy equilibria;
+- exact baseline-family open-set theorem;
+- numerical-only nonlinear-risk/logistic diagnostics;
+- constrained industrial-surplus planner rather than first best.
+
+This matches the v4 Stage-7.5A certificate.
+
+## 6. Welfare-selection readability
+
+PASS.
+
+The planner objective and policy choice set are explicit. Location and backup remain private
+choices. The text repeatedly labels the benchmark as protection-policy constrained and
+industrial-surplus specific.
+
+The national constant \(2b\) and equal local incidence rule are explained rather than
+hidden in accounting.
+
+## 7. Exhibit / proof interaction
+
+PASS.
+
+Figure 1 is clearly labeled as an origin-marginal exhibit rather than an equilibrium curve.
+Table 1 is an exact derivative decomposition rather than a simulation table.
+
+No exhibit is relied on as proof of the theorem.
+
+## 8. Clean-room hostile reconstruction result
+
+The full headline chain can be reconstructed from the paper-facing package:
+
+1. product-state payoffs;
+2. globally feasible backup game;
+3. unique location continuation;
+4. national/local policy functions;
+5. global planner sign certificate;
+6. exact local FOC root;
+7. whole-domain own-policy concavity;
+8. positive symmetric Nash equilibrium;
+9. open-set persistence.
+
+No item is classified:
+
+- BRIDGE NEEDED;
+- APPENDIX DETAIL NEEDED for conceptual correctness;
+- SUBSTANTIVE DEFECT.
+
+Large exact expansion details are correctly classified as delegated mechanical detail.
+
+## 9. Residual reader burdens
+
+The paper remains technically demanding. The principal unavoidable burdens are:
+
+- understanding the conditional-independence availability law;
+- tracking how location-profile continuations enter expected national surplus;
+- accepting the Bernstein sign argument before checking the generated coefficient archive;
+- distinguishing own-policy concavity from the diagonal derivative used for IFT.
+
+All four are now explicitly discussed in the manuscript. None requires inference from code.
+
+## 10. Stage-13 reviewer-verifiability closure
+
+**PASS — FULL FOR THE CLAIMED MANUSCRIPT SCOPE.**
+
+No manuscript change is required for reviewer verifiability at the current v4 scientific
+object.
+
+If later edits remove a proof-critical bridge, enlarge theorem quantifiers, change the
+computer-assisted proof target, alter the formal scope, or change the headline equilibrium
+claim, this report becomes stale and Stage 13 must be rerun.

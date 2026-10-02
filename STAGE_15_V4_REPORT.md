@@ -110,3 +110,28 @@ main, and then the resulting main commit must independently pass both workflows.
 
 Only artifacts regenerated from that green main commit are the final
 repository-side v4 submission objects.
+
+
+## Stage-13 v4 re-certification
+
+On 2026-10-03 the integrated v4 manuscript was re-audited under the current
+workflow-v2.5 Stage-13 exposition and reviewer-verifiability requirements.
+
+Current evidence:
+
+- `docs/EXPOSITION_ARCHITECTURE.md`
+- `docs/EXPOSITION_STREAMLINING_REPORT_2026-10-03.md`
+- `docs/REVIEWER_VERIFIABILITY_MAP.md`
+- `docs/REVIEWER_VERIFIABILITY_REPORT.md`
+- `docs/STAGE_13_RECERTIFICATION_2026-10-03.md`
+
+Verdict:
+
+**STAGE 13 FULL-PAPER INTEGRATION: PASS / RE-CLOSED**
+
+The audit required no manuscript or scientific-object edit. The v4 theorem,
+welfare benchmark, prior-art boundary, portability classification, and formal
+scope are unchanged. The current main-text exhibit inventory is one figure and
+one table; the earlier three-exhibit report is historical only.
+
+Stage 14 live portal-specific checks remain separate and fail-closed.

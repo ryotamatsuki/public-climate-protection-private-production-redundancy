@@ -21,8 +21,13 @@ FILES = {
     ROOT / "submission" / "ERE_CURRENT_UPLOAD_MANIFEST.md": "07_controls/ERE_CURRENT_UPLOAD_MANIFEST.md",
     ROOT / "docs" / "INDEPENDENT_AUDIT_REPAIRS_2026-10-02.md": "07_controls/INDEPENDENT_AUDIT_REPAIRS_2026-10-02.md",
     ROOT / "docs" / "STAGE_14_LIVE_REQUIREMENTS_LEDGER_ERE_2026-10-02.md": "07_controls/STAGE_14_LIVE_REQUIREMENTS_LEDGER_ERE_2026-10-02.md",
-    ROOT / "STAGE_15_V3_REPORT.md": "07_controls/STAGE_15_V3_REPORT.md",
-    ROOT / "submission" / "ERE_STAGE15_V3_SCIENTIFIC_OBJECT.lock": "07_controls/ERE_STAGE15_V3_SCIENTIFIC_OBJECT.lock",
+    ROOT / "docs" / "STAGE_6_RECERTIFICATION_2026-10-03.md": "07_controls/STAGE_6_RECERTIFICATION_2026-10-03.md",
+    ROOT / "docs" / "STAGE_7_5A_RECERTIFICATION_2026-10-03.md": "07_controls/STAGE_7_5A_RECERTIFICATION_2026-10-03.md",
+    ROOT / "docs" / "INDEPENDENT_SCIENTIFIC_CONFIRMATION_2026-10-03.md": "07_controls/INDEPENDENT_SCIENTIFIC_CONFIRMATION_2026-10-03.md",
+    ROOT / "STAGE_15_V4_REPORT.md": "07_controls/STAGE_15_V4_REPORT.md",
+    ROOT / "submission" / "ERE_STAGE15_V4_SCIENTIFIC_OBJECT.lock": "07_controls/ERE_STAGE15_V4_SCIENTIFIC_OBJECT.lock",
+    ROOT / "STAGE_15_V3_REPORT.md": "08_historical_controls/STAGE_15_V3_REPORT.md",
+    ROOT / "submission" / "ERE_STAGE15_V3_SCIENTIFIC_OBJECT.lock": "08_historical_controls/ERE_STAGE15_V3_SCIENTIFIC_OBJECT.lock",
     ROOT / "STAGE_15_REPORT.md": "08_historical_controls/STAGE_15_REPORT.md",
     ROOT / "submission" / "ERE_STAGE15_SCIENTIFIC_OBJECT.lock": "08_historical_controls/ERE_STAGE15_SCIENTIFIC_OBJECT.lock",
 }
@@ -56,7 +61,7 @@ def main() -> None:
             f"repository=public-climate-protection-private-production-redundancy\n"
             f"commit={git_head()}\n"
             f"target=Environmental and Resource Economics\n"
-            f"status=independent-audit repair candidate; author scientific review and live portal sign-off pending\n",
+            f"status=v4 scientific freeze complete; live portal preflight and final submission authorization pending\n",
         )
         for src, arc in FILES.items():
             zf.write(src, arc)

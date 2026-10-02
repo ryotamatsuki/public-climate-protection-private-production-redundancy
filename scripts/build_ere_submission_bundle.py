@@ -48,7 +48,7 @@ def main() -> None:
     with zipfile.ZipFile(OUT, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as zf:
         zf.writestr(
             "SOURCE_COMMIT.txt",
-            f"repository=ryotamatsuki/public-climate-protection-private-production-redundancy\n"
+            f"repository=public-climate-protection-private-production-redundancy\n"
             f"commit={git_head()}\n"
             f"target=Environmental and Resource Economics\n"
             f"status=repository-layer pre-submission freeze; live portal sign-off pending\n",

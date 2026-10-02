@@ -18,6 +18,7 @@ REQUIRED = [
     ROOT / "tables" / "channel_decomposition.tex",
     ROOT / "figures" / "policy_regime.pdf",
     ROOT / "figures" / "policy_regime.eps",
+    ROOT / "figures" / "Fig1.eps",
 ]
 
 FORBIDDEN = (
@@ -70,7 +71,7 @@ def main() -> None:
     with zipfile.ZipFile(OUT) as zf:
         names = set(zf.namelist())
         for required in ("paper/main.tex", "references/references.tex", "tables/channel_decomposition.tex",
-                         "figures/policy_regime.pdf", "figures/policy_regime.eps"):
+                         "figures/policy_regime.pdf", "figures/policy_regime.eps", "figures/Fig1.eps"):
             if required not in names:
                 raise RuntimeError(f"source archive missing {required}")
 

@@ -1,17 +1,22 @@
 from __future__ import annotations
 
-import fnmatch
 import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "dist"
 OUT = DIST / "ERE_anonymous_replication.zip"
-EXCLUDED_SCRIPTS = {
+EXCLUDED_FILES = {
     "scripts/build_ere_review_package.py",
     "scripts/build_verify_ere_source_package.py",
     "scripts/build_ere_submission_bundle.py",
     "scripts/verify_stage15_presubmission.py",
+    "scripts/verify_stage13_integration.py",
+    "scripts/verify_stage14_submission_qa.py",
+    "scripts/verify_ere_title_page.py",
+    "scripts/verify_clean_review_package.py",
+    # This editorial packager regression imports the excluded identity scanner.
+    "tests/test_archive_selection.py",
 }
 
 EXACT_FILES = {
@@ -22,6 +27,9 @@ EXACT_FILES = {
     "formal/lakefile.lean",
     "formal/lake-manifest.json",
     "formal/lean-toolchain",
+    "formal/README.md",
+    "formal/GENERATED_CERTIFICATE_ARCHIVE.json",
+    "docs/mechanism_benchmark.json",
 }
 
 PATTERNS = (
@@ -53,14 +61,12 @@ def selected_files() -> list[Path]:
         p = ROOT / rel
         if p.exists():
             chosen.add(p)
-    for p in ROOT.rglob("*"):
-        if not p.is_file():
-            continue
-        rel = p.relative_to(ROOT).as_posix()
-        if rel in EXCLUDED_SCRIPTS:
-            continue
-        if any(fnmatch.fnmatch(rel, pattern) for pattern in PATTERNS):
-            chosen.add(p)
+    # Path globbing does not let '*' cross directory separators. In contrast,
+    # fnmatch('formal/*.lean') would accidentally include .lake dependencies.
+    for pattern in PATTERNS:
+        for p in ROOT.glob(pattern):
+            if p.is_file() and p.relative_to(ROOT).as_posix() not in EXCLUDED_FILES:
+                chosen.add(p)
     return sorted(chosen)
 
 
@@ -77,6 +83,9 @@ def assert_anonymous(path: Path) -> None:
 
 
 def main() -> None:
+    for rel in ("formal/PCPPR/GeneratedCertificates.lean", "formal/GENERATED_CERTIFICATE_ARCHIVE.json"):
+        if not (ROOT/rel).is_file():
+            raise RuntimeError(f"review package requires generated certificates: {rel}; run make formal-certificates")
     DIST.mkdir(exist_ok=True)
     if OUT.exists():
         OUT.unlink()
@@ -107,6 +116,9 @@ def main() -> None:
             raise RuntimeError(f"forbidden paths in review package: {forbidden_paths}")
         if "README.md" not in names or "Makefile" not in names:
             raise RuntimeError("review package missing anonymized README or review Makefile")
+        for rel in ("formal/PCPPR/GeneratedCertificates.lean", "formal/GENERATED_CERTIFICATE_ARCHIVE.json", "formal/README.md"):
+            if rel not in names:
+                raise RuntimeError(f"review package missing {rel}")
 
     print(f"ERE anonymous review package ready: {OUT.relative_to(ROOT)}")
     print(f"files: {len(files)} source items + anonymized README + review Makefile")

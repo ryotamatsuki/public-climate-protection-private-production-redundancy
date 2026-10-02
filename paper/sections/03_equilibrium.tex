@@ -94,7 +94,13 @@ Differentiating with respect to $r_j$ gives
 For $\gamma>0$, equation~\eqref{eq:delta} implies $\Delta>0$; together with $J>0$ and $k>0$, this yields the stated strict inequality.
 \end{proof}
 
-The economic force is specific to competition in the disruption state. A rival that remains productive after a common primary disruption eliminates the monopoly component of the firm's contingency payoff and therefore lowers its incentive to maintain backup readiness. Proposition~\ref{prop:strategic-sub} is a mechanism lemma, not a novelty claim. For the canonical parameter vector and every admissible public-policy profile, Appendix~\ref{app:verification} certifies that the unclipped linear best responses map into $(0,1)$ and form a contraction. Thus the backup continuation is unique, interior, and globally optimal for each firm; no boundary backup equilibrium is omitted.
+The economic force is specific to competition in the disruption state. A rival that remains productive after a common primary disruption eliminates the monopoly component of the firm's contingency payoff and therefore lowers its incentive to maintain backup readiness. Proposition~\ref{prop:strategic-sub} is a mechanism lemma, not a novelty claim. The unclipped response need not be interior for every rival action: at the canonical co-located origin and $r_j=0$, it equals $225/169>1$. Uniqueness instead follows from the \emph{clipped} responses. Clipping is 1-Lipschitz, and throughout the policy domain their Lipschitz constant is bounded by
+\begin{equation}
+\frac{\Delta J}{k}\leq\frac{\Delta q_0}{k}
+=\frac{75600}{162409}<1.
+\label{eq:backup-contraction-bound}
+\end{equation}
+Their joint map on $[0,1]^2$ is therefore a contraction in the sup norm. Appendix~\ref{app:verification} independently certifies that the linear-system solution lies in $(0,1)^2$ throughout the policy square. It is the unique fixed point of the clipped game, so corner equilibria are excluded.
 
 For symmetric public risk $q$, the two location configurations deliver especially transparent expressions. If primary plants are co-located,
 \begin{equation}

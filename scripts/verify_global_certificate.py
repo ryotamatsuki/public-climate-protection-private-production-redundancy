@@ -249,6 +249,17 @@ hi = Q(int(hi_sp.p), int(hi_sp.q))
 LOCAL = (Q(0), abar, lo, hi)
 assert strict_sign_rational(ddGdxx, LOCAL) < 0
 
+# F(a)=G_A,x(a,a) has derivative G_A,xx+G_A,xy. Own concavity alone
+# does not prove that the symmetric root is simple.
+dFdiag = ddGdxx+dGdx.diff(y)
+ROOT_SQUARE = (lo, hi, lo, hi)
+assert strict_sign_rational(dFdiag, ROOT_SQUARE) < 0
+
+# The clipped best-response map is a contraction on the full action square.
+# The unclipped map need not take all rival actions into the interior.
+backup_contraction_bound = delta*q0/k
+assert 0 <= backup_contraction_bound < 1
+
 # Symmetric-policy fit-payoff robustness. The selected perturbation payoff of
 # the two firms is R(D)=H/2-D^2/(2H), hence never exceeds H/2. The exact
 # equilibrium deterministic advantage is zero on x=y, so the upper bound is
@@ -260,5 +271,7 @@ print("backup continuations: exact regularity/interiority certificate PASS")
 print("location subgame: exact no-clipping + uniqueness certificate PASS")
 print("local FOC root interval:", lo_sp, hi_sp)
 print("local global best response: exact root isolation + strict-concavity certificate PASS")
+print("diagonal FOC derivative: exact negative certificate on root-enclosure square")
+print("clipped backup contraction bound:", backup_contraction_bound)
 print("fit-payoff robustness: symmetric deterministic location advantage is exactly zero")
 print("PASS Stage 11C rigorous global certificate")

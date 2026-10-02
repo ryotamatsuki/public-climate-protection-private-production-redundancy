@@ -18,6 +18,7 @@ REQUIRED = [
     ROOT / "tables" / "channel_decomposition.tex",
     ROOT / "figures" / "policy_regime.pdf",
     ROOT / "figures" / "policy_regime.eps",
+    ROOT / "figures" / "Fig1.eps",
 ]
 
 FORBIDDEN = (
@@ -60,7 +61,7 @@ def main() -> None:
         work = Path(td)
         with zipfile.ZipFile(OUT) as zf:
             zf.extractall(work)
-        cmd = ["pdflatex", "-interaction=nonstopmode", "-halt-on-error", "main.tex"]
+        cmd = ["pdflatex", "-no-shell-escape", "-interaction=nonstopmode", "-halt-on-error", "main.tex"]
         for _ in range(3):
             subprocess.run(cmd, cwd=work / "paper", check=True, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
         pdf = work / "paper" / "main.pdf"
@@ -70,7 +71,7 @@ def main() -> None:
     with zipfile.ZipFile(OUT) as zf:
         names = set(zf.namelist())
         for required in ("paper/main.tex", "references/references.tex", "tables/channel_decomposition.tex",
-                         "figures/policy_regime.pdf", "figures/policy_regime.eps"):
+                         "figures/policy_regime.pdf", "figures/policy_regime.eps", "figures/Fig1.eps"):
             if required not in names:
                 raise RuntimeError(f"source archive missing {required}")
 

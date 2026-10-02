@@ -27,7 +27,7 @@ z=J(1-r_1)(1-r_2).
 \end{equation}
 The four final availability probabilities are therefore $1-m_1-m_2+z$, $m_2-z$, $m_1-z$, and $z$. Expected product-market surplus net of backup costs is
 \begin{equation}
-\mathcal S
+S
 =T_D+(T_M-T_D)(m_1+m_2)+(T_D-2T_M)z
 -\frac{k}{2}(r_1^2+r_2^2).
 \label{eq:surplus}
@@ -55,7 +55,28 @@ The central welfare logic can be seen at the no-additional-protection point. Con
 \input{../tables/channel_decomposition.tex}
 \end{table}
 
-The direct protection effect is approximately $+0.04146$. The endogenous redundancy response contributes approximately $-0.04794$, leaving a coordinated marginal effect near $-0.00648$. At the same point, a jurisdiction's unilateral marginal payoff is approximately $+0.00193$. The signs, rather than the magnitudes, are the economically relevant objects. The direct protection benefit is positive; the induced reduction in private geographic redundancy is sufficiently strong to make the social total negative; and plant attraction keeps the decentralized marginal incentive positive.
+The direct protection effect is approximately $+0.04146$. The endogenous redundancy response contributes approximately $-0.04794$, leaving a coordinated marginal effect near $-0.00648$. At the same point, a jurisdiction's unilateral marginal payoff is approximately $+0.00193$. These entries are exact derivatives converted to decimals, not finite differences. The redundancy term includes the saved real readiness costs. Its negative sign therefore requires a social--private incentive wedge, rather than following from the fact of crowd-out alone.
+
+\subsection{The social--private readiness wedge}
+
+Write $S(s_1,s_2,J,r_1,r_2)$ for the profile surplus in \eqref{eq:surplus} before readiness is optimized. Differentiating and substituting the interior private FOC gives
+\begin{align}
+S_{r_i}
+&=(T_D-T_M)s_i+(2T_M-T_D)J(1-r_j)-kr_i,\nonumber\\
+\Omega_i\equiv S_{r_i}\big|_{\mathrm{private\ FOC}}
+&=\frac{2-3\gamma}{8(2+\gamma)}s_i
++\frac{\gamma}{2(2+\gamma)}J(1-r_j).
+\label{eq:readiness-wedge}
+\end{align}
+The first coefficient reflects the social value of restoring the firm's product beyond the private duopoly payoff. The second adjusts the value of recovery in joint-failure states relative to the incremental private sole-survivor return. At the canonical $\gamma=12/25$, both coefficients are positive. Firms therefore leave a positive social marginal value of additional readiness at their private optimum. A reduction in readiness loses surplus after its cost savings have been deducted. At $\gamma=0$, the wedge is still $s_i/8>0$; incremental disaster-state market power is not required. For $\gamma>2/3$ the first coefficient is negative, so no all-parameter underinvestment claim follows from this formula.
+
+Along the symmetric policy path $p=1/2$, and the four location weights remain $1/4$. At the origin, the chain rule therefore yields
+\begin{equation}
+M_S=E_0+\frac14\sum_{XY}\sum_{i=1}^2
+\Omega_i^{XY}\frac{dr_i^{XY}}{da}.
+\label{eq:readiness-chain-rule}
+\end{equation}
+Here $E_0$ holds readiness fixed. Under the baseline risk law it is strictly positive for interior readiness: lower common primary risk increases expected production availability, while public marginal cost is zero at the origin. The second term is $R_0$ in Table~\ref{tab:channels}. If each profile's readiness instead satisfied the interior social condition $S_{r_i}=0$, this term would vanish and $M_S=E_0>0$. Thus an inefficient private substitute, not substitution alone, is essential to the negative origin marginal. Correcting backup incentives and coordinating protection are distinct policy interventions.
 
 \subsection{Why product-market competition matters}
 

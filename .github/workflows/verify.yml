@@ -25,16 +25,16 @@ jobs:
           name: ERE-anonymous-replication
           path: dist/ERE_anonymous_replication.zip
           if-no-files-found: error
-      - name: Upload ERE Stage-15 pre-submission bundle
+      - name: Upload repaired ERE submission bundle
         uses: actions/upload-artifact@v4
         with:
-          name: ERE-stage15-pre-submission-bundle
+          name: ERE-audit-repaired-submission-bundle
           path: dist/ERE_submission_ready_bundle.zip
           if-no-files-found: error
-      - name: Upload Stage-13 integration bundle
+      - name: Upload submission components
         uses: actions/upload-artifact@v4
         with:
-          name: ERE-stage13-integration-bundle
+          name: ERE-submission-components
           path: |
             paper/main.pdf
             submission/ERE_title_page.pdf
@@ -44,6 +44,7 @@ jobs:
           if-no-files-found: error
 
   lean-verification:
+    needs: verify
     runs-on: ubuntu-latest
     timeout-minutes: 60
     steps:
@@ -115,6 +116,14 @@ jobs:
         run: |
           cd formal
           lake build             PCPPR.Primitives             PCPPR.ProductMarket             PCPPR.Availability             PCPPR.Backup             PCPPR.Location             PCPPR.Welfare             PCPPR.MarginalDecomposition             PCPPR.Bernstein             PCPPR.CanonicalWitness             PCPPR.GeneratedCertificates             PCPPR.GlobalPlanner             PCPPR.GlobalLocalGovernment             PCPPR.TheoremCore
+      - name: Download the actual anonymous replication archive
+        uses: actions/download-artifact@v4
+        with:
+          name: ERE-anonymous-replication
+          path: dist
+      - name: Reproduce the advertised Lean command from the anonymous ZIP
+        timeout-minutes: 20
+        run: python scripts/verify_clean_review_package.py --formal
       - name: Record theorem/axiom report
         run: |
           cd formal
@@ -143,4 +152,6 @@ jobs:
             formal/FORMAL_AXIOM_REPORT.txt
             formal/FORMAL_VERIFICATION_RUN.txt
             formal/lake-manifest.json
+            dist/anonymous-FORMAL_AXIOM_REPORT.txt
+            dist/anonymous-formal-verify-reproduction.log
           if-no-files-found: error

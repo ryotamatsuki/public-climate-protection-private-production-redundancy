@@ -6,6 +6,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SECTIONS = ROOT / "paper" / "sections"
 AUX = ROOT / "paper" / "main.aux"
+PDF = ROOT / "paper" / "main.pdf"
+LOG = ROOT / "paper" / "main.log"
 
 MAIN_TEXT = [
     "01_introduction.tex",
@@ -65,7 +67,27 @@ def page_map() -> dict[str, int]:
         labels[label] = int(m.group(1))
     return labels
 
+def verify_compiled_manuscript() -> None:
+    if not PDF.exists():
+        raise AssertionError("paper/main.pdf missing; run the paper build first")
+    data = PDF.read_bytes()
+    if not data.startswith(b"%PDF-") or b"%%EOF" not in data[-1024:]:
+        raise AssertionError("paper/main.pdf is empty, truncated, or not a complete PDF")
+    if not LOG.exists():
+        raise AssertionError("paper/main.log missing; cannot check the final TeX pass")
+    log = LOG.read_text(encoding="utf-8", errors="replace")
+    forbidden = [
+        r"There were undefined (?:references|citations)",
+        r"(?:Reference|Citation).*undefined",
+        r"Label\(s\) may have changed",
+        r"Overfull \\[hv]box",
+    ]
+    for pattern in forbidden:
+        if re.search(pattern, log, flags=re.IGNORECASE):
+            raise AssertionError(f"unresolved manuscript build warning: {pattern}")
+
 def main() -> None:
+    verify_compiled_manuscript()
     manuscript = load_main_text()
 
     forbidden = [

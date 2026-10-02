@@ -73,10 +73,13 @@ FOC root to stationarity through the explicit category-C semantic bridge, and
 then invokes the T13 full-domain best-response theorem. The planner side is the
 T11 coordinatewise-monotonicity implication.
 
-Category-C premises here are exactly the semantic bridges from the canonical
-economic expressions to the generated derivative/FOC/second-derivative
-certificates. Existence/uniqueness of alpha and all global-optimization
-implications are derived in Lean. -/
+This is a conditional implication for arbitrary W, GA, GB and F. In particular,
+hWderivA, hWderivB and hGAsecond are entire-domain sign assumptions; the
+economic expressions and their signs are established externally in Python
+and the manuscript, not discharged by this theorem. Existence/uniqueness of
+alpha and global-optimization implications follow under these premises.
+Generated finite arithmetic also uses native_decide; its printed dependency
+report records the extended trust boundary. Open-set persistence is absent. -/
 theorem canonical_witness_from_generated_certificates
     {W GA GB : ℝ → ℝ → ℝ} {F : ℝ → ℝ}
     (hWcontA : ∀ y ∈ Icc (0 : ℝ) (CanonicalWitness.abar0 : ℝ),

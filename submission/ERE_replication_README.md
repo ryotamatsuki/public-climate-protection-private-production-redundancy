@@ -1,44 +1,85 @@
 # Anonymized replication package
 
-This archive accompanies a theoretical manuscript submitted for double-blind review.
-
-It contains the code and exact algebraic certificates needed to reproduce the paper's symbolic identities, policy-root isolation, whole-domain sign certificates, numerical stress tests, benchmark checks, regression tests, generated exposition objects, and manuscript build.
+This archive supplies the source, exact certificates and numerical diagnostics
+for a theoretical manuscript. It omits editorial identity files and Git metadata.
 
 ## Environment
 
-Recommended environment:
+Use Python 3.13 and install the pinned direct dependencies:
 
-- Python 3.13 or later
-- SymPy 1.14.0
-- NumPy 2.3.5
-- SciPy 1.17.0
-- pytest
-- a standard LaTeX distribution with the packages used by the manuscript
+```bash
+python -m pip install -r requirements.txt
+```
+
+The requirements specify SymPy 1.14.0, NumPy 2.3.5, SciPy 1.17.0,
+Matplotlib 3.10.8 and pytest 9.1.1. GNU Make is needed to run the targets.
+A standard LaTeX distribution with
+`amsmath`, `amsthm`, `mathtools`, `booktabs`, `natbib`, `microtype`, `setspace`,
+`hyperref`, `xurl`, `enumitem`, `caption` and `geometry` is required. Debian/Ubuntu's
+`texlive-latex-base`, `texlive-latex-recommended` and `texlive-latex-extra`
+provide these packages. Exact arithmetic is independent of floating-point
+library behavior; numerical optimization and layout may vary by platform.
 
 ## Reproduction
 
-From the root of the anonymized archive, run:
+From the archive root:
 
 ```bash
 make verify
 ```
 
-The command executes the symbolic checks, primitive-to-certificate normalization identities, exact policy and whole-domain certificates, numerical stress tests, the pre-specified v2.4 portability diagnostics, nested-benchmark checks, regression tests, deterministic object generation, the exposition/page-arrival audit, and the LaTeX build.
+This runs symbolic and normalization identities, exact root isolation,
+whole-domain backup/location/planner and local-best-response certificates,
+the full diagonal-FOC derivative needed for the open-set proof, numerical
+counterexample searches, the two portability diagnostics, the exact Delta=0
+mechanism benchmark, regression tests, exact marginal exhibit generation and
+verification, anonymous manuscript checks and a three-pass LaTeX build. It also
+regenerates the finite Lean certificate source and large JSON archive.
+No title page, author record, submission folder, repository access or Git
+checkout is required. Results are mathematical and implementation checks, not
+journal-readiness decisions.
 
 ## Formal verification
 
-The archive also contains the pinned Lean 4/mathlib proof-critical formalization. After installing the toolchain declared in `formal/lean-toolchain`, run:
+Install the toolchain declared in `formal/lean-toolchain` using elan and the
+Git command for fetching pinned external Lean dependencies. Ensure `lake`
+and `git` are on PATH, and run:
 
 ```bash
 make formal-verify
 ```
 
-A successful Lean build certifies only the encoded statements under their encoded assumptions; it does not by itself certify economic interpretation, novelty, or unformalized model scope.
+The target explicitly regenerates its certificate dependencies, obtains the
+pinned mathlib cache (network access is needed on first installation), runs
+the build of all thirteen proof modules, and writes
+`formal/FORMAL_AXIOM_REPORT.txt` by checking `Main.lean` with Lean. Linking the
+optional native executable is not part of proof reproduction; it would also
+compile mathlib C object files absent from the proof cache. Full assumptions,
+unformalized bridges, and the `native_decide` extended trust boundary are
+listed in `formal/README.md` and in the manuscript appendix. The final Lean
+theorem is a conditional implication, not a closed verification of the whole
+economic model or its open-set extension.
 
-## Interpretation of computer-assisted proofs
+## Main mathematical objects
 
-The code is not used as a substitute for the mathematical argument in the manuscript. The appendix states the lemmas, domains, denominator-sign conditions, Bernstein sign principle, and logical implications required for the main theorem. The scripts provide independently inspectable exact certificates for those stated mathematical claims.
+- `scripts/verify_global_certificate.py`: whole-policy-domain signs, exact
+  symmetric FOC root, own-policy global concavity, clipped-backup contraction,
+  and diagonal-FOC derivative.
+- `scripts/verify_normalization.py`: primitive-to-archive scaling identities.
+- `scripts/exact_marginals.py` and `scripts/verify_marginal_exhibits.py`: state
+  enumeration with exact forward differentiation, all 101 marginal-figure
+  points, both gamma thresholds, readiness wedge and channel decomposition.
+- `scripts/verify_benchmarks.py`: exact global Delta=0 witness. Its separate
+  canonical continuation recoveries do not solve fixed-location or
+  fixed-readiness policy games.
+- `scripts/policy_search.py`: numerical FOC candidates with residual checks
+  and boundary-inclusive multipeak deviation searches. Finite grids and
+  refinements are falsification searches, not whole-domain proofs.
+- `scripts/verify_portability_v24.py`: numerical alternatives. Matched-density
+  logistic agreement on the symmetric FOC and matched-slope risk agreement
+  at the origin are constructional; off-diagonal checks are the additional
+  diagnostic evidence.
 
-## Double-blind note
-
-This reviewer-facing archive intentionally omits author names, affiliations, e-mail addresses, Git metadata, public repository URLs, and other identifying information. A permanent public repository and archival citation will be supplied in the final accepted version.
+The permanent public repository and archival citation will be supplied before
+final acceptance. The appendix explains the proof; neither a recorded PASS
+nor a successful Lean build substitutes for reading its assumptions.

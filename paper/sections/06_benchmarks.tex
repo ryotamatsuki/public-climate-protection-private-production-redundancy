@@ -1,23 +1,37 @@
-\section{Nested Benchmarks}\label{sec:benchmarks}
+\section{Mechanism Benchmarks}\label{sec:benchmarks}
 
-The contribution depends on an interaction, so the appropriate comparison is not whether each component is individually familiar. It is whether the mechanism in Theorem~\ref{thm:main} remains available after either strategic margin is removed. The benchmarks below are nested interventions on the full game, not additional global-equilibrium theorems.
+The headline ranking does not require every feature of the oligopoly block. The following exact benchmark separates the availability-surplus distortion from incremental disaster-state market power.
 
-In the \emph{fixed-primary-location} benchmark, the primary-location profile is assigned exogenously before the policy comparison and does not respond to any policy deviation; the backup game, disaster-state probabilities, and product-market continuation are otherwise solved exactly as in the baseline model. In the \emph{fixed-private-redundancy} benchmark, readiness levels are treated as exogenous constants during the policy comparison and do not respond to protection; the location stage, primary-risk mapping, and product-market continuation remain active. Thus each benchmark removes exactly one endogenous response while retaining the other baseline primitives. Table~\ref{tab:benchmarks} summarizes the logic.
+\begin{proposition}[Conflict with no incremental sole-survivor rent]\label{prop:zero-delta}
+In the same model family, take
+\begin{equation}
+(\gamma,q_0,k,H,b,c,\bar a)
+=\left(0,\frac3{10},\frac2{25},\frac1{100},\frac{11}{200},10,\frac2{25}\right).
+\label{eq:zero-delta-witness}
+\end{equation}
+Then $\Delta=0$, backup choices do not interact strategically, and primary-failure correlation does not affect additive product-market surplus. Nevertheless, the coordinated protection-policy optimum is uniquely $(0,0)$, and $(1/126,1/126)$ is a positive symmetric policy Nash equilibrium with globally optimal unilateral responses.
+\end{proposition}
 
-\begin{table}[t]
-\centering
-\caption{Nested benchmark logic}
-\label{tab:benchmarks}
-\small
-\begin{tabular}{p{.20\textwidth}p{.25\textwidth}p{.46\textwidth}}
-\toprule
-Model & Endogenous margins & Policy consequence \\
-\midrule
-Fixed primary locations & Private redundancy only & Public/private substitution remains, but protection cannot attract primary production. \\
-Fixed private redundancy & Primary location only & Standard local public-input competition remains, but public policy cannot reorganize private resilience. \\
-Full model & Primary location and private redundancy & Plant attraction operates after redundancy crowd-out changes the social value of protection; $a^{LG}>0=a^{SP}$ can arise. \\
-\bottomrule
-\end{tabular}
-\end{table}
+\begin{proof}
+At $\gamma=0$, each product retains its own monopoly price distortion, but an unavailable rival creates no additional profit. For one firm, readiness, continuation profit, and surplus net of readiness cost are
+\begin{equation}
+r(q)=\frac{q}{4k},\quad
+f(q)=\frac{1-q}{4}+\frac{q^2}{32k},\quad
+t(q)=\frac38(1-q)+\frac{q^2}{16k}.
+\end{equation}
+Hence
+\begin{equation}
+p=\frac12+\frac{f(q_A)-f(q_B)}{2H},\qquad
+\mathcal S=2\{pt(q_A)+(1-p)t(q_B)\}.
+\end{equation}
+Throughout the policy square, $11/16\leq r\leq15/16$ and $5/16\leq p\leq11/16$; the backup choices and location continuation are unique and interior. Substitution in the government and planner objectives gives
+\begin{equation}
+M_S=-\frac3{16},\qquad M_L=\frac5{128},\qquad
+G_{A,a_A}(a,a)=\frac5{128}-\frac{315}{64}a.
+\end{equation}
+The last expression has the unique root $\alpha=1/126$. The policy functions here are polynomials. On the full square their exact Bernstein coefficients bound both planner partial derivatives between $-497/640$ and $-7/128$, so $(0,0)$ is uniquely optimal. Against $a_B=\alpha$, the coefficients of $G_{A,a_Aa_A}$ on the full own-policy interval lie between $-21726685/4064256$ and $-18154585/4064256$. Strict concavity makes $\alpha$ the global best response, including against boundary actions; symmetry gives the Nash claim. The accompanying benchmark script derives these polynomial bounds directly.
+\end{proof}
 
-The fixed-primary-location benchmark isolates public/private resilience substitution: the backup game is re-solved after every policy change, but the expected local plant count is fixed, so the plant-attraction derivative vanishes. The fixed-private-redundancy benchmark does the converse: readiness is held fixed while the Bayesian location game remains active, leaving competition for mobile production without an endogenous resilience response. The full model combines the two margins. Public protection then changes private resilience architecture and hence the national value of further protection, while local governments additionally value relocation of primary production. Theorem~\ref{thm:main} and Appendix~\ref{app:verification} certify the global policy-ranking reversal only for the full game; the restricted benchmarks are mechanism-identification exercises rather than separate global theorems.
+This is a distinct witness: $k$ and $c$ differ from \eqref{eq:witness}, maintaining interiority when $\gamma=0$. It is not a claim that setting only $\gamma$ to zero at the canonical parameters preserves the continuation. Nor is it a competitive-price benchmark: own-product markups remain. What is removed is the incremental sole-survivor profit and the strategic backup substitution. At $\gamma=0$, the social--private readiness wedge in \eqref{eq:readiness-wedge} equals $s_i/8>0$. That uninternalized availability benefit is enough to generate the ranking when plant attraction is valuable.
+
+Two further restricted comparisons clarify which response is being removed. In the \emph{fixed-primary-location} comparison, a primary-location profile or distribution is specified exogenously and kept fixed under all policy deviations; backup is re-solved. The plant-count derivative, and hence the attraction term, vanishes. In the \emph{fixed-private-readiness} comparison, each profile's readiness levels are held at specified constants while location is re-solved; the readiness-response term vanishes. These observations identify margins. Without specifying the fixed profile distribution or readiness values and solving the restricted policy games, they do not establish the absence of every policy-ranking conflict in those games.

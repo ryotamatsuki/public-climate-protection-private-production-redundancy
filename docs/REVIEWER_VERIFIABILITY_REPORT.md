@@ -1,3 +1,10 @@
+# Historical audit — superseded for the repaired candidate
+
+The clean-verifiability conclusions in this earlier report did not identify the
+2026-10-02 figure, proof, and package defects. They do not apply to the repaired
+candidate. See `INDEPENDENT_AUDIT_REPAIRS_2026-10-02.md` for corrections and
+execution evidence. The original report follows for provenance.
+
 # Reviewer Verifiability Report — 2026-09-25
 
 ## Verdict

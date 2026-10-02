@@ -1,8 +1,14 @@
 # Canonical Theory Freeze
 
-Freeze ID: `PCPPR-THEORY-FREEZE-2026-09-14-v2`
+Freeze ID: `PCPPR-THEORY-FREEZE-2026-10-02-v3`
 
-Supersedes: `PCPPR-THEORY-FREEZE-2026-09-06-v1` by making the intended backup-success joint probability law explicit. The canonical parameter witness and central theorem architecture are unchanged.
+Freeze date: **2026-10-02**
+
+Supersedes:
+- `PCPPR-THEORY-FREEZE-2026-09-14-v2`, which was reopened by the independent pre-submission audit after discovery of an invalid policy-equilibrium exhibit and proof gaps in backup-game uniqueness and open-set persistence;
+- `PCPPR-THEORY-FREEZE-2026-09-06-v1`.
+
+Version 3 retains the canonical primitive vector and baseline Protection--Attraction Conflict ranking, but freezes the repaired proof architecture: clipped-backup contraction for global continuation uniqueness, the full diagonal FOC derivative for open-set persistence, the exact origin-marginal exhibit, the narrowed mechanism/novelty claims, and the explicit formalization boundary.
 
 Working title: **Public Climate Protection and Private Production Redundancy**
 
@@ -60,3 +66,27 @@ Canonical rational witness:
 The paper does **not** claim novelty for public/private adaptation crowd-out, local-public-input overprovision, resilience underinvestment under market power, geographic diversification under disaster risk, or strategic substitutability of capacity investment. Novelty is restricted to the full-game policy-ranking conflict.
 
 The level result that higher product substitutability lowers backup readiness on the maintained symmetric interior branch is retained. No general claim is made that higher substitutability strengthens the marginal crowd-out response of readiness to public protection; at the canonical co-located origin the relevant cross-partial has the opposite sign.
+
+## Independent-audit repair and v3 re-freeze, 2026-10-02
+
+The independent audit reopened version 2 for proof correctness, plotted
+quantities, mechanism benchmarks, novelty positioning, formal-scope disclosure,
+and package execution. Version 3 closes that scientific repair cycle.
+
+The canonical primitive vector and material welfare formulas are retained.
+The own-policy concavity argument is distinguished from the full diagonal
+FOC derivative; uniqueness of backup is proved for the clipped game and the
+strict contraction margin is carried explicitly into the open-set persistence
+argument. The former non-Nash policy-equilibrium figure is permanently
+withdrawn and replaced by an exact origin-marginal exhibit.
+
+The current contribution boundary explicitly permits the policy ranking at
+Delta=0: incremental sole-survivor rents are not a necessary mechanism. The
+new exact benchmark does not substitute for comparison with prior theory.
+The planner is protection-policy constrained and industrial-surplus specific.
+The current repair and evidence are described in
+`INDEPENDENT_AUDIT_REPAIRS_2026-10-02.md`.
+
+This v3 freeze covers the scientific object only. Live journal-portal fields,
+the portal-generated review PDF, and final submission authorization remain
+separate operational gates.

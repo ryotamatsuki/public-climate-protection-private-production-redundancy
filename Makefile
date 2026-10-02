@@ -1,8 +1,8 @@
 PYTHON ?= python
 
-.PHONY: verify symbolic normalization policy global numerical portability benchmarks test objects marginal-exhibits ere-format title-page-format paper exposition formal-certificates formal-verify ere-source-package ere-title-page ere-review-package review-package-verify ere-submission-bundle clean
+.PHONY: verify symbolic normalization policy global numerical portability benchmarks test objects marginal-exhibits ere-format title-page-format v3-freeze paper exposition formal-certificates formal-verify ere-source-package ere-title-page ere-review-package review-package-verify ere-submission-bundle clean
 
-verify: symbolic normalization policy global numerical portability benchmarks test marginal-exhibits ere-format title-page-format exposition ere-submission-bundle
+verify: symbolic normalization policy global numerical portability benchmarks test marginal-exhibits ere-format title-page-format exposition v3-freeze ere-submission-bundle
 
 symbolic:
 	$(PYTHON) scripts/verify_symbolic.py
@@ -39,6 +39,9 @@ ere-format:
 
 title-page-format:
 	$(PYTHON) scripts/verify_ere_title_page.py
+
+v3-freeze:
+	$(PYTHON) scripts/verify_v3_freeze.py
 
 paper: objects
 	cd paper && pdflatex -no-shell-escape -interaction=nonstopmode -halt-on-error main.tex >/dev/null

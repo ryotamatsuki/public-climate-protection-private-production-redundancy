@@ -14,8 +14,9 @@ primitives and global baseline ranking while correcting those objects and
 narrowing the claims. See `docs/INDEPENDENT_AUDIT_REPAIRS_2026-10-02.md` for the
 issue-to-evidence map and validation. Earlier Stage 13--15 PASS/freeze records are historical records for their old
 candidate, not certifications of this revision. The independent-audit repair is
-now re-frozen as `PCPPR-THEORY-FREEZE-2026-10-02-v3`, with a new
-CI-enforced scientific-object lock and Stage-15 v3 report.
+re-certified under workflow v2.5 and is now frozen as
+`PCPPR-THEORY-FREEZE-2026-10-03-v4`, with refreshed Stage-6/7.5A evidence,
+author scientific reconfirmation, and a new CI-enforced scientific-object lock.
 
 The resulting submission candidate remains subject to live journal-portal
 requirements and final submission authorization. No automated check establishes
@@ -86,10 +87,11 @@ Git history. Formal dependency installation requires the Git command and
 network access, even though the extracted project has no Git metadata.
 
 Current freeze controls:
-- `docs/THEORY_FREEZE.md`: v3 theory freeze.
-- `submission/ERE_STAGE15_V3_SCIENTIFIC_OBJECT.lock`: exact Git-object lock.
-- `STAGE_15_V3_REPORT.md`: repaired pre-submission freeze report.
-- `scripts/verify_v3_freeze.py`: CI gate enforcing the lock.
+- `docs/THEORY_FREEZE.md`: v4 theory freeze.
+- `submission/ERE_STAGE15_V4_SCIENTIFIC_OBJECT.lock`: exact Git-object lock.
+- `STAGE_15_V4_REPORT.md`: workflow-v2.5 recertified pre-submission freeze report.
+- `scripts/verify_v4_freeze.py`: CI gate enforcing the lock.
+- `docs/STAGE_6_RECERTIFICATION_2026-10-03.md` and `docs/STAGE_7_5A_RECERTIFICATION_2026-10-03.md`: current novelty/scope certificates.
 
 Historical Stage verifiers and the former Stage-15 lock are retained for
 provenance but are not current scientific certifications.

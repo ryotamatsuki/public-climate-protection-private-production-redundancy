@@ -108,9 +108,9 @@ policy-ranking result.
 
 ## Confirmation boundary
 
-This independent scientific confirmation is AI review evidence. It does **not** substitute
-for the workflow-required personal author confirmation of mechanism, assumptions,
-proof/equilibrium logic, limitations, verification evidence, and maximum defensible claim.
+This independent scientific confirmation is AI review evidence and does **not** substitute
+for personal author judgment. The separate workflow-required author confirmation was
+explicitly supplied on 2026-10-03 and is recorded in
+`docs/AUTHOR_INTELLECTUAL_CONTRIBUTION_RECORD.md`.
 
-Subject to that author confirmation, the scientific object is eligible for a new Stage-8
-v4 freeze.
+With that human gate closed, the scientific object is eligible for the Stage-8 v4 freeze.

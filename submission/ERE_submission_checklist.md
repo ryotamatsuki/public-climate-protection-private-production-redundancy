@@ -1,66 +1,52 @@
-# ERE Submission Checklist — Stage 15 Pre-Submission Freeze
+# ERE submission checklist — independent-audit repair
 
-Target: **Environmental and Resource Economics**  
-Latest public-rule refresh: **2026-10-02**  
-Scientific-object base: `f0f86daa29bec6574cb4103050b1a18295928227`  
-Stage-13 integration merge: `06609ae92d06911e93c633fa80c4137cc301641d`  
-Stage-12 v2.3+v2.4 recertification merge: `06c67fe65ad5d80e42808aab6e7bd9f3db33eddb`
+Target: **Environmental and Resource Economics**.
+Public instructions were inspected on **2026-10-02**. The previous Stage-15
+candidate and lock are historical; this is a repaired scientific revision.
+Use `ERE_CURRENT_UPLOAD_MANIFEST.md` and the commit/components recorded by the
+final transport build, not the historical source-object lock.
 
-## Public-rule and package checks
+## Manuscript and package
 
-- [x] ERE remains the canonical primary target.
-- [x] Current ERE instructions re-opened on 2026-10-02.
-- [x] Double-anonymous manuscript architecture retained.
-- [x] Separate identified title page retained.
-- [x] Editable LaTeX source package retained.
-- [x] Abstract/keyword requirements remain covered by automated checks.
-- [x] Statements and Declarations retained on identified title page.
-- [x] Manuscript contains Data and Code Availability statement.
-- [x] Manuscript contains a dedicated AI Assistance Disclosure.
-- [x] AI disclosure does not treat AI/computation/Lean as author verification.
-- [x] Anonymous reviewer replication package retained.
-- [x] Public replication deposit remains scheduled for after successful peer review and before final acceptance.
-- [x] Historical material AI use reconstructed into the provenance log.
-- [x] Subscription route verified as available with no APC.
-- [x] Current OA APC rechecked: £2490 / $3390 / €2790 plus applicable tax, determined at acceptance.
-- [x] 2026-10-02 live requirements ledger added.
-- [x] Stage-15 scientific-object lock added.
-- [x] Stage-15 upload manifest added.
-- [x] Single submission-ready transport bundle added to `make verify`.
+- [x] Anonymous manuscript and separate identified title page.
+- [x] Industrial-surplus scope and protection-policy-constrained planner explicit.
+- [x] Incorrect policy-equilibrium curve replaced by exact origin marginals.
+- [x] Clipped-backup contraction and full diagonal-root derivative corrected.
+- [x] Exact Delta=0 mechanism benchmark and nearest-prior-art comparison added.
+- [x] Unproved universal absence in restricted games withdrawn.
+- [x] Numerical portability and constructional matched-density/slope agreement distinguished from exact theorem scope.
+- [x] Partial Lean scope and native-compilation trust disclosed.
+- [x] AI Assistance Disclosure and Data and Code Availability present.
+- [x] Editorial declarations retained on the title page.
+- [x] Anonymous reproduction no longer requires the title page or Git.
+- [x] Lean target regenerates its dependencies before building.
+- [x] Clean source/replication ZIP execution verified; CI repeats it for the committed revision.
+- [x] Final PDF visually checked after all scientific and layout edits.
 
-## Contribution / theory freeze
+## Author accountability
 
-- [x] Exact theorem remains restricted to a nonempty open set in the maintained symmetric primitive family.
-- [x] v2.4 status remains CONDITIONALLY PORTABLE.
-- [x] No theory primitive, theorem, witness, welfare definition, or certificate changed in Stage 15 preparation.
-- [x] Cover letter remains within the certified contribution boundary.
-- [x] v2.7 reviewer-verifiability audit completed with PASS.
-- [x] Model-to-certificate bridge equations and proof boundaries preserved in the current manuscript.
-- [x] `paper/`, `formal/`, `references/`, `tables/`, `tests/`, and `docs/THEORY_FREEZE.md` are locked by Git object identity.
+The personal contribution and provenance confirmations dated 2026-09-25 apply
+to that earlier record. Automated repair and testing do not create a new
+personal confirmation of scientific interpretation or novelty.
 
-## Human-only accountability
-
-- [x] Author personally confirmed the intellectual-contribution record on 2026-09-25.
-- [x] Author personally confirmed that the reconstructed AI provenance is materially complete on 2026-09-25.
+- [ ] Author scientific review of the repaired scope and contribution.
 - [ ] Exact final package approval — after live portal review PDF inspection.
-
-## Live submission endpoint
-
-- [x] Current Springer Nature “Submit your manuscript” link re-opened on 2026-10-02.
-- [x] Linked ERE Editorial Manager landing page inspected.
-- [x] Public landing page currently states: “Site under development. Do not use for live manuscript submission.”
-- [ ] Official live submission endpoint available for actual submission.
 
 ## Authenticated portal checks
 
+The linked Editorial Manager endpoint inspected on 2026-10-02 displayed
+“Site under development. Do not use for live manuscript submission.” This
+checklist does not infer the current working submission route or perform a
+submission. Public fee quotes are kept in the dated requirements ledger;
+applicable fees and route are determined by the journal at acceptance.
+
+- [ ] Official live submission endpoint available for actual submission.
 - [ ] Article type confirmed in the live portal.
 - [ ] File designations confirmed in the live portal.
 - [ ] Portal-specific AI/declaration questions captured and reconciled.
 - [ ] Portal warnings resolved.
 - [ ] Generated review PDF inspected for anonymity, order, equations, figures, references, and declarations.
 
-## Gate
-
-Repository-layer pre-submission freeze is **PASS**.
-
-Full Stage 15 remains **HOLD** while the official live submission endpoint is unavailable or while any authenticated-portal/final-author item above remains unchecked. Portal-only facts must never be inferred from public instructions.
+Mathematical checks, anonymous archive execution, author scientific review,
+and live submission requirements are distinct. Completion of one does not
+assert completion of the others.

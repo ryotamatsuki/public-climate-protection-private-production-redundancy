@@ -60,7 +60,7 @@ def main() -> None:
         work = Path(td)
         with zipfile.ZipFile(OUT) as zf:
             zf.extractall(work)
-        cmd = ["pdflatex", "-interaction=nonstopmode", "-halt-on-error", "main.tex"]
+        cmd = ["pdflatex", "-no-shell-escape", "-interaction=nonstopmode", "-halt-on-error", "main.tex"]
         for _ in range(3):
             subprocess.run(cmd, cwd=work / "paper", check=True, stdout=subprocess.DEVNULL, stderr=subprocess.STDOUT)
         pdf = work / "paper" / "main.pdf"

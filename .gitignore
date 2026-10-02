@@ -20,6 +20,14 @@ venv/
 
 # Generated manuscript PDF is imported intentionally only when frozen
 paper/*.pdf
+submission/*.pdf
+figures/*.pdf
+figures/*.eps
+formal/.lake/
+formal/PCPPR/GeneratedCertificates.lean
+formal/GENERATED_CERTIFICATE_ARCHIVE.json
+formal/FORMAL_AXIOM_REPORT.txt
+formal/FORMAL_VERIFICATION_RUN.txt
 
 # Generated submission packages
 dist/

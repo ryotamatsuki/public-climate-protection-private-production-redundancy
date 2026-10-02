@@ -2,11 +2,12 @@
 from __future__ import annotations
 import json, math, pathlib, sys
 import numpy as np
-from scipy.optimize import minimize, minimize_scalar, brentq
+from scipy.optimize import minimize, brentq
 
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/"scripts"))
 from core_model import Params, primitives
+from policy_search import symmetric_candidates
 
 par=Params(); par.validate()
 EXPECTED=json.loads((ROOT/"docs/v2_4_portability_results.json").read_text())
@@ -116,25 +117,16 @@ def diagnose(locfun,qfun):
                    options={"xatol":1e-12,"fatol":1e-14,"maxiter":5000})
         assert z.success and -z.fun<=W00+1e-10
         optpol.append([float(z.x[0]),float(z.x[1])])
-    def br(aB):
-        z=minimize_scalar(lambda x:-G(float(x),float(aB),locfun,qfun),
-                          bounds=(0,par.abar),method="bounded",
-                          options={"xatol":1e-13,"maxiter":1000})
-        assert z.success
-        return float(z.x)
-    scan=np.linspace(0,par.abar,401)
-    gaps=[br(float(a))-float(a) for a in scan]
-    roots=[]
-    for i in range(len(scan)-1):
-        if gaps[i]*gaps[i+1]<0:
-            x=brentq(lambda a:br(a)-a,float(scan[i]),float(scan[i+1]),xtol=1e-12)
-            if not roots or abs(x-roots[-1])>1e-7: roots.append(float(x))
+    # A jump in a best-response selection is not a fixed point. Isolate
+    # continuous-FOC candidates, then validate each against boundaries and peaks.
+    candidate_checks=symmetric_candidates(lambda x,y:G(x,y,locfun,qfun),par.abar)
+    roots=[item['policy'] for item in candidate_checks]
     assert len(roots)==1 and 0<roots[0]<par.abar
     aeq=roots[0]
     eq=G(aeq,aeq,locfun,qfun)
     dev=np.linspace(0,par.abar,2001)
     devgap=max(G(float(x),aeq,locfun,qfun) for x in dev)-eq
-    assert devgap<=2e-7
+    assert devgap<=1e-10
     h=1e-6
     MS=(W(h,h,locfun,qfun)-W(0,0,locfun,qfun))/h
     ML=(G(h,0,locfun,qfun)-G(0,0,locfun,qfun))/h
@@ -147,7 +139,9 @@ def diagnose(locfun,qfun):
       "location_probability_range":[minp,maxp],
       "backup_readiness_range":[minr,maxr],
       "max_location_contraction_bound":maxc,
-      "symmetric_local_equilibria":roots,
+      "accepted_symmetric_candidates":roots,
+      "candidate_checks":candidate_checks,
+      "scope":"numerical search; no whole-policy-domain certificate for this alternative",
       "max_unilateral_deviation_gain_grid":devgap,
       "origin_MS_forward_diff":MS,
       "origin_ML_forward_diff":ML,
@@ -166,9 +160,12 @@ for alt,vals in results.items():
     exp=EXPECTED[alt]
     for key in ("planner_W00","max_location_contraction_bound","origin_MS_forward_diff","origin_ML_forward_diff"):
         assert close(vals[key],exp[key]), (alt,key,vals[key],exp[key])
-    assert close(vals["symmetric_local_equilibria"],exp["symmetric_local_equilibria"],2e-7)
+    expected_roots=exp.get("accepted_symmetric_candidates",exp.get("symmetric_local_equilibria"))
+    assert close(vals["accepted_symmetric_candidates"],expected_roots,2e-7)
     assert vals["planner_grid_max_policy"]==[0.0,0.0]
     assert vals["continuation_failures"]==0
 
+if "--write" in sys.argv:
+    (ROOT/"docs/v2_4_portability_results.json").write_text(json.dumps(results,indent=2,sort_keys=True)+"\n")
 print(json.dumps(results,indent=2,sort_keys=True))
 print("PASS v2.4 pre-specified portability diagnostics")

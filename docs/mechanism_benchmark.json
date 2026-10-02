@@ -1,0 +1,47 @@
+{
+  "ML": "5/128",
+  "MS": "-3/16",
+  "alpha": "1/126",
+  "certificates": {
+    "1-p": {
+      "lower": "5/16",
+      "sign": 1,
+      "upper": "11/16"
+    },
+    "G_A_AA": {
+      "lower": "-21726685/4064256",
+      "sign": -1,
+      "upper": "-18154585/4064256"
+    },
+    "W_A": {
+      "lower": "-497/640",
+      "sign": -1,
+      "upper": "-7/128"
+    },
+    "W_B": {
+      "lower": "-497/640",
+      "sign": -1,
+      "upper": "-7/128"
+    },
+    "p": {
+      "lower": "5/16",
+      "sign": 1,
+      "upper": "11/16"
+    }
+  },
+  "diagonal_FOC": "5/128 - 315*a/64",
+  "parameters": {
+    "H": "1/100",
+    "abar": "2/25",
+    "b": "11/200",
+    "c": "10",
+    "gamma": "0",
+    "k": "2/25",
+    "q0": "3/10"
+  },
+  "readiness_range": [
+    "11/16",
+    "15/16"
+  ],
+  "scope": "global witness with Delta=0; own-product monopoly pricing remains"
+}

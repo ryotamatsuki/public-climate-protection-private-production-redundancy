@@ -1,8 +1,8 @@
 PYTHON ?= python
 
-.PHONY: verify symbolic normalization policy global numerical portability benchmarks test objects ere-format stage13-integration stage14-qa stage15-presubmission paper exposition ere-source-package ere-title-page ere-review-package ere-submission-bundle clean
+.PHONY: verify symbolic normalization policy global numerical portability benchmarks test objects marginal-exhibits ere-format title-page-format paper exposition formal-certificates formal-verify ere-source-package ere-title-page ere-review-package review-package-verify ere-submission-bundle clean
 
-verify: symbolic normalization policy global numerical portability benchmarks test objects ere-format stage13-integration stage14-qa stage15-presubmission paper exposition ere-source-package ere-title-page ere-review-package ere-submission-bundle
+verify: symbolic normalization policy global numerical portability benchmarks test marginal-exhibits ere-format title-page-format exposition ere-submission-bundle
 
 symbolic:
 	$(PYTHON) scripts/verify_symbolic.py
@@ -31,37 +31,47 @@ test:
 objects:
 	$(PYTHON) scripts/generate_objects.py
 
+marginal-exhibits: objects
+	$(PYTHON) scripts/verify_marginal_exhibits.py
+
 ere-format:
 	$(PYTHON) scripts/verify_ere_submission.py
 
-stage13-integration:
-	$(PYTHON) scripts/verify_stage13_integration.py
-
-stage14-qa:
-	$(PYTHON) scripts/verify_stage14_submission_qa.py
-
-stage15-presubmission:
-	$(PYTHON) scripts/verify_stage15_presubmission.py
+title-page-format:
+	$(PYTHON) scripts/verify_ere_title_page.py
 
 paper: objects
-	cd paper && pdflatex -interaction=nonstopmode -halt-on-error main.tex >/dev/null
-	cd paper && pdflatex -interaction=nonstopmode -halt-on-error main.tex >/dev/null
-	cd paper && pdflatex -interaction=nonstopmode -halt-on-error main.tex >/dev/null
+	cd paper && pdflatex -no-shell-escape -interaction=nonstopmode -halt-on-error main.tex >/dev/null
+	cd paper && pdflatex -no-shell-escape -interaction=nonstopmode -halt-on-error main.tex >/dev/null
+	cd paper && pdflatex -no-shell-escape -interaction=nonstopmode -halt-on-error main.tex >/dev/null
 
 exposition: paper
 	$(PYTHON) scripts/verify_exposition_v25.py
+
+formal-certificates:
+	$(PYTHON) scripts/generate_lean_certificates.py
+
+formal-verify: formal-certificates
+	cd formal && lake exe cache get
+	cd formal && lake build
+	cd formal && lake env lean Main.lean > FORMAL_AXIOM_REPORT.txt
 
 ere-source-package: objects
 	$(PYTHON) scripts/build_verify_ere_source_package.py
 
 ere-title-page:
-	cd submission && pdflatex -interaction=nonstopmode -halt-on-error ERE_title_page.tex >/dev/null
+	cd submission && pdflatex -no-shell-escape -interaction=nonstopmode -halt-on-error ERE_title_page.tex >/dev/null
 
-ere-review-package: objects
+ere-review-package: objects benchmarks formal-certificates
 	$(PYTHON) scripts/build_ere_review_package.py
 
-ere-submission-bundle: paper ere-source-package ere-title-page ere-review-package stage15-presubmission
+review-package-verify: ere-review-package
+	$(PYTHON) scripts/verify_clean_review_package.py
+
+ere-submission-bundle: paper ere-source-package ere-title-page review-package-verify
 	$(PYTHON) scripts/build_ere_submission_bundle.py
+
+# Historical Stage scripts are retained for provenance and are not current gates.
 
 clean:
 	rm -f paper/*.aux paper/*.bbl paper/*.blg paper/*.log paper/*.out paper/*.pdf paper/*.toc

@@ -1,3 +1,12 @@
+# Historical Stage-15 candidate — reopened on 2026-10-02
+
+The author requested repair after an independent audit found a non-Nash plotted
+point, two proof defects, and standalone reproduction failures. The earlier
+repository-layer freeze/PASS below refers to its historical candidate. It is
+not a certification of the repaired manuscript or its novelty. The current
+revision uses `docs/INDEPENDENT_AUDIT_REPAIRS_2026-10-02.md` and
+`submission/ERE_CURRENT_UPLOAD_MANIFEST.md`. Live portal checks remain pending.
+
 # Stage 15 — ERE Pre-Submission Freeze
 
 **Date:** 2026-10-02  

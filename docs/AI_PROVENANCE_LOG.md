@@ -31,3 +31,16 @@ This is a material-use ledger, not a complete transcript reconstruction. Before 
 - Lean is FORMAL evidence about encoded statements under encoded assumptions.
 - No AI/computation/formal PASS is represented as AUTHOR verification.
 - Personal author confirmation of the intellectual-contribution/provenance record and final submitted package remains a human action.
+
+## 2026-10-02 independent-audit correction
+
+Following the author's request to correct the independent audit, OpenAI tools
+assisted with proof repair, exact marginal exhibit generation, a Delta=0
+mechanism benchmark, numerical candidate/deviation validation, prior-art
+comparison, welfare and formalization scope, and anonymous-package dependency
+repair. The canonical parameter vector and material surplus accounting were
+retained. Earlier PASS records were treated as historical author-side records,
+not as evidence that the defects were absent. Execution results and source
+changes are mapped in `INDEPENDENT_AUDIT_REPAIRS_2026-10-02.md`. This entry does
+not infer author scientific endorsement of revised novelty or final submission
+from automated checks.

@@ -60,3 +60,21 @@ Canonical rational witness:
 The paper does **not** claim novelty for public/private adaptation crowd-out, local-public-input overprovision, resilience underinvestment under market power, geographic diversification under disaster risk, or strategic substitutability of capacity investment. Novelty is restricted to the full-game policy-ranking conflict.
 
 The level result that higher product substitutability lowers backup readiness on the maintained symmetric interior branch is retained. No general claim is made that higher substitutability strengthens the marginal crowd-out response of readiness to public protection; at the canonical co-located origin the relevant cross-partial has the opposite sign.
+
+## Independent-audit repair, 2026-10-02
+
+The author requested correction of the independent audit findings. The earlier
+freeze is reopened for proof correctness, plotted quantities, mechanism
+benchmarks, novelty positioning, formal-scope disclosure and package execution.
+The canonical primitive vector and material welfare formulas are retained.
+The own-policy concavity argument is distinguished from the full diagonal
+FOC derivative; uniqueness of backup is proved for the clipped game.
+
+The current contribution boundary explicitly permits the policy ranking at
+Delta=0: incremental sole-survivor rents are not a necessary mechanism. The
+new exact benchmark does not substitute for comparison with prior theory.
+The planner is protection-policy constrained and industrial-surplus specific.
+The old Stage-15 lock and historical PASS records do not certify these edits.
+The current repair and evidence are described in
+`INDEPENDENT_AUDIT_REPAIRS_2026-10-02.md`; author review and live portal checks
+remain separate from code and mathematical validation.

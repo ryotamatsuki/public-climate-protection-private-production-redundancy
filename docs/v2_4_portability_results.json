@@ -1,28 +1,118 @@
 {
   "alternative_A_nonlinear_risk": {
-    "planner_grid_max_policy": [0.0, 0.0],
-    "planner_W00": 0.6183204099408616,
-    "planner_multistart_policies": [[0.0,0.0],[0.0,0.0],[0.0,0.0],[0.0,0.0],[0.0,0.0],[0.0,0.0]],
+    "accepted_symmetric_candidates": [
+      0.010410746947861604
+    ],
+    "backup_readiness_range": [
+      0.6738088112038685,
+      0.9084740493006567
+    ],
+    "candidate_checks": [
+      {
+        "best_deviation_policy": 0.010410749704001618,
+        "foc_residual": 4.625929269271485e-12,
+        "max_deviation_gain": 5.551115123125783e-17,
+        "policy": 0.010410746947861604
+      }
+    ],
     "continuation_failures": 0,
-    "location_probability_range": [0.43806635006441436, 0.5619336499355856],
-    "backup_readiness_range": [0.6738088112038685, 0.9084740493006567],
+    "location_probability_range": [
+      0.43806635006441436,
+      0.5619336499355856
+    ],
     "max_location_contraction_bound": 0.22589881285814406,
-    "symmetric_local_equilibria": [0.010410751608615642],
-    "max_unilateral_deviation_gain_grid": -1.9865997735735164e-11,
+    "max_unilateral_deviation_gain_grid": -1.986755204796964e-11,
+    "origin_ML_forward_diff": 0.0019308903920212117,
     "origin_MS_forward_diff": -0.006485023185121008,
-    "origin_ML_forward_diff": 0.0019308903920212117
+    "planner_W00": 0.6183204099408616,
+    "planner_grid_max_policy": [
+      0.0,
+      0.0
+    ],
+    "planner_multistart_policies": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "scope": "numerical search; no whole-policy-domain certificate for this alternative"
   },
   "alternative_B_logistic_location": {
-    "planner_grid_max_policy": [0.0, 0.0],
-    "planner_W00": 0.6183204099408617,
-    "planner_multistart_policies": [[0.0,0.0],[0.0,0.0],[0.0,0.0],[0.0,0.0],[0.0,0.0],[0.0,0.0]],
+    "accepted_symmetric_candidates": [
+      0.023019684646569397
+    ],
+    "backup_readiness_range": [
+      0.6449838154101057,
+      0.9084740493006567
+    ],
+    "candidate_checks": [
+      {
+        "best_deviation_policy": 0.02301966648832928,
+        "foc_residual": 3.23815048849004e-11,
+        "max_deviation_gain": 2.220446049250313e-16,
+        "policy": 0.023019684646569397
+      }
+    ],
     "continuation_failures": 0,
-    "location_probability_range": [0.4210053729765765, 0.5789946270234235],
-    "backup_readiness_range": [0.6449838154101057, 0.9084740493006567],
+    "location_probability_range": [
+      0.4210053729765765,
+      0.5789946270234235
+    ],
     "max_location_contraction_bound": 0.245719675808187,
-    "symmetric_local_equilibria": [0.02301968297612232],
-    "max_unilateral_deviation_gain_grid": -2.871836102258385e-11,
+    "max_unilateral_deviation_gain_grid": -2.8717306310710455e-11,
+    "origin_ML_forward_diff": 0.0019308937226902856,
     "origin_MS_forward_diff": -0.00648503406530665,
-    "origin_ML_forward_diff": 0.0019308937226902856
+    "planner_W00": 0.6183204099408617,
+    "planner_grid_max_policy": [
+      0.0,
+      0.0
+    ],
+    "planner_multistart_policies": [
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0
+      ]
+    ],
+    "scope": "numerical search; no whole-policy-domain certificate for this alternative"
   }
 }

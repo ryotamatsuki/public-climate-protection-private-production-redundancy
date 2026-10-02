@@ -3,8 +3,9 @@
 
 Source model/certificate implementation:
   scripts/verify_global_certificate.py
-Canonical manuscript/model SHA:
-  77f0c0705e3759b4997b3b17355f0063c02673e1
+Canonical primitive identifier:
+  canonical-primitives-12-25
+Repository commit metadata is kept outside the anonymous certificate payload.
 
 The large bivariate Bernstein certificates used for T11 and T13 are category-C
 objects. They are preserved exactly in a deterministic JSON archive as signed
@@ -36,7 +37,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "scripts" / "verify_global_certificate.py"
 OUT = ROOT / "formal" / "PCPPR" / "GeneratedCertificates.lean"
 ARCHIVE = ROOT / "formal" / "GENERATED_CERTIFICATE_ARCHIVE.json"
-CANONICAL_SHA = "77f0c0705e3759b4997b3b17355f0063c02673e1"
+CANONICAL_PRIMITIVE_ID = "canonical-primitives-12-25"
 
 spec = importlib.util.spec_from_file_location("pcppr_global_certificate", SOURCE)
 if spec is None or spec.loader is None:
@@ -120,6 +121,7 @@ py_n, py_d = bernstein(mod.dWdy, mod.FULL)
 # Local-government own-policy second derivative on full own-policy interval
 # times the exact rival-root isolating interval.
 lg_n, lg_d = bernstein(mod.ddGdxx, mod.LOCAL)
+fdiag_n, fdiag_d = bernstein(mod.dFdiag, mod.ROOT_SQUARE)
 
 # Exact root-bracketing data for the diagonal local-government FOC.
 L = mod.Q(1649737, 71666359)
@@ -156,7 +158,7 @@ assert all(d >= 0 for d in foc_den_pred)
 source_sha256 = hashlib.sha256(SOURCE.read_bytes()).hexdigest()
 
 archive = {
-    "canonical_manuscript_model_sha": CANONICAL_SHA,
+    "canonical_primitive_id": CANONICAL_PRIMITIVE_ID,
     "generator_source_sha256": source_sha256,
     "planner_x_numerator_bernstein": archive_payload(px_n),
     "planner_x_denominator_bernstein": archive_payload(px_d),
@@ -164,6 +166,8 @@ archive = {
     "planner_y_denominator_bernstein": archive_payload(py_d),
     "local_second_numerator_bernstein": archive_payload(lg_n),
     "local_second_denominator_bernstein": archive_payload(lg_d),
+    "diagonal_foc_policy_derivative_numerator_bernstein": archive_payload(fdiag_n),
+    "diagonal_foc_policy_derivative_denominator_bernstein": archive_payload(fdiag_d),
     "diagonal_foc": {
         "degree": int(mod.Fnum.degree()),
         "alphaL": list(rat_parts(L)),
@@ -180,8 +184,11 @@ archive_sha256 = hashlib.sha256(archive_text.encode("utf-8")).hexdigest()
 
 parts = [
     "import Mathlib\n\n",
+    "/- Finite interval and endpoint arithmetic below uses native_decide.\n"
+    "It extends the trusted base to native compilation/runtime. The JSON\n"
+    "bivariate and economic-function bridges are not closed in Lean. -/\n\n",
     "namespace PCPPR.GeneratedCertificates\n\n",
-    f'def canonicalManuscriptSHA : String := "{CANONICAL_SHA}"\n',
+    f'def canonicalPrimitiveID : String := "{CANONICAL_PRIMITIVE_ID}"\n',
     f'def generatorSourceSHA256 : String := "{source_sha256}"\n',
     f'def generatedArchiveSHA256 : String := "{archive_sha256}"\n\n',
     f"def plannerXNumeratorCoeffCount : ℕ := {len(px_n)}\n",

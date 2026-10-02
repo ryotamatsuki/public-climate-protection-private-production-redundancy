@@ -8,7 +8,16 @@ The Cournot first-order conditions from \eqref{eq:inverse-demand} are
 \begin{equation}
 1-2x_i-\gamma x_j=0.
 \end{equation}
-Symmetry yields $x_i=1/(2+\gamma)$ and \eqref{eq:duopoly}; the monopoly result \eqref{eq:monopoly} is immediate. Total product-market surplus is $(3+\gamma)/(2+\gamma)^2$ when both firms are available and $3/8$ when exactly one is available.
+For any nonnegative rival quantity, the global response is $\max\{0,(1-\gamma x_j)/2\}\leq1/2$. Hence every equilibrium lies in $[0,1/2]^2$, where $1-\gamma x_j>0$ and the responses have Lipschitz constant $\gamma/2<1$. The unique equilibrium is interior; solving the two FOCs gives $x_i=1/(2+\gamma)$ and \eqref{eq:duopoly}. The monopoly result \eqref{eq:monopoly} is immediate. Total product-market surplus is $(3+\gamma)/(2+\gamma)^2$ when both firms are available and $3/8$ when exactly one is available.
+
+The symmetric readiness comparative statics used in the text can also be checked directly:
+\begin{align*}
+r^C_q&=\frac{k\pi_M}{(k+q\Delta)^2}>0,\\
+r^D_q&=\frac{k(\pi_D+2q\Delta)-q^2\pi_D\Delta}{(k+q^2\Delta)^2}>0,\\
+r^C_\gamma&=-\frac{q^2\pi_M\Delta'}{(k+q\Delta)^2}<0,\\
+r^D_\gamma&=\frac{q\Delta'\{(q-1)k-q^2\pi_M\}}{(k+q^2\Delta)^2}<0.
+\end{align*}
+For $r^D_q$, interiority $r^D<1$ implies $k>q\pi_D$, making its numerator positive. The other signs use $k>0$, $0<q<1$, and $\Delta'>0$.
 
 Let $m_i=s_i(1-r_i)$ be firm $i$'s unavailability probability. Under the conditional-independence primitive in Section~\ref{sec:model}, joint unavailability is
 \begin{equation}
@@ -31,11 +40,11 @@ Multiplying these probabilities by the relevant duopoly or monopoly profits give
 so \eqref{eq:backup-br-global} is the global best response on $[0,1]$.
 
 \begin{lemma}[Unique interior continuation at the canonical witness]\label{lem:continuation}
-For the parameter vector in \eqref{eq:witness} and every policy pair $(a_A,a_B)\in[0,2/25]^2$, each location profile induces a unique interior backup Nash equilibrium. The subsequent private-information location game is globally unclipped and has a unique interior Bayesian equilibrium in cutoff probabilities. The Cournot continuation is unique in every final availability state.
+For the parameter vector in \eqref{eq:witness} and every policy pair $(a_A,a_B)\in[0,2/25]^2$, each location profile induces a unique interior backup Nash equilibrium. The private-information location game, which anticipates these backup continuations, is globally unclipped and has a unique interior Bayesian equilibrium in cutoff probabilities. The Cournot continuation is unique in every final availability state.
 \end{lemma}
 
 \begin{proof}
-For each of the four primary-location profiles, the interior backup first-order conditions are the two-equation linear system in \eqref{eq:backup-linear-system}. The exact certificate verifies on the full policy rectangle that its determinant is strictly positive, that both resulting readiness levels satisfy $0<r_i<1$, and that the linear best-response slopes have product strictly below one in absolute value. Because each firm's objective is globally strictly concave in its own readiness, the interior solution is the unique global backup Nash equilibrium and no boundary solution is omitted.
+For each of the four primary-location profiles, the interior backup first-order conditions are the two-equation linear system in \eqref{eq:backup-linear-system}. The exact certificate verifies on the full policy rectangle that its determinant is strictly positive and both resulting readiness levels satisfy $0<r_i<1$. The clipped best responses in \eqref{eq:backup-br-global} map $[0,1]^2$ into itself and have the uniform Lipschitz bound \eqref{eq:backup-contraction-bound}. The contraction theorem gives a unique fixed point of the full clipped game. The certified interior linear-system solution is a fixed point, hence is that unique equilibrium. Strict own-readiness concavity makes each response globally optimal. This argument excludes corner equilibria without assuming that the unclipped responses are interior at every rival action.
 
 For the location game, define $u_0,u_1,B$ as in \eqref{eq:location-endpoints}. Exact polynomial inequalities verify $0<u_0,u_1<1$ throughout the policy rectangle. Thus the affine cutoff best response never clips. Since $B=u_1-u_0$, these endpoint inequalities imply $|B|<1$, so the two-firm affine best-response system is a contraction. It therefore has a unique probability fixed point and cannot support a distinct asymmetric probability solution. The certificate also verifies that the denominator in \eqref{eq:location-prob} is strictly positive and that the resulting probability lies in $(0,1)$. The final Cournot games have the strictly concave quadratic objectives already solved above.
 \end{proof}
@@ -127,14 +136,14 @@ with no denominator root on the maintained $\gamma$ interval. At $\gamma=12/25$,
 
 The role of each exact computation is summarized here:
 \begin{center}
-\begin{tabular}{p{.27\textwidth}p{.29\textwidth}p{.34\textwidth}}
+\begin{tabular}{>{\raggedright\arraybackslash}p{.27\textwidth}>{\raggedright\arraybackslash}p{.29\textwidth}>{\raggedright\arraybackslash}p{.34\textwidth}}
 \toprule
 Mathematical statement & Certified object & Logical consequence \\
 \midrule
-Lemma~\ref{lem:continuation} & backup determinants/interiority; $u_0,u_1$; location denominator & unique interior downstream continuation on the full policy square \\
+Lemma~\ref{lem:continuation} & clipped backup contraction and interiority; location endpoints and denominator & unique interior downstream continuation on the full policy square \\
 Lemma~\ref{lem:planner-global} & numerators and denominators of $W_{a_A},W_{a_B}$ & unique planner optimum at the origin \\
 Lemma~\ref{lem:local-global} & exact root $\alpha$ and $G_{A,a_Aa_A}$ over own-policy $\times$ rival-root interval & $\alpha$ is the unique global best response to $\alpha$ \\
-Lemma~\ref{lem:open-set} & strict whole-domain margins plus simple root & persistence on a neighborhood of primitives \\
+Lemma~\ref{lem:open-set} & strict whole-domain margins and $F'(\alpha)\neq0$ & persistence on a neighborhood of symmetric primitives \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -219,7 +228,12 @@ There is a neighborhood of the canonical parameter vector, within the maintained
 \begin{proof}
 Let $\theta$ collect the primitives and normalize public policies by $x_j=a_j/\bar a(\theta)$, so the policy domain is the fixed compact square $[0,1]^2$ for all nearby $\theta$. At the canonical vector $\theta_0$, the exact certificates establish strict inequalities for all denominator signs, backup-interiority bounds, location no-clipping conditions, and planner derivatives on that compact square. Because the relevant rational functions are continuous jointly in $(x_A,x_B,\theta)$ wherever the certified denominators remain nonzero, compactness converts each strict pointwise certificate at $\theta_0$ into a positive uniform margin. Those margins persist for all $\theta$ in a sufficiently small neighborhood of $\theta_0$. Consequently, the same continuation branch remains well-defined, unique, and interior, and both planner partial derivatives remain strictly negative throughout the normalized square. The coordinated optimum therefore remains at zero.
 
-For the local-government equilibrium, let $F(a,\theta)$ denote the symmetric first-order condition. At $(\alpha,\theta_0)$, $F=0$ and the root is simple because the certified own-policy second derivative is strictly negative. The implicit-function theorem therefore yields a unique continuous root $\alpha(\theta)$ near $\alpha$, with $0<\alpha(\theta)<\bar a(\theta)$ for nearby primitives. The strict-concavity certificate has a uniform negative margin on the compact own-policy interval when the rival action ranges over a neighborhood containing the root; continuity preserves that margin for nearby $\theta$. Hence $\alpha(\theta)$ remains the unique global best response to itself. This proves persistence of the positive symmetric Nash equilibrium and completes the nonempty-open-set part of the theorem.
+For the local-government equilibrium, let $F(a,\theta)=G_{A,a_A}(a,a;\theta)$ denote the symmetric first-order condition. Its derivative is
+\begin{equation}
+F_a=G_{A,a_Aa_A}+G_{A,a_Aa_B},
+\label{eq:diagonal-foc-derivative}
+\end{equation}
+not the own-policy second derivative alone. Exact root isolation of the reduced FOC numerator records multiplicity one and excludes denominator zeros. In addition, the Bernstein calculation certifies $G_{A,a_Aa_A}+G_{A,a_Aa_B}<0$ on the square formed by the root-enclosure interval in \eqref{eq:alpha-exact-interval}. Thus $F_a(\alpha,\theta_0)\neq0$ (approximately $-0.18003$). The implicit-function theorem yields a unique continuously differentiable local root $\alpha(\theta)$, with $0<\alpha(\theta)<\bar a(\theta)$ for nearby primitives. The own-policy strict-concavity certificate, which serves a separate purpose, has a uniform negative margin on the compact own-policy interval when the rival action ranges over a neighborhood containing the root. Continuity preserves that margin for nearby $\theta$, so $\alpha(\theta)$ remains a global best response to itself. This proves persistence of the positive symmetric Nash equilibrium. No uniqueness of all policy equilibria or persistence under asymmetric primitive perturbations is claimed.
 \end{proof}
 
 \subsection{Product-substitutability interaction}
@@ -249,4 +263,10 @@ with equality if and only if $D=0$. At every symmetric policy profile, including
 
 The exact certificates establish the theorem's global quantifiers. Numerical routines are retained only as counterexample searches and implementation checks. At the canonical witness, the numerical audit evaluates unilateral government deviations on 2,001 policy points, searches the two-dimensional planner problem on a deterministic grid and from multiple continuous-optimization starting points, and re-solves downstream continuation choices after each material deviation. The separate state-enumeration evaluator constructs the four final availability probabilities directly from $s_i$, $J$, and the conditional-independence backup law rather than calling the closed-form expected-payoff expression.
 
-The reproducibility archive identifies the exact scripts corresponding to each lemma. \texttt{scripts/verify\_global\_certificate.py} generates the whole-domain Bernstein inequalities; \texttt{scripts/verify\_policy\_certificate.py} and \texttt{scripts/verify\_symbolic.py} perform exact root isolation; \texttt{scripts/verify\_normalization.py} checks the scaling of the auxiliary coefficient archive against primitive symbolic expressions; and the numerical routines serve only as independent stress tests. No floating-point computation is used to establish Lemmas~\ref{lem:continuation}--\ref{lem:local-global}.
+The reproducibility archive identifies the exact scripts corresponding to each lemma. \path{scripts/verify_global_certificate.py} generates the whole-domain Bernstein inequalities and the diagonal-FOC derivative check; \path{scripts/verify_policy_certificate.py} and \path{scripts/verify_symbolic.py} perform exact root isolation; \path{scripts/verify_normalization.py} checks auxiliary scaling against primitive symbolic expressions; \path{scripts/verify_benchmarks.py} certifies the $\Delta=0$ example; and \path{scripts/verify_marginal_exhibits.py} checks the exact derivatives underlying Figure~\ref{fig:policy-regime}. Numerical routines serve only as counterexample searches. No floating-point computation establishes Lemmas~\ref{lem:continuation}--\ref{lem:local-global}.
+
+\subsection{Scope of the Lean formalization}\label{app:formal-scope}
+
+The formal development checks algebraic identities, conditional availability and location statements, global optimality of an interior backup FOC, Bernstein sign implications, and the implications from policy derivative signs and stationarity to global optimization. Its final theorem takes functions $W,G_A,G_B,F$ and assumptions connecting them to derivative signs and the generated root data. The full-domain planner signs, own-policy concavity, and economic-function-to-certificate identifications remain external premises. The availability layer does not construct the complete probability model from primitives; the backup layer does not formalize uniqueness of the clipped game. The open-set argument is a mathematical proof in this appendix, outside Lean.
+
+Generated finite arithmetic checks include uses of \texttt{native\_decide}; their axiom dependencies are printed in the reproduction report. These checks trust the native compiler and runtime in addition to the ordinary Lean kernel. Generic analytic implications are checked as Lean proofs under their displayed assumptions. Neither layer certifies novelty, the interpretation of the government objective, or unencoded extensions. The reviewer archive supplies a separate scope map and the command that regenerates certificates before building the pinned Lean project.

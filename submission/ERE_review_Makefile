@@ -1,8 +1,8 @@
 PYTHON ?= python
 
-.PHONY: verify symbolic normalization policy global numerical portability benchmarks test objects ere-format paper exposition formal-verify clean
+.PHONY: verify symbolic normalization policy global numerical portability benchmarks test objects marginal-exhibits ere-format paper exposition formal-certificates formal-verify clean
 
-verify: symbolic normalization policy global numerical portability benchmarks test objects ere-format paper exposition
+verify: symbolic normalization policy global numerical portability benchmarks test marginal-exhibits ere-format exposition formal-certificates
 
 symbolic:
 	$(PYTHON) scripts/verify_symbolic.py
@@ -31,19 +31,27 @@ test:
 objects:
 	$(PYTHON) scripts/generate_objects.py
 
+marginal-exhibits: objects
+	$(PYTHON) scripts/verify_marginal_exhibits.py
+
 ere-format:
 	$(PYTHON) scripts/verify_ere_submission.py
 
 paper: objects
-	cd paper && pdflatex -interaction=nonstopmode -halt-on-error main.tex >/dev/null
-	cd paper && pdflatex -interaction=nonstopmode -halt-on-error main.tex >/dev/null
-	cd paper && pdflatex -interaction=nonstopmode -halt-on-error main.tex >/dev/null
+	cd paper && pdflatex -no-shell-escape -interaction=nonstopmode -halt-on-error main.tex >/dev/null
+	cd paper && pdflatex -no-shell-escape -interaction=nonstopmode -halt-on-error main.tex >/dev/null
+	cd paper && pdflatex -no-shell-escape -interaction=nonstopmode -halt-on-error main.tex >/dev/null
 
 exposition: paper
 	$(PYTHON) scripts/verify_exposition_v25.py
 
-formal-verify:
+formal-certificates:
+	$(PYTHON) scripts/generate_lean_certificates.py
+
+formal-verify: formal-certificates
+	cd formal && lake exe cache get
 	cd formal && lake build
+	cd formal && lake env lean Main.lean > FORMAL_AXIOM_REPORT.txt
 
 clean:
 	rm -f paper/*.aux paper/*.bbl paper/*.blg paper/*.log paper/*.out paper/*.pdf paper/*.toc

@@ -55,6 +55,10 @@ open PCPPR
 #print axioms MarginalDecomposition.plant_attraction_decomposition
 #print axioms CanonicalWitness.canonical_MS_negative
 #print axioms CanonicalWitness.canonical_ML_positive
+#print axioms CanonicalWitness.canonical_lambda_positive
+#print axioms CanonicalWitness.alpha_interval_inside_policy_domain
+#print axioms GeneratedCertificates.alpha_interval_order
+#print axioms GeneratedCertificates.diagonal_FOC_endpoint_sign_change
 #print axioms CanonicalWitness.canonical_marginal_decomposition
 #print axioms Bernstein.bernstein_sum_negative
 #print axioms Bernstein.tensor_bernstein_sum_negative

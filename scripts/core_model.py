@@ -15,7 +15,7 @@ class Params:
     def validate(self) -> None:
         assert 0 <= self.gamma < 1
         assert 0 < self.abar < self.q0 < 1
-        assert self.k > 0 and self.H > 0 and self.c > 0
+        assert self.k > 0 and self.H > 0 and self.c > 0 and self.b > 0
 
 
 def primitives(par: Params):

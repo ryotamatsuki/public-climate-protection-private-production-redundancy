@@ -1,8 +1,9 @@
 import json, math, pathlib, sys
 import numpy as np
-from scipy.optimize import minimize, minimize_scalar, root_scalar
+from scipy.optimize import minimize
 sys.path.insert(0,str(pathlib.Path(__file__).resolve().parent))
 from core_model import Params, national_welfare, government_A_payoff, location_probability
+from policy_search import symmetric_candidates, maximize_interval
 
 par=Params(); par.validate()
 W00=national_welfare(0.0,0.0,par)
@@ -29,19 +30,14 @@ for x0 in starts:
     opts.append((res.x.tolist(),-res.fun))
 assert max(v for _,v in opts) <= W00+1e-10
 
-# Symmetric local-government equilibrium as fixed point of global best response.
-def br(aB):
-    res=minimize_scalar(lambda x:-government_A_payoff(float(x),float(aB),par),bounds=(0,par.abar),method='bounded',
-                        options={'xatol':1e-13,'maxiter':1000})
-    if not res.success: raise RuntimeError('best-response optimization failed')
-    return float(res.x),float(-res.fun)
-
-def gap(a): return br(a)[0]-a
-root=root_scalar(gap,bracket=(0.023,0.024),xtol=1e-12)
-assert root.converged
-aeq=float(root.root)
-br_eq,_=br(aeq)
+# Numerical candidate search; the exact global certificate supplies the proof.
+payoff=lambda x,y:government_A_payoff(x,y,par)
+candidates=symmetric_candidates(payoff,par.abar)
+assert len(candidates)==1 and 0<candidates[0]['policy']<par.abar
+aeq=candidates[0]['policy']
+br_eq,br_value=maximize_interval(lambda x:payoff(x,aeq),par.abar)
 assert abs(br_eq-aeq)<2e-7
+assert br_value-payoff(aeq,aeq)<=1e-10
 
 # Direct finite global-deviation grid at the equilibrium rival action.
 eq_pay=government_A_payoff(aeq,aeq,par)
@@ -49,7 +45,7 @@ dev_grid=np.linspace(0,par.abar,2001)
 dev_pays=[]
 for x in dev_grid:
     dev_pays.append(government_A_payoff(float(x),aeq,par))
-assert max(dev_pays) <= eq_pay+2e-7
+assert max(dev_pays) <= eq_pay+1e-10
 
 # Continuation interiority ledger on all material deviations.
 min_p,max_p=1.0,0.0; min_r,max_r=1.0,0.0
@@ -61,6 +57,7 @@ for x in dev_grid:
 assert 0<min_p<=max_p<1 and 0<min_r<=max_r<1
 
 out={'planner_W00':W00,'planner_grid_max':max_grid,'planner_multistart':opts,'a_LG':aeq,
+     'symmetric_candidate_checks':candidates,
      'government_deviation_max_gap':max(dev_pays)-eq_pay,'location_p_range':[min_p,max_p],
      'backup_r_range':[min_r,max_r],'unresolved':0,'numerical_failures':0}
 print(json.dumps(out,indent=2))

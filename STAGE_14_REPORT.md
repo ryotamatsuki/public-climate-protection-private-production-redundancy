@@ -149,3 +149,24 @@ This closes the human-only Stage-14 accountability item. The confirmation was no
 **TECHNICAL / PUBLIC-RULE QA READY.**
 
 The repository is ready to enter the authenticated Editorial Manager submission-draft step. Stage 14 remains fail-closed only on the portal-only checks and generated review-PDF inspection. Stage 15 final package freeze/sign-off is not yet authorized.
+
+
+---
+
+## 2026-10-02 live refresh addendum
+
+The public ERE instructions were re-opened on 2026-10-02. No material public-rule change was found that requires a manuscript, theory, title-page, AI-disclosure, data-availability, or package redesign.
+
+The current Springer Nature “Submit your manuscript” link still points to the ERE Editorial Manager endpoint. The public landing page currently states **“Site under development. Do not use for live manuscript submission.”** This supersedes the earlier assumption that an authenticated portal draft could be opened immediately.
+
+The controlling current ledger is:
+
+`docs/STAGE_14_LIVE_REQUIREMENTS_LEDGER_ERE_2026-10-02.md`
+
+Accordingly:
+
+- public-rule/repository Stage-14 QA remains PASS;
+- the author-confirmation and v2.7 reviewer-verifiability items remain closed;
+- authenticated portal fields, warnings, and generated review-PDF inspection remain unresolved;
+- a repository-layer Stage-15 pre-submission freeze may be prepared;
+- **full Stage 14 closure and full Stage 15 submission authorization remain HOLD until the official live submission route is available.**

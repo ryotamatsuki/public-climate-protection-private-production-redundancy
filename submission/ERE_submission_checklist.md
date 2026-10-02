@@ -2,10 +2,10 @@
 
 Target: **Environmental and Resource Economics**.
 Public instructions were inspected on **2026-10-02**. The previous Stage-15 candidate and lock are historical. The repaired
-scientific revision is re-frozen as
-`PCPPR-THEORY-FREEZE-2026-10-02-v3`.
+scientific revision is re-certified and re-frozen as
+`PCPPR-THEORY-FREEZE-2026-10-03-v4`.
 Use `ERE_CURRENT_UPLOAD_MANIFEST.md`,
-`ERE_STAGE15_V3_SCIENTIFIC_OBJECT.lock`, and the commit/components recorded by
+`ERE_STAGE15_V4_SCIENTIFIC_OBJECT.lock`, and the commit/components recorded by
 the final transport build, not the historical source-object lock.
 
 ## Manuscript and package
@@ -26,15 +26,19 @@ the final transport build, not the historical source-object lock.
 - [x] Clean source/replication ZIP execution verified; CI repeats it for the committed revision.
 - [x] Final PDF visually checked after all scientific and layout edits.
 - [x] Open-set proof explicitly carries the strict clipped-backup contraction margin into the parameter neighborhood.
-- [x] v3 scientific-object lock created and enforced by `make verify`.
+- [x] Stage 6 theorem-absorption map refreshed with the 2026-10-03 closest-parent search.
+- [x] Stage 7.5A quantifier/portability/formal scope re-certified under workflow v2.5.
+- [x] Author personally reconfirmed the five v4 scientific items on 2026-10-03.
+- [x] v4 scientific-object lock created and enforced by `make verify`.
 
 ## Author accountability
 
-The personal contribution and provenance confirmations dated 2026-09-25 apply
-to that earlier record. Automated repair and testing do not create a new
-personal confirmation of scientific interpretation or novelty.
+The 2026-09-25 confirmation is historical. The author explicitly reconfirmed
+the repaired mechanism, proof/equilibrium logic, Delta=0 interpretation,
+prior-art/limitation boundary, and maximum defensible claim on 2026-10-03 and
+approved the v4 freeze.
 
-- [x] Author authorized the requested v3 re-freeze and PR #31 merge after the independent follow-up review on 2026-10-02.
+- [x] v4 scientific interpretation / novelty boundary personally reconfirmed by author.
 - [ ] Exact final package approval — after live portal review PDF inspection.
 
 ## Authenticated portal checks

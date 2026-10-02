@@ -1,8 +1,8 @@
 # Exposition Architecture — v4 Integrated Manuscript
 
 **Date:** 2026-10-03  
-**Canonical scientific freeze:** `PCPPR-THEORY-FREEZE-2026-10-03-v4`  
-**Audited canonical main:** `8869e6f1b342bc73e7b5a3c09dc685d607e1ce91`  
+**Canonical scientific freeze:** \`PCPPR-THEORY-FREEZE-2026-10-03-v4\`  
+**Audited canonical main:** \`8869e6f1b342bc73e7b5a3c09dc685d607e1ce91\`  
 **Workflow:** Theory Paper Research Pipeline v2.5, Stage 10 / Stage 13  
 **Profile:** GENERAL THEORY / THEORY-FIRST
 
@@ -11,26 +11,22 @@
 The manuscript should let a competent environmental/IO theorist understand the paper in
 this order, without consulting code:
 
-1. public protection changes physical reliability and private geographic contingency
-   readiness;
+1. public protection changes physical reliability and private geographic contingency readiness;
 2. decentralized governments additionally value plant attraction;
 3. the model makes those two margins explicit;
 4. downstream product, backup, and location continuations are solved before policy;
-5. the main theorem establishes planner-zero / local-positive protection on a nonempty
-   open set;
+5. the main theorem establishes planner-zero / local-positive protection on a nonempty open set;
 6. welfare accounting explains why protection can have a negative industrial margin;
 7. mechanism benchmarks identify which parts of the oligopoly block are necessary;
-8. institutional, literature, discussion, and conclusion sections delimit interpretation,
-   novelty, and portability;
-9. the Appendix supplies the human-readable proof and delegates only large exact sign
-   computations to reproducible certificates.
+8. institutional, literature, discussion, and conclusion sections delimit interpretation, novelty, and portability;
+9. the Appendix supplies the human-readable proof and delegates only large exact sign computations to reproducible certificates.
 
 This is the governing exposition architecture. The manuscript is not organized around
 the proof assistant, codebase, or repository workflow.
 
 ## 2. Actual reader-arrival budget
 
-Measured from the clean v4 main build in workflow run `37075140839`:
+Measured from the clean v4 main build in workflow run \`37075140839\`:
 
 | Milestone | First page | Assessment |
 |---|---:|---|
@@ -72,37 +68,34 @@ No current main-text section is classified DELETE.
 
 The proof-facing exposition follows the dependency chain:
 
-[
-	ext{primitives}
-ightarrow
-	ext{product-market state payoffs}
-ightarrow
-	ext{backup best responses}
-ightarrow
-	ext{location cutoff equilibrium}
-ightarrow
-mathcal S
-ightarrow
+\[
+\text{primitives}
+\rightarrow
+\text{product-market state payoffs}
+\rightarrow
+\text{backup best responses}
+\rightarrow
+\text{location cutoff equilibrium}
+\rightarrow
+\mathcal S
+\rightarrow
 W,G_A,G_B
-ightarrow
-	ext{planner / local policy results}.
-]
+\rightarrow
+\text{planner / local policy results}.
+\]
 
 The manuscript preserves the following conceptual bridge equations in human-readable form:
 
-1. expected firm profit, equation `expected-profit`;
-2. clipped backup best response, equation `backup-br-global`;
-3. backup linear system, equation `backup-linear-system`;
-4. backup contraction bound, equation `backup-contraction-bound`;
-5. affine location best response and endpoint map, equations `location-br` and
-   `location-endpoints`;
-6. unique location fixed point, equation `location-prob`;
-7. location-weighted expected national surplus, equation
-   `expected-surplus-location`;
-8. local/social marginal decomposition, equation `marginal-decomposition`;
+1. expected firm profit, equation \`expected-profit\`;
+2. clipped backup best response, equation \`backup-br-global\`;
+3. backup linear system, equation \`backup-linear-system\`;
+4. backup contraction bound, equation \`backup-contraction-bound\`;
+5. affine location best response and endpoint map, equations \`location-br\` and \`location-endpoints\`;
+6. unique location fixed point, equation \`location-prob\`;
+7. location-weighted expected national surplus, equation \`expected-surplus-location\`;
+8. local/social marginal decomposition, equation \`marginal-decomposition\`;
 9. exact witness and headline theorem;
-10. diagonal FOC derivative
-   (F_a=G_{A,a_Aa_A}+G_{A,a_Aa_B}) for open-set persistence.
+10. diagonal FOC derivative \(F_a=G_{A,a_Aa_A}+G_{A,a_Aa_B}\) for open-set persistence.
 
 These bridges remain in the PDF. Large expanded polynomials, Bernstein coefficient arrays,
 normalization archives, root-isolation traces, and Lean kernel traces remain outside the
@@ -115,21 +108,19 @@ main flow because they are mechanical verification objects rather than economic 
 A reader can see why:
 
 - Cournot continuation is unique;
-- backup choice is globally optimized over ([0,1]);
+- backup choice is globally optimized over \([0,1]\);
 - clipping matters and the full clipped backup game is contractive;
 - location choices admit a cutoff representation;
-- endpoint interiority implies no probability clipping and (|B|<1);
+- endpoint interiority implies no probability clipping and \(|B|<1\);
 - state-level surplus aggregates to the policy objective;
 - the plant-attraction wedge arises from the local objective;
 - planner monotonicity plus the policy domain implies the unique planner optimum;
 - root isolation plus own-policy strict concavity implies a global local best response;
-- the open-set extension needs the full diagonal FOC derivative and persistence of all
-  strict continuation/globality margins.
+- the open-set extension needs the full diagonal FOC derivative and persistence of all strict continuation/globality margins.
 
 ### Delegated to exact computation
 
-The manuscript delegates only objects whose printed expansion would add reader cost
-without adding economic content:
+The manuscript delegates only objects whose printed expansion would add reader cost without adding economic content:
 
 - exact Bernstein coefficient lists;
 - very large rational numerator/denominator expansions;
@@ -188,29 +179,23 @@ The current integrated manuscript has exactly **two** main-text exhibits.
 ### Exhibit 1 — Figure 1: origin marginal incentives
 
 Question answered:
-How do the local and coordinated origin marginals vary with product substitutability near
-the canonical witness?
+How do the local and coordinated origin marginals vary with product substitutability near the canonical witness?
 
 Why it remains:
-The two root-isolated thresholds and their ordering are easier to understand visually than
-from intervals alone.
+The two root-isolated thresholds and their ordering are easier to understand visually than from intervals alone.
 
 Boundary:
-The caption explicitly states that the curves are origin marginals, **not policy-equilibrium
-levels**. The figure is generated from exact rational evaluations and uses non-color line
-encoding.
+The caption explicitly states that the curves are origin marginals, **not policy-equilibrium levels**. The figure is generated from exact rational evaluations and uses non-color line encoding.
 
 Classification: **HELPFUL / CORE FOR INTERPRETATION**.
 
 ### Exhibit 2 — Table 1: marginal welfare channels
 
 Question answered:
-Why can the coordinated protection margin be negative even though direct engineering
-reliability is positive?
+Why can the coordinated protection margin be negative even though direct engineering reliability is positive?
 
 Why it remains:
-The table separates direct protection, endogenous readiness response, and net coordinated
-and local margins in one object.
+The table separates direct protection, endogenous readiness response, and net coordinated and local margins in one object.
 
 Boundary:
 Values are exact derivatives converted to decimals, not finite-difference estimates.
@@ -219,8 +204,7 @@ Classification: **CORE**.
 
 ### Five-exhibit thought experiment
 
-Only two main-text exhibits exist; both survive. There is no exhibit-count pressure and no
-additional figure/table is required for completeness.
+Only two main-text exhibits exist; both survive. There is no exhibit-count pressure and no additional figure/table is required for completeness.
 
 ## 8. Introduction compression test
 
@@ -236,8 +220,7 @@ The Introduction exposes, in order:
 8. appraisal interpretation and limitations;
 9. roadmap.
 
-It does not introduce Lean, CI, Bernstein coefficient lists, repository stages, or other
-production-process material.
+It does not introduce Lean, CI, Bernstein coefficient lists, repository stages, or other production-process material.
 
 **Introduction compression: PASS.**
 

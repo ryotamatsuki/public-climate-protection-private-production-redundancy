@@ -35,6 +35,7 @@ authorized repository audit/merge.
 | IA07 | MINOR | freeze / provenance | Reusing old tree hashes against changed prose/code would either fail or silently recertify v4 | Immutable original baseline lock plus separate complete descendant digest lock and fail-closed gate | New scientific change must reopen affected stages |
 | IA08 | MINOR | audit reproducibility | New evidence needed to distinguish independent reconstruction from rerunning production | Two separate implementations, corner/transform/bridge tests, fresh output files, anonymous Makefile integration | Shared arithmetic/compiler libraries remain trusted |
 | IA09 | MINOR | anonymous package | Two unused historical freeze-check scripts exposed internal submission controls in the replication ZIP | Exclude repository-only v3/v4 governance scripts and reject internal freeze/submission tokens | Formal proof labels and necessary reproducibility diagnostics remain documented |
+| IA10 | MINOR | numerical reproducibility | A post-merge CI run exposed an overly strict location tolerance for a value-only optimizer on near-flat payoffs | Bracket own stationary points independently, retain all grid/peak payoff challenges and both boundaries, add roundoff/challenge regressions | Numerical searches remain attacks rather than proofs |
 
 These are repaired defects. Risks inherent in the limited contribution
 are separately recorded below; they are not hidden by a zero-defect count.
@@ -276,6 +277,14 @@ history and CI source/provenance files, avoiding self-referential commit
 identifiers in a source file. Merge requires fresh green checks and zero
 unresolved fatal/major defects; changed headline meaning would prohibit
 automatic merge.
+
+PR #34 merged only after its fresh verify and anonymous formal build
+passed. The subsequent main run exposed IA10 in the new numerical
+perturbation attack, rather than a failure of the exact theorem or
+certificate. A separate release-fix branch from that main repairs the
+diagnostic before a final source-matched package is released. The exact
+witness, theorem, original production certificates and scientific v4
+remain unchanged.
 
 ## M. Remaining unresolved risks
 

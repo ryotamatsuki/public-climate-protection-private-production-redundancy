@@ -152,10 +152,23 @@ def derivative(aA,aB,which='GA',coord=0,par=WITNESS,**kwargs):
 
 
 def best_response(rival,par=WITNESS,**kwargs):
-    # Inspect ALL grid peaks, refine each, and include both boundaries.
+    # Inspect ALL grid peaks and both boundaries. Independently bracket own
+    # stationary points: a value-only optimizer cannot identify the maximizer
+    # precisely when payoff changes are smaller than floating-point resolution.
     grid = np.linspace(0,par['abar'],401)
     val = policies(grid,rival,par,**kwargs)['GA']
     candidates = [(0.,float(val[0])),(par['abar'],float(val[-1]))]
+    stable = list(candidates)
+    slopes = derivative(grid,rival,par=par,**kwargs)
+    for i in range(len(grid)-1):
+        if slopes[i] == 0:
+            point = float(grid[i])
+        elif slopes[i]*slopes[i+1] < 0:
+            point = brentq(lambda z:float(derivative(z,rival,par=par,**kwargs)),
+                           grid[i],grid[i+1],xtol=2e-15)
+        else:
+            continue
+        stable.append((point,float(policies(point,rival,par,**kwargs)['GA'])))
     for i in range(1,len(grid)-1):
         if val[i] >= val[i-1] and val[i] >= val[i+1]:
             sol = minimize_scalar(lambda z:-float(policies(z,rival,par,**kwargs)['GA']),
@@ -164,7 +177,13 @@ def best_response(rival,par=WITNESS,**kwargs):
             if not sol.success:
                 raise RuntimeError('Best-response refinement failed')
             candidates.append((float(sol.x),float(-sol.fun)))
-    return max(candidates,key=lambda z:z[1])
+    # A stationary root alone is insufficient: retain the direct grid/peak
+    # attack and reject a material gain over every endpoint/stationary candidate.
+    resolved = max(stable,key=lambda z:z[1])
+    observed = max([*candidates,*stable],key=lambda z:z[1])
+    if max(float(np.max(val)),observed[1])-resolved[1] > 1e-11:
+        raise AssertionError('Direct payoff search challenges stationary/boundary best response')
+    return resolved[0],max(resolved[1],observed[1],float(np.max(val)))
 
 
 def audit():

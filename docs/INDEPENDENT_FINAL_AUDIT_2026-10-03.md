@@ -34,6 +34,7 @@ authorized repository audit/merge.
 | IA06 | MINOR | artwork | Default Type-3 embedding, small labels, and cropped long vertical label in the EPS rendering | Embedded TrueType fonts, 11-point labels, two-line vertical label; inspect the cropped EPS and retain line-style accessibility | Final publisher typesetting may rescale |
 | IA07 | MINOR | freeze / provenance | Reusing old tree hashes against changed prose/code would either fail or silently recertify v4 | Immutable original baseline lock plus separate complete descendant digest lock and fail-closed gate | New scientific change must reopen affected stages |
 | IA08 | MINOR | audit reproducibility | New evidence needed to distinguish independent reconstruction from rerunning production | Two separate implementations, corner/transform/bridge tests, fresh output files, anonymous Makefile integration | Shared arithmetic/compiler libraries remain trusted |
+| IA09 | MINOR | anonymous package | Two unused historical freeze-check scripts exposed internal submission controls in the replication ZIP | Exclude repository-only v3/v4 governance scripts and reject internal freeze/submission tokens | Formal proof labels and necessary reproducibility diagnostics remain documented |
 
 These are repaired defects. Risks inherent in the limited contribution
 are separately recorded below; they are not hidden by a zero-defect count.
@@ -245,6 +246,9 @@ The integration artifact records its source commit and component SHA-256
 hashes. Fresh independent run JSON and anonymous reproduction logs are
 uploaded with the CI artifacts.
 The entire identified transport bundle is not an anonymous supplement.
+Unused historical freeze-check scripts were removed from the anonymous
+replication ZIP; the package scanner now rejects internal freeze and
+final-submission control tokens as well as author identifiers.
 Portal article labels, file fields, portal-generated PDF and final
 author submission action remain live-submission tasks, not purported
 repository tests.

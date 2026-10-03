@@ -58,3 +58,4 @@ from automated checks.
 ### Final artwork inspection
 
 - **AI + COMPUTATION:** A Ghostscript conversion cropped to the actual EPS bounding box exposed truncation of the long vertical axis label after the font change. The label was split across two lines, and the EPS/PDF artwork was rendered again. This is a presentation repair; plotted values, thresholds, equations and the scientific freeze are unchanged.
+- **AI + COMPUTATION:** A final byte-level anonymous-ZIP scan found two unused historical freeze-check scripts containing internal submission controls. Both scripts were excluded from the anonymous archive, the scanner was strengthened, and the extracted README commands were rerun. Repository governance and mathematical verification are unchanged.

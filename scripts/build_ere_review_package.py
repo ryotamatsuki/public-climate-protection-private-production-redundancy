@@ -16,6 +16,8 @@ EXCLUDED_FILES = {
     "scripts/verify_ere_title_page.py",
     "scripts/verify_clean_review_package.py",
     # Repository-only freeze governance; the anonymous commands need no Git.
+    "scripts/verify_v3_freeze.py",
+    "scripts/verify_v4_freeze.py",
     "scripts/verify_final_audit_freeze.py",
     # This editorial packager regression imports the excluded identity scanner.
     "tests/test_archive_selection.py",
@@ -55,6 +57,8 @@ FORBIDDEN_TEXT = (
     "Ryota Matsuki",
     "github.com/ryotamatsuki",
     "users.noreply.github.com",
+    "THEORY-FREEZE",
+    "STAGE_15",
 )
 
 TEXT_SUFFIXES = {".tex", ".py", ".md", ".txt", ".json", ".bib", ".csv", ".yml", ".yaml", ".lean"}

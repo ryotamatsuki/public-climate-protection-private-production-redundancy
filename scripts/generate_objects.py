@@ -10,6 +10,8 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
+matplotlib.rcParams.update({"pdf.fonttype": 42, "ps.fonttype": 42, "font.size": 11})
+
 from exact_marginals import canonical_channels, origin_marginals
 
 ROOT = Path(__file__).resolve().parents[1]

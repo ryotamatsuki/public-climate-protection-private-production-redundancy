@@ -45,3 +45,12 @@ not as evidence that the defects were absent. Execution results and source
 changes are mapped in `INDEPENDENT_AUDIT_REPAIRS_2026-10-02.md`. This entry does
 not infer author scientific endorsement of revised novelty or final submission
 from automated checks.
+
+## 2026-10-03 — independent adversarial final audit
+
+- **AI:** OpenAI Codex/GPT-6-based assistant reconstructed the economic model from manuscript primitives before consulting production functions; screened current primary literature and ERE guidance; edited prose, bibliography, artwork packaging and the explanation of the existing raw-numerator Lean interface.
+- **COMPUTATION:** Separately written NumPy/SciPy and SymPy evaluators performed state enumeration, clipped-response/corner checks, Bayesian location solving, welfare accounting, full-domain exact signs, independent Sturm root isolation, global numerical attacks, Delta-zero derivation, alternative-family diagnostics, 792 exact basis sanity checks, and generated-payload/exhibit comparisons.
+- **FORMAL:** Fresh pinned Lean/mathlib CI and actual anonymous-ZIP formal reproduction are required release evidence. Their proof/dependency reports retain the native compiler/runtime boundary. Historical green builds are not new verification.
+- **AUTHOR:** No new personal scientific-confirmation, author-understanding, or exact final-package sign-off is asserted. Existing author-controlled records are preserved unchanged; this entry does not relabel AI checks as author checks.
+- **EXTERNAL HUMAN:** None in this audit.
+- Theorem/model/welfare/witness/analytic proof and Lean proof code remain unchanged. The v4 scientific lock is immutable; the audit descendant has a separate complete file-digest lock. Exact run IDs/commit provenance are carried by GitHub check history and CI artifacts, not invented in advance.

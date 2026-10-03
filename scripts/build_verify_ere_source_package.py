@@ -12,6 +12,7 @@ OUT = DIST / "ERE_anonymous_manuscript_source.zip"
 
 REQUIRED = [
     ROOT / "paper" / "main.tex",
+    ROOT / "paper" / "figure_legends.tex",
     *sorted((ROOT / "paper" / "sections").glob("*.tex")),
     ROOT / "references" / "references.tex",
     *sorted((ROOT / "references").glob("*.bib")),
@@ -70,7 +71,7 @@ def main() -> None:
 
     with zipfile.ZipFile(OUT) as zf:
         names = set(zf.namelist())
-        for required in ("paper/main.tex", "references/references.tex", "tables/channel_decomposition.tex",
+        for required in ("paper/main.tex", "paper/figure_legends.tex", "references/references.tex", "tables/channel_decomposition.tex",
                          "figures/policy_regime.pdf", "figures/policy_regime.eps", "figures/Fig1.eps"):
             if required not in names:
                 raise RuntimeError(f"source archive missing {required}")

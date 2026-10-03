@@ -1,11 +1,14 @@
-# ERE upload components — independent-audit repair
+# ERE upload components — independent final audit, 2026-10-03
 
 This supersedes the former Stage-15 upload candidate for the repaired
 manuscript and is governed by
 `PCPPR-THEORY-FREEZE-2026-10-03-v4`.
-Historical Stage records are retained as history, not current scientific
-certification. The build records the source commit and per-component SHA-256
-hashes. Regenerate the bundle from the final green main commit after the v4 recertification PR is merged.
+The original v4 lock remains immutable and is checked against canonical
+main 990bbe13dd1c3470b378ccd0040a78a030750701. A separate
+ERE_FINAL_AUDIT_DESCENDANT.lock.json pins every changed/new audit file.
+Historical Stage records are retained as history, not current independent
+evidence. The build records the source commit and per-component SHA-256
+hashes. Regenerate the bundle from the final green main commit after this independent final-audit PR is merged.
 
 | Component | Generated file | Audience / designation |
 |---|---|---|
@@ -31,7 +34,10 @@ that a blocked endpoint has become operational.
 
 ## Current freeze controls
 
-- `STAGE_15_V4_REPORT.md`
+- `docs/INDEPENDENT_FINAL_AUDIT_2026-10-03.md`
+- `docs/FINAL_AUDIT_FREEZE_GOVERNANCE_2026-10-03.md`
+- `submission/ERE_FINAL_AUDIT_DESCENDANT.lock.json`
+- `STAGE_15_V4_REPORT.md` (immutable baseline history)
 - `submission/ERE_STAGE15_V4_SCIENTIFIC_OBJECT.lock`
 - `docs/STAGE_6_RECERTIFICATION_2026-10-03.md`
 - `docs/STAGE_7_5A_RECERTIFICATION_2026-10-03.md`

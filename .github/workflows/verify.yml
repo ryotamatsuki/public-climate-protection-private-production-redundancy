@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
@@ -41,6 +43,9 @@ jobs:
             dist/ERE_anonymous_manuscript_source.zip
             dist/ERE_anonymous_replication.zip
             figures/policy_regime.eps
+            figures/Fig1.eps
+            dist/independent_exact_audit_2026-10-03.json
+            dist/independent_numerical_audit_2026-10-03.json
           if-no-files-found: error
 
   lean-verification:
@@ -49,6 +54,8 @@ jobs:
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'

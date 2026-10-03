@@ -86,15 +86,17 @@ theorem existsUnique_root_in_interval
 
 /-- T12 concrete generated-certificate layer.
 
-`F` is the canonical diagonal local-government FOC. The generated certificate
+`F` represents the raw numerator P of the canonical diagonal economic FOC
+P/Q, with Q nonzero on the isolating interval. It is not the rational economic
+derivative or the separately scaled univariate archive object. The generated certificate
 (category C) supplies the exact endpoint values and the exact Bernstein
 representation of `F'` on the isolating interval. Lean itself checks every
 derivative Bernstein coefficient is negative, uses mathlib's actual Bernstein
 basis to derive `F' < 0`, and then proves existence and uniqueness of the root.
 
-The `hderivCertificate` premise is the explicit semantic bridge from the
-canonical economic FOC to the generated coefficient payload; it is not a sign
-or root conclusion. -/
+The `hderivCertificate` premise connects P' to the generated coefficient
+payload. The economic stationarity bridge from P=0 is a separate external
+premise in TheoremCore; neither bridge is a sign or root conclusion. -/
 theorem generated_diagonal_FOC_unique_root
     {F : ℝ → ℝ}
     (hcont : ContinuousOn F

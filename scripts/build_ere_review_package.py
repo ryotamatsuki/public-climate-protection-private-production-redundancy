@@ -15,8 +15,11 @@ EXCLUDED_FILES = {
     "scripts/verify_stage14_submission_qa.py",
     "scripts/verify_ere_title_page.py",
     "scripts/verify_clean_review_package.py",
+    # Repository-only freeze governance; the anonymous commands need no Git.
+    "scripts/verify_final_audit_freeze.py",
     # This editorial packager regression imports the excluded identity scanner.
     "tests/test_archive_selection.py",
+    "tests/test_freeze_governance.py",
 }
 
 EXACT_FILES = {
@@ -30,6 +33,8 @@ EXACT_FILES = {
     "formal/README.md",
     "formal/GENERATED_CERTIFICATE_ARCHIVE.json",
     "docs/mechanism_benchmark.json",
+    "docs/independent_exact_audit_2026-10-03.json",
+    "docs/independent_numerical_audit_2026-10-03.json",
 }
 
 PATTERNS = (

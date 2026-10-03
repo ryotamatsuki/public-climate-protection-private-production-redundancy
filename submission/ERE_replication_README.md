@@ -39,6 +39,15 @@ No title page, author record, submission folder, repository access or Git
 checkout is required. Results are mathematical and implementation checks, not
 journal-readiness decisions.
 
+The independent audit target reconstructs consumer demand, availability
+states, backup and location choices, and welfare without production imports.
+It uses a separately implemented Bernstein basis conversion and Sturm root
+counts. Only after constructing and certifying those objects does it compare
+the production expressions and generated Lean payload. Its numerical grid,
+multistart, random and asymmetric-equilibrium searches are falsification
+exercises; they do not prove full policy-game uniqueness or an alternative
+functional-form theorem. Numerical JSON last digits can vary by platform.
+
 ## Formal verification
 
 Install the toolchain declared in `formal/lean-toolchain` using elan and the
@@ -65,6 +74,13 @@ economic model or its open-set extension.
 - `scripts/verify_global_certificate.py`: whole-policy-domain signs, exact
   symmetric FOC root, own-policy global concavity, clipped-backup contraction,
   and diagonal-FOC derivative.
+- `scripts/independent_model_audit.py`: primitive state enumeration, full
+  clipped backup map, downstream re-solutions, global numerical searches,
+  all 101 figure points and every channel-table row.
+- `scripts/independent_exact_audit.py`: separate economic reconstruction,
+  triangular Bernstein conversion, Sturm counting, strict rational signs,
+  and independent comparison of all eight generated bivariate coefficient
+  vectors, endpoint values and the 52 structural Lean rational encodings.
 - `scripts/verify_normalization.py`: primitive-to-archive scaling identities.
 - `scripts/exact_marginals.py` and `scripts/verify_marginal_exhibits.py`: state
   enumeration with exact forward differentiation, all 101 marginal-figure

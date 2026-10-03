@@ -53,14 +53,14 @@ Substituting $\mathcal S_{a_A}=M_S/2$ gives equation~\eqref{eq:marginal-decompos
 or, equivalently, equation~\eqref{eq:attraction-threshold}.
 \end{proof}
 
-The decomposition itself is an accounting consequence of symmetry and the maintained incidence rule, not a theorem-novelty claim. Its role is to isolate the objects whose signs are generated endogenously by the downstream resilience and location game. This decomposition is useful because it separates the national resilience margin from the purely jurisdictional attraction motive. If the social marginal can be written as $M_S=E_0+R_0$, where $E_0>0$ is the direct engineering effect of reducing primary risk while holding private redundancy fixed and $R_0<0$ is the induced private-redundancy response, then a marginal Protection--Attraction Conflict obtains whenever
+The decomposition separates the national resilience margin from the jurisdictional attraction motive. Their signs depend on the downstream resilience and location game. If the social marginal can be written as $M_S=E_0+R_0$, where $E_0>0$ is the direct engineering effect of reducing primary risk while holding private redundancy fixed and $R_0<0$ is the induced private-redundancy response, then a marginal Protection--Attraction Conflict obtains whenever
 \begin{equation}
 -R_0>E_0
 \qquad\text{and}\qquad
 8b\lambda_0>-E_0-R_0.
 \label{eq:transparent-conflict}
 \end{equation}
-The first inequality says that redundancy crowd-out dominates the direct engineering benefit at the national margin; the second says that the local plant-attraction benefit is large enough to overturn one quarter of that national marginal loss. These inequalities characterize the marginal sign conflict $M_S<0<M_L$ under the stated decomposition; they are not, by themselves, sufficient for the global equilibrium result below. The theorem additionally establishes global planner optimality and a global local-government Nash equilibrium.
+The first inequality says that redundancy crowd-out dominates the direct engineering benefit at the national margin; the second says that the local plant-attraction benefit overturns one quarter of that national marginal loss. These inequalities characterize the marginal sign conflict $M_S<0<M_L$ under the stated decomposition. The global equilibrium result below additionally requires planner optimality over the policy square and government best responses over each full policy interval.
 
 For the rational parameter vector
 \begin{equation}
@@ -107,10 +107,11 @@ Hence $\gamma_L<\gamma_S$. For $\gamma$ between these thresholds, the local marg
 \begin{figure}[t]
 \centering
 \includegraphics[width=.78\textwidth]{../figures/policy_regime.pdf}
-\caption{Origin marginal incentives and product substitutability. The solid curve is $M_S(\gamma)$ and the dash-dotted curve is $M_L(\gamma)$ at zero additional protection, with the other primitives fixed at \eqref{eq:witness}. The dotted vertical lines mark their root-isolation thresholds $\gamma_L$ and $\gamma_S$. The figure reports marginal signs, not policy-equilibrium levels.}
+\refstepcounter{figure}
 \label{fig:policy-regime}
+\par\smallskip\textbf{Fig.~\thefigure}\quad Origin marginal incentives
 \end{figure}
 
 \subsection{Economic interpretation}
 
-The theorem is not a general statement that climate protection is inefficient. The conflict arises in a specific margin of place-based industrial resilience. Public protection has an engineering benefit: it lowers the probability that a primary production site fails. But it also changes firms' organizational response. Safer primary production reduces the private value of maintaining costly geographic backup capacity. Once that endogenous reduction in backup capacity makes an additional common protection increment socially undesirable, a coordinated planner stops. A local government need not stop because the same protection increment attracts primary production from the competing jurisdiction. Proposition~\ref{prop:attraction-threshold} shows that this wedge is not peculiar to the canonical rational witness: locally, the attraction term $2b\lambda_0$ need only exceed one quarter of the national marginal loss. The decentralized policy therefore can remain positive even after the national marginal value of further protection has turned negative.
+The conflict concerns the industrial value of place-based protection. Safer primary production reduces the private value of maintaining costly geographic backup capacity. The induced readiness loss can make additional common protection undesirable even after engineering benefits and preparedness-cost savings are counted. A local government can still gain because the same protection attracts primary production from its rival. In Proposition~\ref{prop:attraction-threshold}, the attraction term $2b\lambda_0$ offsets one quarter of the national marginal loss. The theorem establishes a region in which these incentives support positive decentralized protection while coordinated industrial welfare is maximized at zero.

@@ -29,9 +29,11 @@ when firms can substitute toward or away from geographic contingency readiness,
 and establishes the resulting coordinated/decentralized ranking throughout the
 relevant deviation domain. An exact Delta=0 benchmark
 shows that incremental disaster-state monopoly rents are not necessary;
-oligopoly changes readiness and correlated-risk responses. The paper therefore
-does not claim novelty for crowd-out, private resilience inefficiency, or plant
-competition individually.
+oligopoly changes readiness and correlated-risk responses. Public/private
+protection substitution and excessive public provision also have precedents
+in Friehe and Mungan (2022), Choi, Bae, and Jun (2010), and Hirte, Nitzsche,
+and Tscharaktschiew (2018). The contribution is the stated policy comparison
+with endogenous product-availability surplus.
 
 Relative to Martín-Herrán, Martínez-García, and Morales (2026), the policy
 instrument changes disruption risk and contingency readiness rather than

@@ -10,6 +10,8 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
+matplotlib.rcParams.update({"pdf.fonttype": 42, "ps.fonttype": 42, "font.size": 11})
+
 from exact_marginals import canonical_channels, origin_marginals
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -80,7 +82,7 @@ def main():
 
     ax.set(
         xlabel=r"Product substitutability $\gamma$",
-        ylabel="Marginal payoff at zero additional protection",
+        ylabel="Marginal payoff at zero\nadditional protection",
         xlim=(0.44, 0.54),
     )
     ax.legend(frameon=False, loc="lower right")

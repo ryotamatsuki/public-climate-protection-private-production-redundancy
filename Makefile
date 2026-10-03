@@ -2,7 +2,12 @@ PYTHON ?= python
 
 .PHONY: verify symbolic normalization policy global numerical portability benchmarks test objects marginal-exhibits ere-format title-page-format v4-freeze paper exposition formal-certificates formal-verify ere-source-package ere-title-page ere-review-package review-package-verify ere-submission-bundle clean
 
-verify: symbolic normalization policy global numerical portability benchmarks test marginal-exhibits ere-format title-page-format exposition v4-freeze ere-submission-bundle
+verify: symbolic normalization policy global numerical portability benchmarks independent-audit test marginal-exhibits ere-format title-page-format exposition v4-freeze ere-submission-bundle
+
+.PHONY: independent-audit
+independent-audit: formal-certificates
+	$(PYTHON) scripts/independent_model_audit.py
+	$(PYTHON) scripts/independent_exact_audit.py
 
 symbolic:
 	$(PYTHON) scripts/verify_symbolic.py
@@ -41,7 +46,7 @@ title-page-format:
 	$(PYTHON) scripts/verify_ere_title_page.py
 
 v4-freeze:
-	$(PYTHON) scripts/verify_v4_freeze.py
+	$(PYTHON) scripts/verify_final_audit_freeze.py
 
 paper: objects
 	cd paper && pdflatex -no-shell-escape -interaction=nonstopmode -halt-on-error main.tex >/dev/null

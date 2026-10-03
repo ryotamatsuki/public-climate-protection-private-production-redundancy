@@ -2,7 +2,12 @@ PYTHON ?= python
 
 .PHONY: verify symbolic normalization policy global numerical portability benchmarks test objects marginal-exhibits ere-format paper exposition formal-certificates formal-verify clean
 
-verify: symbolic normalization policy global numerical portability benchmarks test marginal-exhibits ere-format exposition formal-certificates
+verify: symbolic normalization policy global numerical portability benchmarks independent-audit test marginal-exhibits ere-format exposition formal-certificates
+
+.PHONY: independent-audit
+independent-audit: formal-certificates
+	$(PYTHON) scripts/independent_model_audit.py
+	$(PYTHON) scripts/independent_exact_audit.py
 
 symbolic:
 	$(PYTHON) scripts/verify_symbolic.py

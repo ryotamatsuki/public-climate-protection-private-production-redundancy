@@ -95,3 +95,9 @@ Current freeze controls:
 
 Historical Stage verifiers and the former Stage-15 lock are retained for
 provenance but are not current scientific certifications.
+
+## Independent final audit (2026-10-03)
+
+The adversarial audit starts from GitHub main `990bbe13dd1c3470b378ccd0040a78a030750701`, not from prior PASS decisions. See [the full audit](docs/INDEPENDENT_FINAL_AUDIT_2026-10-03.md), [independent derivations](docs/INDEPENDENT_MATHEMATICAL_AUDIT_2026-10-03.md), [novelty/portability mappings](docs/INDEPENDENT_NOVELTY_PORTABILITY_AUDIT_2026-10-03.md), and [ERE requirements](docs/ERE_REQUIREMENTS_AND_DESK_AUDIT_2026-10-03.md).
+
+`make independent-audit` runs separately written primitive-derived numerical and exact checks, then compares the production bridge. `make verify` includes these checks and clean anonymous reproduction. Fresh outputs are under `dist/`; dated snapshots are under `docs/`. The [freeze-governance note](docs/FINAL_AUDIT_FREEZE_GOVERNANCE_2026-10-03.md) preserves the immutable v4 lock and pins the non-scientific descendant separately. No new author scientific confirmation or live-submission approval is supplied by this audit.

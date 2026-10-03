@@ -1,3 +1,5 @@
+> **Independent final audit update, 2026-10-03:** The record below is historical input, not inherited evidence. Current independent findings, repairs, and release conditions are in [INDEPENDENT_FINAL_AUDIT_2026-10-03.md](INDEPENDENT_FINAL_AUDIT_2026-10-03.md). The immutable v4 baseline and its separately pinned non-scientific descendant are distinguished explicitly.
+
 # Reviewer Verifiability Map — v4
 
 **Date:** 2026-10-03  

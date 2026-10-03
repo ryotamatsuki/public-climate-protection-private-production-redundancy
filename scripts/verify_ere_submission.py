@@ -67,6 +67,22 @@ def main() -> None:
     if doi_entries:
         raise AssertionError("DOIs should be rendered as full https://doi.org/ links for ERE")
 
+    # Journal-specific instructions take precedence over generic artwork text.
+    legends = ROOT / 'paper' / 'figure_legends.tex'
+    if not legends.is_file() or main_tex.index('references/references.tex') > main_tex.index('input{figure_legends}'):
+        raise AssertionError('ERE figure legends must follow the references')
+    if '\\textbf{Fig.' not in legends.read_text() or '\\caption{' in (ROOT/'paper/sections/04_main_results.tex').read_text():
+        raise AssertionError('Figure 1 needs one complete legend after references')
+    for key in ('CapponiDuStiglitz2024','CastroVincenziEtAl2024','ZhaoYangZhang2026'):
+        if key in refs:
+            raise AssertionError('Unpublished works belong in the text, not the ERE reference list')
+    cited=set()
+    for group in re.findall(r'\\cite\w*(?:\[[^]]*\])?\{([^}]+)\}',manuscript):
+        cited.update(s.strip() for s in group.split(','))
+    listed=set(re.findall(r'\\bibitem(?:\[[^]]*\])?\{([^}]+)\}',refs))
+    if cited!=listed:
+        raise AssertionError(f'Citation/list mismatch: uncited={listed-cited}, missing={cited-listed}')
+
     print(f"ERE submission checks PASS: abstract={len(words)} words; keywords={len(keywords)}")
 
 if __name__ == "__main__":

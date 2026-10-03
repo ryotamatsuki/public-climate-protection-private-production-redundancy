@@ -47,4 +47,13 @@ supply the model-specific evidence. Neither a build nor this scope map is a
 certificate of novelty, policy interpretation, robustness outside the encoded
 family, or journal acceptance.
 
+In the generated root interface, formal `F` is the raw diagonal numerator
+`P(a)` of the economic FOC `GA_aA(a,a)=P(a)/Q(a)`, with `Q` nonzero on the
+isolating interval. The finite endpoint values and 52 derivative coefficients
+are for `P` and `P'`, respectively. They are not values or derivatives of the
+rational economic FOC or of the separately scaled univariate archive object.
+`hFOCstationaryBridge` supplies the passage from `P=0` to economic stationarity.
+The independent audit rebuilds economic objects by state enumeration before
+comparing these payloads; this adds external checking, not Lean coverage.
+
 Reference for the extended trusted base: https://lean-lang.org/faq/ .

@@ -59,3 +59,7 @@ from automated checks.
 
 - **AI + COMPUTATION:** A Ghostscript conversion cropped to the actual EPS bounding box exposed truncation of the long vertical axis label after the font change. The label was split across two lines, and the EPS/PDF artwork was rendered again. This is a presentation repair; plotted values, thresholds, equations and the scientific freeze are unchanged.
 - **AI + COMPUTATION:** A final byte-level anonymous-ZIP scan found two unused historical freeze-check scripts containing internal submission controls. Both scripts were excluded from the anonymous archive, the scanner was strengthened, and the extracted README commands were rerun. Repository governance and mathematical verification are unchanged.
+
+### Post-merge numerical release repair
+
+- **AI + COMPUTATION:** After PR #34's fresh verify/Lean/anonymous-formal checks passed and it merged, main run 37088670452 failed the new perturbation attack's positional tolerance for a value-only optimizer. The repair independently brackets every detected own stationary point, compares both endpoints, and retains all direct grid/peak payoff challenges; regression tests cover optimizer roundoff and rejection of a purported direct payoff gain. A fresh release-fix branch and PR carry this non-scientific diagnostic repair. The economic witness, analytic theorem, exact production certificates and executable Lean proof code are unchanged. The failure is not erased from the audit record.

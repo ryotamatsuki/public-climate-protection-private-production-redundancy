@@ -67,3 +67,27 @@ def test_independent_transform_nonunit_and_degenerate_domains_and_strict_sign_re
 def test_utility_and_state_based_exact_identities():
     identities=exact.primitive_identities()
     assert identities['duopoly_profit']=='(g + 2)**(-2)'
+
+
+def test_global_response_location_survives_value_optimizer_roundoff(monkeypatch):
+    from scipy.optimize import brentq
+    from types import SimpleNamespace
+    root=brentq(lambda a:float(model.derivative(a,a)),0,model.WITNESS['abar'],xtol=2e-15)
+    def imprecise_peak(fun,**kwargs):
+        x=root+1e-7
+        return SimpleNamespace(success=True,x=x,fun=fun(x))
+    monkeypatch.setattr(model,'minimize_scalar',imprecise_peak)
+    point,value=model.best_response(root)
+    assert abs(point-root)<2e-12
+    assert value-float(model.policies(root,root)['GA'])<1e-11
+
+
+def test_stationary_candidate_does_not_override_a_direct_payoff_challenge(monkeypatch):
+    from scipy.optimize import brentq
+    from types import SimpleNamespace
+    root=brentq(lambda a:float(model.derivative(a,a)),0,model.WITNESS['abar'],xtol=2e-15)
+    def challenged_peak(fun,**kwargs):
+        return SimpleNamespace(success=True,x=root,fun=fun(root)-1e-6)
+    monkeypatch.setattr(model,'minimize_scalar',challenged_peak)
+    with pytest.raises(AssertionError,match='Direct payoff search challenges'):
+        model.best_response(root)

@@ -31,7 +31,7 @@ authorized repository audit/merge.
 | IA03 | MINOR | 13 | Repeated defensive/contribution-boundary prose made text resemble an audit response | Shorter Introduction, main-result transition, literature, Conclusion, cover letter; mathematical content preserved | A referee may still prefer further compression |
 | IA04 | MINOR | formal / verifiability | Generic Lean symbol F could be mistaken for the rational economic FOC rather than its raw numerator | Explicit P/Q bridge in Appendix, formal README, and comments; independently compare all generated coefficient payloads | Semantic and analytic bridges remain outside Lean |
 | IA05 | MINOR | 6 / novelty | Additional adjacent-field published precursors not discussed | Add Friehe/Mungan, Choi/Bae/Jun, Hirte et al. and absorption ledger | Novelty/significance is discretionary; some full published texts inaccessible |
-| IA06 | MINOR | artwork | Source figure fonts used default Type-3 embedding and smaller default labels | Embedded TrueType vector fonts, 11-point source figure labels; retain line-style accessibility | Final publisher typesetting may rescale |
+| IA06 | MINOR | artwork | Default Type-3 embedding, small labels, and cropped long vertical label in the EPS rendering | Embedded TrueType fonts, 11-point labels, two-line vertical label; inspect the cropped EPS and retain line-style accessibility | Final publisher typesetting may rescale |
 | IA07 | MINOR | freeze / provenance | Reusing old tree hashes against changed prose/code would either fail or silently recertify v4 | Immutable original baseline lock plus separate complete descendant digest lock and fail-closed gate | New scientific change must reopen affected stages |
 | IA08 | MINOR | audit reproducibility | New evidence needed to distinguish independent reconstruction from rerunning production | Two separate implementations, corner/transform/bridge tests, fresh output files, anonymous Makefile integration | Shared arithmetic/compiler libraries remain trusted |
 
@@ -208,7 +208,9 @@ Independent roots: gammaL=0.4745893334, gammaS=0.4982912217.
 All 101 exported values match independent reconstruction to about 6e-15.
 Solid/dashed lines, dotted thresholds, labels and the legend identify
 the objects without relying on color alone.
-Font embedding and readable label sizes were repaired.
+Font embedding and readable label sizes were repaired. A Ghostscript
+conversion using the EPS bounding box exposed clipping of the long
+vertical label; a two-line label fixes its extent in the EPS and PDF.
 The single full legend now follows the references.
 
 Table 1 independently matches:

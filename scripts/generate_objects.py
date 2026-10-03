@@ -82,7 +82,7 @@ def main():
 
     ax.set(
         xlabel=r"Product substitutability $\gamma$",
-        ylabel="Marginal payoff at zero additional protection",
+        ylabel="Marginal payoff at zero\nadditional protection",
         xlim=(0.44, 0.54),
     )
     ax.legend(frameon=False, loc="lower right")

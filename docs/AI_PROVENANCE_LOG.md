@@ -54,3 +54,7 @@ from automated checks.
 - **AUTHOR:** No new personal scientific-confirmation, author-understanding, or exact final-package sign-off is asserted. Existing author-controlled records are preserved unchanged; this entry does not relabel AI checks as author checks.
 - **EXTERNAL HUMAN:** None in this audit.
 - Theorem/model/welfare/witness/analytic proof and Lean proof code remain unchanged. The v4 scientific lock is immutable; the audit descendant has a separate complete file-digest lock. Exact run IDs/commit provenance are carried by GitHub check history and CI artifacts, not invented in advance.
+
+### Final artwork inspection
+
+- **AI + COMPUTATION:** A Ghostscript conversion cropped to the actual EPS bounding box exposed truncation of the long vertical axis label after the font change. The label was split across two lines, and the EPS/PDF artwork was rendered again. This is a presentation repair; plotted values, thresholds, equations and the scientific freeze are unchanged.

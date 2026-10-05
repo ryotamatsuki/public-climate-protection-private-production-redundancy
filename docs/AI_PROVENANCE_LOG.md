@@ -59,3 +59,11 @@ from automated checks.
 
 - **AI + COMPUTATION:** A Ghostscript conversion cropped to the actual EPS bounding box exposed truncation of the long vertical axis label after the font change. The label was split across two lines, and the EPS/PDF artwork was rendered again. This is a presentation repair; plotted values, thresholds, equations and the scientific freeze are unchanged.
 - **AI + COMPUTATION:** A final byte-level anonymous-ZIP scan found two unused historical freeze-check scripts containing internal submission controls. Both scripts were excluded from the anonymous archive, the scanner was strengthened, and the extracted README commands were rerun. Repository governance and mathematical verification are unchanged.
+
+## 2026-10-05 — empirical implications exposition
+
+- **AI:** OpenAI Codex/GPT-6-based assistant read latest main, the manuscript, v4 freeze, and current novelty/generality/portability audits; added a short Discussion subsection on observable readiness and location responses, joint testing, strategic interaction, exploratory heterogeneity, and candidate causal designs under the author's explicit request.
+- **COMPUTATION:** LaTeX/citation/layout QA and existing theory/claim/package regression checks accompany the edit. The repository freeze verifier permits only the delimited addition and checks that removing it recovers the complete frozen Discussion; its original scientific checks remain intact.
+- **Scope:** EXPOSITION / EMPIRICAL-IMPLICATIONS ONLY — NO THEORY-FREEZE CHANGE. No data acquisition, empirical analysis, calibration, numerical policy estimate, new citation, or theoretical result is introduced. The simultaneous empirical response is a motivated hypothesis, not a general asymmetric comparative-static theorem.
+- **AUTHOR / EXTERNAL HUMAN:** No new personal scientific confirmation or external human review is asserted. Prior author-controlled records and the original v4 scientific-object lock are unchanged. No journal submission or final upload authorization is inferred.
+- Evidence: `docs/EMPIRICAL_IMPLICATIONS_EXPOSITION_AUDIT_2026-10-05.md`; exact commit and CI evidence are recorded in Git history rather than fabricated in advance.

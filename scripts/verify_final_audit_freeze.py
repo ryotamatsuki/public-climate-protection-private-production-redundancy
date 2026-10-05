@@ -23,6 +23,7 @@ ALLOWED={
     '.github/workflows/verify.yml','Makefile','README.md',
     'paper/main.tex','paper/sections/01_introduction.tex',
     'paper/sections/04_main_results.tex','paper/sections/08_literature.tex',
+    'paper/sections/09_discussion.tex',
     'paper/sections/10_conclusion.tex','paper/sections/A_proofs_verification.tex',
     'references/references.tex','references/references.bib',
     'formal/README.md','formal/PCPPR/GlobalLocalGovernment.lean',
@@ -66,6 +67,18 @@ def lean_without_comments(text):
         else:out.append(text[i]);i+=1
     if depth:raise AssertionError('Unterminated Lean comment')
     return ''.join(''.join(out).split())
+
+
+def discussion_without_empirical_addition(text):
+    """Permit one pinned prose addition while preserving all frozen discussion."""
+    start='% BEGIN EMPIRICAL IMPLICATIONS ONLY\n'
+    end='% END EMPIRICAL IMPLICATIONS ONLY\n\n'
+    assert text.count(start)==text.count(end)==1,'Missing or duplicate empirical subsection boundary'
+    prefix,rest=text.split(start)
+    addition,suffix=rest.split(end)
+    assert addition.startswith('\\subsection{Empirical implications and testable predictions}'), 'Unexpected empirical subsection'
+    assert not re.search(r'\\begin\{(?:theorem|proposition|lemma|corollary|proof|equation\*?|align\*?|table|figure)\}',addition), 'Empirical addition cannot contain new formal claims or exhibits'
+    return prefix+suffix
 
 
 def baseline_lock():
@@ -112,7 +125,9 @@ def main():
     for path in sorted(ALLOWED):
         if path.startswith('paper/'):
             old=git('show',f'{BASE}:{path}').decode();new=(ROOT/path).read_text()
-            if path.endswith('A_proofs_verification.tex'):
+            if path.endswith('09_discussion.tex'):
+                assert discussion_without_empirical_addition(new)==old,'Frozen discussion changed outside empirical addition'
+            elif path.endswith('A_proofs_verification.tex'):
                 marker='\\subsection{Scope of the Lean formalization}'
                 assert old.split(marker)[0]==new.split(marker)[0],'Analytic proof logic changed'
             else:

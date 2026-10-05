@@ -45,7 +45,7 @@
     "scripts/independent_model_audit.py": "6230f656287589b6a1cc3db2572f530ba6f5ffee",
     "scripts/verify_ere_submission.py": "91e6970ffe5a8d93dd714fa94ac4295a32aaea40",
     "scripts/verify_final_audit_freeze.py": "e4aba74967a2885bd37d18675f415f3d22fec09b",
-    "submission/ERE_CURRENT_UPLOAD_MANIFEST.md": "682e358c8f367528b7d85dd5275dadf94dac8fa5",
+    "submission/ERE_CURRENT_UPLOAD_MANIFEST.md": "043c0c9f688c516ed58d123565edecf799e47364",
     "submission/ERE_cover_letter.md": "781d60157fab15b1fd715c729d67e25a5ba11ac8",
     "submission/ERE_replication_README.md": "2c4f27ea3292b67c41d95a87996c9c3b8189cf1c",
     "submission/ERE_review_Makefile": "84ba88a3e6cd6819d994f1a2c244c1d69e185416",

@@ -44,3 +44,14 @@ that a blocked endpoint has become operational.
 
 Only artifacts regenerated from the green main-branch merge commit are final
 repository-side submission objects.
+
+## 2026-10-05 exposition update
+
+Discussion subsection 9.3 adds empirical measurement and identification implications.
+Classification: **EXPOSITION / EMPIRICAL-IMPLICATIONS ONLY — NO THEORY-FREEZE CHANGE**.
+The v4 scientific lock remains immutable; the non-scientific descendant lock pins
+the added prose and its narrow governance exception. The audit is in
+`docs/EMPIRICAL_IMPLICATIONS_EXPOSITION_AUDIT_2026-10-05.md`.
+Regenerate all manuscript/source/replication components from the final commit;
+earlier PDF and ZIP components omit this subsection. This update does not supply
+personal final-package sign-off or live journal submission authorization.

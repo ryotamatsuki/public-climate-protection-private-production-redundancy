@@ -54,69 +54,7 @@ or, equivalently, equation~\eqref{eq:attraction-threshold}.
 \end{proof}
 
 \begin{remark}[General incidence and hosting benefits]\label{rem:general-incidence}
-The equal-share and linear-hosting specification in \eqref{eq:government-payoff} is used for transparency rather than for the marginal mechanism. For the local comparison only, replace jurisdiction $A Their signs depend on the downstream resilience and location game. If the social marginal can be written as $M_S=E_0+R_0$, where $E_0>0$ is the direct engineering effect of reducing primary risk while holding private redundancy fixed and $R_0<0$ is the induced private-redundancy response, then a marginal Protection--Attraction Conflict obtains whenever
-\begin{equation}
--R_0>E_0
-\qquad\text{and}\qquad
-8b\lambda_0>-E_0-R_0.
-\label{eq:transparent-conflict}
-\end{equation}
-The first inequality says that redundancy crowd-out dominates the direct engineering benefit at the national margin; the second says that the local plant-attraction benefit overturns one quarter of that national marginal loss. These inequalities characterize the marginal sign conflict $M_S<0<M_L$ under the stated decomposition. The global equilibrium result below additionally requires planner optimality over the policy square and government best responses over each full policy interval.
-
-For the rational parameter vector
-\begin{equation}
-\theta_0=
-\left(
-\gamma,q_0,k,H,b,c,\bar a
-\right)
-=
-\left(
-\frac{12}{25},\frac3{10},\frac{169}{3000},\frac1{100},\frac{11}{200},3,\frac2{25}
-\right),
-\label{eq:witness}
-\end{equation}
-exact rational evaluation gives
-\begin{equation}
-M_S(12/25)<0<M_L(12/25).
-\label{eq:marginal-conflict}
-\end{equation}
-Thus, at the same policy profile, coordinated welfare falls when both jurisdictions add protection, while a jurisdiction gains from adding protection unilaterally.
-
-\begin{theorem}[Protection--Attraction Conflict]\label{thm:main}
-Within the maintained symmetric primitive family described in Section~\ref{sec:model}, there exists a nonempty open set of primitives for which coordinated welfare is maximized by zero additional local climate protection while the decentralized jurisdictional game has a strictly positive symmetric protection equilibrium. At the canonical rational witness in \eqref{eq:witness}, the coordinated optimum is uniquely $(a_A,a_B)=(0,0)$ and the positive symmetric decentralized equilibrium satisfies
-\begin{equation}
-a^{LG}\in(0.02301968485,\;0.02301968495).
-\label{eq:alg-interval}
-\end{equation}
-Every downstream continuation used to evaluate first-stage deviations is unique and interior on the admissible policy domain $[0,\bar a]^2$.
-\end{theorem}
-
-The proof is computer-assisted but exact at the global-policy step. Exact rational root isolation certifies the unique symmetric local-government first-order-condition root. Tensor-product Bernstein certificates over the full policy rectangle prove that coordinated welfare is strictly decreasing in each protection coordinate, backup continuations remain regular and interior, the private-information location game is globally unclipped and has a unique interior probability fixed point, and the local government's objective is strictly concave in its own policy when the rival chooses the isolated equilibrium root. Hence the isolated stationary point is a global best response and the positive symmetric profile is a Nash equilibrium. Numerical global-deviation routines are retained only as independent stress tests. Appendix~\ref{app:verification} states the supporting lemmas, the exact certificate principle, and the logical implication from the certified inequalities to Theorem~\ref{thm:main}.
-
-\subsection{A product-substitutability interval}
-
-Holding $(q_0,k,H,b,c,\bar a)$ at the witness values and varying $\gamma$, exact root isolation identifies a local-government threshold
-\begin{equation}
-\gamma_L\in(0.4745893334177,\;0.4745893334186)
-\end{equation}
-and a planner threshold
-\begin{equation}
-\gamma_S\in(0.4982912217039,\;0.4982912217048).
-\end{equation}
-Hence $\gamma_L<\gamma_S$. For $\gamma$ between these thresholds, the local marginal incentive at zero is positive while the coordinated marginal incentive is negative. Figure~\ref{fig:policy-regime} plots these \emph{origin marginals}, evaluated by exact rational differentiation before conversion for plotting. These thresholds do not identify global policy equilibria, planner optima, or their boundaries over the displayed interval. The global policy ranking is proved at the canonical witness and on its open neighborhood, as stated in Theorem~\ref{thm:main}.
-
-\begin{figure}[t]
-\centering
-\includegraphics[width=.78\textwidth]{../figures/policy_regime.pdf}
-\refstepcounter{figure}
-\label{fig:policy-regime}
-\par\smallskip\textbf{Fig.~\thefigure}\quad Origin marginal incentives
-\end{figure}
-
-\subsection{Economic interpretation}
-
-The conflict concerns the industrial value of place-based protection. Safer primary production reduces the private value of maintaining costly geographic backup capacity. The induced readiness loss can make additional common protection undesirable even after engineering benefits and preparedness-cost savings are counted. A local government can still gain because the same protection attracts primary production from its rival. In Proposition~\ref{prop:attraction-threshold}, the attraction term $2b\lambda_0$ offsets one quarter of the national marginal loss. The theorem establishes a region in which these incentives support positive decentralized protection while coordinated industrial welfare is maximized at zero.
-s payoff by
+The equal-share and linear-hosting specification in \eqref{eq:government-payoff} is used for transparency rather than for the marginal mechanism. For the local comparison only, replace jurisdiction $A$'s payoff by
 \[
 \widetilde G_A
 =

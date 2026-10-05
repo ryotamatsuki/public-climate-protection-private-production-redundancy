@@ -1,14 +1,15 @@
-# ERE upload components — independent final audit, 2026-10-03
+# ERE upload components — final audit, 2026-10-05
 
 This supersedes the former Stage-15 upload candidate for the repaired
-manuscript and is governed by
-`PCPPR-THEORY-FREEZE-2026-10-03-v4`.
+manuscript and retains the immutable baseline
+`PCPPR-THEORY-FREEZE-2026-10-03-v4`, with the separately pinned local marginal
+robustness addendum described below.
 The original v4 lock remains immutable and is checked against canonical
 main 990bbe13dd1c3470b378ccd0040a78a030750701. A separate
 ERE_FINAL_AUDIT_DESCENDANT.lock.json pins every changed/new audit file.
 Historical Stage records are retained as history, not current independent
 evidence. The build records the source commit and per-component SHA-256
-hashes. Regenerate the bundle from the final green main commit after this independent final-audit PR is merged.
+hashes. Regenerate the bundle from the final green main commit.
 
 | Component | Generated file | Audience / designation |
 |---|---|---|
@@ -34,6 +35,7 @@ that a blocked endpoint has become operational.
 
 ## Current freeze controls
 
+- `docs/ERE_SUBMISSION_FINAL_AUDIT_2026-10-05.md`
 - `docs/INDEPENDENT_FINAL_AUDIT_2026-10-03.md`
 - `docs/FINAL_AUDIT_FREEZE_GOVERNANCE_2026-10-03.md`
 - `submission/ERE_FINAL_AUDIT_DESCENDANT.lock.json`
@@ -64,3 +66,17 @@ The manuscript AI Assistance Disclosure was expanded for submission transparency
 The scientific freeze remains `PCPPR-THEORY-FREEZE-2026-10-03-v4`. The immutable v4 scientific lock is unchanged; the non-scientific descendant lock pins the revised manuscript, updated provenance log, and `docs/AI_DISCLOSURE_COMPLIANCE_REFREEZE_2026-10-05.md`.
 
 Regenerate the manuscript PDF and all submission archives from the final green main commit. Authenticated portal preflight and author approval of the portal-generated reviewer PDF remain external final gates.
+
+## 2026-10-05 general-incidence final audit
+
+The already-added **General incidence and hosting benefits** remark was
+independently rederived and retained unchanged. It generalizes only the local
+marginal identity and attraction threshold, not the global policy theorem.
+The descendant is now classified as an **audited descendant with local marginal
+robustness addendum** rather than a wholly non-scientific descendant.
+The gate pins the exact remark and requires its removal to recover every byte
+of the pre-remark main-results file, preserving the immutable v4 baseline and
+all existing scientific comparisons. Mathematical tests and certificates are
+unchanged. The separate title page has a typesetting-only overflow correction.
+The audit is in `docs/ERE_SUBMISSION_FINAL_AUDIT_2026-10-05.md`; regenerate all
+components from the corrected green main commit.

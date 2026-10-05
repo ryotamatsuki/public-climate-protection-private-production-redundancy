@@ -1,6 +1,6 @@
 {
   "baseline_commit": "990bbe13dd1c3470b378ccd0040a78a030750701",
-  "classification": "non-scientific audited descendant",
+  "classification": "audited descendant with local marginal robustness addendum",
   "exposition_update": {
     "audit_report": "docs/EMPIRICAL_IMPLICATIONS_EXPOSITION_AUDIT_2026-10-05.md",
     "classification": "EXPOSITION / EMPIRICAL-IMPLICATIONS ONLY — NO THEORY-FREEZE CHANGE",
@@ -8,13 +8,15 @@
   },
   "files": {
     ".github/workflows/verify.yml": "e9d3114893e0a619897bb0832b8039643bbef0b5",
-    "Makefile": "7a15724029f6e8970ca59a57aeaa21d51f3cf7a8",
+    "Makefile": "1c508228128135713a03144a47f354de7500480f",
     "README.md": "15c345e8c7c50d1ec803743ce1e63fd406f21463",
     "STAGE_13_REPORT.md": "619b90d06259b7eb2618113e3aeb3cad519d6b29",
     "STAGE_14_REPORT.md": "84d0288168860dc0309a088e8474b7348e50f1c2",
-    "docs/AI_PROVENANCE_LOG.md": "ac032b31cf60b8d51e1393e4ad8ac800ddb00bd8",
+    "docs/AI_DISCLOSURE_COMPLIANCE_REFREEZE_2026-10-05.md": "7328aba5bc0c19840757bf192fe3de2790583aa8",
+    "docs/AI_PROVENANCE_LOG.md": "693594058f3be64a90d36f4c7334394ea1b1e5b1",
     "docs/EMPIRICAL_IMPLICATIONS_EXPOSITION_AUDIT_2026-10-05.md": "0b6144f14412b61eb1c23fe480072c06451bd1ea",
     "docs/ERE_REQUIREMENTS_AND_DESK_AUDIT_2026-10-03.md": "0cda16525eefd13c6ec360e8fc9d4a58ec222990",
+    "docs/ERE_SUBMISSION_FINAL_AUDIT_2026-10-05.md": "f623a379f7c0b93bd1bdc94b1bb4b736691e8aa7",
     "docs/EXPOSITION_ARCHITECTURE.md": "c4846eb8c0a0403d155aa3a8e7b7c7e5b5709edd",
     "docs/EXPOSITION_STREAMLINING_REPORT_2026-10-03.md": "b1efb9cb99952b89384f25d0f2fee1b0c05558f1",
     "docs/FINAL_AUDIT_FREEZE_GOVERNANCE_2026-10-03.md": "1e522b0a0599d44148f855ce103589315013fc2e",
@@ -30,7 +32,7 @@
     "paper/figure_legends.tex": "236e4c61feff2a5aae4bf7853b04ece274dea309",
     "paper/main.tex": "6fc2316097bbb90c804750f802b8df9730f5b4d1",
     "paper/sections/01_introduction.tex": "659f9dbfb0e01cf64e7d716cb054e64e2583671b",
-    "paper/sections/04_main_results.tex": "d6dd2b8fa948d67613748ef210db896f3cb1728f",
+    "paper/sections/04_main_results.tex": "892c6c73e8b7393af36cabe16ea58a4aa81245bc",
     "paper/sections/08_literature.tex": "0e18d23caf376f756c4b0dc5884bed66daee88cf",
     "paper/sections/09_discussion.tex": "e9e4dab17d2a0c5be349414a2888ee12b7339040",
     "paper/sections/10_conclusion.tex": "8ef3d82784c787d3f8974f50dfbd9406548485ff",
@@ -38,20 +40,20 @@
     "references/references.bib": "b7480e0ff89f3c6ba60e0abf56dbb8a1a328ac81",
     "references/references.tex": "b07177d6a326ff6451d3ab34da34c0250a0eaa8a",
     "scripts/build_ere_review_package.py": "ea3830a9d69548528c4bdbf767e91f5ca11be398",
-    "scripts/build_ere_submission_bundle.py": "4189755ffe205226abb94c79abe00961d69bafa2",
+    "scripts/build_ere_submission_bundle.py": "dd5f81510e041d153be2e4a380c916fad0d22604",
     "scripts/build_verify_ere_source_package.py": "27d708ad3533d3f210d172464fccfae2b87fc468",
     "scripts/generate_objects.py": "e341710da9a2086c277a91fdd7b448f292d9778f",
     "scripts/independent_exact_audit.py": "e71974a3f3e21402e3213a658bb4bdddd4d85b72",
     "scripts/independent_model_audit.py": "6230f656287589b6a1cc3db2572f530ba6f5ffee",
     "scripts/verify_ere_submission.py": "91e6970ffe5a8d93dd714fa94ac4295a32aaea40",
-    "scripts/verify_final_audit_freeze.py": "e4aba74967a2885bd37d18675f415f3d22fec09b",
-    "submission/ERE_CURRENT_UPLOAD_MANIFEST.md": "043c0c9f688c516ed58d123565edecf799e47364",
+    "scripts/verify_final_audit_freeze.py": "0e0fb97c40bcebf3c7f490be524fd8c20b6506a4",
+    "submission/ERE_CURRENT_UPLOAD_MANIFEST.md": "03b5feb2a8424699361a106d835714523ea2bbd4",
     "submission/ERE_cover_letter.md": "781d60157fab15b1fd715c729d67e25a5ba11ac8",
     "submission/ERE_replication_README.md": "2c4f27ea3292b67c41d95a87996c9c3b8189cf1c",
     "submission/ERE_review_Makefile": "84ba88a3e6cd6819d994f1a2c244c1d69e185416",
+    "submission/ERE_title_page.tex": "49521fb6ed12ff2cd28b8e024481c6778817f1e3",
     "tests/test_freeze_governance.py": "68d46909c9efe7231c11fff2f6c8356c634e4e55",
-    "tests/test_independent_audit.py": "cafad1c38a25bd1b5fa1c2d5dd86875a8940a73a",
-    "docs/AI_DISCLOSURE_COMPLIANCE_REFREEZE_2026-10-05.md": "7328aba5bc0c19840757bf192fe3de2790583aa8"
+    "tests/test_independent_audit.py": "cafad1c38a25bd1b5fa1c2d5dd86875a8940a73a"
   },
   "original_v4_lock_sha256": "ddb1c0a07c29ea421a8b36159f678936e3bd455a9019fb71b9b47d5805e84158",
   "scientific_freeze": "PCPPR-THEORY-FREEZE-2026-10-03-v4",
@@ -59,5 +61,14 @@
     "audit_report": "docs/AI_DISCLOSURE_COMPLIANCE_REFREEZE_2026-10-05.md",
     "classification": "SUBMISSION COMPLIANCE / AI DISCLOSURE ONLY — NO THEORY-FREEZE CHANGE",
     "starting_main": "8d78ab56daf2873e8e19a5f56cddcebebbe3dd00"
+  },
+  "local_marginal_addendum": {
+    "audit_report": "docs/ERE_SUBMISSION_FINAL_AUDIT_2026-10-05.md",
+    "starting_main": "cf44480768c2d71c188428ed9b54bc4f04869dcd",
+    "path": "paper/sections/04_main_results.tex",
+    "label": "rem:general-incidence",
+    "remark_sha256": "aa8d95812c572ebb9c81b0bafdabca8e8b13f54f51698fdc8319299275d0a71b",
+    "pre_remark_blob": "d6dd2b8fa948d67613748ef210db896f3cb1728f",
+    "scope": "Local marginal identity and hosting threshold only; no global-theorem extension; immutable v4 baseline retained"
   }
 }

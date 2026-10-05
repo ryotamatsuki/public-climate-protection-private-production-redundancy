@@ -19,6 +19,7 @@ FILES = {
     ROOT / "submission" / "ERE_cover_letter.md": "06_cover_letter/ERE_cover_letter.md",
     ROOT / "submission" / "ERE_submission_checklist.md": "07_controls/ERE_submission_checklist.md",
     ROOT / "submission" / "ERE_CURRENT_UPLOAD_MANIFEST.md": "07_controls/ERE_CURRENT_UPLOAD_MANIFEST.md",
+    ROOT / "docs" / "ERE_SUBMISSION_FINAL_AUDIT_2026-10-05.md": "07_controls/ERE_SUBMISSION_FINAL_AUDIT_2026-10-05.md",
     ROOT / "docs" / "INDEPENDENT_FINAL_AUDIT_2026-10-03.md": "07_controls/INDEPENDENT_FINAL_AUDIT_2026-10-03.md",
     ROOT / "docs" / "INDEPENDENT_MATHEMATICAL_AUDIT_2026-10-03.md": "07_controls/INDEPENDENT_MATHEMATICAL_AUDIT_2026-10-03.md",
     ROOT / "docs" / "INDEPENDENT_NOVELTY_PORTABILITY_AUDIT_2026-10-03.md": "07_controls/INDEPENDENT_NOVELTY_PORTABILITY_AUDIT_2026-10-03.md",

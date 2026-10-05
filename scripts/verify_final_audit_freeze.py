@@ -1,10 +1,11 @@
-"""Validate an explicitly classified non-scientific descendant of immutable v4.
+"""Validate the audited descendant and its pinned local marginal addendum.
 
 The original v4 lock is never regenerated or silently redirected. It is
 checked against the exact GitHub baseline commit. Every changed/new tracked
 file is separately pinned by the audit descendant lock. Economic formulas,
 theorem statements, proofs, baseline model files and Lean proof code retain
-their original content. Approval of prose is not fabricated author signoff.
+their original content after removing one separately audited, byte-pinned
+local robustness remark. Approval is not fabricated author signoff.
 """
 from __future__ import annotations
 import hashlib
@@ -18,6 +19,9 @@ BASE='990bbe13dd1c3470b378ccd0040a78a030750701'
 DESC='submission/ERE_FINAL_AUDIT_DESCENDANT.lock.json'
 OLD='submission/ERE_STAGE15_V4_SCIENTIFIC_OBJECT.lock'
 FREEZE='PCPPR-THEORY-FREEZE-2026-10-03-v4'
+REMARK_PATH='paper/sections/04_main_results.tex'
+REMARK_SHA256='aa8d95812c572ebb9c81b0bafdabca8e8b13f54f51698fdc8319299275d0a71b'
+PRE_REMARK_BLOB='d6dd2b8fa948d67613748ef210db896f3cb1728f'
 # All other original files must remain byte identical to canonical main.
 ALLOWED={
     '.github/workflows/verify.yml','Makefile','README.md',
@@ -32,6 +36,7 @@ ALLOWED={
     'scripts/verify_ere_submission.py',
     'submission/ERE_review_Makefile','submission/ERE_replication_README.md',
     'submission/ERE_CURRENT_UPLOAD_MANIFEST.md','submission/ERE_cover_letter.md',
+    'submission/ERE_title_page.tex',
     'docs/AI_PROVENANCE_LOG.md','docs/EXPOSITION_ARCHITECTURE.md',
     'docs/EXPOSITION_STREAMLINING_REPORT_2026-10-03.md',
     'docs/REVIEWER_VERIFIABILITY_MAP.md','docs/REVIEWER_VERIFIABILITY_REPORT.md',
@@ -81,6 +86,18 @@ def discussion_without_empirical_addition(text):
     return prefix+suffix
 
 
+def main_results_without_local_remark(text):
+    """Remove only the exact audited remark; preserve every pre-remark byte."""
+    pattern=r'\\begin\{remark\}\[General incidence and hosting benefits\]\\label\{rem:general-incidence\}.*?\\end\{remark\}\n\n'
+    matches=list(re.finditer(pattern,text,re.S))
+    assert len(matches)==1,'Missing or duplicate local robustness remark'
+    match=matches[0]
+    assert hashlib.sha256(match.group(0)[:-2].encode()).hexdigest()==REMARK_SHA256,'Unaudited local robustness remark'
+    baseline=text[:match.start()]+text[match.end():]
+    assert blob(baseline.encode())==PRE_REMARK_BLOB,'Pre-remark main results changed'
+    return baseline
+
+
 def baseline_lock():
     original=git('show',f'{BASE}:{OLD}')
     assert (ROOT/OLD).read_bytes()==original,'Immutable v4 lock changed'
@@ -109,7 +126,10 @@ def main():
     original=baseline_lock()
     lock=json.loads((ROOT/DESC).read_text())
     assert lock['baseline_commit']==BASE and lock['scientific_freeze']==FREEZE
-    assert lock['classification']=='non-scientific audited descendant'
+    assert lock['classification']=='audited descendant with local marginal robustness addendum'
+    addendum=lock['local_marginal_addendum']
+    assert addendum['path']==REMARK_PATH and addendum['remark_sha256']==REMARK_SHA256
+    assert addendum['pre_remark_blob']==PRE_REMARK_BLOB
     assert lock['original_v4_lock_sha256']==hashlib.sha256(original).hexdigest()
     oldfiles={e.split('\t',1)[1]:e.split()[2] for e in git('ls-tree','-r',BASE).decode().splitlines()}
     current={e.split('\t',1)[1]:e.split()[2] for e in git('ls-tree','-r','HEAD').decode().splitlines()}
@@ -131,13 +151,20 @@ def main():
                 marker='\\subsection{Scope of the Lean formalization}'
                 assert old.split(marker)[0]==new.split(marker)[0],'Analytic proof logic changed'
             else:
+                if path==REMARK_PATH:
+                    new=main_results_without_local_remark(new)
                 assert scientific_text(old)==scientific_text(new),f'Economic formula or theorem changed: {path}'
+        if path=='submission/ERE_title_page.tex':
+            old=git('show',f'{BASE}:{path}').decode();new=(ROOT/path).read_text()
+            assert new.count('\\usepackage{microtype}\n')==1,'Unexpected title-page typography change'
+            assert new.replace('\\usepackage{microtype}\n','',1)==old,'Title-page declaration content changed'
         if path.endswith('.lean'):
             assert lean_without_comments(git('show',f'{BASE}:{path}').decode())==lean_without_comments((ROOT/path).read_text()),'Lean proof code changed'
     oldlog=git('show',f'{BASE}:docs/AI_PROVENANCE_LOG.md')
     assert (ROOT/'docs/AI_PROVENANCE_LOG.md').read_bytes().startswith(oldlog),'Old provenance overwritten'
-    print('Immutable v4 baseline + pinned non-scientific final-audit descendant: PASS')
-    print('Equations/theorem/proof logic, model, welfare, witness, exact production certificates and Lean proof code unchanged')
+    print('Immutable v4 baseline + pinned audited descendant and local marginal remark: PASS')
+    print('Baseline equations/theorem/proof logic, model, welfare, witness, exact production certificates and Lean proof code unchanged')
+    print('Separately audited general-incidence remark is byte-pinned; no global-theorem extension')
     print('No new author scientific confirmation or live submission authorization is asserted')
 
 

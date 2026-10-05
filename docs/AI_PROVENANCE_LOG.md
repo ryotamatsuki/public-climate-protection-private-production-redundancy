@@ -76,3 +76,11 @@ from automated checks.
 - **COMPUTATION / FORMAL:** No mathematical derivation, numerical result, exact certificate, Lean proof, model primitive, welfare definition, empirical implication, theorem statement, or claim scope was changed.
 - **Classification:** **SUBMISSION COMPLIANCE / AI DISCLOSURE ONLY — NO THEORY-FREEZE CHANGE.**
 - **Freeze consequence:** `PCPPR-THEORY-FREEZE-2026-10-03-v4` remains the scientific freeze. The non-scientific descendant lock is refreshed to pin the disclosure-only manuscript descendant and this provenance entry.
+
+## 2026-10-05 — final submission audit including general incidence
+
+- **AI:** OpenAI Codex/GPT-6-based assistant independently checked the latest main manuscript, mathematical continuations, welfare accounting, local/general-incidence derivation, exact/global certificate scope, formalization boundaries, primary literature, and current official ERE guidance under the author's final-audit request.
+- **COMPUTATION:** Fresh existing verification, 31 unchanged tests, independent exact and numerical rederivation, LaTeX builds, full PDF inspection, and clean anonymous-ZIP reproduction were performed. Final-main CI supplies the pinned Lean and anonymous-ZIP formal release evidence.
+- **Changes:** No manuscript or mathematical result was changed. The existing local marginal robustness remark was registered in the descendant freeze with an exact remark hash and byte recovery of the pre-remark file. Title-page typography, upload controls, and the audit report were updated.
+- **Scope:** The immutable v4 baseline is retained; the existing remark is a separately audited local marginal addendum, not a global-theorem extension. Existing mathematical tests, certificates, and Lean proof code are unchanged.
+- **AUTHOR / EXTERNAL HUMAN:** No new personal scientific confirmation or external human peer review is asserted. No journal submission was performed. Exact corrective-commit and CI provenance are recorded in Git history and Actions.

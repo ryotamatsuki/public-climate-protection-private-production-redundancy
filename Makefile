@@ -69,6 +69,7 @@ ere-source-package: objects
 
 ere-title-page:
 	cd submission && pdflatex -no-shell-escape -interaction=nonstopmode -halt-on-error ERE_title_page.tex >/dev/null
+	cd submission && pdflatex -no-shell-escape -interaction=nonstopmode -halt-on-error ERE_title_page.tex >/dev/null
 
 ere-review-package: objects benchmarks formal-certificates
 	$(PYTHON) scripts/build_ere_review_package.py

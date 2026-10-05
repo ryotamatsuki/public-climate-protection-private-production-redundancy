@@ -67,3 +67,12 @@ from automated checks.
 - **Scope:** EXPOSITION / EMPIRICAL-IMPLICATIONS ONLY — NO THEORY-FREEZE CHANGE. No data acquisition, empirical analysis, calibration, numerical policy estimate, new citation, or theoretical result is introduced. The simultaneous empirical response is a motivated hypothesis, not a general asymmetric comparative-static theorem.
 - **AUTHOR / EXTERNAL HUMAN:** No new personal scientific confirmation or external human review is asserted. Prior author-controlled records and the original v4 scientific-object lock are unchanged. No journal submission or final upload authorization is inferred.
 - Evidence: `docs/EMPIRICAL_IMPLICATIONS_EXPOSITION_AUDIT_2026-10-05.md`; exact commit and CI evidence are recorded in Git history rather than fabricated in advance.
+
+
+## 2026-10-05 — ERE AI-disclosure compliance refreeze
+
+- **AUTHOR:** The author explicitly requested that the manuscript's AI-disclosure wording be updated and the submission candidate re-frozen without reopening the theory.
+- **AI:** OpenAI ChatGPT GPT-5.6 Sol assisted with the disclosure wording and repository update. The revised manuscript identifies the material OpenAI tool families and date range, summarizes prompt categories, preserves the distinction between AI assistance and scholarly evidence, and retains author accountability.
+- **COMPUTATION / FORMAL:** No mathematical derivation, numerical result, exact certificate, Lean proof, model primitive, welfare definition, empirical implication, theorem statement, or claim scope was changed.
+- **Classification:** **SUBMISSION COMPLIANCE / AI DISCLOSURE ONLY — NO THEORY-FREEZE CHANGE.**
+- **Freeze consequence:** `PCPPR-THEORY-FREEZE-2026-10-03-v4` remains the scientific freeze. The non-scientific descendant lock is refreshed to pin the disclosure-only manuscript descendant and this provenance entry.

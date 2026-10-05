@@ -54,31 +54,29 @@ or, equivalently, equation~\eqref{eq:attraction-threshold}.
 \end{proof}
 
 \begin{remark}[General incidence and hosting benefits]\label{rem:general-incidence}
-The equal-share and linear-hosting specification in \eqref{eq:government-payoff} is used for transparency rather than for the marginal mechanism. For the local comparison only, replace jurisdiction $A$'s payoff by
+The equal-share and linear-hosting specification in \eqref{eq:government-payoff} is used for transparency rather than for the marginal mechanism. For the local comparison only, suppose
 \[
-\widetilde G_A
-=
-\omega \mathcal S
-+
-B(2p)
--
-C(a_A),
+\widetilde G_A=\omega\mathcal S+B(2p)-C(a_A),
 \]
-where $\omega>0$ is a fixed local weight on national market surplus, $B$ is differentiable at the symmetric expected plant count $2p=1$, and $C'(0)=0$. If coordinated welfare values the corresponding hosting terms symmetrically, then along the common-policy path $p(a,a)=1/2$, so those hosting terms are locally constant at the symmetric origin. Hence $M_S=2\mathcal S_{a_A}$ as before, while
+where $\omega>0$ is a fixed local weight on national market surplus, $B$ is differentiable at the symmetric expected plant count $2p=1$, and $C'(0)=0$. Let the coordinated benchmark value the same hosting benefits and policy costs,
 \[
-M_L
+\widetilde W
 =
-\omega \mathcal S_{a_A}
-+
-2B'(1)\lambda_0
-=
-\frac{\omega}{2}M_S
-+
-2B'(1)\lambda_0.
+\mathcal S+B(2p)+B\!\left(2(1-p)\right)-C(a_A)-C(a_B).
 \]
-Thus, when $\lambda_0>0$ and $M_S<0$, the marginal Protection--Attraction Conflict obtains whenever
+Along the common-policy path, symmetry gives $p(a,a)=1/2$. Hence the hosting terms are constant on that path and, at the origin,
 \[
-B'(1)>\frac{-\omega M_S}{4\lambda_0}.
+\widetilde M_S=2\mathcal S_{a_A},
+\qquad
+\widetilde M_L
+=
+\omega\mathcal S_{a_A}+2B'(1)\lambda_0
+=
+\frac{\omega}{2}\widetilde M_S+2B'(1)\lambda_0.
+\]
+Thus, when $\lambda_0>0$ and $\widetilde M_S<0$, the marginal Protection--Attraction Conflict obtains whenever
+\[
+B'(1)>\frac{-\omega\widetilde M_S}{4\lambda_0}.
 \]
 The baseline follows from $\omega=1/2$, $B(n)=bn$, and $C(a)=ca^2/2$. This remark concerns the local sign decomposition only; the global planner optimum and global best-response statements in Theorem~\ref{thm:main} continue to rely on the maintained baseline specification and its exact certificates.
 \end{remark}

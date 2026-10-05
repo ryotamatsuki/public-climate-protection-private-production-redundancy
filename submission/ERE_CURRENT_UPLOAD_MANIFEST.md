@@ -55,3 +55,12 @@ the added prose and its narrow governance exception. The audit is in
 Regenerate all manuscript/source/replication components from the final commit;
 earlier PDF and ZIP components omit this subsection. This update does not supply
 personal final-package sign-off or live journal submission authorization.
+
+
+## 2026-10-05 AI disclosure compliance re-freeze
+
+The manuscript AI Assistance Disclosure was expanded for submission transparency to identify the material OpenAI tool/model families, the September–October 2026 use period, and the categories of prompts used. This is classified as **SUBMISSION COMPLIANCE / AI DISCLOSURE ONLY — NO THEORY-FREEZE CHANGE**.
+
+The scientific freeze remains `PCPPR-THEORY-FREEZE-2026-10-03-v4`. The immutable v4 scientific lock is unchanged; the non-scientific descendant lock pins the revised manuscript, updated provenance log, and `docs/AI_DISCLOSURE_COMPLIANCE_REFREEZE_2026-10-05.md`.
+
+Regenerate the manuscript PDF and all submission archives from the final green main commit. Authenticated portal preflight and author approval of the portal-generated reviewer PDF remain external final gates.

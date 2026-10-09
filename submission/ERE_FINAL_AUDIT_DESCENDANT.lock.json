@@ -7,7 +7,7 @@
     "starting_main": "86ce214ff467ecea6c3ba79f11f2817d52575261"
   },
   "files": {
-    ".github/workflows/verify.yml": "e9d3114893e0a619897bb0832b8039643bbef0b5",
+    ".github/workflows/verify.yml": "c0c7f1838e142805db53138fae3d87bf1de5d8f5",
     "Makefile": "1c508228128135713a03144a47f354de7500480f",
     "README.md": "15c345e8c7c50d1ec803743ce1e63fd406f21463",
     "STAGE_13_REPORT.md": "619b90d06259b7eb2618113e3aeb3cad519d6b29",
@@ -44,7 +44,7 @@
     "scripts/build_verify_ere_source_package.py": "27d708ad3533d3f210d172464fccfae2b87fc468",
     "scripts/generate_objects.py": "e341710da9a2086c277a91fdd7b448f292d9778f",
     "scripts/independent_exact_audit.py": "e71974a3f3e21402e3213a658bb4bdddd4d85b72",
-    "scripts/independent_model_audit.py": "6230f656287589b6a1cc3db2572f530ba6f5ffee",
+    "scripts/independent_model_audit.py": "fae86dcc4f821e036c14da603df7228e84667dd0",
     "scripts/verify_ere_submission.py": "91e6970ffe5a8d93dd714fa94ac4295a32aaea40",
     "scripts/verify_final_audit_freeze.py": "0e0fb97c40bcebf3c7f490be524fd8c20b6506a4",
     "submission/ERE_CURRENT_UPLOAD_MANIFEST.md": "03b5feb2a8424699361a106d835714523ea2bbd4",
@@ -53,7 +53,7 @@
     "submission/ERE_review_Makefile": "84ba88a3e6cd6819d994f1a2c244c1d69e185416",
     "submission/ERE_title_page.tex": "49521fb6ed12ff2cd28b8e024481c6778817f1e3",
     "tests/test_freeze_governance.py": "68d46909c9efe7231c11fff2f6c8356c634e4e55",
-    "tests/test_independent_audit.py": "cafad1c38a25bd1b5fa1c2d5dd86875a8940a73a"
+    "tests/test_independent_audit.py": "9f65a8610e5ca5a5523ce9cbb625857caa7fceab"
   },
   "original_v4_lock_sha256": "ddb1c0a07c29ea421a8b36159f678936e3bd455a9019fb71b9b47d5805e84158",
   "scientific_freeze": "PCPPR-THEORY-FREEZE-2026-10-03-v4",
@@ -70,5 +70,12 @@
     "remark_sha256": "aa8d95812c572ebb9c81b0bafdabca8e8b13f54f51698fdc8319299275d0a71b",
     "pre_remark_blob": "d6dd2b8fa948d67613748ef210db896f3cb1728f",
     "scope": "Local marginal identity and hosting threshold only; no global-theorem extension; immutable v4 baseline retained"
+  },
+  "independent_numerical_audit_repair": {
+    "classification": "AUDIT SEARCH ROBUSTNESS ONLY — NO THEOREM OR CERTIFICATE CHANGE",
+    "failure": "2026-10-07 main verify failure: nearby-primitive best-response root location tolerance",
+    "mechanism": "bounded float64 payoff optimization near a flat maximum suffers from objective-value rounding",
+    "repair": "locate each sampled interior local maximum by complex-step derivative sign bracket and Brent root isolation; retain endpoints and grid-payoff guard",
+    "unchanged": "frozen economic primitives, theorem, exact certificates, fixed seed, 100 nearby perturbations, and original 4e-8 / 1e-11 acceptance thresholds"
   }
 }

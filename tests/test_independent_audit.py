@@ -67,3 +67,19 @@ def test_independent_transform_nonunit_and_degenerate_domains_and_strict_sign_re
 def test_utility_and_state_based_exact_identities():
     identities=exact.primitive_identities()
     assert identities['duopoly_profit']=='(g + 2)**(-2)'
+
+
+def test_best_response_stationarity_under_symmetric_primitive_perturbations():
+    """Guard against float64 payoff-flat optimizer drift in the freeze audit."""
+    rng = np.random.default_rng(20261003)
+    for _ in range(12):
+        par = {key: value*(1+rng.uniform(-1e-5,1e-5))
+               for key,value in model.WITNESS.items()}
+        root = model.brentq(lambda x: float(model.derivative(x,x,par=par)),
+                            0,par['abar'],xtol=2e-15)
+        best, payoff = model.best_response(root,par=par)
+        assert abs(best-root)<4e-8
+        assert abs(float(model.derivative(best,root,par=par)))<1e-9
+        assert payoff-float(model.policies(root,root,par)['GA'])<1e-11
+        own = np.linspace(0,par['abar'],501)
+        assert payoff >= float(np.max(model.policies(own,root,par)['GA']))-1e-12

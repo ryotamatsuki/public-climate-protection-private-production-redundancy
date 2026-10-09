@@ -152,19 +152,33 @@ def derivative(aA,aB,which='GA',coord=0,par=WITNESS,**kwargs):
 
 
 def best_response(rival,par=WITNESS,**kwargs):
-    # Inspect ALL grid peaks, refine each, and include both boundaries.
+    """Numerically attack the full policy interval using stationary roots.
+
+    Evaluating payoffs near a strict maximum loses the quadratic improvement to
+    float64 rounding. Bounded payoff minimization can then return an arbitrary
+    nearby point, spuriously failing the 4e-8 root check in the perturbation
+    audit. Bracket derivatives (complex-step, independent of the production
+    model) instead; retain both boundaries and all sampled interior maxima.
+    This is a falsification search, not a replacement for the exact certificate.
+    """
     grid = np.linspace(0,par['abar'],401)
     val = policies(grid,rival,par,**kwargs)['GA']
+    grad = derivative(grid,rival,par=par,**kwargs)
+    if not np.all(np.isfinite(grad)):
+        raise RuntimeError('Nonfinite best-response derivative in scan')
     candidates = [(0.,float(val[0])),(par['abar'],float(val[-1]))]
-    for i in range(1,len(grid)-1):
-        if val[i] >= val[i-1] and val[i] >= val[i+1]:
-            sol = minimize_scalar(lambda z:-float(policies(z,rival,par,**kwargs)['GA']),
-                                  bounds=(grid[i-1],grid[i+1]),method='bounded',
-                                  options=dict(xatol=2e-14))
-            if not sol.success:
-                raise RuntimeError('Best-response refinement failed')
-            candidates.append((float(sol.x),float(-sol.fun)))
-    return max(candidates,key=lambda z:z[1])
+    for i in range(len(grid)-1):
+        left, right = float(grad[i]), float(grad[i+1])
+        if left > 0 and right < 0:
+            root = brentq(lambda z:float(derivative(z,rival,par=par,**kwargs)),
+                          grid[i],grid[i+1],xtol=2e-15)
+            candidates.append((root,float(policies(root,rival,par,**kwargs)['GA'])))
+        elif left == 0:
+            candidates.append((float(grid[i]),float(val[i])))
+    optimum = max(candidates,key=lambda z:z[1])
+    if optimum[1] + 1e-12 < float(np.max(val)):
+        raise RuntimeError('Best-response scan missed a higher grid payoff')
+    return optimum
 
 
 def audit():

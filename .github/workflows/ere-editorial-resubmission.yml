@@ -1,0 +1,31 @@
+name: ERE editorial resubmission files
+on:
+  pull_request:
+    paths:
+      - 'scripts/build_ere_editorial_resubmission.py'
+      - 'tests/test_ere_editorial_resubmission.py'
+      - 'submission/ERE_2026_10_RESUBMISSION_GUIDE.md'
+      - '.github/workflows/ere-editorial-resubmission.yml'
+      - 'submission/ERE_FINAL_AUDIT_DESCENDANT.lock.json'
+  workflow_dispatch:
+
+jobs:
+  build-resubmission:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python -m pip install -r requirements.txt
+      - run: sudo apt-get update && sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra poppler-utils
+      - run: python -m pytest -q tests/test_ere_editorial_resubmission.py
+      - run: make objects ere-title-page
+      - run: python scripts/build_ere_editorial_resubmission.py
+      - name: Upload separate journal-facing files
+        uses: actions/upload-artifact@v4
+        with:
+          name: ERE-editorial-resubmission-EARE-D-26-02567
+          retention-days: 14
+          path: dist/ERE_editorial_resubmission/
+          if-no-files-found: error

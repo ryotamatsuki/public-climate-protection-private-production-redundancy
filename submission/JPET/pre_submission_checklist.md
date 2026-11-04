@@ -2,7 +2,9 @@
 
 ## Manuscript and content
 
-- [x] JPET-specific title, introduction, related literature and conclusion added without changing frozen theorems or economic primitives.
+- [x] JPET-specific title, introduction, related literature and conclusion added without changing original frozen ERE theorems or primitives.
+- [x] PR #41 separately proposes an author-unapproved augmented-welfare gamma=0 Proposition 4 with exact bivariate-Bernstein checks.
+- [ ] Ensure the newly added Proposition 4 is scientifically approved, and its standalone script is included in the reviewer reproduction package.
 - [x] New closest public-input citations included: Bayindir-Upmann (1998); Billon (2023); Morita and Okoshi (2025).
 - [x] No novel-general-overprovision or novel-general-substitution claim.
 - [x] Explicit industrial-component welfare and constrained-planner boundaries preserved.

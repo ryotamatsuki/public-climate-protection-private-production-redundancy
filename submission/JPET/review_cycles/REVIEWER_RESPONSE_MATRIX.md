@@ -1,3 +1,22 @@
+# Round 2 updated response matrix — 2026-11-05
+
+| Blocker from previous reviews | Substantive Round 2 evidence | Status for internal R&R gate |
+|---|---|---|
+| N1: Existing fiscal competition plus private protection may absorb result | Global primitive theorem plus exact +16/189, 0, −16/1593 benefit-gap sign pattern and small gamma>0 persistence; sources explicitly acknowledge Keen–Marchand, Bayindir-Upmann, Matsumoto, Grossman et al | **Resolved enough to support Major R&R, not exhaustively disproved**; full Bayindir theorem text still needed |
+| N2: Special rational witness insufficient for significance | Nonempty strict sufficient primitive parameter region and global full-policy Nash/planner proof; new welfare comparative statics, private-response ablations | **Major improvement** |
+| M1/M2: No identification of which mechanism matters | Counterfactual derivatives with fixed readiness vs fixed location, both fully re-solved and globally certified | **Closed for stated benchmark only** |
+| R1: Gamma0 and zero planner optimum too restrictive | Directly valued benefit produces positive planner; continuity of private Nash and strict global planner/local curvature gives nonempty open gamma>0 region | **Closed as existence, not uniform all gamma** |
+| T1/T2: Derivation and global-deviation proof gaps | Exact symbolic identities and global Hessian bounds, Nash best response strict concavity; independent code; original frozen science rerun by JPET CI | **No new counterexample; independent external proof review still desirable** |
+| W1: Unrepresentative industrial-only welfare | Explicit augmented direct local benefit and constrained social planner; no blanket adaptation prescription | **Closed as scope clarification, not welfare microfoundation** |
+| P1: Historical freeze vs new source CI | Unmodified ERE source verified against archival SHA, new standalone scripts run in separate JPET workflow | **Scientific CI reproducible; combined reviewer bundle pending** |
+| L1: Under-citation/closest theorem absorption | Keen–Marchand and Matsumoto added; Ogawa review supports Bayindir capital-not-firm mobility; no unsupported claim of fully read proofs | **Incomplete full-text check acknowledged as major R&R task** |
+
+This is not an assertion that publication is guaranteed. Material new adverse scholarship or mathematical counterexamples veto the internal favorable verdict.
+
+---
+
+## Archived Round 0–1 matrix
+
 # Reviewer comments -> implemented response matrix
 
 | ID | Round 0 objection | Round 1 response | Evidence | Status |

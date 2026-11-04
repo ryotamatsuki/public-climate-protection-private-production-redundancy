@@ -1,5 +1,18 @@
 # JPET pre-submission checklist (2026-11-05)
 
+## Rounds 3–4 scientific verification and rebuttal
+
+- [x] Independent symbolic audit detected and corrected the omitted `+y/(16k)` boundary term in the Round-2 primitive-band proof; strict-concavity supporting-plane proof supersedes the earlier argument.
+- [x] Relaxed the primitive conditions, and provided a second rational witness failing the discarded extra assumption while satisfying retained global conditions.
+- [x] Endogenous local industrial-surplus incidence and primary-site-operation-contingent hosting tested through exact two-dimensional Hessian intervals at `eta=rho=1/100`; global perturbation theorem included.
+- [x] Derived exact positive market-substitutability derivatives for the coordinated and Nash policies and their strictly increasing gap, retaining full backup/location/disaster-state responses.
+- [x] Four prior new proofs moved to separate Appendix; fifth Cournot-competition derivative proof added there.
+- [x] Simulated Major R&R comments addressed point-by-point in `review_cycles/MAJOR_RR_RESPONSE_DRAFT.md`, explicitly NOT a response to real JPET referees.
+- [ ] Require fully green JPET-specific workflow at the final current manuscript scientific commit, including all five standalone exact scripts and original science byte-identity.
+- [ ] Inspect newly built PDF, extract source archive, confirm SHA-256 manifest, and independently rerun the new scripts from extracted source.
+- [ ] Legitimately obtain and compare the complete published Bayindir-Upmann (1998) text if accessible; otherwise mark theorem-level nonabsorption unresolved.
+- [ ] Obtain human author's scientific approval of all additional propositions and empirical interpretations. Do not merge or submit automatically.
+
 ## Manuscript and content
 
 - [x] JPET-specific title, introduction, related literature and conclusion added without changing original frozen ERE theorems or primitives.

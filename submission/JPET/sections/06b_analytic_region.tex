@@ -200,7 +200,7 @@ persistence of this positive-gap result for a
 nonempty set of differentiated-product economies.
 
 
-\subsection{Robustness to regional incidence and availability-dependent hosting}
+\subsection{Robustness to regional incidence and primary-plant-dependent hosting}
 \label{sec:incidence-robustness}
 
 The baseline divides industrial market surplus equally between
@@ -217,21 +217,19 @@ where $|\eta|<1$ ensures both shares are nonnegative whenever
 $p\in[0,1]$. Positive $\eta$ reallocates more industrial surplus
 to the jurisdiction attracting primary facilities. Separately,
 let $\rho\in[0,1]$ denote the fraction of the location-attached
-benefit that requires continued production availability.
+benefit paid only if the primary plant in the hosting jurisdiction is operational.
 
-Denote by $r_1^{XY}$ firm 1's unique backup choice when its
-primary plant is in $X$ and its rival's plant is in $Y$.
-Define the expected operating probabilities conditional on the
-firm's primary location:
-\begin{align}
-v_A&=p\{1-q_A(1-r_1^{AA})\}
- +(1-p)\{1-q_A(1-r_1^{AB})\},\\
-v_B&=p\{1-q_B(1-r_1^{BA})\}
- +(1-p)\{1-q_B(1-r_1^{BB})\}.
+The probabilities that a hosted \emph{primary} plant operates after
+the localized disaster are simply
+\begin{equation}
+v_A=1-q_A,\qquad v_B=1-q_B.
 \label{eq:availability-conditional}
-\end{align}
-These formulas use the original joint-failure and conditional
-backup-success law. They do not introduce new private actions.
+\end{equation}
+Thus the availability-contingent hosting return accrues from
+locally operating primary facilities, not from geographically
+separate backup production. No additional private action or
+correlation assumption is introduced.
+
 The local objectives become
 \begin{align}
 G_A^{\eta,\rho}
@@ -247,7 +245,7 @@ G_B^{\eta,\rho}
 and the coordinated planner continues to maximize their sum
 $W^{\rho}=G_A^{\eta,\rho}+G_B^{\eta,\rho}$.
 The planner's objective is independent of $\eta$ by construction
-but now values expected operating-related hosting benefits
+but now values expected primary-operation-related hosting benefits
 when $\rho>0$. The original model is exactly the case
 $(\eta,\rho)=(0,0)$.
 

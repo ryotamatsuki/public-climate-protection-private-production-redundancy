@@ -20,6 +20,8 @@ jobs:
         run: python submission/JPET/review_cycles/positive_optimum_exact.py
       - name: Independently certify restricted policy games
         run: python submission/JPET/review_cycles/restricted_games_exact.py
+      - name: Independently audit global analytic primitive-region theorem
+        run: python submission/JPET/review_cycles/analytic_region_exact.py
       - name: Generate existing exact marginal objects
         run: python scripts/generate_objects.py
       - name: Build separate JPET overlay (not the frozen ERE manuscript)

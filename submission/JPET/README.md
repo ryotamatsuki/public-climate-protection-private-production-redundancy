@@ -16,6 +16,12 @@
 
 **Current PR #41 amendment:** The original ERE v4 model, theorem, proofs, certificates and source code remain unchanged. On this separate JPET revision branch, an **additional scientific result** has been inserted in `submission/JPET/sections/06_benchmarks.tex`: a gamma=0 augmented-welfare positive-planner-optimum benchmark with exact, globally certified overprovision. The independent SymPy script is `submission/JPET/review_cycles/positive_optimum_exact.py`. This scientific addition is **not approved by the author** and is NOT part of the historical ERE freeze. The main differentiated-product theorem is unchanged, and this addition does not prove the same positive-optimum result for gamma>0. Retain the submission HOLD until scientific review, revised proof-package creation, and author approval.
 
+**Major R&R resolution audit (Rounds 3–4, 2026-11-05):** The prior Round-2 simulated R&R verdict is not a proof of mathematical correctness. The new global primitive-region proof was found to omit a positive boundary derivative term; it is now replaced by a strictly stronger supporting-hyperplane argument requiring **fewer** primitive assumptions. A second rational parameter witness demonstrates why the removed condition was redundant. See `review_cycles/ROUND_3_MATHEMATICAL_CORRECTION.md`.
+
+The newest candidate additionally relaxes the fixed 1/2 local surplus incidence and fully state-independent hosting benefits, while tying any state-contingent local return to **the primary plant actually operating in that region**, not geographically separate backup production. Exact bivariate Bernstein bounds independently certify an explicit nonzero-perturbation example. The full game's policy reaction to positive product substitutability is derived exactly at the separable limit: both planner and local protection rise, but local protection increases more. The five new full proofs are located in `appendix/additional_proofs.tex`; main propositions remain in `sections/06b_analytic_region.tex`. New checks: `incidence_robustness_exact.py` and `gamma_policy_derivative_exact.py`.
+
+The separate JPET workflow now builds a PDF and a complete tracked-source reproducibility archive with checkout provenance and SHA-256 checksums; old ERE attestation remains immutable. No genuine journal R&R, independent human review, actual acceptance or scientific author approval has occurred.
+
 ## Compile
 
 Run from repository root:

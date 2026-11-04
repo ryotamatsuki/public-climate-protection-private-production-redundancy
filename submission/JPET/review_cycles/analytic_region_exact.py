@@ -68,6 +68,34 @@ assert 0<(m/ss).subs(z)==Q(1,126)<z[L]
 assert (ap.subs(z).subs(mu,Q(1,10)),an.subs(z).subs(mu,Q(1,10)))==(Q(1,1350),Q(89,3150))
 assert Q(3,32)<Q(1,10)<min((mu0+tc*L).subs(z),(ss*L-m).subs(z))
 assert sp.diff(an-ap,mu).subs(z)>0
+# The global planner corner follows from a negative gradient at the
+# origin and strict concavity, NOT from incorrect off-axis boundary signs.
+same(S.diff(W,x).subs({x:0,y:0}),-mu0)
+same(S.diff(W,y).subs({x:0,y:0}),-mu0)
+# A second strict primitive witness passes the Hessian and Nash conditions
+# but fails the old extra off-axis derivative condition. This illustrates
+# that the supporting-hyperplane theorem is materially more general.
+z2={q0:Q(49,200),k:Q(2,25),H:Q(1,100),b:Q(11,200),c:20,L:Q(2,25)}
+qlo2=z2[q0]-z2[L]
+U2=S.factor(U(v).subs({k:z2[k],H:z2[H]}))
+candidates2=[qlo2,z2[q0]]
+if qlo2<=S.Rational(7,2)*z2[k]<=z2[q0]:
+    candidates2.append(S.Rational(7,2)*z2[k])
+u2min=min(U2.subs(v,j) for j in candidates2)
+u2max=max(U2.subs(v,j) for j in candidates2)
+d2=max(abs(S.diff(U2,v).subs(v,j)) for j in [qlo2,z2[q0]])
+d22=S.diff(U2,v,2)
+cp2=1/(8*z2[k])+4*u2max+2*d2*z2[L]+d22*z2[L]**2/2
+cg2=Q(1,2)*(1/(8*z2[k])+2*u2max+2*d2*z2[L]+d22*z2[L]**2/4)+z2[b]/(16*z2[H]*z2[k])
+assert 3*z2[k]<z2[q0]<4*z2[k] and 0<z2[L]<z2[q0]
+assert (4*z2[k]-qlo2)*z2[L]<16*z2[k]*z2[H]
+assert u2min>0 and z2[c]>max(cp2,cg2)
+assert m.subs(z2)>0 and 0<(m/ss).subs(z2)<z2[L]
+assert z2[b]>z2[H]
+unnecessary_bound=z2[L]*max(Q(0),1/(16*z2[k])-2*u2min)+d2*z2[L]**2/2
+assert mu0.subs(z2)<unnecessary_bound
+print("PASS alternative strict witness: original stronger off-axis bound not necessary")
+
 print("PASS analytic primitive-region symbolic identities, global sufficient margins, and welfare comparative static")
 print("witness U bounds",umin,umax,"cost bounds",costP,costN)
 print("mu=1/10 planner",ap.subs(z).subs(mu,Q(1,10)),"Nash",an.subs(z).subs(mu,Q(1,10)))

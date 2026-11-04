@@ -34,3 +34,27 @@ assert same(S.diff(Wfixed,y),-Q(3,32)-Q(135,16)*y)
 assert 0 < Q(3,1280) < Q(5,512)
 print('PASS: exact fixed-readiness planner/Nash and fixed-location planner/Nash counterfactual games')
 print('fixed-readiness: planner = 3/1280, local = 5/512; fixed-location: both zero')
+
+
+# Common direct-benefit parameter: full-endogenous, fixed-readiness,
+# fixed-location counterfactual differences.
+mu=S.symbols('mu',real=True)
+ap_full=(32*mu-3)/270
+an_full=(128*mu+5)/630
+ap_ready=(mu+Q(3,128))/10
+an_ready=(mu+Q(25,256))/10
+ap_location=Q(16,135)*(mu-Q(3,32))
+an_location=Q(32,295)*(mu-Q(3,64))
+assert same(S.diff(an_full-ap_full,mu),Q(16,189))
+assert same(S.diff(an_ready-ap_ready,mu),0)
+assert same(S.diff(an_location-ap_location,mu),-Q(16,1593))
+assert same(an_ready-ap_ready,Q(19,2560))
+for value in (Q(3,32)+Q(1,10000), Q(1,10),Q(1,8)-Q(1,10000)):
+    assert all(0<expression.subs(mu,value)<Q(2,25) for expression in
+               (ap_full,an_full,ap_ready,an_ready,ap_location,an_location))
+# All affected stationary points solve their globally concave policy games.
+assert same(S.diff(W,x).subs({x:ap_ready,y:ap_ready})+mu,0)
+assert same(S.diff(GA,x).subs({x:an_ready,y:an_ready})+mu,0)
+assert same(S.diff(Wfixed,x).subs(x,ap_location)+mu,0)
+assert same(S.diff(Gfixed,x).subs(x,an_location)+mu,0)
+print('PASS: three distinct exact benefit-gap slope signs; positive, zero, negative')

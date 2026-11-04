@@ -1,3 +1,19 @@
+# Round 2 significance and novelty reassessment — 2026-11-05
+
+The distinction from established parent theorems is now anchored to a concrete, jointly determined **comparative-static sign pattern**, not merely a combination of mechanisms:
+
+- **Known broad results, NOT claimed new**: inefficient fiscal provision of productive public inputs (Keen–Marchand 1997; Bayindir-Upmann 1998; Walz–Wellisch 1996; Maurer–Walz 2000; Billon 2023); public/private protective substitution (Hickey 2021, Friehe–Mungan 2022); private resilience social/private wedge (Grossman–Helpman–Lhuillier 2023).
+- **New conditional and globally proved implication in this paper's model**: with both private responses endogenous, a common direct protection-benefit increase raises the local overinvestment gap at rate 16/189; switching off readiness removes the slope (0), and switching off location reverses it (−16/1593). Each case re-solves the entire policy game with a global planner optimum and globally unilateral-optimal local equilibrium, and is not just a changed origin first-order condition.
+- **Additional non-witness value**: explicit strict global primitive inequalities ensure planner-zero/local-positive at gamma=0 and a positive-optimum benefit-gap comparative static; the latter persists for a nonempty open gamma>0 neighborhood with differentiated Cournot products.
+- **Parent contrast**: Ogawa (2010) states Bayindir-Upmann (1998) allows mobile industrial capital but not firm relocation. Matsumoto (1998) can produce underprovision with mobile firms in a capital-tax model. Keen–Marchand's over-bias of productive public input spending is acknowledged. None is shown on available sources to imply the triple derivative sign reversal with privately chosen contingency readiness. This is not a claim of exhaustive full-text theorem exclusion.
+- **Outstanding serious risk**: Bayindir-Upmann's full 1998 text and some closest parent proofs remain unavailable. If any parent establishes a general theorem that absorbs the new sign prediction, the originality judgment must be reversed.
+
+**Internal novelty assessment:** credible bounded original comparative-static prediction at JPET Major R&R threshold, subject to the above full-text prior-art stress test.
+
+---
+
+## Archived Round 1 ledger
+
 # Novelty and contribution ledger — JPET Round 1 (2026-11-05)
 
 This is a **contribution audit**, not a claim that journal originality is proved. Differences in notation and combining components are not sufficient originality.

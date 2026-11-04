@@ -37,6 +37,39 @@ This is a distinct witness: $k$ and $c$ differ from \eqref{eq:witness}, maintain
 Two further restricted comparisons clarify which response is being removed. In the \emph{fixed-primary-location} comparison, a primary-location profile or distribution is specified exogenously and kept fixed under all policy deviations; backup is re-solved. The plant-count derivative, and hence the attraction term, vanishes. In the \emph{fixed-private-readiness} comparison, each profile's readiness levels are held at specified constants while location is re-solved; the readiness-response term vanishes. These observations identify margins. Without specifying the fixed profile distribution or readiness values and solving the restricted policy games, they do not establish the absence of every policy-ranking conflict in those games.
 
 
+\begin{remark}[Transparent primitive band at $\Delta=0$]
+\label{rem:zero-delta-primitive-band}
+The separable-product continuation also admits an application-neutral
+first-order characterization before imposing the numerical values in
+\eqref{eq:zero-delta-witness}. For $3k<q_0<4k$ with an interior
+readiness response, the symmetric origin marginals satisfy
+\begin{align*}
+M_S&=\frac{3k-q_0}{4k}<0,
+&
+E_0&=\frac34\left(1-\frac{q_0}{4k}\right)>0,
+&
+R_0&=-\frac{q_0}{16k}<0,\\
+\lambda_0&=\frac{4k-q_0}{32Hk}>0,
+&
+M_L&=\frac{H(3k-q_0)+b(4k-q_0)}{16Hk}.
+\end{align*}
+Thus the \emph{local marginal} sign conflict $M_S<0<M_L$
+holds precisely when
+\begin{equation}
+3k<q_0<4k,\qquad
+b>\frac{H(q_0-3k)}{4k-q_0}.
+\label{eq:zero-delta-primitive-band}
+\end{equation}
+The band identifies the cost-adjusted reliability wedge and the
+plant-attraction incentive without relying on a numerical root.
+It is a direct algebraic specialization of Proposition~
+\ref{prop:attraction-threshold}, not a separate new fiscal-competition
+theorem. The sign inequalities alone do not prove global planner
+optimality or global government best responses: Proposition~
+\ref{prop:zero-delta} provides those additional whole-domain checks
+at its stated rational witness.
+\end{remark}
+
 \subsection{Positive coordinated provision with decentralized overinvestment}
 \label{sec:positive-planner-extension}
 

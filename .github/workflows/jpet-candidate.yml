@@ -16,6 +16,8 @@ jobs:
           python-version: '3.13'
       - run: python -m pip install -r requirements.txt
       - run: sudo apt-get update && sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra poppler-utils
+      - name: Independently certify positive-planner benchmark
+        run: python submission/JPET/review_cycles/positive_optimum_exact.py
       - name: Generate existing exact marginal objects
         run: python scripts/generate_objects.py
       - name: Build separate JPET overlay (not the frozen ERE manuscript)

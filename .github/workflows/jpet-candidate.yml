@@ -18,6 +18,8 @@ jobs:
       - run: sudo apt-get update && sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra poppler-utils
       - name: Independently certify positive-planner benchmark
         run: python submission/JPET/review_cycles/positive_optimum_exact.py
+      - name: Independently certify restricted policy games
+        run: python submission/JPET/review_cycles/restricted_games_exact.py
       - name: Generate existing exact marginal objects
         run: python scripts/generate_objects.py
       - name: Build separate JPET overlay (not the frozen ERE manuscript)

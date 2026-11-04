@@ -43,7 +43,8 @@ Suppose the following strict conditions hold:
 &3k<q_0<4k,\quad 0<\bar a<q_0,\quad U_->0,\quad
 (4k-q_0+\bar a)\bar a<16kH,
 \label{eq:analytic-band-a}\\
-&\mu_0>D\bar a^2/2,
+&\mu_0>\bar a\max\left\{0,\frac1{16k}-2U_-\right\}
++\frac{D\bar a^2}{2},
 \label{eq:analytic-band-b}\\
 &c>\max\left\{
 \frac{1}{8k}+4U_++2D\bar a+\frac{D_2\bar a^2}{2},
@@ -105,8 +106,11 @@ everywhere on the policy square, hence strict concavity.
 At any $(0,y)$ the remaining marginal satisfies
 \[
 W_x(0,y)
-=-\mu_0-\tfrac12U'(q_0-y/2)y^2-2U(q_0-y/2)y
-\le-\mu_0+D\bar a^2/2<0.
+=-\mu_0+\frac{y}{16k}
+-\tfrac12U'(q_0-y/2)y^2-2U(q_0-y/2)y
+\le-\mu_0+
+\bar a\max\left\{0,\frac1{16k}-2U_-\right\}
++\frac{D\bar a^2}{2}<0.
 \]
 Because $W_{xx}<0$, $W_x(x,y)<0$ for $x>0$; the
 symmetric argument applies to $W_y$. Thus $(0,0)$ is the
@@ -135,7 +139,8 @@ U_-=25/128,\quad U_+=325/512,\quad
 D=1875/128,\quad D_2=15625/64.
 \]
 The sufficient cost bounds are $925/128$ and $3625/512$,
-both below $c=10$. Also $\mu_0=3/32>3/64=D\bar a^2/2$,
+both below $c=10$. Also $\mu_0=3/32>5/64=
+\bar a\max\{0,1/(16k)-2U_-\}+D\bar a^2/2$,
 the location-interiority bound is $1/160<H=1/100$,
 and $m/s=1/126$. All inequalities are strict.
 \end{proof}

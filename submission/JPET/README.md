@@ -12,6 +12,8 @@
 - More bounded public-economics conclusion: `sections/10_conclusion.tex`.
 - Journal-specific editorial cover letter and preflight checklist.
 
+**Current PR #41, Round 2 (2026-11-05):** Three simulated reviewer lenses now conditionally favor Major R&R on the basis of a new global primitive region, a positive-gamma open-neighborhood result, and an exact new response-interaction comparative static: the slope of the overprovision gap with respect to a common direct protection benefit is +16/189 when private readiness and location are endogenous, 0 when readiness is fixed, and -16/1593 when location is fixed. These are fully re-solved policy games, not independent publication claims. The published Bayindir-Upmann full theorem comparison remains unfinished. All Round 0 and Round 1 adverse verdicts are archived and remain unaltered.
+
 **Current PR #41 amendment:** The original ERE v4 model, theorem, proofs, certificates and source code remain unchanged. On this separate JPET revision branch, an **additional scientific result** has been inserted in `submission/JPET/sections/06_benchmarks.tex`: a gamma=0 augmented-welfare positive-planner-optimum benchmark with exact, globally certified overprovision. The independent SymPy script is `submission/JPET/review_cycles/positive_optimum_exact.py`. This scientific addition is **not approved by the author** and is NOT part of the historical ERE freeze. The main differentiated-product theorem is unchanged, and this addition does not prove the same positive-optimum result for gamma>0. Retain the submission HOLD until scientific review, revised proof-package creation, and author approval.
 
 ## Compile

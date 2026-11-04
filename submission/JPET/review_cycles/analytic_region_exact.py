@@ -56,7 +56,13 @@ assert (costP,costN)==(Q(925,128),Q(3625,512))
 assert z[c]>costP and z[c]>costN and umin>0
 assert 3*z[k]<z[q0]<4*z[k] and 0<z[L]<z[q0]
 assert (4*z[k]-qlo)*z[L]<16*z[k]*z[H]
-assert mu0.subs(z)==Q(3,32)>D*z[L]**2/2
+boundary=sp.factor(sp.diff(W,x).subs(x,0))
+expected=(-mu0+y/(16*k)-sp.diff(U(q),q0).subs(x,0)*y*y/2-2*U(q.subs(x,0))*y)
+assert same(boundary,expected)  # catches the omitted +y/(16k) term
+new_planner_bound=z[L]*max(Q(0),1/(16*z[k])-2*umin)+D*z[L]**2/2
+assert new_planner_bound==Q(5,64)
+assert mu0.subs(z)==Q(3,32)>new_planner_bound
+assert sp.factor(boundary.subs(z).subs(y,z[L]))==-Q(7,128)
 assert m.subs(z)>0 and z[b]>z[H]
 assert 0<(m/ss).subs(z)==Q(1,126)<z[L]
 assert (ap.subs(z).subs(mu,Q(1,10)),an.subs(z).subs(mu,Q(1,10)))==(Q(1,1350),Q(89,3150))

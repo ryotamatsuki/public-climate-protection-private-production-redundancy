@@ -347,3 +347,156 @@ benefit increase widens the gap, and Proposition~
 \ref{prop:positive-gamma-extension} establishes
 persistence of this positive-gap result for a
 nonempty set of differentiated-product economies.
+
+
+\subsection{Robustness to regional incidence and availability-dependent hosting}
+\label{sec:incidence-robustness}
+
+The baseline divides industrial market surplus equally between
+jurisdictions and values hosting an established primary plant
+irrespective of disaster-state production. Both assumptions can
+be relaxed locally without changing private production decisions.
+Let
+\begin{equation}
+\theta_A(p)=\frac12+\eta\left(p-\frac12\right),
+\qquad \theta_B(p)=1-\theta_A(p),
+\label{eq:endogenous-incidence}
+\end{equation}
+where $|\eta|<1$ ensures both shares are nonnegative whenever
+$p\in[0,1]$. Positive $\eta$ reallocates more industrial surplus
+to the jurisdiction attracting primary facilities. Separately,
+let $\rho\in[0,1]$ denote the fraction of the location-attached
+benefit that requires continued production availability.
+
+Denote by $r_1^{XY}$ firm 1's unique backup choice when its
+primary plant is in $X$ and its rival's plant is in $Y$.
+Define the expected operating probabilities conditional on the
+firm's primary location:
+\begin{align}
+v_A&=p\{1-q_A(1-r_1^{AA})\}
+ +(1-p)\{1-q_A(1-r_1^{AB})\},\\
+v_B&=p\{1-q_B(1-r_1^{BA})\}
+ +(1-p)\{1-q_B(1-r_1^{BB})\}.
+\label{eq:availability-conditional}
+\end{align}
+These formulas use the original joint-failure and conditional
+backup-success law. They do not introduce new private actions.
+The local objectives become
+\begin{align}
+G_A^{\eta,\rho}
+ &=\theta_A(p)\mathcal S
+   +2bp[(1-\rho)+\rho v_A]
+   -\frac{c}{2}a_A^2+\mu a_A,\\
+G_B^{\eta,\rho}
+ &=\theta_B(p)\mathcal S
+   +2b(1-p)[(1-\rho)+\rho v_B]
+   -\frac{c}{2}a_B^2+\mu a_B,
+\label{eq:perturbed-regional-payoffs}
+\end{align}
+and the coordinated planner continues to maximize their sum
+$W^{\rho}=G_A^{\eta,\rho}+G_B^{\eta,\rho}$.
+The planner's objective is independent of $\eta$ by construction
+but now values expected operating-related hosting benefits
+when $\rho>0$. The original model is exactly the case
+$(\eta,\rho)=(0,0)$.
+
+\begin{proposition}[Robustness to two economic incidence assumptions]
+\label{prop:incidence-robustness}
+Fix $(q_0,k,H,b,c,\bar a,\mu)
+=(3/10,2/25,1/100,11/200,10,2/25,1/10)$.
+There exists $\varepsilon>0$ such that for every
+\[
+0\le\gamma<\varepsilon,\quad
+|\eta|<\varepsilon,\quad
+0\le\rho<\varepsilon,\quad
+|\mu-1/10|<\varepsilon
+\]
+within the maintained feasible parameter domain, the
+perturbed game has unique interior firm-level backup and
+Bayesian location continuations at every public-policy profile.
+Its coordinated policy optimum is unique, symmetric, strictly
+positive, and interior. Its decentralized policy game has a
+strictly positive symmetric Nash equilibrium at which each
+jurisdiction's first-stage policy choice is a \emph{global}
+best response; that Nash provision strictly exceeds the
+coordinated level. Moreover, the overprovision gap continues
+to increase strictly with the common direct protection benefit
+$\mu$ throughout this neighborhood.
+
+At the separable-product reference point
+$(\gamma,\rho,\eta)=(0,0,0)$, the effect of strengthening
+the location-dependence of regional industrial surplus incidence
+is strictly positive:
+\begin{equation}
+\left.
+\frac{\partial a^N}{\partial\eta}
+\right|_{\mu=1/10,\,\gamma=\rho=\eta=0}
+=\frac{t(q^N)h(q^N)}{H s}
+=\frac{19956004}{78764805}>0,
+\qquad q^N=q_0-\frac{89}{3150}.
+\label{eq:incidence-response}
+\end{equation}
+This is an equilibrium comparative static, not just an
+on-path marginal effect.
+\end{proposition}
+
+\begin{proof}
+At $(\gamma,\eta,\rho,\mu)=(0,0,0,1/10)$,
+Propositions~\ref{prop:positive-optimum-benchmark},
+\ref{prop:global-primitive-band}, and
+\ref{prop:positive-gamma-extension} give uniform strict
+continuation-interiority margins on the compact policy square,
+a strictly negative-definite Hessian for the coordinated
+planner, strict local own-policy concavity, two nondegenerate
+strictly positive symmetric policy roots, a strict
+decentralized--coordinated ranking, and a strictly positive
+derivative of the policy-level gap with respect to $\mu$.
+
+The location-conditional availability functions in
+\eqref{eq:availability-conditional} are finite weighted sums
+of the original profile-specific readiness functions and the
+Bayesian cutoff probability. All are smooth in public
+policies and $\gamma$ in a neighborhood of the compact
+policy square by the nonsingular private backup system and
+uniformly interior location cutoffs. The new shares and
+hosting payoffs are polynomial in $\eta,\rho$ and smooth
+in the same private continuations. Thus the modified local
+payoffs and their sum are jointly $C^2$ in public policies
+and parameters, with continuous higher derivatives needed
+for the policy-level comparative static. Uniform strict
+Hessian and interior margins therefore persist for
+sufficiently small perturbations. The implicit function
+theorem continues the positive symmetric planner and Nash
+policy levels smoothly in $(\gamma,\eta,\rho,\mu)$.
+Strict global planner concavity and strict local own-policy
+concavity establish full-policy optimality, while
+continuous dependence preserves the positive gap and its
+strictly positive $\mu$ derivative.
+
+For the final formula, set $\gamma=\rho=0$. On the
+symmetric path,
+\[
+\frac{\partial G_A^{\eta,0}}{\partial a_A}(a,a)
+=m+\mu-sa+\frac{\eta}{H}\,
+ t(q_0-a)\,h(q_0-a),
+\]
+where $m,s$ are defined by \eqref{eq:analytic-parameters}.
+At $\eta=0$, the equilibrium root is
+$a^N=(\mu+m)/s$, and its derivative with
+respect to the same common policy level is $-s<0$.
+Implicit differentiation gives
+$\partial_\eta a^N=t(q^N)h(q^N)/(Hs)$.
+Substitution of the rational witness yields
+\eqref{eq:incidence-response}. The coordinated planner's
+policy is independent of $\eta$, since its two regional
+surplus shares always sum to one.
+\end{proof}
+
+The robustness claim remains local: it does not deliver
+a global characterization for large reallocations of
+industrial surplus or fully availability-contingent hosting.
+It does establish that neither an exactly fixed half-share
+incidence rule nor fully state-independent hosting is
+necessary for the positive-optimum policy ranking or
+benefit-gap comparative static in an open region of
+differentiated-product economies.

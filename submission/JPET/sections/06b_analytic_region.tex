@@ -229,3 +229,116 @@ is novel. Rather, the joint private-continuation game admits
 a globally verified policy-ranking conflict and a
 nontrivial benefit-dependent comparative static in a
 primitive region that persists under interacting oligopolists.
+
+
+\subsection{Which private response drives the benefit-gap comparative static?}
+
+The positive derivative in
+\eqref{eq:analytic-gap-slope} need not follow from
+interjurisdictional competition alone. The two restricted
+games in Proposition~\ref{prop:restricted-game-comparisons}
+make it possible to separate the roles of backup and
+primary-location responses while increasing the same
+directly valued local benefit in both governments and the planner.
+
+\begin{proposition}[A response-interaction test for the overprovision gap]
+\label{prop:benefit-gap-response-interaction}
+Hold the separable-product benchmark primitives at
+\eqref{eq:zero-delta-witness}, and let
+$3/32<\mu<1/8$. For each of the following
+three games, augment every jurisdiction's payoff by
+$\mu a_j$ and the planner's objective by
+$\mu(a_A+a_B)$, holding the relevant restricted
+private continuation fixed under all first-stage deviations.
+
+\begin{enumerate}[label=(\roman*)]
+\item With both private backup readiness and primary-location
+choice endogenous, the unique positive global coordinated
+optimum and a positive symmetric globally incentive-compatible
+local Nash equilibrium satisfy
+\[
+a^P=\frac{32\mu-3}{270},\qquad
+a^N=\frac{128\mu+5}{630},\qquad
+\frac{d(a^N-a^P)}{d\mu}=\frac{16}{189}>0.
+\]
+\item If readiness is held at the zero-protection
+private level $r^*=15/16$ throughout the policy game,
+while primary locations are re-solved, then
+\[
+a^{P,F}=\frac{\mu+3/128}{10},\qquad
+a^{N,F}=\frac{\mu+25/256}{10},\qquad
+\frac{d(a^{N,F}-a^{P,F})}{d\mu}=0.
+\]
+\item If the primary-location distribution is held at
+$p=1/2$ throughout the policy game while backup
+readiness is re-solved, then
+\[
+a^{P,L}=\frac{16}{135}\left(\mu-\frac3{32}\right),
+\quad
+a^{N,L}=\frac{32}{295}\left(\mu-\frac3{64}\right),
+\quad
+\frac{d(a^{N,L}-a^{P,L})}{d\mu}
+=-\frac{16}{1593}<0.
+\]
+\end{enumerate}
+
+All stated coordinated levels are unique global optima;
+all local Nash levels are strictly positive, interior,
+and globally optimal against unilateral deviations.
+Thus, in this exact benchmark, the positive response of
+the local overprovision gap to a common direct protection
+benefit requires the joint endogenous operation of
+readiness and location. This is a \emph{within-model
+counterfactual necessity result}, not a claim that both
+responses are necessary for overprovision in general.
+\end{proposition}
+
+\begin{proof}
+Part (i) follows from Proposition~
+\ref{prop:positive-optimum-benchmark} and the exact
+positive-gap derivative in
+\eqref{eq:analytic-gap-slope}, evaluated at the
+maintained rational parameters.
+
+For part (ii), the fixed-readiness continuation in
+Proposition~\ref{prop:restricted-game-comparisons}
+leaves each government's own-policy curvature equal
+to $-10$ along the symmetric policy path, identical
+to the planner's symmetric own-policy curvature.
+The new linear benefit simply adds $\mu$ to each
+first-order condition; thus the planner and local
+stationary roots both rise at rate $1/10$.
+The full-square planner Hessian remains strictly
+negative definite, and each government's own-policy
+second derivative is $-20405/2048<0$.
+The roots therefore remain globally optimal.
+
+For part (iii), the previously re-solved fixed-location
+game has the exact partial derivatives
+$W_{a_A}=-3/32-(135/16)a_A$ and
+$G_{A,a_A}=-3/64-(295/32)a_A$.
+Adding $\mu$ yields the roots displayed above.
+Each objective is strictly concave in the relevant
+policy coordinates over the entire policy square.
+On the specified open interval, all six stated
+policy levels are strictly between $0$ and
+$\bar a=2/25$. Exact subtraction gives
+$32/295-16/135=-16/1593$.
+The independent exact scripts
+\texttt{positive\_optimum\_exact.py} and
+\texttt{restricted\_games\_exact.py}
+regenerate the resulting comparisons.
+\end{proof}
+
+The contrasts sharpen the contribution of the
+benefit-gap result. A policy-directed direct benefit
+changes all three models in the same direction.
+When private redundancy is fixed, the planner and
+local choice move in parallel and the overprovision
+gap does not grow. When firms are geographically
+immobile, the gap shrinks as the direct benefit
+rises. With both channels present, the same
+benefit increase widens the gap, and Proposition~
+\ref{prop:positive-gamma-extension} establishes
+persistence of this positive-gap result for a
+nonempty set of differentiated-product economies.

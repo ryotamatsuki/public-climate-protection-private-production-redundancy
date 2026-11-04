@@ -48,6 +48,11 @@ jobs:
           grep -q 'Public Protection and Private Resilience' dist/JPET/JPET_manuscript.txt
           grep -q 'Bayindir-Upmann' dist/JPET/JPET_manuscript.txt
           grep -q 'Billon' dist/JPET/JPET_manuscript.txt
+      - name: Package independently rebuildable JPET source and record provenance
+        run: |
+          git archive --format=tar.gz --output=dist/JPET/JPET_source_bundle.tar.gz HEAD
+          git rev-parse HEAD > dist/JPET/build_commit.txt
+          sha256sum dist/JPET/JPET_manuscript.pdf dist/JPET/JPET_source_bundle.tar.gz > dist/JPET/SHA256SUMS.txt
       - uses: actions/upload-artifact@v4
         with:
           retention-days: 14
@@ -55,4 +60,7 @@ jobs:
           path: |
             dist/JPET/JPET_manuscript.pdf
             dist/JPET/JPET_manuscript.txt
+            dist/JPET/JPET_source_bundle.tar.gz
+            dist/JPET/build_commit.txt
+            dist/JPET/SHA256SUMS.txt
           if-no-files-found: error

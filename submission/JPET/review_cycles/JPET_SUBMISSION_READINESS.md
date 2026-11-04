@@ -1,3 +1,23 @@
+# Current JPET readiness — Round 2 revision (2026-11-05)
+
+Scientific R&R Readiness: **R&R-CALIBER (internal simulated Major R&R judgment)**. Three assigned reviewer roles judged the newly established response-interaction theorem plus primitive conditions and gamma>0 open region sufficiently important to justify Major R&R. This is neither JPET acceptance nor a genuine independent peer-review result.
+
+Technical submission readiness: **NOT READY**, even though the candidate PDF and scientific tests passed on commit 4d13ebdedae03ec38c6a58b25fa83e97002a92fa. The newer manuscript and exact counterfactual derivative test still need the latest CI result and final PDF inspection, and the combined reviewer proof archive has not been fully assembled.
+
+Outstanding non-negotiable obligations:
+- Full-text theorem comparison for Bayindir-Upmann (1998) if available; current search confirms model-level differences but not all original proofs.
+- Independent external/human or genuinely isolated model review of new science and original gamma>0 proof bridges.
+- Clear, explicit author approval of new scientific propositions (including limitations and AI provenance).
+- Integrated exact-code/Lean/references/figures/proofs ZIP with clean-room reproduction instructions.
+- Wiley/JPET portal metadata, declarations and final human submission approval.
+- No edit to original ERE source freeze, no silent main merge.
+
+The original historical ERE verify workflow intentionally fails on new JPET tracked files; the separate JPET candidate workflow verifies ERE original path bytes and runs scientific tests without weakening old attestations.
+
+---
+
+## Archived Round 1 submission readiness (historical)
+
 # JPET submission readiness and evidence gate — 2026-11-05
 
 ## Scientific

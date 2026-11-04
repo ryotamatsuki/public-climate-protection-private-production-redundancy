@@ -30,6 +30,8 @@ jobs:
         run: python submission/JPET/review_cycles/analytic_region_exact.py
       - name: Independently certify incidence and availability-dependent hosting robustness
         run: python submission/JPET/review_cycles/incidence_robustness_exact.py
+      - name: Independently certify Cournot competition effects on full-game policy choices
+        run: python submission/JPET/review_cycles/gamma_policy_derivative_exact.py
       - name: Generate existing exact marginal objects
         run: python scripts/generate_objects.py
       - name: Build separate JPET overlay (not the frozen ERE manuscript)

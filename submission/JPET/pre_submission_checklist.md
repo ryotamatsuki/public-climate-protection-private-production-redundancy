@@ -4,7 +4,10 @@
 
 - [x] JPET-specific title, introduction, related literature and conclusion added without changing original frozen ERE theorems or primitives.
 - [x] PR #41 separately proposes an author-unapproved augmented-welfare gamma=0 Proposition 4 with exact bivariate-Bernstein checks.
-- [ ] Ensure the newly added Proposition 4 is scientifically approved, and its standalone script is included in the reviewer reproduction package.
+- [ ] Ensure all new Round 1–2 scientific propositions are personally reviewed and approved, and all three independent exact scripts plus original certificates are in the JPET reviewer reproduction package.
+- [x] Propositions on strict primitive conditions, positive-gamma persistence, and exact response-interaction sign reversal are written and independently checked algebraically.
+- [x] Independent Round 2 simulated review supports Major R&R, with source-access and scientific-accountability limitations explicit.
+- [ ] Verify final 42+ page PDF from the latest JPET workflow after the last scientific edit.
 - [x] New closest public-input citations included: Bayindir-Upmann (1998); Billon (2023); Morita and Okoshi (2025).
 - [x] No novel-general-overprovision or novel-general-substitution claim.
 - [x] Explicit industrial-component welfare and constrained-planner boundaries preserved.

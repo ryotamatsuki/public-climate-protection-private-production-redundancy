@@ -1,3 +1,22 @@
+# Current final simulated-lens review — Round 2 (2026-11-05)
+
+**Status: Scientific R&R-CALIBER — internal Major R&R recommendation.** This replaces the Round-1 BORDERLINE verdict *only for the revised manuscript*. It is NOT a real JPET decision, and the three functionally separated referees were assessed within one AI session rather than by three separate human experts or genuinely independent model sessions.
+
+The original Round 0 and Round 1 reviews and their negative conclusions remain preserved below as chronological history. The new scientific change is substantial: a strict primitive inequality region proving global policy results; globally solved counterfactuals with the **derivative of the overprovision gap** equal to +16/189 (both readiness and location endogenous), 0 (readiness fixed) and −16/1593 (location fixed); and a compactness/implicit-function argument establishing positive-optimum overprovision and a positive benefit-gap response for an open set of genuinely positive oligopoly product substitutability. The result is a precise comparative-static interaction, not a rebranding of generic public-input overprovision.
+
+All three simulated referee roles now support **Major R&R**, with conditions. Referee 1 specifically changed recommendation because the new joint-response slope prediction is distinct from parent abstracts and not logically entailed by a plain “public investment can overprovide” claim. Its relative novelty remains vulnerable to the full-text Bayindir-Upmann theorem comparison; no proof of complete nonabsorption is claimed.
+
+The independent exact scripts and a prior scientific-complete JPET workflow run at commit 4d13ebdedae03ec38c6a58b25fa83e97002a92fa (run 41925816466) passed. The just-added third exact counterfactual slope test and final manuscript changes require the newest dedicated JPET run before technical readiness can be stated. Original ERE frozen code and certificates are unchanged, and the legacy tracked-file freeze failure is neither bypassed nor relabeled.
+
+**Scientific assessment:** R&R-CALIBER (simulated, conditional).
+**Technical submission:** NOT READY pending final CI, combined proof package, full publisher checks and author signoff.
+
+See ROUND_2_REFEREE_1.md, ROUND_2_REFEREE_2.md, ROUND_2_REFEREE_3.md and ROUND_2_EDITOR_DECISION.md for the detailed evidence, high-priority weaknesses, and veto conditions.
+
+---
+
+## Archived Round 1 review (superseded only as a current-state judgment)
+
 # Final simulated independent-lens re-review — 2026-11-05
 
 **Important:** Referee 1, 2, 3 were functional, adversarial perspectives within one model's session, not three genuinely independent human referees or three separately isolated model agents. Their agreement is not external validation.

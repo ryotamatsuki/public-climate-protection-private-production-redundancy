@@ -20,18 +20,18 @@ Direct differentiation gives
 The first cost bound implies strict negative diagonal dominance
 of the symmetric Hessian $\nabla^2 W=\nabla^2\mathcal S-cI$
 everywhere on the policy square, hence strict concavity.
-At any $(0,y)$ the remaining marginal satisfies
+At the zero-policy profile the gradient is
+$\nabla W(0,0)=(-\mu_0,-\mu_0)$, with $\mu_0>0$
+by $q_0>3k$. Strict concavity on the convex policy
+square gives, for every $(x,y)\ne(0,0)$ with
+$x,y\ge0$,
 \[
-W_x(0,y)
-=-\mu_0+\frac{y}{16k}
--\tfrac12U'(q_0-y/2)y^2-2U(q_0-y/2)y
-\le-\mu_0+
-\bar a\max\left\{0,\frac1{16k}-2U_-\right\}
-+\frac{D\bar a^2}{2}<0.
+W(x,y)< W(0,0)+\nabla W(0,0)\cdot(x,y)
+= W(0,0)-\mu_0(x+y)<W(0,0).
 \]
-Because $W_{xx}<0$, $W_x(x,y)<0$ for $x>0$; the
-symmetric argument applies to $W_y$. Thus $(0,0)$ is the
-unique global coordinated optimum.
+Therefore $(0,0)$ is the unique global coordinated
+optimum. This supporting-hyperplane proof needs no
+additional off-diagonal boundary-derivative condition.
 
 The second cost bound ensures $G_{A,xx}<0$ everywhere, because
 $\partial^2(2bp)/\partial x^2=b/(16Hk)$.
@@ -56,8 +56,7 @@ U_-=25/128,\quad U_+=325/512,\quad
 D=1875/128,\quad D_2=15625/64.
 \]
 The sufficient cost bounds are $925/128$ and $3625/512$,
-both below $c=10$. Also $\mu_0=3/32>5/64=
-\bar a\max\{0,1/(16k)-2U_-\}+D\bar a^2/2$,
+both below $c=10$. Moreover $\mu_0=3/32>0$ and
 the location-interiority bound is $1/160<H=1/100$,
 and $m/s=1/126$. All inequalities are strict.
 \end{proof}

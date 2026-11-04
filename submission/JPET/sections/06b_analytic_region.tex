@@ -85,65 +85,7 @@ This is a nonempty strict primitive region, containing the exact
 rational benchmark \eqref{eq:zero-delta-witness} at $\mu=1/10$.
 \end{proposition}
 
-\begin{proof}
-Equation~\eqref{eq:analytic-global} follows by substituting
-$r(q)=q/(4k)$ and the location profit difference
-$f(q_A)-f(q_B)=h(q)(x-y)$ into the policy objectives.
-The first strict inequalities imply interior, unique private
-continuations over the full policy square.
-Direct differentiation gives
-\begin{align*}
-\mathcal S_{xx}
-&=\frac1{16k}+2U+\frac{D_2d^2}{4}-2U'd,\\
-\mathcal S_{xy}
-&=\frac1{16k}-2U+\frac{D_2d^2}{4},\\
-\mathcal S_{yy}
-&=\frac1{16k}+2U+\frac{D_2d^2}{4}+2U'd.
-\end{align*}
-The first cost bound implies strict negative diagonal dominance
-of the symmetric Hessian $\nabla^2 W=\nabla^2\mathcal S-cI$
-everywhere on the policy square, hence strict concavity.
-At any $(0,y)$ the remaining marginal satisfies
-\[
-W_x(0,y)
-=-\mu_0+\frac{y}{16k}
--\tfrac12U'(q_0-y/2)y^2-2U(q_0-y/2)y
-\le-\mu_0+
-\bar a\max\left\{0,\frac1{16k}-2U_-\right\}
-+\frac{D\bar a^2}{2}<0.
-\]
-Because $W_{xx}<0$, $W_x(x,y)<0$ for $x>0$; the
-symmetric argument applies to $W_y$. Thus $(0,0)$ is the
-unique global coordinated optimum.
-
-The second cost bound ensures $G_{A,xx}<0$ everywhere, because
-$\partial^2(2bp)/\partial x^2=b/(16Hk)$.
-At $(x,y)=(a,a)$, direct differentiation yields
-$G_{A,x}=m-sa$. Condition~\eqref{eq:analytic-band-d}
-places $m/s$ in the interior; strict own-policy concavity proves
-it is a global best response, and symmetry gives Nash equilibrium.
-
-Adding $\mu(x+y)$ changes no Hessian or private continuation.
-At symmetry, the planner marginal becomes
-$W_x(a,a)+\mu=\mu-\mu_0-t_ca$ and the local marginal becomes
-$m+\mu-sa$. Their unique interior roots are
-\eqref{eq:analytic-policy-pair}, and the same strict global
-concavity establishes their global optimality.
-At $\mu=\mu_0$, the planner root is zero and the local root
-is positive. Moreover, $1/s-1/t_c$ equals the positive expression
-in \eqref{eq:analytic-gap-slope} when $b>H$.
-Thus the local optimum strictly exceeds the coordinated level
-throughout the stated interval. At the rational witness,
-\[
-U_-=25/128,\quad U_+=325/512,\quad
-D=1875/128,\quad D_2=15625/64.
-\]
-The sufficient cost bounds are $925/128$ and $3625/512$,
-both below $c=10$. Also $\mu_0=3/32>5/64=
-\bar a\max\{0,1/(16k)-2U_-\}+D\bar a^2/2$,
-the location-interiority bound is $1/160<H=1/100$,
-and $m/s=1/126$. All inequalities are strict.
-\end{proof}
+\noindent\emph{Proof.} See Appendix~\ref{app:jpet-additional-proof-1}.
 
 
 \subsection{An open region with positive product substitutability}
@@ -169,60 +111,7 @@ smaller open neighborhood of $(\gamma,\mu)=(0,1/10)$ with
 $\gamma>0$, the overprovision gap also increases with $\mu$.
 \end{proposition}
 
-\begin{proof}
-At $\gamma=0$, the full policy square has uniform strict
-interiority margins for both private readiness $r$ and the
-Bayesian location probability $p$. The analytic conditions in
-Proposition~\ref{prop:global-primitive-band} also give strict
-negative definiteness of the coordinated Hessian and strict
-own-policy concavity for local governments, uniformly across
-the compact policy square.
-
-The differentiated Cournot payoffs and the backup first-order
-system \eqref{eq:backup-linear-system} are smooth in $\gamma$ near
-zero. Their denominator is $k^2$ at $\gamma=0$, uniformly over
-all policy profiles and location configurations. Furthermore,
-the clipped backup best-response map is a contraction with
-modulus $\Delta(\gamma)J/k$, which vanishes at $\gamma=0$.
-Uniform continuity on the compact policy square therefore
-ensures a unique, strictly interior, smooth private-readiness
-continuation for every sufficiently small $\gamma>0$.
-
-At $\gamma=0$, the location best-response cutoffs $u_0$
-and $u_1$ in \eqref{eq:location-endpoints} coincide and
-are uniformly inside $(0,1)$ for every policy profile.
-Smoothness of the full profile-specific continuation
-profits implies that both cutoffs remain interior for
-sufficiently small $\gamma>0$, uniformly in first-stage policies.
-Because $|u_1-u_0|<1$, the location best response remains a
-contraction on $[0,1]$, including when asymmetric location
-probabilities are allowed. The unique interior Bayesian
-location continuation \eqref{eq:location-prob} is therefore
-smooth in policies and $\gamma$.
-
-The resulting $\mathcal S$, $W$, and $G_j$ are $C^2$ in the
-policies and $\gamma$ near the whole compact policy square.
-By continuity of Hessians and strict compact-domain margins,
-the globally negative-definite planner Hessian and strictly
-negative government own-policy curvature persist for all
-sufficiently small positive $\gamma$.
-
-At $\gamma=0,\mu=1/10$, the augmented planner's symmetric
-stationary point and the symmetric government best-response
-stationary point are distinct, strictly positive, and interior.
-Both derivatives defining these points have strictly negative
-slopes, so the implicit function theorem continues the
-two stationary levels smoothly to $\gamma>0$.
-Strict global concavity makes the planner point the unique
-global optimum and the government point a global unilateral
-best response; symmetry establishes Nash equilibrium.
-The strict gap $a^N(0)>a^P(0)$ survives by continuity.
-
-Finally, the strict comparative static in
-\eqref{eq:analytic-gap-slope} holds at $(0,1/10)$.
-Smooth parameter dependence preserves its sign on a
-sufficiently small open neighborhood, including $\gamma>0$.
-\end{proof}
+\noindent\emph{Proof.} See Appendix~\ref{app:jpet-additional-proof-2}.
 
 The proposition is a genuine differentiated-product result,
 but is deliberately local to a nonempty positive-$\gamma$
@@ -298,42 +187,7 @@ counterfactual necessity result}, not a claim that both
 responses are necessary for overprovision in general.
 \end{proposition}
 
-\begin{proof}
-Part (i) follows from Proposition~
-\ref{prop:positive-optimum-benchmark} and the exact
-positive-gap derivative in
-\eqref{eq:analytic-gap-slope}, evaluated at the
-maintained rational parameters.
-
-For part (ii), the fixed-readiness continuation in
-Proposition~\ref{prop:restricted-game-comparisons}
-leaves each government's own-policy curvature equal
-to $-10$ along the symmetric policy path, identical
-to the planner's symmetric own-policy curvature.
-The new linear benefit simply adds $\mu$ to each
-first-order condition; thus the planner and local
-stationary roots both rise at rate $1/10$.
-The full-square planner Hessian remains strictly
-negative definite, and each government's own-policy
-second derivative is $-20405/2048<0$.
-The roots therefore remain globally optimal.
-
-For part (iii), the previously re-solved fixed-location
-game has the exact partial derivatives
-$W_{a_A}=-3/32-(135/16)a_A$ and
-$G_{A,a_A}=-3/64-(295/32)a_A$.
-Adding $\mu$ yields the roots displayed above.
-Each objective is strictly concave in the relevant
-policy coordinates over the entire policy square.
-On the specified open interval, all six stated
-policy levels are strictly between $0$ and
-$\bar a=2/25$. Exact subtraction gives
-$32/295-16/135=-16/1593$.
-The independent exact scripts
-\texttt{positive\_optimum\_exact.py} and
-\texttt{restricted\_games\_exact.py}
-regenerate the resulting comparisons.
-\end{proof}
+\noindent\emph{Proof.} See Appendix~\ref{app:jpet-additional-proof-3}.
 
 The contrasts sharpen the contribution of the
 benefit-gap result. A policy-directed direct benefit
@@ -441,57 +295,7 @@ This is an equilibrium comparative static, not just an
 on-path marginal effect.
 \end{proposition}
 
-\begin{proof}
-At $(\gamma,\eta,\rho,\mu)=(0,0,0,1/10)$,
-Propositions~\ref{prop:positive-optimum-benchmark},
-\ref{prop:global-primitive-band}, and
-\ref{prop:positive-gamma-extension} give uniform strict
-continuation-interiority margins on the compact policy square,
-a strictly negative-definite Hessian for the coordinated
-planner, strict local own-policy concavity, two nondegenerate
-strictly positive symmetric policy roots, a strict
-decentralized--coordinated ranking, and a strictly positive
-derivative of the policy-level gap with respect to $\mu$.
-
-The location-conditional availability functions in
-\eqref{eq:availability-conditional} are finite weighted sums
-of the original profile-specific readiness functions and the
-Bayesian cutoff probability. All are smooth in public
-policies and $\gamma$ in a neighborhood of the compact
-policy square by the nonsingular private backup system and
-uniformly interior location cutoffs. The new shares and
-hosting payoffs are polynomial in $\eta,\rho$ and smooth
-in the same private continuations. Thus the modified local
-payoffs and their sum are jointly $C^2$ in public policies
-and parameters, with continuous higher derivatives needed
-for the policy-level comparative static. Uniform strict
-Hessian and interior margins therefore persist for
-sufficiently small perturbations. The implicit function
-theorem continues the positive symmetric planner and Nash
-policy levels smoothly in $(\gamma,\eta,\rho,\mu)$.
-Strict global planner concavity and strict local own-policy
-concavity establish full-policy optimality, while
-continuous dependence preserves the positive gap and its
-strictly positive $\mu$ derivative.
-
-For the final formula, set $\gamma=\rho=0$. On the
-symmetric path,
-\[
-\frac{\partial G_A^{\eta,0}}{\partial a_A}(a,a)
-=m+\mu-sa+\frac{\eta}{H}\,
- t(q_0-a)\,h(q_0-a),
-\]
-where $m,s$ are defined by \eqref{eq:analytic-parameters}.
-At $\eta=0$, the equilibrium root is
-$a^N=(\mu+m)/s$, and its derivative with
-respect to the same common policy level is $-s<0$.
-Implicit differentiation gives
-$\partial_\eta a^N=t(q^N)h(q^N)/(Hs)$.
-Substitution of the rational witness yields
-\eqref{eq:incidence-response}. The coordinated planner's
-policy is independent of $\eta$, since its two regional
-surplus shares always sum to one.
-\end{proof}
+\noindent\emph{Proof.} See Appendix~\ref{app:jpet-additional-proof-4}.
 
 The robustness claim remains local: it does not deliver
 a global characterization for large reallocations of

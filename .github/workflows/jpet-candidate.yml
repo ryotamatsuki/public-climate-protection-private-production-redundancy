@@ -1,0 +1,44 @@
+name: JPET editorial manuscript PDF
+on:
+  pull_request:
+    paths:
+      - 'submission/JPET/**'
+      - '.github/workflows/jpet-candidate.yml'
+  workflow_dispatch:
+
+jobs:
+  build-jpet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python -m pip install -r requirements.txt
+      - run: sudo apt-get update && sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra poppler-utils
+      - name: Generate existing exact marginal objects
+        run: python scripts/generate_objects.py
+      - name: Build separate JPET overlay (not the frozen ERE manuscript)
+        run: |
+          mkdir -p dist/JPET
+          cd paper
+          for pass in 1 2 3; do
+            pdflatex -no-shell-escape -interaction=nonstopmode -halt-on-error \
+              -jobname=JPET_manuscript -output-directory=../dist/JPET \
+              ../submission/JPET/main.tex
+          done
+      - name: Basic PDF sanity check
+        run: |
+          test -s dist/JPET/JPET_manuscript.pdf
+          pdftotext dist/JPET/JPET_manuscript.pdf dist/JPET/JPET_manuscript.txt
+          grep -q 'Public Protection and Private Resilience' dist/JPET/JPET_manuscript.txt
+          grep -q 'Bayindir-Upmann' dist/JPET/JPET_manuscript.txt
+          grep -q 'Billon' dist/JPET/JPET_manuscript.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          retention-days: 14
+          name: JPET-editorial-candidate
+          path: |
+            dist/JPET/JPET_manuscript.pdf
+            dist/JPET/JPET_manuscript.txt
+          if-no-files-found: error

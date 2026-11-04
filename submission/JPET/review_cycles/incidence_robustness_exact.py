@@ -19,8 +19,10 @@ t = lambda q: 3*(1-q)/8+q*q/(16*k)
 h = lambda q: (4*k-q)/(16*k)
 p = Q(1,2)+(f(qA)-f(qB))/(2*H)
 Smarket = 2*(p*t(qA)+(1-p)*t(qB))
-vA = 1-qA*(1-r(qA))
-vB = 1-qB*(1-r(qB))
+# Hosting is linked to whether the original primary plant operates,
+# not whether remote backup keeps the firm available elsewhere.
+vA = 1-qA
+vB = 1-qB
 thetaA = Q(1,2)+eta*(p-Q(1,2))
 GA = S.expand(thetaA*Smarket+2*b*p*(1-rho+rho*vA)-c*x*x/2+mu*x)
 GB = S.expand((1-thetaA)*Smarket+2*b*(1-p)*(1-rho+rho*vB)-c*y*y/2+mu*y)
@@ -66,9 +68,9 @@ Gxx = GA.diff(x,2)
 bounds_W = bernstein_range(Wxx,parameters)
 bounds_det = bernstein_range(Wxx*Wyy-Wxy**2,parameters)
 bounds_local = bernstein_range(Gxx,parameters)
-assert bounds_W == (-Q(99411,10240), -Q(376967,51200))
-assert bounds_det == (Q(5156977153,81920000),Q(104270209523,1310720000))
-assert bounds_local == (-Q(8448257,1638400),-Q(6831527,1638400))
+assert bounds_W == (-Q(62103,6400), -Q(47059,6400))
+assert bounds_det == (Q(32157,512),Q(1628262121,20480000))
+assert bounds_local == (-Q(1691781,327680),-Q(6830383,1638400))
 assert bounds_W[1]<0 and bounds_det[0]>0 and bounds_local[1]<0
 Fpl=S.diff(W,x).subs(y,x).subs(parameters)
 Floc=S.diff(GA,x).subs(y,x).subs(parameters)

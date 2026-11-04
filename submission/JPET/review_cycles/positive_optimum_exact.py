@@ -53,6 +53,20 @@ r_lo=(Q(3,10)-L)/(4*Q(2,25));r_hi=Q(3,10)/(4*Q(2,25))
 assert (r_lo,r_hi)==(Q(11,16),Q(15,16))
 assert p.subs(parameters).subs({a:0,d:L})==Q(5,16)
 assert p.subs(parameters).subs({a:L,d:0})==Q(11,16)
+# Explicit primitive band in the no-incremental-rent case.
+qbar, kk, hh, bb = S.symbols('qbar kk hh bb', positive=True)
+MS=(3*kk-qbar)/(4*kk)
+engineering=S.Rational(3,4)*(1-qbar/(4*kk))
+response=-qbar/(16*kk)
+location=(4*kk-qbar)/(32*hh*kk)
+ML=S.cancel(MS/4+2*bb*location)
+same(MS, engineering+response)
+same(ML,(hh*(3*kk-qbar)+bb*(4*kk-qbar))/(16*hh*kk))
+witness_band={qbar:Q(3,10),kk:Q(2,25),hh:Q(1,100),bb:Q(11,200)}
+assert 3*Q(2,25)<Q(3,10)<4*Q(2,25)
+assert MS.subs(witness_band)<0<ML.subs(witness_band)
+assert engineering.subs(witness_band)>0 and response.subs(witness_band)<0
+
 # A positive social optimum with overprovision persists even when hosting
 # is zero: this augmented case is a robustness result, not a novelty theorem.
 no_host=local_A.subs(b,0).subs({q0:Q(3,10),k:Q(2,25),H:Q(1,100),c:10})

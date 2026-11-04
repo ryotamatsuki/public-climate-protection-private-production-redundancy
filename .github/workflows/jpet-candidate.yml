@@ -16,6 +16,12 @@ jobs:
           python-version: '3.13'
       - run: python -m pip install -r requirements.txt
       - run: sudo apt-get update && sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra poppler-utils
+      - name: Verify ERE scientific source and locked proofs remain identical to the archival baseline
+        run: |
+          git fetch --no-tags origin 02c415625a74fdd7f394b6a33ab73e3925d53edf
+          git diff --exit-code 02c415625a74fdd7f394b6a33ab73e3925d53edf HEAD -- paper references formal scripts tests tables submission/ERE_STAGE15_V4_SCIENTIFIC_OBJECT.lock docs/THEORY_FREEZE.md
+      - name: Re-run original symbolic, global, independent-exact, numerical and regression tests
+        run: make symbolic normalization policy global numerical portability benchmarks independent-audit test marginal-exhibits
       - name: Independently certify positive-planner benchmark
         run: python submission/JPET/review_cycles/positive_optimum_exact.py
       - name: Independently certify restricted policy games

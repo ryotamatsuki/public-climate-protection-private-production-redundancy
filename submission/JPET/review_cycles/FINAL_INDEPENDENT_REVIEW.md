@@ -1,3 +1,23 @@
+# Latest simulated scientific assessment — Round 4 (2026-11-05)
+
+**INTERNAL ACCEPT-CALIBER, CONDITIONAL.** The project has completed multiple rounds of adversarial self-review beyond its initial simulated Major R&R. See `ROUND_4_FINAL_CLEARANCE.md` for separately argued literature, mathematics and economic-interpretation referee lenses and the editor recommendation. These roles were not human or genuinely separate independent models. No actual JPET decision exists.
+
+The earlier Round 2 R&R-CALIBER finding was materially challenged by an actual omitted boundary-derivative term; this is documented in `ROUND_3_MATHEMATICAL_CORRECTION.md` and the contemporaneous rejection `ROUND_3_EDITOR_DECISION.md`. The flaw was repaired using a strictly concave supporting-hyperplane proof **without adding an unnatural parameter restriction**. A second exact rational witness shows that the discarded condition was unnecessary. Full newly added proofs are presented in `../appendix/additional_proofs.tex`.
+
+The literature novelty claim is narrower and supported by newly solved policy-level sign comparisons, a strict primitive region, small positive gamma persistence, an exact product-substitution derivative that *raises the overinvestment gap*, and local robustness to location-linked regional surplus incidence and local-primary-plant-dependent hosting. Generic fiscal overinvestment is explicitly conceded as prior art.
+
+**Scientific interpretation:** A simulated referee could conditionally recommend accepting the revised manuscript after minor refinements. The older Round 0 (BELOW R&R), Round 1 (BORDERLINE), Round 2 (R&R-CALIBER), and Round 3 (NOT CLEARED) records are preserved and not fabricated away.
+
+**Residual hard uncertainty:** The closest Bayindir-Upmann (1998) published theorem text remains inaccessible. No independent human proof review or institutional microfoundation has been completed. No actual journal acceptance is claimed; these residual issues can still change the assessment.
+
+**Reproducibility:** The dedicated JPET workflow for Round 4 successfully completed the original science source-identity gate, original mathematical tests, five new independent exact Python scripts, and 48-page PDF construction. An independently extracted source archive from the exact GitHub PR build was used to rerun all five new scripts and rebuild a 48-page PDF with pagewise identical extracted text; SHA-256 sums matched after stripping a nonportable path prefix, which the workflow was then fixed to avoid. Final corrected-manifest CI is still required for an unconditional technical-PASS.
+
+**Submission:** NOT AUTHORIZED; requires explicit human author approval and final portal review.
+
+---
+
+## Prior historical simulated evaluations, preserved verbatim below
+
 # Current final simulated-lens review — Round 2 (2026-11-05)
 
 **Status: Scientific R&R-CALIBER — internal Major R&R recommendation.** This replaces the Round-1 BORDERLINE verdict *only for the revised manuscript*. It is NOT a real JPET decision, and the three functionally separated referees were assessed within one AI session rather than by three separate human experts or genuinely independent model sessions.

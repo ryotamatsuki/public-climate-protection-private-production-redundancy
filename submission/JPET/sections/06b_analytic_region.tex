@@ -139,3 +139,93 @@ both below $c=10$. Also $\mu_0=3/32>3/64=D\bar a^2/2$,
 the location-interiority bound is $1/160<H=1/100$,
 and $m/s=1/126$. All inequalities are strict.
 \end{proof}
+
+
+\subsection{An open region with positive product substitutability}
+
+\begin{proposition}[Positive optimal protection and overprovision at $\gamma>0$]
+\label{prop:positive-gamma-extension}
+Fix the rational primitives of \eqref{eq:zero-delta-witness} and
+let $\mu=1/10$. There exists $\epsilon>0$ such that for every
+$\gamma\in(0,\epsilon)$, with product substitutability strictly
+positive, the complete game admits unique interior private backup
+and Bayesian location continuations for all first-stage policy
+profiles. The augmented coordinated protection-policy planner has a
+strictly positive, symmetric \emph{unique global optimum}
+$a^P(\gamma)$. The decentralized game has a strictly positive
+symmetric Nash equilibrium $a^N(\gamma)$, with globally optimal
+unilateral responses, satisfying
+\begin{equation}
+0<a^P(\gamma)<a^N(\gamma)<\bar a.
+\label{eq:positive-gamma-ranking}
+\end{equation}
+Both levels depend smoothly on $\gamma$ locally. On a possibly
+smaller open neighborhood of $(\gamma,\mu)=(0,1/10)$ with
+$\gamma>0$, the overprovision gap also increases with $\mu$.
+\end{proposition}
+
+\begin{proof}
+At $\gamma=0$, the full policy square has uniform strict
+interiority margins for both private readiness $r$ and the
+Bayesian location probability $p$. The analytic conditions in
+Proposition~\ref{prop:global-primitive-band} also give strict
+negative definiteness of the coordinated Hessian and strict
+own-policy concavity for local governments, uniformly across
+the compact policy square.
+
+The differentiated Cournot payoffs and the backup first-order
+system \eqref{eq:backup-linear-system} are smooth in $\gamma$ near
+zero. Their denominator is $k^2$ at $\gamma=0$, uniformly over
+all policy profiles and location configurations. Furthermore,
+the clipped backup best-response map is a contraction with
+modulus $\Delta(\gamma)J/k$, which vanishes at $\gamma=0$.
+Uniform continuity on the compact policy square therefore
+ensures a unique, strictly interior, smooth private-readiness
+continuation for every sufficiently small $\gamma>0$.
+
+At $\gamma=0$, the location best-response cutoffs $u_0$
+and $u_1$ in \eqref{eq:location-endpoints} coincide and
+are uniformly inside $(0,1)$ for every policy profile.
+Smoothness of the full profile-specific continuation
+profits implies that both cutoffs remain interior for
+sufficiently small $\gamma>0$, uniformly in first-stage policies.
+Because $|u_1-u_0|<1$, the location best response remains a
+contraction on $[0,1]$, including when asymmetric location
+probabilities are allowed. The unique interior Bayesian
+location continuation \eqref{eq:location-prob} is therefore
+smooth in policies and $\gamma$.
+
+The resulting $\mathcal S$, $W$, and $G_j$ are $C^2$ in the
+policies and $\gamma$ near the whole compact policy square.
+By continuity of Hessians and strict compact-domain margins,
+the globally negative-definite planner Hessian and strictly
+negative government own-policy curvature persist for all
+sufficiently small positive $\gamma$.
+
+At $\gamma=0,\mu=1/10$, the augmented planner's symmetric
+stationary point and the symmetric government best-response
+stationary point are distinct, strictly positive, and interior.
+Both derivatives defining these points have strictly negative
+slopes, so the implicit function theorem continues the
+two stationary levels smoothly to $\gamma>0$.
+Strict global concavity makes the planner point the unique
+global optimum and the government point a global unilateral
+best response; symmetry establishes Nash equilibrium.
+The strict gap $a^N(0)>a^P(0)$ survives by continuity.
+
+Finally, the strict comparative static in
+\eqref{eq:analytic-gap-slope} holds at $(0,1/10)$.
+Smooth parameter dependence preserves its sign on a
+sufficiently small open neighborhood, including $\gamma>0$.
+\end{proof}
+
+The proposition is a genuine differentiated-product result,
+but is deliberately local to a nonempty positive-$\gamma$
+neighborhood; it does not assert the same augmented ranking
+for all $\gamma\in(0,1)$ or for the original
+$\gamma=12/25$ witness. The economic content is not that
+generic fiscal competition or public--private substitution
+is novel. Rather, the joint private-continuation game admits
+a globally verified policy-ranking conflict and a
+nontrivial benefit-dependent comparative static in a
+primitive region that persists under interacting oligopolists.

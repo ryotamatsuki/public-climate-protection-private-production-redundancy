@@ -1,0 +1,51 @@
+# Journal of Public Economic Theory (JPET) submission overlay
+
+**Status:** editorial candidate, **not submitted**.  
+**Base:** the already frozen ERE v4 science; original `paper/`, `references/`, mathematical code, and frozen proof assets are unchanged.  
+**Target:** `Journal of Public Economic Theory` (JPET), Original Article.
+
+## What changed
+
+- Journal-facing title, identified author (JPET uses single-anonymized review), structured abstract, JEL and keywords: `submission/JPET/main.tex`.
+- Public-economic theory framing and explicit non-novelty of generic public-input overprovision: `sections/01_introduction.tex`.
+- Relevant prior literature added and positioned without claiming theorem absorption has been conclusively excluded: `sections/08_literature.tex` and `references.tex`. New references: Bayindir-Upmann (1998); Billon (2023); Morita and Okoshi (2025).
+- More bounded public-economics conclusion: `sections/10_conclusion.tex`.
+- Journal-specific editorial cover letter and preflight checklist.
+
+The model, benchmark, welfare definitions, theorem, proofs, simulation diagnostics, formalization, and code are **not revised**. In particular, the prior 2026-11-04 positive-optimum extension is **not silently promoted into the paper** because it has not been integrated into the existing main model or separately approved.
+
+## Compile
+
+Run from repository root:
+
+```bash
+python -m pip install -r requirements.txt
+python scripts/generate_objects.py
+mkdir -p dist/JPET
+cd paper
+pdflatex -no-shell-escape -interaction=nonstopmode -halt-on-error -jobname=JPET_manuscript -output-directory=../dist/JPET ../submission/JPET/main.tex
+pdflatex -no-shell-escape -interaction=nonstopmode -halt-on-error -jobname=JPET_manuscript -output-directory=../dist/JPET ../submission/JPET/main.tex
+pdflatex -no-shell-escape -interaction=nonstopmode -halt-on-error -jobname=JPET_manuscript -output-directory=../dist/JPET ../submission/JPET/main.tex
+```
+
+Result: `dist/JPET/JPET_manuscript.pdf`. The build depends on the original repo's `paper/sections/` and `figures/`.
+
+## Freeze-governance caveat
+
+The historical `scripts/verify_final_audit_freeze.py` verifies the **exact** ERE audited descendant and explicitly rejects any new tracked file. A branch containing this overlay will therefore fail that **historical ERE exact-file-set check by construction**, even though the ERE scientific files remain untouched. Do not weaken or silently update the historical lock to claim that it validates a new journal candidate. Review the JPET overlay independently and implement a new, author-approved JPET freeze/attestation before any merge, if needed. Other verification outcomes must be read separately.
+
+## Journal guidance checked on 2026-11-05
+
+Current Wiley author guidelines (prefer these over legacy ScholarOne-era pages):
+- https://onlinelibrary.wiley.com/page/journal/14679779/homepage/forauthors.html
+- https://onlinelibrary.wiley.com/page/journal/14679779/homepage/productinformation.html
+- Submission: https://submission.wiley.com/journal/JPET
+
+Journal currently indicates free-format initial submission, no submission fees, max 250-word abstract, up to seven keywords, required ORCID, single-anonymized peer review, and upload of both LaTeX and a peer-review PDF when submitting LaTeX through Research Exchange. Recheck the portal at the actual time of submission.
+
+## Scientific limitations and novelty checks outstanding
+
+1. Bayindir-Upmann (1998) publisher full text is restricted in the sources inspected. Its abstract confirms public-good overprovision but **does not suffice to certify a theorem-level non-absorption**.
+2. Billon (2023) full online exposition concerns tax competition, jurisdictional market power and a productive public input; it should not be represented as proving the same private-readiness policy ranking.
+3. Morita and Okoshi (2025) links transport investment, firm attraction and welfare under fiscal competition; the welfare mechanism is different, but no general novelty proof is claimed.
+4. A targeted theorem-level parent-result check and author signoff remain necessary. The journal-specific positioning is improved, **not an acceptance guarantee**.

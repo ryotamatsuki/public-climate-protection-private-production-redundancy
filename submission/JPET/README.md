@@ -12,7 +12,7 @@
 - More bounded public-economics conclusion: `sections/10_conclusion.tex`.
 - Journal-specific editorial cover letter and preflight checklist.
 
-The model, benchmark, welfare definitions, theorem, proofs, simulation diagnostics, formalization, and code are **not revised**. In particular, the prior 2026-11-04 positive-optimum extension is **not silently promoted into the paper** because it has not been integrated into the existing main model or separately approved.
+**Current PR #41 amendment:** The original ERE v4 model, theorem, proofs, certificates and source code remain unchanged. On this separate JPET revision branch, an **additional scientific result** has been inserted in `submission/JPET/sections/06_benchmarks.tex`: a gamma=0 augmented-welfare positive-planner-optimum benchmark with exact, globally certified overprovision. The independent SymPy script is `submission/JPET/review_cycles/positive_optimum_exact.py`. This scientific addition is **not approved by the author** and is NOT part of the historical ERE freeze. The main differentiated-product theorem is unchanged, and this addition does not prove the same positive-optimum result for gamma>0. Retain the submission HOLD until scientific review, revised proof-package creation, and author approval.
 
 ## Compile
 

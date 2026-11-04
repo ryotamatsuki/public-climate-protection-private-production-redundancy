@@ -54,7 +54,7 @@ jobs:
         run: |
           git archive --format=tar.gz --output=dist/JPET/JPET_source_bundle.tar.gz HEAD
           git rev-parse HEAD > dist/JPET/build_commit.txt
-          sha256sum dist/JPET/JPET_manuscript.pdf dist/JPET/JPET_source_bundle.tar.gz > dist/JPET/SHA256SUMS.txt
+          (cd dist/JPET && sha256sum JPET_manuscript.pdf JPET_source_bundle.tar.gz > SHA256SUMS.txt)
       - uses: actions/upload-artifact@v4
         with:
           retention-days: 14

@@ -191,3 +191,91 @@ public-input overprovision generally new. Moreover, with $\mu>3/32$
 the augmented coordinated marginal at zero is positive: the
 interpretation is \emph{overinvestment relative to a positive social
 optimum}, not a negative total social marginal at the origin.
+
+
+\subsection{Re-solving the restricted-policy games}
+\label{sec:restricted-counterfactuals}
+
+The benchmark comparisons above do not, by themselves, establish
+what the entire policy game would do if one response were disabled.
+The separable-product case permits two exact re-solutions under
+explicitly defined restricted games. Set $\mu=0$ and maintain
+the rational primitives in \eqref{eq:zero-delta-witness}.
+
+\begin{proposition}[Exact restricted-game comparisons]
+\label{prop:restricted-game-comparisons}
+(i) If both firms' backup readiness is \emph{fixed} at its
+zero-protection benchmark value $r^*=15/16$ after every possible policy
+deviation, but primary locations are re-solved, then the coordinated
+planner has the strictly positive unique global optimum
+$(3/1280,3/1280)$, and the local-policy game has the strictly
+positive symmetric Nash equilibrium $(5/512,5/512)$ with globally
+optimal unilateral responses.
+
+(ii) If the probability of choosing each primary jurisdiction
+is \emph{fixed} at $p=1/2$ for every policy profile (and the
+corresponding plant-attraction payoff does not respond), while
+backup readiness is privately re-optimized, then both the unique
+coordinated optimum and the local-government Nash equilibrium are
+$(0,0)$.
+\end{proposition}
+
+\begin{proof}
+For (i), define fixed-readiness private profit and industrial surplus
+for one firm by
+\[
+f^F(q)=\frac{1-q(1-r^*)}{4}-\frac{k(r^*)^2}{2},
+\qquad
+t^F(q)=\frac38[1-q(1-r^*)]-\frac{k(r^*)^2}{2}.
+\]
+Re-solving the location stage gives
+\[
+p^F=\frac12+\frac{f^F(q_A)-f^F(q_B)}{2H},
+\quad
+\mathcal S^F=2\{p^F t^F(q_A)+(1-p^F)t^F(q_B)\}.
+\]
+Throughout the policy square $p^F\in[7/16,9/16]$.
+Using the original, unaugmented cost and hosting objectives,
+the symmetric-policy derivatives are
+\[
+W^F_{a_A}(a,a)=\frac{3-1280a}{128},
+\qquad
+G^F_{A,a_A}(a,a)=\frac{5(5-512a)}{256}.
+\]
+The planner Hessian is constant with diagonal entries
+$-10165/1024$ and cross entries $-75/1024$, and is therefore
+negative definite. The local own-policy second derivative is
+$-20405/2048<0$. Consequently, the stated stationary points
+are a unique global coordinated optimum and mutually global
+best-response symmetric Nash equilibrium, respectively.
+
+For (ii), retaining the original private-readiness response
+$r(q)=q/(4k)$ while setting $p=1/2$ at all policy profiles
+gives $\mathcal S^L=t(q_A)+t(q_B)$.
+The location-attached payoff becomes policy-invariant. The exact
+policy partial derivatives are
+\[
+W^L_{a_A}=-\frac3{32}-\frac{135}{16}a_A<0,
+\qquad
+G^L_{A,a_A}=-\frac3{64}-\frac{295}{32}a_A<0,
+\]
+with corresponding symmetric expressions for jurisdiction $B$.
+Both objectives therefore favor zero protection against every
+unilateral choice in the admissible square; the coordinated
+optimum and Nash profile are uniquely $(0,0)$.
+The standalone exact counterfactual verification program reproduces
+all formulas and Hessian tests.
+\end{proof}
+
+Comparison with Proposition~\ref{prop:zero-delta} identifies a
+specific mechanism rather than an unconditional claim about fiscal
+competition. In this exact benchmark, endogenous readiness drives
+the coordinated industrial optimum from a strictly positive level
+under fixed readiness down to zero. Plant mobility and its hosting
+reward are necessary \emph{in the fixed-location comparison as
+defined here} to sustain the local-positive/planner-zero outcome.
+Nevertheless, overprovision relative to a positive planner optimum
+remains possible when readiness is fixed; hence crowd-out is not
+required for generic local-public-input overprovision.
+These are restricted-game results for the stated separable-product
+primitives, not universal necessity statements for all policy games.

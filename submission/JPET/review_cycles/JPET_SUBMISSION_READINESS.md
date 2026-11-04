@@ -1,3 +1,31 @@
+# Latest submission readiness — Round 4 (2026-11-05)
+
+- **Scientific manuscript, internal simulated review:** ACCEPT-CALIBER (conditional; not journal acceptance).
+- **Technical evidence and source reproducibility:** dedicated workflow successfully built the 48-page revised candidate, checked original ERE scientific source invariance and original tests, and passed all five added independent exact scripts. Downloaded archive verified by SHA-256 (prefix normalization needed) and all independent tests from extracted sources passed; independently rebuilt PDF matched all 48 page texts.
+- **Final corrected artifact manifest:** latest workflow produces portable archive-root `SHA256SUMS.txt`; verify its latest successful run and the downloaded ZIP before final technical PASS.
+- **Submission status:** NOT AUTHORIZED / NOT READY until author scientific approval, publisher metadata and declarations, and explicit submission instruction.
+
+Unresolved conditions not to hide:
+1. Bayindir-Upmann (1998) published full text and theorem absorption are not exhaustively checked. Accessible abstract and secondary field reviews are not a proof of nonabsorption.
+2. A genuinely independent external referee or academic proof check has not taken place; all internal role reports are self-audits, not real reports.
+3. The ERE historical exact tracked-file-set validator is intentionally incompatible with *additive* JPET files. The dedicated JPET workflow instead verifies original source byte-identity, re-runs scientific tests, and packages new evidence. The historical guard remains unchanged.
+4. Full author sign-off of new propositions, AI assistance disclosure and scientific interpretations is required.
+5. Publisher Research Exchange portal-specific upload requirements and final metadata must be confirmed before actual submission.
+
+Evidence locations:
+- `ROUND_4_FINAL_CLEARANCE.md`: conditional internal acceptance assessment
+- `ROUND_3_MATHEMATICAL_CORRECTION.md`: found and repaired actual math flaw
+- `MAJOR_RR_RESPONSE_DRAFT.md`: response to *simulated* Major R&R comments
+- `../REPRODUCIBILITY.md`: complete clean-room source reproduction instructions
+- `analytic_region_exact.py`, `positive_optimum_exact.py`, `restricted_games_exact.py`, `incidence_robustness_exact.py`, `gamma_policy_derivative_exact.py`: five standalone exact checks
+- `../appendix/additional_proofs.tex`: five full new analytic proofs
+
+No main merge, real journal review, or manuscript submission was conducted.
+
+---
+
+## Prior historical readiness reports, preserved verbatim below
+
 # Current JPET readiness — Round 2 revision (2026-11-05)
 
 Scientific R&R Readiness: **R&R-CALIBER (internal simulated Major R&R judgment)**. Three assigned reviewer roles judged the newly established response-interaction theorem plus primitive conditions and gamma>0 open region sufficiently important to justify Major R&R. This is neither JPET acceptance nor a genuine independent peer-review result.

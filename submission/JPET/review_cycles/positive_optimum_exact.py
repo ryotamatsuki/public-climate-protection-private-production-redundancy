@@ -73,6 +73,7 @@ no_host=local_A.subs(b,0).subs({q0:Q(3,10),k:Q(2,25),H:Q(1,100),c:10})
 a_nohost=Q(17,2950)
 same(S.diff(no_host,a).subs({a:a_nohost,d:a_nohost,mu:Q(1,10)}),0)
 assert 0<ap.subs(mu,Q(1,10))<a_nohost<an.subs(mu,Q(1,10))<L
+assert bernstein_bounds(GAaa.subs(b,0))==(-Q(5045,512),-Q(4445,512))
 print('PASS: independent exact positive-planner-optimum and global Nash concavity audit')
 print('W_AA',bernstein_bounds(Waa),'W determinant',bernstein_bounds(Waa*Wdd-Wad**2),'GA_AA',bernstein_bounds(GAaa))
 print('mu=1/10 planner=',ap.subs(mu,Q(1,10)),'local=',an.subs(mu,Q(1,10)),'no-hosting-local=',a_nohost)

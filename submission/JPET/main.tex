@@ -1,0 +1,69 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,array}
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{microtype}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{xurl}
+\usepackage{enumitem}
+\usepackage{caption}
+\hypersetup{colorlinks=true,citecolor=blue,linkcolor=blue,urlcolor=blue}
+\captionsetup[figure]{name=Fig.,labelfont=bf,labelsep=space}
+\setstretch{1.12}
+\allowdisplaybreaks
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\title{\textbf{Public Protection and Private Resilience in Competition for Mobile Firms}}
+\author{Ryota Matsuki\\
+\small Independent Researcher, Matsuyama, Japan\\
+\small ORCID: 0009-0005-2329-531X}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent\textbf{Question.} Can competition for mobile production sustain local public protection even when additional protection reduces national industrial surplus?
+\textbf{Model.} Two jurisdictions choose risk-reducing public inputs before differentiated-product firms select primary locations and costly contingency readiness; surviving producers then compete after localized disruptions.
+\textbf{Results.} Public protection directly improves primary reliability but can crowd out private readiness whose social value exceeds the return internalized by firms. In a nonempty open set of the maintained symmetric primitive family, a coordinated protection-policy planner uniquely chooses zero additional provision while a strictly positive symmetric decentralized Nash equilibrium satisfies global unilateral incentives. A marginal decomposition identifies the plant-attraction motive that sustains local provision after the national industrial marginal value turns negative. An exact benchmark establishes that incremental disaster-state monopoly rents and strategic substitution between firms' backup choices are not necessary for this ranking.
+\textbf{Scope.} The planner coordinates only the public input, leaving firms' decisions decentralized; the welfare benchmark covers industrial surplus and resilience costs, not all benefits of disaster protection.
+\end{abstract}
+
+\noindent\textbf{Keywords:} local public inputs; interjurisdictional competition; private resilience; public--private substitution; firm location; production availability.\\
+\textbf{JEL:} H73, H41, D62, L13, Q54.
+
+\input{../submission/JPET/sections/01_introduction}
+\input{sections/02_model}
+\input{sections/03_equilibrium}
+\input{sections/04_main_results}
+\input{sections/05_welfare}
+\input{sections/06_benchmarks}
+\input{sections/07_institutional}
+\input{../submission/JPET/sections/08_literature}
+\input{sections/09_discussion}
+\input{../submission/JPET/sections/10_conclusion}
+
+\section*{Declarations}
+No external funding supported this work. The author declares no competing interests. Ethics approval is not applicable to this theoretical study.
+
+\section*{Data and Code Availability}
+This is a theoretical study and uses no empirical dataset. The computer-assisted proof code, exact certificates, generated outputs, and instructions needed to reproduce the reported results are supplied to reviewers in an anonymized replication archive. Following successful peer review and before final acceptance, the replication materials will be deposited in a public repository and the persistent repository information will be supplied to the journal.
+
+\section*{AI Assistance Disclosure}
+OpenAI ChatGPT and Codex tools, including GPT-5.6 Sol and GPT-6-based tools, were used between September and October 2026 for research assistance, literature and claim stress-testing, adversarial mathematical review, coding and formalization support, manuscript organization, and language editing. Prompts asked the systems to critique derivations, search for counterexamples and prior art, propose or revise exposition, and assist with reproducible computational and formal-verification workflows. AI outputs were not treated as independent scholarly evidence or accepted as authoritative. Mathematical claims were checked, as applicable, by explicit derivations, exact arithmetic, numerical counterexample searches, and partial Lean formalization. Some finite Lean arithmetic checks use \texttt{native\_decide}, which extends the trusted computing base to native compilation and execution. Model-to-certificate bridges and open-set persistence are not fully formalized; Appendix~\ref{app:formal-scope} states the scope. These checks do not substitute for author judgment. The author remains accountable for the research decisions, interpretations, and final submitted content. No AI system is listed as an author.
+
+\appendix
+\input{sections/A_proofs_verification}
+
+\input{../submission/JPET/references.tex}
+\input{figure_legends}
+\end{document}

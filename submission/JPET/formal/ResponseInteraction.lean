@@ -337,10 +337,11 @@ theorem readiness_unique_best_response (q r : ℝ)
     (h : primitiveProfit q r = primitiveProfit q (privateReadiness q)) :
     r = privateReadiness q := by
   have hs := readiness_square_identity q r
-  have hk : (0 : ℝ) < k / 2 := by norm_num [k]
+  have hk : k / 2 = (1 / 25 : ℝ) := by norm_num [k]
+  rw [hk] at hs
   have hz : (r - privateReadiness q) ^ 2 = 0 := by
-    have hm := mul_pos_of_pos_of_pos hk
-    nlinarith [sq_nonneg (r - privateReadiness q)]
+    rw [h] at hs
+    linarith
   nlinarith [sq_nonneg (r - privateReadiness q)]
 
 theorem readiness_policy_bounds (x : ℝ)

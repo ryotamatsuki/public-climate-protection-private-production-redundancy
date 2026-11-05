@@ -1,0 +1,68 @@
+name: JPET editorial manuscript PDF
+on:
+  pull_request:
+    paths:
+      - 'submission/JPET/**'
+      - '.github/workflows/jpet-candidate.yml'
+  workflow_dispatch:
+
+jobs:
+  build-jpet:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python -m pip install -r requirements.txt
+      - run: sudo apt-get update && sudo apt-get install -y texlive-latex-base texlive-latex-recommended texlive-latex-extra poppler-utils
+      - name: Verify ERE scientific source and locked proofs remain identical to the archival baseline
+        run: |
+          git fetch --no-tags origin 02c415625a74fdd7f394b6a33ab73e3925d53edf
+          git diff --exit-code 02c415625a74fdd7f394b6a33ab73e3925d53edf HEAD -- paper references formal scripts tests tables submission/ERE_STAGE15_V4_SCIENTIFIC_OBJECT.lock docs/THEORY_FREEZE.md
+      - name: Re-run original symbolic, global, independent-exact, numerical and regression tests
+        run: make symbolic normalization policy global numerical portability benchmarks independent-audit test marginal-exhibits
+      - name: Independently certify positive-planner benchmark
+        run: python submission/JPET/review_cycles/positive_optimum_exact.py
+      - name: Independently certify restricted policy games
+        run: python submission/JPET/review_cycles/restricted_games_exact.py
+      - name: Independently audit global analytic primitive-region theorem
+        run: python submission/JPET/review_cycles/analytic_region_exact.py
+      - name: Independently certify incidence and availability-dependent hosting robustness
+        run: python submission/JPET/review_cycles/incidence_robustness_exact.py
+      - name: Independently certify Cournot competition effects on full-game policy choices
+        run: python submission/JPET/review_cycles/gamma_policy_derivative_exact.py
+      - name: Generate existing exact marginal objects
+        run: python scripts/generate_objects.py
+      - name: Build separate JPET overlay (not the frozen ERE manuscript)
+        run: |
+          mkdir -p dist/JPET
+          cd paper
+          for pass in 1 2 3; do
+            pdflatex -no-shell-escape -interaction=nonstopmode -halt-on-error \
+              -jobname=JPET_manuscript -output-directory=../dist/JPET \
+              ../submission/JPET/main.tex
+          done
+      - name: Basic PDF sanity check
+        run: |
+          test -s dist/JPET/JPET_manuscript.pdf
+          pdftotext dist/JPET/JPET_manuscript.pdf dist/JPET/JPET_manuscript.txt
+          grep -q 'Public Protection and Private Resilience' dist/JPET/JPET_manuscript.txt
+          grep -q 'Bayindir-Upmann' dist/JPET/JPET_manuscript.txt
+          grep -q 'Billon' dist/JPET/JPET_manuscript.txt
+      - name: Package independently rebuildable JPET source and record provenance
+        run: |
+          git archive --format=tar.gz --output=dist/JPET/JPET_source_bundle.tar.gz HEAD
+          git rev-parse HEAD > dist/JPET/build_commit.txt
+          (cd dist/JPET && sha256sum JPET_manuscript.pdf JPET_source_bundle.tar.gz > SHA256SUMS.txt)
+      - uses: actions/upload-artifact@v4
+        with:
+          retention-days: 14
+          name: JPET-editorial-candidate
+          path: |
+            dist/JPET/JPET_manuscript.pdf
+            dist/JPET/JPET_manuscript.txt
+            dist/JPET/JPET_source_bundle.tar.gz
+            dist/JPET/build_commit.txt
+            dist/JPET/SHA256SUMS.txt
+          if-no-files-found: error

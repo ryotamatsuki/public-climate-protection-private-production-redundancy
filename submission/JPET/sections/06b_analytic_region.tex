@@ -1,0 +1,363 @@
+\section{A Primitive Region and a Differentiated-Product Extension}
+\label{sec:analytic-region}
+
+The global certificates above establish the principal policy conflict at
+explicit parameter vectors. The separable-product case also permits an
+analytical sufficient-condition region. More importantly, this region
+permits a continuation argument establishing a positive coordinated
+optimum with decentralized overprovision for genuinely positive product
+substitutability.
+
+For $\gamma=0$, let $x=a_A$, $y=a_B$, $d=x-y$,
+$q=q_0-(x+y)/2$, and set
+\begin{equation}
+U(q)=\frac{1}{32k}+\frac{(4k-q)(3k-q)}{128Hk^2},
+\qquad h(q)=\frac{4k-q}{16k}.
+\label{eq:analytic-U}
+\end{equation}
+Writing $t(q)=3(1-q)/8+q^2/(16k)$, the complete private
+continuation induces the \emph{global} identities
+\begin{equation}
+\mathcal S(x,y)=2t(q)+U(q)d^2,\qquad
+p(x,y)=\frac12+\frac{h(q)d}{2H}.
+\label{eq:analytic-global}
+\end{equation}
+Let $Q=[q_0-\bar a,q_0]$, and define
+\[
+U_-=\min_Q U,\quad U_+=\max_Q U,\quad
+D=\max_Q|U'|,\quad D_2=(64Hk^2)^{-1}.
+\]
+Also define
+\begin{equation}
+m=\frac{H(3k-q_0)+b(4k-q_0)}{16Hk},\quad
+s=c-\frac{H+b}{16Hk},\quad
+t_c=c-\frac1{8k},\quad
+\mu_0=\frac{q_0-3k}{8k}.
+\label{eq:analytic-parameters}
+\end{equation}
+
+\begin{proposition}[Global primitive conditions and benefit-induced overprovision]
+\label{prop:global-primitive-band}
+Suppose the following strict conditions hold:
+\begin{align}
+&3k<q_0<4k,\quad 0<\bar a<q_0,\quad U_->0,\quad
+(4k-q_0+\bar a)\bar a<16kH,
+\label{eq:analytic-band-a}\\
+&c>\max\left\{
+\frac{1}{8k}+4U_++2D\bar a+\frac{D_2\bar a^2}{2},
+\frac12\left(\frac1{8k}+2U_++2D\bar a+
+\frac{D_2\bar a^2}{4}\right)+\frac{b}{16Hk}
+\right\},
+\label{eq:analytic-band-c}\\
+&m>0,\qquad 0<m/s<\bar a.
+\label{eq:analytic-band-d}
+\end{align}
+Then the unaugmented game has a unique coordinated global optimum
+$(0,0)$ and a strictly positive symmetric decentralized Nash
+equilibrium $(m/s,m/s)$, with globally optimal unilateral responses
+and unique interior private continuations throughout the policy square.
+
+If additionally $b>H$ and
+\begin{equation}
+\mu_0<\mu<
+\min\{\mu_0+t_c\bar a,\ s\bar a-m\},
+\label{eq:analytic-mu-range}
+\end{equation}
+then the augmented-benefit game of
+\eqref{eq:augmented-direct-benefit} has a strictly positive unique
+coordinated optimum and a strictly larger symmetric Nash level,
+both interior and globally incentive-compatible:
+\begin{equation}
+a^P=\frac{\mu-\mu_0}{t_c}
+<a^N=\frac{\mu+m}{s}.
+\label{eq:analytic-policy-pair}
+\end{equation}
+The overprovision gap increases with the directly valued benefit:
+\begin{equation}
+\frac{\partial(a^N-a^P)}{\partial\mu}
+=\frac{b-H}{16Hk\,s\,t_c}>0.
+\label{eq:analytic-gap-slope}
+\end{equation}
+This is a nonempty strict primitive region, containing the exact
+rational benchmark \eqref{eq:zero-delta-witness} at $\mu=1/10$.
+\end{proposition}
+
+\noindent\emph{Proof.} See Appendix~\ref{app:jpet-additional-proof-1}.
+
+
+\subsection{An open region with positive product substitutability}
+
+\begin{proposition}[Positive optimal protection and overprovision at $\gamma>0$]
+\label{prop:positive-gamma-extension}
+Fix the rational primitives of \eqref{eq:zero-delta-witness} and
+let $\mu=1/10$. There exists $\epsilon>0$ such that for every
+$\gamma\in(0,\epsilon)$, with product substitutability strictly
+positive, the complete game admits unique interior private backup
+and Bayesian location continuations for all first-stage policy
+profiles. The augmented coordinated protection-policy planner has a
+strictly positive, symmetric \emph{unique global optimum}
+$a^P(\gamma)$. The decentralized game has a strictly positive
+symmetric Nash equilibrium $a^N(\gamma)$, with globally optimal
+unilateral responses, satisfying
+\begin{equation}
+0<a^P(\gamma)<a^N(\gamma)<\bar a.
+\label{eq:positive-gamma-ranking}
+\end{equation}
+Both levels depend smoothly on $\gamma$ locally. On a possibly
+smaller open neighborhood of $(\gamma,\mu)=(0,1/10)$ with
+$\gamma>0$, the overprovision gap also increases with $\mu$.
+\end{proposition}
+
+\noindent\emph{Proof.} See Appendix~\ref{app:jpet-additional-proof-2}.
+
+The proposition is a genuine differentiated-product result,
+but is deliberately local to a nonempty positive-$\gamma$
+neighborhood; it does not assert the same augmented ranking
+for all $\gamma\in(0,1)$ or for the original
+$\gamma=12/25$ witness. The economic content is not that
+generic fiscal competition or public--private substitution
+is novel. Rather, the joint private-continuation game admits
+a globally verified policy-ranking conflict and a
+nontrivial benefit-dependent comparative static in a
+primitive region that persists under interacting oligopolists.
+
+
+\subsection{Which private response drives the benefit-gap comparative static?}
+
+The positive derivative in
+\eqref{eq:analytic-gap-slope} need not follow from
+interjurisdictional competition alone. The two restricted
+games in Proposition~\ref{prop:restricted-game-comparisons}
+make it possible to separate the roles of backup and
+primary-location responses while increasing the same
+directly valued local benefit in both governments and the planner.
+
+\begin{proposition}[A response-interaction test for the overprovision gap]
+\label{prop:benefit-gap-response-interaction}
+Hold the separable-product benchmark primitives at
+\eqref{eq:zero-delta-witness}, and let
+$3/32<\mu<1/8$. For each of the following
+three games, augment every jurisdiction's payoff by
+$\mu a_j$ and the planner's objective by
+$\mu(a_A+a_B)$, holding the relevant restricted
+private continuation fixed under all first-stage deviations.
+
+\begin{enumerate}[label=(\roman*)]
+\item With both private backup readiness and primary-location
+choice endogenous, the unique positive global coordinated
+optimum and a positive symmetric globally incentive-compatible
+local Nash equilibrium satisfy
+\[
+a^P=\frac{32\mu-3}{270},\qquad
+a^N=\frac{128\mu+5}{630},\qquad
+\frac{d(a^N-a^P)}{d\mu}=\frac{16}{189}>0.
+\]
+\item If readiness is held at the zero-protection
+private level $r^*=15/16$ throughout the policy game,
+while primary locations are re-solved, then
+\[
+a^{P,F}=\frac{\mu+3/128}{10},\qquad
+a^{N,F}=\frac{\mu+25/256}{10},\qquad
+\frac{d(a^{N,F}-a^{P,F})}{d\mu}=0.
+\]
+\item If the primary-location distribution is held at
+$p=1/2$ throughout the policy game while backup
+readiness is re-solved, then
+\[
+a^{P,L}=\frac{16}{135}\left(\mu-\frac3{32}\right),
+\quad
+a^{N,L}=\frac{32}{295}\left(\mu-\frac3{64}\right),
+\quad
+\frac{d(a^{N,L}-a^{P,L})}{d\mu}
+=-\frac{16}{1593}<0.
+\]
+\end{enumerate}
+
+All stated coordinated levels are unique global optima;
+all local Nash levels are strictly positive, interior,
+and globally optimal against unilateral deviations.
+Thus, in this exact benchmark, the positive response of
+the local overprovision gap to a common direct protection
+benefit requires the joint endogenous operation of
+readiness and location. This is a \emph{within-model
+counterfactual necessity result}, not a claim that both
+responses are necessary for overprovision in general.
+\end{proposition}
+
+\noindent\emph{Proof.} See Appendix~\ref{app:jpet-additional-proof-3}.
+
+The contrasts clarify how firms' response margins
+alter the benefit-gap comparative static. With
+readiness fixed, location attraction remains a
+motive for local protection, but the common direct
+benefit raises decentralized and coordinated
+provision at the same rate, leaving the gap
+unchanged. With primary locations fixed,
+unilateral protection cannot attract plants,
+and coordinated provision responds more strongly
+in this benchmark because local governments
+internalize only part of industrial surplus.
+When both private choices are endogenous,
+protection changes backup readiness and thereby
+the response of primary locations; under the
+stated primitives, the decentralized policy level
+rises faster than the coordinated optimum.
+Proposition~\ref{prop:positive-gamma-extension}
+establishes local persistence of this positive-gap
+response for a nonempty set of
+differentiated-product economies.
+
+
+\subsection{Robustness to regional incidence and primary-plant-dependent hosting}
+\label{sec:incidence-robustness}
+
+The baseline divides industrial market surplus equally between
+jurisdictions and values hosting an established primary plant
+irrespective of disaster-state production. Both assumptions can
+be relaxed locally without changing private production decisions.
+Let
+\begin{equation}
+\theta_A(p)=\frac12+\eta\left(p-\frac12\right),
+\qquad \theta_B(p)=1-\theta_A(p),
+\label{eq:endogenous-incidence}
+\end{equation}
+where $|\eta|<1$ ensures both shares are nonnegative whenever
+$p\in[0,1]$. Positive $\eta$ reallocates more industrial surplus
+to the jurisdiction attracting primary facilities. Separately,
+let $\rho\in[0,1]$ denote the fraction of the location-attached
+benefit paid only if the primary plant in the hosting jurisdiction is operational.
+
+The probabilities that a hosted \emph{primary} plant operates after
+the localized disaster are simply
+\begin{equation}
+v_A=1-q_A,\qquad v_B=1-q_B.
+\label{eq:availability-conditional}
+\end{equation}
+Thus the availability-contingent hosting return accrues from
+locally operating primary facilities, not from geographically
+separate backup production. No additional private action or
+correlation assumption is introduced.
+
+The local objectives become
+\begin{align}
+G_A^{\eta,\rho}
+ &=\theta_A(p)\mathcal S
+   +2bp[(1-\rho)+\rho v_A]
+   -\frac{c}{2}a_A^2+\mu a_A,\\
+G_B^{\eta,\rho}
+ &=\theta_B(p)\mathcal S
+   +2b(1-p)[(1-\rho)+\rho v_B]
+   -\frac{c}{2}a_B^2+\mu a_B,
+\label{eq:perturbed-regional-payoffs}
+\end{align}
+and the coordinated planner continues to maximize their sum
+$W^{\rho}=G_A^{\eta,\rho}+G_B^{\eta,\rho}$.
+The planner's objective is independent of $\eta$ by construction
+but now values expected primary-operation-related hosting benefits
+when $\rho>0$. The original model is exactly the case
+$(\eta,\rho)=(0,0)$.
+
+\begin{proposition}[Robustness to two economic incidence assumptions]
+\label{prop:incidence-robustness}
+Fix $(q_0,k,H,b,c,\bar a)=(3/10,2/25,1/100,11/200,10,2/25)$,
+and take $(\gamma,\eta,\rho,\mu)=(0,0,0,1/10)$
+as the reference point.
+There exists $\varepsilon>0$ such that for every
+\[
+0\le\gamma<\varepsilon,\quad
+|\eta|<\varepsilon,\quad
+0\le\rho<\varepsilon,\quad
+|\mu-1/10|<\varepsilon
+\]
+within the maintained feasible parameter domain, the
+perturbed game has unique interior firm-level backup and
+Bayesian location continuations at every public-policy profile.
+Its coordinated policy optimum is unique, symmetric, strictly
+positive, and interior. Its decentralized policy game has a
+strictly positive symmetric Nash equilibrium at which each
+jurisdiction's first-stage policy choice is a \emph{global}
+best response; that Nash provision strictly exceeds the
+coordinated level. Moreover, the overprovision gap continues
+to increase strictly with the common direct protection benefit
+$\mu$ throughout this neighborhood.
+
+At the separable-product reference point
+$(\gamma,\rho,\eta)=(0,0,0)$, the effect of strengthening
+the location-dependence of regional industrial surplus incidence
+is strictly positive:
+\begin{equation}
+\left.
+\frac{\partial a^N}{\partial\eta}
+\right|_{\mu=1/10,\,\gamma=\rho=\eta=0}
+=\frac{t(q^N)h(q^N)}{H s}
+=\frac{19956004}{78764805}>0,
+\qquad q^N=q_0-\frac{89}{3150}.
+\label{eq:incidence-response}
+\end{equation}
+This is an equilibrium comparative static, not just an
+on-path marginal effect.
+\end{proposition}
+
+\noindent\emph{Proof.} See Appendix~\ref{app:jpet-additional-proof-4}.
+
+The robustness claim remains local: it does not deliver
+a global characterization for large reallocations of
+industrial surplus or fully availability-contingent hosting.
+It does establish that neither an exactly fixed half-share
+incidence rule nor fully state-independent hosting is
+necessary for the positive-optimum policy ranking or
+benefit-gap comparative static in an open region of
+differentiated-product economies.
+
+
+\subsection{Does stronger product competition amplify the policy distortion?}
+\label{sec:product-market-amplification}
+
+The continuity theorem establishes that the new overprovision results are
+not confined to independent products, but does not sign the
+\emph{response to product substitutability}. The full
+location-profile and disaster-state continuation permits an
+exact directional comparison at $\gamma=0$.
+
+\begin{proposition}[Product competition can amplify local overprovision]
+\label{prop:gamma-gap-amplification}
+Maintain the rational protection and private-investment primitives
+of Proposition~\ref{prop:positive-gamma-extension}, and set
+$\mu=1/10$ with the baseline incidence and hosting rules
+$(\eta,\rho)=(0,0)$. Let $a^P(\gamma)$ and
+$a^N(\gamma)$ denote the unique coordinated optimum and the
+symmetric decentralized equilibrium obtained by smooth continuation
+for sufficiently small nonnegative $\gamma$.
+At the separable-product reference point,
+\begin{align}
+\left.\frac{d a^P}{d\gamma}\right|_{0^+}
+&=\frac{29820457}{354294000}>0,\\
+\left.\frac{d a^N}{d\gamma}\right|_{0^+}
+&=\frac{3355337640241}{15630875552250}>0,\\
+\left.\frac{d(a^N-a^P)}{d\gamma}\right|_{0^+}
+&=\frac{16317660285149}{125047004418000}>0.
+\label{eq:gamma-gap-amplification}
+\end{align}
+Consequently, for sufficiently small positive product
+substitutability, stronger product-market competition raises
+both protection levels but increases decentralized provision
+more, strictly magnifying the local overprovision gap.
+This is a local comparative static at the stated primitives,
+not a monotonicity claim over $0<\gamma<1$.
+\end{proposition}
+
+\noindent\emph{Proof.} See Appendix~\ref{app:jpet-additional-proof-5}.
+
+The result separates two effects that are sometimes conflated:
+increasing product substitutability reduces the level of
+symmetric contingency readiness under the maintained interior
+private equilibrium, but that fact alone does not sign the
+\emph{government-policy} response. When the disaster-state
+market payoffs, correlated-failure contingencies, location cutoffs,
+and the value of backup reliability are all differentiated,
+the public planner's own protection also rises. The local
+government's stronger response is an additional equilibrium
+effect of mobile-plant competition. The exact derivative
+in \eqref{eq:gamma-gap-amplification} gives the full-game
+policy implication that the separable-product model alone
+could not establish.

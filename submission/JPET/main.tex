@@ -1,0 +1,68 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs,array}
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{microtype}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{xurl}
+\usepackage{enumitem}
+\usepackage{caption}
+\hypersetup{colorlinks=true,citecolor=blue,linkcolor=blue,urlcolor=blue}
+\captionsetup[figure]{name=Fig.,labelfont=bf,labelsep=space}
+\setstretch{1.12}
+\allowdisplaybreaks
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}
+
+\title{\textbf{Public Protection and Private Resilience in Competition for Mobile Firms}}
+\author{Ryota Matsuki\\
+\small Independent Researcher, Matsuyama, Japan\\
+\small ORCID: 0009-0005-2329-531X}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Can competition for mobile firms induce excessive public protection when greater reliability crowds out private resilience? We study a sequential game in which two jurisdictions choose risk-reducing public investments and firms choose primary locations and costly contingency readiness before local disruptions and Cournot competition. Public protection makes a jurisdiction more attractive but reduces private incentives to maintain backup production. We establish a nonempty open parameter region in which the coordinated policy optimum is zero, whereas decentralized governments choose strictly positive protection in a symmetric Nash equilibrium. This conflict arises because induced losses in privately chosen readiness can outweigh direct industrial reliability gains while jurisdictions still benefit from attracting primary plants. When a direct nonindustrial benefit of protection is included, the coordinated optimum can be positive yet remain below decentralized provision. In an exactly solved benchmark, increasing that benefit widens the policy gap when readiness and location are both endogenous, leaves it unchanged when readiness is fixed, and narrows it when locations are fixed. The full-game policy ranking and benefit-gap response persist locally with positive product substitutability. The welfare comparison concerns industrial surplus, not all benefits of disaster protection.
+\end{abstract}
+
+\noindent\textbf{Keywords:} local public inputs; interjurisdictional competition; private resilience; public--private substitution; firm location; production availability.\\
+\textbf{JEL:} H73, H41, D62, L13, Q54.
+
+\input{../submission/JPET/sections/01_introduction}
+\input{../submission/JPET/sections/08_literature}
+\input{sections/02_model}
+\input{sections/03_equilibrium}
+\input{../submission/JPET/sections/04_main_results}
+\input{sections/05_welfare}
+\input{../submission/JPET/sections/06_benchmarks}
+\input{../submission/JPET/sections/06b_analytic_region}
+\input{sections/07_institutional}
+\input{../submission/JPET/sections/09_discussion}
+\input{../submission/JPET/sections/10_conclusion}
+
+\section*{Declarations}
+No external funding supported this work. The author declares no competing interests. Ethics approval is not applicable to this theoretical study.
+
+\section*{Data and Code Availability}
+This theoretical study uses no empirical dataset. The replication materials comprise the original algebraic certificates and source code, the additional exact-arithmetic checks for the JPET propositions, and supplementary Lean verification of selected statements. Versioned sources and reproducible verification scripts are available at \url{https://github.com/ryotamatsuki/public-climate-protection-private-production-redundancy}; the submission-version snapshot and any permanent archive identifier will be supplied according to journal requirements. The mathematical proof and the scope of each computational check are documented in the appendices and replication README.
+
+\section*{AI Assistance Disclosure}
+OpenAI ChatGPT and Codex tools were used between September and November 2026 for literature research, critical review of arguments, symbolic-computation and code assistance, proof-checking workflows, manuscript organization, and language editing. Their outputs were checked against the model's derivations and, where applicable, exact-arithmetic certificates and supplementary formal verification. Computational checks do not replace the mathematical proofs or constitute independent scholarly review; their limitations are stated in Appendix~\ref{app:formal-scope} and the replication repository. The author takes responsibility for the scientific claims, interpretation, and submitted text. No AI system is listed as an author.
+
+\appendix
+\input{../submission/JPET/appendix/A_proofs_verification}
+\input{../submission/JPET/appendix/additional_proofs}
+
+\input{../submission/JPET/references.tex}
+\input{../submission/JPET/figure_legends}
+\end{document}

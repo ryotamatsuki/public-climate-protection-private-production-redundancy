@@ -20,32 +20,32 @@ No sorry, admit, axiom, or native_decide is used.
 
 namespace JPET.ResponseInteraction
 
-private def q0 : ℝ := 3 / 10
-private def k : ℝ := 2 / 25
-private def H : ℝ := 1 / 100
-private def b : ℝ := 11 / 200
-private def c : ℝ := 10
+private noncomputable def q0 : ℝ := 3 / 10
+private noncomputable def k : ℝ := 2 / 25
+private noncomputable def H : ℝ := 1 / 100
+private noncomputable def b : ℝ := 11 / 200
+private noncomputable def c : ℝ := 10
 
-def mu0 : ℝ := (q0 - 3 * k) / (8 * k)
-def tc : ℝ := c - 1 / (8 * k)
-def s : ℝ := c - (H + b) / (16 * H * k)
-def m : ℝ := (H * (3 * k - q0) + b * (4 * k - q0)) / (16 * H * k)
+noncomputable def mu0 : ℝ := (q0 - 3 * k) / (8 * k)
+noncomputable def tc : ℝ := c - 1 / (8 * k)
+noncomputable def s : ℝ := c - (H + b) / (16 * H * k)
+noncomputable def m : ℝ := (H * (3 * k - q0) + b * (4 * k - q0)) / (16 * H * k)
 
 theorem coefficient_values :
     mu0 = 3 / 32 ∧ tc = 135 / 16 ∧ s = 315 / 64 ∧ m = 5 / 128 := by
   norm_num [mu0, tc, s, m, q0, k, H, b, c]
 
-def qbar (x y : ℝ) : ℝ := q0 - (x + y) / 2
-def t (q : ℝ) : ℝ := 3 * (1 - q) / 8 + q ^ 2 / (16 * k)
-def U (q : ℝ) : ℝ := 1 / (32 * k) + (4 * k - q) * (3 * k - q) / (128 * H * k ^ 2)
-def h (q : ℝ) : ℝ := (4 * k - q) / (16 * k)
-def fullSurplus (x y : ℝ) : ℝ :=
+noncomputable def qbar (x y : ℝ) : ℝ := q0 - (x + y) / 2
+noncomputable def t (q : ℝ) : ℝ := 3 * (1 - q) / 8 + q ^ 2 / (16 * k)
+noncomputable def U (q : ℝ) : ℝ := 1 / (32 * k) + (4 * k - q) * (3 * k - q) / (128 * H * k ^ 2)
+noncomputable def h (q : ℝ) : ℝ := (4 * k - q) / (16 * k)
+noncomputable def fullSurplus (x y : ℝ) : ℝ :=
   2 * t (qbar x y) + U (qbar x y) * (x - y) ^ 2
-def locationProb (x y : ℝ) : ℝ :=
+noncomputable def locationProb (x y : ℝ) : ℝ :=
   1 / 2 + h (qbar x y) * (x - y) / (2 * H)
-def fullPlannerPayoff (μ x y : ℝ) : ℝ :=
+noncomputable def fullPlannerPayoff (μ x y : ℝ) : ℝ :=
   fullSurplus x y + 2 * b - c * (x ^ 2 + y ^ 2) / 2 + μ * (x + y)
-def fullLocalPayoff (μ x y : ℝ) : ℝ :=
+noncomputable def fullLocalPayoff (μ x y : ℝ) : ℝ :=
   fullSurplus x y / 2 + 2 * b * locationProb x y - c * x ^ 2 / 2 + μ * x
 
 /-! Exact deviations retain all higher-order terms. In particular, the linear
@@ -64,12 +64,12 @@ theorem full_local_deviation (μ a d : ℝ) :
                     3125 * d ^ 2 - 250 * d - 519) / 1024) := by
   norm_num [fullLocalPayoff, fullSurplus, locationProb, qbar, t, U, h, q0, k, H, b, c] <;> ring
 
-def fullP (μ : ℝ) : ℝ := (32 * μ - 3) / 270
-def fullN (μ : ℝ) : ℝ := (128 * μ + 5) / 630
-def readyP (μ : ℝ) : ℝ := (μ + 3 / 128) / 10
-def readyN (μ : ℝ) : ℝ := (μ + 25 / 256) / 10
-def locP (μ : ℝ) : ℝ := 16 / 135 * (μ - 3 / 32)
-def locN (μ : ℝ) : ℝ := 32 / 295 * (μ - 3 / 64)
+noncomputable def fullP (μ : ℝ) : ℝ := (32 * μ - 3) / 270
+noncomputable def fullN (μ : ℝ) : ℝ := (128 * μ + 5) / 630
+noncomputable def readyP (μ : ℝ) : ℝ := (μ + 3 / 128) / 10
+noncomputable def readyN (μ : ℝ) : ℝ := (μ + 25 / 256) / 10
+noncomputable def locP (μ : ℝ) : ℝ := 16 / 135 * (μ - 3 / 32)
+noncomputable def locN (μ : ℝ) : ℝ := 32 / 295 * (μ - 3 / 64)
 
 theorem full_stationarity (μ : ℝ) :
     (μ - mu0 - tc * fullP μ = 0) ∧ (μ + m - s * fullN μ = 0) := by
@@ -107,9 +107,9 @@ theorem all_six_interior (μ : ℝ) (hlo : (3 : ℝ) / 32 < μ)
   · constructor <;> dsimp [locP] <;> linarith
   · constructor <;> dsimp [locN] <;> linarith
 
-def gapFull (μ : ℝ) : ℝ := fullN μ - fullP μ
-def gapReady (μ : ℝ) : ℝ := readyN μ - readyP μ
-def gapLoc (μ : ℝ) : ℝ := locN μ - locP μ
+noncomputable def gapFull (μ : ℝ) : ℝ := fullN μ - fullP μ
+noncomputable def gapReady (μ : ℝ) : ℝ := readyN μ - readyP μ
+noncomputable def gapLoc (μ : ℝ) : ℝ := locN μ - locP μ
 
 theorem gap_full_increment (μ ν : ℝ) :
     gapFull ν - gapFull μ = (16 / 189 : ℝ) * (ν - μ) := by
@@ -142,10 +142,10 @@ theorem response_interaction_signs (μ ν : ℝ) (h : μ < ν) :
     linarith
 
 /-! Fixed-readiness exact objectives, after dropping terms constant in policy. -/
-def readyPlannerPayoff (μ x y : ℝ) : ℝ :=
+noncomputable def readyPlannerPayoff (μ x y : ℝ) : ℝ :=
     (μ + 3 / 128) * (x + y) + 75 / 2048 * (x - y) ^ 2 -
       5 * (x ^ 2 + y ^ 2)
-def readyLocalPayoff (μ x y : ℝ) : ℝ :=
+noncomputable def readyLocalPayoff (μ x y : ℝ) : ℝ :=
     μ * x + 3 / 256 * (x + y) + 75 / 4096 * (x - y) ^ 2 +
       11 / 128 * (x - y) - 5 * x ^ 2
 
@@ -183,9 +183,9 @@ theorem ready_local_global (μ x : ℝ) :
   linarith
 
 /-! Fixed-location reduced objectives with backup reoptimized and p = 1/2. -/
-def locPlannerPayoff (μ x y : ℝ) : ℝ :=
+noncomputable def locPlannerPayoff (μ x y : ℝ) : ℝ :=
   (μ - 3 / 32) * (x + y) - 135 / 32 * (x ^ 2 + y ^ 2)
-def locLocalPayoff (μ x : ℝ) : ℝ :=
+noncomputable def locLocalPayoff (μ x : ℝ) : ℝ :=
   (μ - 3 / 64) * x - 295 / 64 * x ^ 2
 
 theorem loc_planner_global (μ x y : ℝ) :

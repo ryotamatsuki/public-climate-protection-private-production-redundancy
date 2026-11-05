@@ -55,16 +55,14 @@ theorem full_planner_deviation (μ a d : ℚ) :
       d * (μ - 3 / 32 - 135 * a / 16) +
       d ^ 2 * (5 * (12500 * a ^ 2 + 12500 * a * d - 500 * a +
                     3125 * d ^ 2 - 250 * d - 447) / 512) := by
-  norm_num [fullPlannerPayoff, fullSurplus, qbar, t, U, q0, k, H, b, c]
-  <;> ring
+  norm_num [fullPlannerPayoff, fullSurplus, qbar, t, U, q0, k, H, b, c] <;> ring
 
 theorem full_local_deviation (μ a d : ℚ) :
     fullLocalPayoff μ (a + d) a - fullLocalPayoff μ a a =
       d * (μ + 5 / 128 - 315 * a / 64) +
       d ^ 2 * (5 * (12500 * a ^ 2 + 12500 * a * d - 500 * a +
                     3125 * d ^ 2 - 250 * d - 519) / 1024) := by
-  norm_num [fullLocalPayoff, fullSurplus, locationProb, qbar, t, U, h, q0, k, H, b, c]
-  <;> ring
+  norm_num [fullLocalPayoff, fullSurplus, locationProb, qbar, t, U, h, q0, k, H, b, c] <;> ring
 
 def fullP (μ : ℚ) : ℚ := (32 * μ - 3) / 270
 def fullN (μ : ℚ) : ℚ := (128 * μ + 5) / 630

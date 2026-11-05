@@ -29,7 +29,7 @@ Throughout the policy square, $11/16\leq r\leq15/16$ and $5/16\leq p\leq11/16$; 
 M_S=-\frac3{16},\qquad M_L=\frac5{128},\qquad
 G_{A,a_A}(a,a)=\frac5{128}-\frac{315}{64}a.
 \end{equation}
-The last expression has the unique root $\alpha=1/126$. The policy functions here are polynomials. On the full square their exact Bernstein coefficients bound both planner partial derivatives between $-497/640$ and $-7/128$, so $(0,0)$ is uniquely optimal. Against $a_B=\alpha$, the coefficients of $G_{A,a_Aa_A}$ on the full own-policy interval lie between $-21726685/4064256$ and $-18154585/4064256$. Strict concavity makes $\alpha$ the global best response, including against boundary actions; symmetry gives the Nash claim. The accompanying benchmark script derives these polynomial bounds directly.
+The last expression has the unique root $\alpha=1/126$. The policy functions are polynomials. Their exact whole-domain Bernstein bounds establish $W_{a_A},W_{a_B}<0$ throughout the policy square, and $G_{A,a_Aa_A}<0$ for every feasible own policy against $a_B=\alpha$. Thus $(0,0)$ is the unique global planner optimum and $\alpha$ is the unique global best response, including against boundary deviations; symmetry gives the Nash claim. The exact rational bounds and reproduction script are given in Appendix~\ref{app:jpet-benchmark-certs}.
 \end{proof}
 
 This is a distinct witness: $k$ and $c$ differ from \eqref{eq:witness}, maintaining interiority when $\gamma=0$. It is not a claim that setting only $\gamma$ to zero at the canonical parameters preserves the continuation. Nor is it a competitive-price benchmark: own-product markups remain. What is removed is the incremental sole-survivor profit and the strategic backup substitution. At $\gamma=0$, the social--private readiness wedge in \eqref{eq:readiness-wedge} equals $s_i/8>0$. That uninternalized availability benefit is enough to generate the ranking when plant attraction is valuable.
@@ -146,31 +146,19 @@ $(0,\bar a)$ and ensures $a^N>a^P$.
 A root on the symmetric path alone is not sufficient for either claim.
 Using the bivariate polynomial representations of $\widetilde W$
 and $\widetilde G_A$ obtained from the exact private continuation,
-tensor-product Bernstein coefficients on
-$[0,2/25]^2$ give, uniformly and independently of $\mu$,
-\begin{align*}
--\frac{2485}{256}
-&\le \widetilde W_{a_Aa_A},
-  \widetilde W_{a_Ba_B}
-\le -\frac{1885}{256},\\
-\frac{128925}{2048}
-&\le
- \widetilde W_{a_Aa_A}\widetilde W_{a_Ba_B}
-  -(\widetilde W_{a_Aa_B})^2
-\le \frac{2607175}{32768},\\
--\frac{2845}{512}
-&\le \widetilde G_{A,a_Aa_A}
-\le-\frac{2245}{512}.
-\end{align*}
-The first two strict bounds imply that the planner's objective is
-strictly concave on the entire policy square. By symmetry, its
-symmetric stationary point is therefore the unique global optimum.
-The final bound implies strict own-policy concavity for either
-jurisdiction against any rival action. Consequently, the symmetric
-local stationary point is a global best response against $a^N$
-and thus a Nash equilibrium. The reported difference follows by
-exact rational subtraction. The accompanying standalone SymPy
-script regenerates these bivariate Bernstein coefficient bounds.
+tensor-product Bernstein coefficients on the full policy square establish
+\[
+\widetilde W_{a_Aa_A}<0,\qquad
+\det\nabla^2\widetilde W>0,\qquad
+\widetilde G_{A,a_Aa_A}<0,
+\]
+uniformly and independently of $\mu$. The first two inequalities make
+the planner's objective strictly concave on the entire square; by
+symmetry, its interior stationary point is the unique global optimum.
+The third inequality gives strict own-policy concavity, so the
+symmetric stationary point is a global best response and hence a
+Nash equilibrium. Appendix~\ref{app:jpet-benchmark-certs} records
+the exact rational certificate bounds and corresponding script.
 \end{proof}
 
 This benchmark addresses the corner-optimum concern within the

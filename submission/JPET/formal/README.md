@@ -35,8 +35,19 @@ the original formal Theorem 1, or the article's mathematical statements.
    fixed-location policy objectives directly from the corresponding
    restricted private response rules, verifying equality with the
    reduced objectives up to displayed policy-independent constants.
-10. The original seven main theorem dependencies are printed by
-   Lean's `#print axioms` for an explicit trust-boundary audit.
+10. **Strict planner uniqueness:** equality with each globally optimal
+    policy payoff identifies the benchmark planner policy profile;
+    the full-endogenous result is proved on the entire admissible square.
+11. **Strict local best responses:** each reported symmetric Nash action is
+    the unique unilateral optimum against its symmetric counterpart.
+12. **Unique symmetric policy Nash equilibrium:** in each of the three
+    games, directly evaluating a deviation to the proposed Nash action
+    yields a strictly positive squared deviation gain for every
+    alternative symmetric candidate. This excludes all other symmetric
+    Nash equilibria on the whole admissible policy interval.
+13. The original seven main theorem dependencies and four added
+    uniqueness theorem dependencies are printed by Lean's
+    `#print axioms` for an explicit trust-boundary audit.
 
 No `sorry`, `admit`, explicitly declared `axiom`, or `native_decide`
 occurs in this new proof module.
@@ -58,6 +69,12 @@ backup draws, and the underlying economic interpretation of separable
 market surplus are taken from the manuscript, not constructed as Lean
 random variables or stochastic strategies. The specific gamma=0 witness
 is proved, not a parameter-general theorem.
+
+The new Nash uniqueness theorems establish **uniqueness within the class
+of symmetric policy profiles**. They do **not** rule out asymmetric
+first-stage policy Nash equilibria, a distinct unformalized question.
+Planner uniqueness is global, and the best response to each specified
+symmetric Nash rival policy is unique.
 
 Positive-gamma continuation and the gamma comparative static
 (Proposition 10), model perturbations, and the baseline gamma=12/25

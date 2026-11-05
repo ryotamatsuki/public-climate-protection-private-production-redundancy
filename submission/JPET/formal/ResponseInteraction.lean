@@ -287,3 +287,12 @@ theorem full_local_global (μ x : ℝ)
   linarith
 
 end JPET.ResponseInteraction
+
+-- Explicit kernel-dependency audit for the new (real-valued) JPET certificates.
+#print axioms JPET.ResponseInteraction.response_interaction_signs
+#print axioms JPET.ResponseInteraction.full_planner_global
+#print axioms JPET.ResponseInteraction.full_local_global
+#print axioms JPET.ResponseInteraction.ready_planner_global
+#print axioms JPET.ResponseInteraction.ready_local_global
+#print axioms JPET.ResponseInteraction.loc_planner_global
+#print axioms JPET.ResponseInteraction.loc_local_global

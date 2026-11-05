@@ -476,6 +476,297 @@ theorem primitive_fixed_location_local (μ x y : ℝ) :
     primitiveMaterialSurplus, privateReadiness,
     locLocalPayoff, q0, k, b, c] <;> ring
 
+
+/-!
+## Strict global optima and symmetric-Nash uniqueness
+
+The earlier inequalities are upgraded to *identification* results:
+equality with each planner optimum identifies the unique policy profile,
+and equality with a unilateral Nash payoff identifies the unique best response.
+For the three symmetric games, a directly profitable deviation to the
+reported Nash action excludes every other symmetric Nash profile in the
+admissible interval. This does not claim absence of asymmetric Nash profiles.
+-/
+
+theorem full_planner_unique (μ x y : ℝ)
+    (hx0 : 0 ≤ x) (hxbar : x ≤ 2 / 25)
+    (hy0 : 0 ≤ y) (hybar : y ≤ 2 / 25)
+    (heq : fullPlannerPayoff μ x y =
+      fullPlannerPayoff μ (fullP μ) (fullP μ)) :
+    x = fullP μ ∧ y = fullP μ := by
+  have hmu : μ = (3 : ℝ) / 32 + (135 / 16 : ℝ) * fullP μ := by
+    norm_num [fullP] <;> ring
+  have hm0 : (0 : ℝ) ≤ (x + y) / 2 := by linarith
+  have hmbar : (x + y) / 2 ≤ (2 : ℝ) / 25 := by linarith
+  have hbound : (0 : ℝ) ≤
+      ((x + y) / 2) * ((2 : ℝ) / 25 - (x + y) / 2) :=
+    mul_nonneg hm0 (sub_nonneg.mpr hmbar)
+  have hub : U (qbar x y) ≤ (325 : ℝ) / 512 := by
+    norm_num [U, qbar, q0, k, H] <;> nlinarith [hbound]
+  have hidentity :
+      fullPlannerPayoff μ (fullP μ) (fullP μ) - fullPlannerPayoff μ x y =
+      tc * ((x + y) / 2 - fullP μ) ^ 2 +
+        (c / 4 - U (qbar x y)) * (x - y) ^ 2 := by
+    dsimp [fullPlannerPayoff, fullSurplus, qbar, t, U, tc, q0, k, H, b, c]
+    linear_combination (2 * fullP μ - x - y) * hmu
+  have htc : (0 : ℝ) < tc := by norm_num [tc, c, k]
+  have hgap : (0 : ℝ) < c / 4 - U (qbar x y) := by
+    have hbound' : (0 : ℝ) < c / 4 - (325 : ℝ) / 512 := by norm_num [c]
+    linarith
+  have h1 : (0 : ℝ) ≤ tc * ((x + y) / 2 - fullP μ) ^ 2 :=
+    mul_nonneg (le_of_lt htc) (sq_nonneg _)
+  have h2 : (0 : ℝ) ≤ (c / 4 - U (qbar x y)) * (x - y) ^ 2 :=
+    mul_nonneg (le_of_lt hgap) (sq_nonneg _)
+  have hzero : tc * ((x + y) / 2 - fullP μ) ^ 2 +
+      (c / 4 - U (qbar x y)) * (x - y) ^ 2 = 0 := by
+    rw [heq] at hidentity
+    linarith
+  have hz1 : tc * ((x + y) / 2 - fullP μ) ^ 2 = 0 := by linarith
+  have hz2 : (c / 4 - U (qbar x y)) * (x - y) ^ 2 = 0 := by linarith
+  have hs1 : ((x + y) / 2 - fullP μ) ^ 2 = 0 :=
+    (mul_eq_zero.mp hz1).resolve_left (ne_of_gt htc)
+  have hs2 : (x - y) ^ 2 = 0 :=
+    (mul_eq_zero.mp hz2).resolve_left (ne_of_gt hgap)
+  have hm : (x + y) / 2 = fullP μ := by nlinarith [hs1]
+  have hd : x = y := by nlinarith [hs2]
+  constructor <;> linarith
+
+theorem ready_planner_unique (μ x y : ℝ)
+    (heq : readyPlannerPayoff μ x y =
+      readyPlannerPayoff μ (readyP μ) (readyP μ)) :
+    x = readyP μ ∧ y = readyP μ := by
+  have hmu : μ = 10 * readyP μ - 3 / 128 := by
+    have hs := (fixed_readiness_stationarity μ).1
+    linarith
+  have hidentity :
+      readyPlannerPayoff μ (readyP μ) (readyP μ) -
+      readyPlannerPayoff μ x y =
+        (5 / 2 : ℝ) * (x + y - 2 * readyP μ) ^ 2 +
+        (5045 / 2048 : ℝ) * (x - y) ^ 2 := by
+    dsimp [readyPlannerPayoff]
+    linear_combination (2 * readyP μ - x - y) * hmu
+  have h1 : (0 : ℝ) ≤ (5 / 2 : ℝ) * (x + y - 2 * readyP μ) ^ 2 :=
+    mul_nonneg (by norm_num) (sq_nonneg _)
+  have h2 : (0 : ℝ) ≤ (5045 / 2048 : ℝ) * (x - y) ^ 2 :=
+    mul_nonneg (by norm_num) (sq_nonneg _)
+  have hzero : (5 / 2 : ℝ) * (x + y - 2 * readyP μ) ^ 2 +
+      (5045 / 2048 : ℝ) * (x - y) ^ 2 = 0 := by
+    rw [heq] at hidentity
+    linarith
+  have hz1 : (5 / 2 : ℝ) * (x + y - 2 * readyP μ) ^ 2 = 0 := by linarith
+  have hz2 : (5045 / 2048 : ℝ) * (x - y) ^ 2 = 0 := by linarith
+  have hs1 : (x + y - 2 * readyP μ) ^ 2 = 0 :=
+    (mul_eq_zero.mp hz1).resolve_left (by norm_num)
+  have hs2 : (x - y) ^ 2 = 0 :=
+    (mul_eq_zero.mp hz2).resolve_left (by norm_num)
+  have hm : x + y = 2 * readyP μ := by nlinarith [hs1]
+  have hd : x = y := by nlinarith [hs2]
+  constructor <;> linarith
+
+theorem loc_planner_unique (μ x y : ℝ)
+    (heq : locPlannerPayoff μ x y =
+      locPlannerPayoff μ (locP μ) (locP μ)) :
+    x = locP μ ∧ y = locP μ := by
+  have hmu : μ = 3 / 32 + 135 / 16 * locP μ := by
+    have hs := (fixed_location_stationarity μ).1
+    linarith
+  have hidentity :
+      locPlannerPayoff μ (locP μ) (locP μ) -
+      locPlannerPayoff μ x y =
+        (135 / 32 : ℝ) * ((x - locP μ) ^ 2 + (y - locP μ) ^ 2) := by
+    dsimp [locPlannerPayoff]
+    linear_combination (2 * locP μ - x - y) * hmu
+  have hs : (x - locP μ) ^ 2 + (y - locP μ) ^ 2 = 0 := by
+    rw [heq] at hidentity
+    linarith
+  constructor <;> nlinarith [sq_nonneg (x - locP μ),
+    sq_nonneg (y - locP μ)]
+
+theorem ready_local_unique (μ x : ℝ)
+    (heq : readyLocalPayoff μ x (readyN μ) =
+      readyLocalPayoff μ (readyN μ) (readyN μ)) :
+    x = readyN μ := by
+  have hs := (fixed_readiness_stationarity μ).2
+  have hmu : μ = 10 * readyN μ - 25 / 256 := by linarith
+  have hidentity :
+      readyLocalPayoff μ (readyN μ) (readyN μ) -
+      readyLocalPayoff μ x (readyN μ) =
+        (20405 / 4096 : ℝ) * (x - readyN μ) ^ 2 := by
+    dsimp [readyLocalPayoff]
+    linear_combination (readyN μ - x) * hmu
+  rw [heq] at hidentity
+  nlinarith [hidentity]
+
+theorem loc_local_unique (μ x : ℝ)
+    (heq : locLocalPayoff μ x = locLocalPayoff μ (locN μ)) :
+    x = locN μ := by
+  have hs := (fixed_location_stationarity μ).2
+  have hmu : μ = 3 / 64 + 295 / 32 * locN μ := by linarith
+  have hidentity :
+      locLocalPayoff μ (locN μ) - locLocalPayoff μ x =
+        (295 / 64 : ℝ) * (x - locN μ) ^ 2 := by
+    dsimp [locLocalPayoff]
+    linear_combination (locN μ - x) * hmu
+  rw [heq] at hidentity
+  nlinarith [hidentity]
+
+theorem full_local_unique (μ x : ℝ)
+    (hlo : (3 : ℝ) / 32 < μ) (hhi : μ < (1 : ℝ) / 8)
+    (hx0 : 0 ≤ x) (hxbar : x ≤ 2 / 25)
+    (heq : fullLocalPayoff μ x (fullN μ) =
+      fullLocalPayoff μ (fullN μ) (fullN μ)) :
+    x = fullN μ := by
+  have ha0 : (0 : ℝ) ≤ fullN μ := by dsimp [fullN]; linarith
+  have habar : fullN μ ≤ (2 : ℝ) / 25 := by dsimp [fullN]; linarith
+  have hz0 : (0 : ℝ) ≤ x + fullN μ := by linarith
+  have hzbar : x + fullN μ ≤ (4 : ℝ) / 25 := by linarith
+  have hbound : (0 : ℝ) ≤
+      (x + fullN μ) * ((4 : ℝ) / 25 - (x + fullN μ)) :=
+    mul_nonneg hz0 (sub_nonneg.mpr hzbar)
+  have hP : (3125 : ℝ) * (x + fullN μ) ^ 2 -
+      250 * (x + fullN μ) - 519 < 0 := by
+    nlinarith [hbound]
+  have hmu : μ = (315 / 64 : ℝ) * fullN μ - 5 / 128 := by
+    norm_num [fullN] <;> ring
+  have hidentity :
+      fullLocalPayoff μ x (fullN μ) -
+        fullLocalPayoff μ (fullN μ) (fullN μ) =
+      (5 / 1024 : ℝ) * (x - fullN μ) ^ 2 *
+        (3125 * (x + fullN μ) ^ 2 -
+          250 * (x + fullN μ) - 519) := by
+    dsimp [fullLocalPayoff, fullSurplus, locationProb, qbar, t, U, h,
+      q0, k, H, b, c]
+    linear_combination (x - fullN μ) * hmu
+  have hezero : (5 / 1024 : ℝ) * (x - fullN μ) ^ 2 *
+      (3125 * (x + fullN μ) ^ 2 - 250 * (x + fullN μ) - 519) = 0 := by
+    rw [heq] at hidentity
+    linarith
+  have hcoef : (5 / 1024 : ℝ) *
+      (3125 * (x + fullN μ) ^ 2 -
+        250 * (x + fullN μ) - 519) < 0 :=
+    mul_neg_of_pos_of_neg (by norm_num) hP
+  have hezero' : (x - fullN μ) ^ 2 *
+      ((5 / 1024 : ℝ) *
+        (3125 * (x + fullN μ) ^ 2 -
+          250 * (x + fullN μ) - 519)) = 0 := by
+    calc
+      _ = (5 / 1024 : ℝ) * (x - fullN μ) ^ 2 *
+            (3125 * (x + fullN μ) ^ 2 -
+              250 * (x + fullN μ) - 519) := by ring
+      _ = 0 := hezero
+  have hs : (x - fullN μ) ^ 2 = 0 :=
+    (mul_eq_zero.mp hezero').resolve_right (ne_of_lt hcoef)
+  nlinarith [hs]
+
+-- Compare a generic symmetric candidate with a deviation to the proposed
+-- Nash action; the coefficient is strictly positive without extra assumptions.
+theorem full_symmetric_deviation (μ a : ℝ) :
+    fullLocalPayoff μ (fullN μ) a - fullLocalPayoff μ a a =
+      (5 / 1024 : ℝ) * (fullN μ - a) ^ 2 *
+        (5 * (25 * (fullN μ + a) - 1) ^ 2 + 484) := by
+  norm_num [fullLocalPayoff, fullSurplus, locationProb, qbar, t, U, h,
+    fullN, q0, k, H, b, c] <;> ring
+
+theorem ready_symmetric_deviation (μ a : ℝ) :
+    readyLocalPayoff μ (readyN μ) a - readyLocalPayoff μ a a =
+      (20555 / 4096 : ℝ) * (readyN μ - a) ^ 2 := by
+  norm_num [readyLocalPayoff, readyN] <;> ring
+
+theorem loc_symmetric_deviation (μ a : ℝ) :
+    locLocalPayoff μ (locN μ) - locLocalPayoff μ a =
+      (295 / 64 : ℝ) * (locN μ - a) ^ 2 := by
+  norm_num [locLocalPayoff, locN] <;> ring
+
+def IsSymmetricNash (payoff : ℝ → ℝ → ℝ) (a : ℝ) : Prop :=
+  0 ≤ a ∧ a ≤ 2 / 25 ∧
+    ∀ x : ℝ, 0 ≤ x → x ≤ 2 / 25 → payoff x a ≤ payoff a a
+
+theorem full_symmetric_nash_exists (μ : ℝ)
+    (hlo : (3 : ℝ) / 32 < μ) (hhi : μ < (1 : ℝ) / 8) :
+    IsSymmetricNash (fullLocalPayoff μ) (fullN μ) := by
+  have hN := (all_six_interior μ hlo hhi).2.1
+  refine ⟨le_of_lt hN.1, le_of_lt hN.2, ?_⟩
+  intro x hx0 hxbar
+  exact full_local_global μ x hlo hhi hx0 hxbar
+
+theorem ready_symmetric_nash_exists (μ : ℝ)
+    (hlo : (3 : ℝ) / 32 < μ) (hhi : μ < (1 : ℝ) / 8) :
+    IsSymmetricNash (readyLocalPayoff μ) (readyN μ) := by
+  have hN : 0 < readyN μ ∧ readyN μ < 2 / 25 := by
+    constructor <;> dsimp [readyN] <;> linarith
+  refine ⟨le_of_lt hN.1, le_of_lt hN.2, ?_⟩
+  intro x _ _
+  exact ready_local_global μ x
+
+theorem loc_symmetric_nash_exists (μ : ℝ)
+    (hlo : (3 : ℝ) / 32 < μ) (hhi : μ < (1 : ℝ) / 8) :
+    IsSymmetricNash (fun x _ => locLocalPayoff μ x) (locN μ) := by
+  have hN : 0 < locN μ ∧ locN μ < 2 / 25 := by
+    constructor <;> dsimp [locN] <;> linarith
+  refine ⟨le_of_lt hN.1, le_of_lt hN.2, ?_⟩
+  intro x _ _
+  exact loc_local_global μ x
+
+private theorem square_positive_if_ne (z : ℝ) (h : z ≠ 0) : 0 < z ^ 2 := by
+  have hnonneg : 0 ≤ z ^ 2 := sq_nonneg z
+  rcases eq_or_lt_of_le hnonneg with heq | hlt
+  · exfalso
+    apply h
+    nlinarith
+  · exact hlt
+
+theorem full_symmetric_nash_unique (μ a : ℝ)
+    (hlo : (3 : ℝ) / 32 < μ) (hhi : μ < (1 : ℝ) / 8)
+    (h : IsSymmetricNash (fullLocalPayoff μ) a) :
+    a = fullN μ := by
+  obtain ⟨_, _, hbest⟩ := h
+  have hN := (all_six_interior μ hlo hhi).2.1
+  have hdeviation := hbest (fullN μ) (le_of_lt hN.1) (le_of_lt hN.2)
+  by_contra hne
+  have hsub : fullN μ - a ≠ 0 := sub_ne_zero.mpr (Ne.symm hne)
+  have hsq : 0 < (fullN μ - a) ^ 2 := square_positive_if_ne _ hsub
+  have hcoef : (0 : ℝ) < (5 / 1024 : ℝ) := by norm_num
+  have hbracket : (0 : ℝ) <
+      5 * (25 * (fullN μ + a) - 1) ^ 2 + 484 := by positivity
+  have hgain : (0 : ℝ) <
+      (5 / 1024 : ℝ) * (fullN μ - a) ^ 2 *
+        (5 * (25 * (fullN μ + a) - 1) ^ 2 + 484) :=
+    mul_pos (mul_pos hcoef hsq) hbracket
+  have hidentity := full_symmetric_deviation μ a
+  linarith
+
+theorem ready_symmetric_nash_unique (μ a : ℝ)
+    (hlo : (3 : ℝ) / 32 < μ) (hhi : μ < (1 : ℝ) / 8)
+    (h : IsSymmetricNash (readyLocalPayoff μ) a) :
+    a = readyN μ := by
+  obtain ⟨_, _, hbest⟩ := h
+  have hN : 0 < readyN μ ∧ readyN μ < 2 / 25 := by
+    constructor <;> dsimp [readyN] <;> linarith
+  have hdeviation := hbest (readyN μ) (le_of_lt hN.1) (le_of_lt hN.2)
+  by_contra hne
+  have hsub : readyN μ - a ≠ 0 := sub_ne_zero.mpr (Ne.symm hne)
+  have hsq : 0 < (readyN μ - a) ^ 2 := square_positive_if_ne _ hsub
+  have hgain : (0 : ℝ) < (20555 / 4096 : ℝ) * (readyN μ - a) ^ 2 :=
+    mul_pos (by norm_num) hsq
+  have hidentity := ready_symmetric_deviation μ a
+  linarith
+
+theorem loc_symmetric_nash_unique (μ a : ℝ)
+    (hlo : (3 : ℝ) / 32 < μ) (hhi : μ < (1 : ℝ) / 8)
+    (h : IsSymmetricNash (fun x _ => locLocalPayoff μ x) a) :
+    a = locN μ := by
+  obtain ⟨_, _, hbest⟩ := h
+  have hN : 0 < locN μ ∧ locN μ < 2 / 25 := by
+    constructor <;> dsimp [locN] <;> linarith
+  have hdeviation := hbest (locN μ) (le_of_lt hN.1) (le_of_lt hN.2)
+  by_contra hne
+  have hsub : locN μ - a ≠ 0 := sub_ne_zero.mpr (Ne.symm hne)
+  have hsq : 0 < (locN μ - a) ^ 2 := square_positive_if_ne _ hsub
+  have hgain : (0 : ℝ) < (295 / 64 : ℝ) * (locN μ - a) ^ 2 :=
+    mul_pos (by norm_num) hsq
+  have hidentity := loc_symmetric_deviation μ a
+  linarith
+
 end JPET.ResponseInteraction
 
 -- Explicit kernel-dependency audit for the new (real-valued) JPET certificates.
@@ -486,3 +777,8 @@ end JPET.ResponseInteraction
 #print axioms JPET.ResponseInteraction.ready_local_global
 #print axioms JPET.ResponseInteraction.loc_planner_global
 #print axioms JPET.ResponseInteraction.loc_local_global
+
+#print axioms JPET.ResponseInteraction.full_planner_unique
+#print axioms JPET.ResponseInteraction.full_symmetric_nash_unique
+#print axioms JPET.ResponseInteraction.ready_symmetric_nash_unique
+#print axioms JPET.ResponseInteraction.loc_symmetric_nash_unique

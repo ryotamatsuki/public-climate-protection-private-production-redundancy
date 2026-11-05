@@ -1,42 +1,57 @@
-# JPET Proposition 8 — bounded Lean certification
+# JPET Proposition 8 — model-specific Lean 4 verification
 
-The independent certificate lives in [ResponseInteraction.lean](ResponseInteraction.lean).
-It uses the original project's pinned Lean 4.32.1 / mathlib manifest, but
-**does not change the frozen ERE formal modules**, their scientific source,
-or the existing Theorem 1 trust boundary.
+Source: [ResponseInteraction.lean](ResponseInteraction.lean)
 
-## Claims covered
+The module uses the repository's **Lean 4.32.1** and pinned mathlib
+manifest, and operates over **real-valued policy variables (ℝ)** with exact
+rational coefficients. It does not alter any frozen ERE scientific file,
+the original formal Theorem 1, or the article's mathematical statements.
 
-- Closed rational checks of the exact primitive coefficients (mu0, tc, s, m).
-- Exact polynomial-deviation identities for the *fully endogenous* gamma=0
-  coordinator and unilateral local-government objectives, including every
-  quadratic-and-higher remainder term. This identifies the actual FOC
-  coefficients from the continuation-derived policy payoff functions.
-- FOCs and strict interior feasibility of all six policy levels on
-  3/32 < mu < 1/8.
-- Exact finite-change identities for the three policy gaps, proving the
-  positive, zero and negative slopes without relying on numerical differentiation.
-- Global maximization of the two-dimensional planner and unilateral Nash
-  objective functions for the *fixed-readiness* and *fixed-location* restricted
-  games by sum-of-squares; no first-order-only globality inference.
+## Proved in Lean (the reduced gamma=0 benchmark)
 
-## Deliberately unproved here
+1. Primitive-to-policy coefficient identities: mu0, tc, s, m.
+2. Exact full-endogenous two-policy economic payoff functions, including
+   unilateral-deviation polynomials and the full higher-order remainders.
+3. Analytic stationarity and strict policy feasibility for all six
+   planner/Nash levels throughout 3/32 < mu < 1/8.
+4. Three finite-change gap laws, for all real benefit increments:
+   16/189 (positive), zero, and -16/1593 (negative).
+5. **Full-endogenous planner global optimality:** an exact
+   square-completion decomposition and an interval bound on U(q) prove
+   the symmetric policy is globally optimal on the entire policy square.
+6. **Full-endogenous local Nash globality:** a quartic deviation
+   identity and interval remainder inequality exclude profitable
+   unilateral deviations anywhere in the entire policy square.
+7. Fixed-readiness and fixed-location counterfactuals: exact
+   sum-of-squares proofs of global coordinated and unilateral local
+   policy optima, not just first-order stationarity.
+8. The seven key theorem dependencies are printed by Lean's
+   `#print axioms` for an explicit trust-boundary audit.
 
-- The private-game equilibrium derivation of the reduced-form fullSurplus and
-  locationProb objects; these are established in the mathematical appendix
-  and tested in the independent SymPy script.
-- Full-endogenous global planner and unilateral local-optimality over the
-  entire two-dimensional policy square. These remain in the existing exact
-  Python/math proof layer; the Lean first-order expansion does NOT establish
-  globality.
-- Positive-product-substitutability continuity, the nonempty primitive
-  region, incidence robustness, and the full model's 43-page prose claims.
-- Other original theorem obligations in formal/README.md, including
-  native_decide in *pre-existing* original formal modules.
+No `sorry`, `admit`, explicitly declared `axiom`, or `native_decide`
+occurs in this new proof module.
 
-## Run
+## Remaining trust boundary (IMPORTANT)
 
-From the repository root (with the pinned toolchain and mathlib cache):
+The module takes the **gamma=0 private-equilibrium reduced-form
+identities** (expected surplus, primary-location response, and the
+restricted-game reduced payoffs) as mathematical definitions. The
+derivation of those identities from the five-stage model and the
+proof of the validity/interiority of private continuations are still
+in the manuscript plus independent exact Python verification.
+
+Therefore a green Lean check does NOT by itself provide a closed
+formalization from original economic primitives through every game
+stage to Proposition 8. Positive-gamma continuation and the gamma
+comparative static (Proposition 10), model perturbations, and the
+baseline gamma=12/25 global certificates are not re-proved here.
+
+The frozen ERE Lean code also has separate explicit conditional
+hypotheses and `native_decide` trust dependencies; see
+`formal/README.md`. This new module should not be represented as
+an unconditional formal proof of the entire paper.
+
+## Reproduce
 
 ```bash
 cd formal
@@ -46,10 +61,5 @@ cd ..
 python submission/JPET/review_cycles/restricted_games_exact.py
 ```
 
-The separate workflow
-`.github/workflows/jpet-lean-response.yml` compiles this module and
-runs the independent restricted-games exact Python check.
-
-A green CI proves that Lean accepted this *stated* set of theorems. It does
-not constitute a proof of novelty, a claim that all paper propositions were
-formalized, or journal acceptance.
+The dedicated CI workflow is
+`.github/workflows/jpet-lean-response.yml`.

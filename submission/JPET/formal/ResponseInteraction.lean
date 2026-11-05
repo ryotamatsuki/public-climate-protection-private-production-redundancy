@@ -215,4 +215,76 @@ theorem loc_local_global (μ x : ℚ) :
     mul_nonneg (by norm_num) (sq_nonneg _)
   linarith
 
+
+/-! The full endogenous gamma=0 planner game admits an exact decomposition
+    around the symmetrical optimum. This is a *new Lean globality bridge*.
+    It uses the already-reduced private surplus identity, not a derivation
+    of that identity from the preceding private-game stages. -/
+theorem full_planner_global (μ x y : ℚ)
+    (hx0 : 0 ≤ x) (hxbar : x ≤ 2 / 25)
+    (hy0 : 0 ≤ y) (hybar : y ≤ 2 / 25) :
+    fullPlannerPayoff μ x y ≤ fullPlannerPayoff μ (fullP μ) (fullP μ) := by
+  have hmu : μ = (3 : ℚ) / 32 + (135 / 16 : ℚ) * fullP μ := by
+    norm_num [fullP] <;> ring
+  have hm0 : (0 : ℚ) ≤ (x + y) / 2 := by linarith
+  have hmbar : (x + y) / 2 ≤ (2 : ℚ) / 25 := by linarith
+  have hbound : (0 : ℚ) ≤
+      ((x + y) / 2) * ((2 : ℚ) / 25 - (x + y) / 2) :=
+    mul_nonneg hm0 (sub_nonneg.mpr hmbar)
+  have hub : U (qbar x y) ≤ (325 : ℚ) / 512 := by
+    dsimp [U, qbar, q0, k, H]
+    nlinarith [hbound]
+  have hidentity :
+      fullPlannerPayoff μ (fullP μ) (fullP μ) - fullPlannerPayoff μ x y =
+      tc * ((x + y) / 2 - fullP μ) ^ 2 +
+        (c / 4 - U (qbar x y)) * (x - y) ^ 2 := by
+    dsimp [fullPlannerPayoff, fullSurplus, qbar, t, U, tc, q0, k, H, b, c]
+    linear_combination (2 * fullP μ - x - y) * hmu
+  have htc : (0 : ℚ) ≤ tc := by norm_num [tc, c, k]
+  have hU : (0 : ℚ) ≤ c / 4 - U (qbar x y) := by
+    norm_num [c] at *
+    linarith
+  have h1 : (0 : ℚ) ≤ tc * ((x + y) / 2 - fullP μ) ^ 2 :=
+    mul_nonneg htc (sq_nonneg _)
+  have h2 : (0 : ℚ) ≤ (c / 4 - U (qbar x y)) * (x - y) ^ 2 :=
+    mul_nonneg hU (sq_nonneg _)
+  linarith
+
+/-! Full-endogenous unilateral deviations are also globally dominated on
+    the WHOLE policy interval. Strict negativity of the quartic remainder
+    follows from a simple interval square bound, rather than just the FOC. -/
+theorem full_local_global (μ x : ℚ)
+    (hlo : (3 : ℚ) / 32 < μ) (hhi : μ < (1 : ℚ) / 8)
+    (hx0 : 0 ≤ x) (hxbar : x ≤ 2 / 25) :
+    fullLocalPayoff μ x (fullN μ) ≤
+      fullLocalPayoff μ (fullN μ) (fullN μ) := by
+  have ha0 : (0 : ℚ) ≤ fullN μ := by dsimp [fullN]; linarith
+  have habar : fullN μ ≤ (2 : ℚ) / 25 := by dsimp [fullN]; linarith
+  have hz0 : (0 : ℚ) ≤ x + fullN μ := by linarith
+  have hzbar : x + fullN μ ≤ (4 : ℚ) / 25 := by linarith
+  have hbound : (0 : ℚ) ≤
+      (x + fullN μ) * ((4 : ℚ) / 25 - (x + fullN μ)) :=
+    mul_nonneg hz0 (sub_nonneg.mpr hzbar)
+  have hP : (3125 : ℚ) * (x + fullN μ) ^ 2 -
+      250 * (x + fullN μ) - 519 < 0 := by
+    nlinarith [hbound]
+  have hmu : μ = (315 / 64 : ℚ) * fullN μ - 5 / 128 := by
+    norm_num [fullN] <;> ring
+  have hidentity :
+      fullLocalPayoff μ x (fullN μ) -
+        fullLocalPayoff μ (fullN μ) (fullN μ) =
+      (5 / 1024 : ℚ) * (x - fullN μ) ^ 2 *
+        (3125 * (x + fullN μ) ^ 2 -
+          250 * (x + fullN μ) - 519) := by
+    dsimp [fullLocalPayoff, fullSurplus, locationProb, qbar, t, U, h,
+      q0, k, H, b, c]
+    linear_combination (x - fullN μ) * hmu
+  have hnonneg : (0 : ℚ) ≤ (5 / 1024 : ℚ) * (x - fullN μ) ^ 2 :=
+    mul_nonneg (by norm_num) (sq_nonneg _)
+  have hnonpos :
+      (5 / 1024 : ℚ) * (x - fullN μ) ^ 2 *
+        (3125 * (x + fullN μ) ^ 2 - 250 * (x + fullN μ) - 519) ≤ 0 :=
+    mul_nonpos_of_nonneg_of_nonpos hnonneg (le_of_lt hP)
+  linarith
+
 end JPET.ResponseInteraction

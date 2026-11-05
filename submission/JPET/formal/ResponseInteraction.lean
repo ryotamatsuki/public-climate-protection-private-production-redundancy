@@ -232,8 +232,7 @@ theorem full_planner_global (μ x y : ℚ)
       ((x + y) / 2) * ((2 : ℚ) / 25 - (x + y) / 2) :=
     mul_nonneg hm0 (sub_nonneg.mpr hmbar)
   have hub : U (qbar x y) ≤ (325 : ℚ) / 512 := by
-    dsimp [U, qbar, q0, k, H]
-    nlinarith [hbound]
+    norm_num [U, qbar, q0, k, H] <;> nlinarith [hbound]
   have hidentity :
       fullPlannerPayoff μ (fullP μ) (fullP μ) - fullPlannerPayoff μ x y =
       tc * ((x + y) / 2 - fullP μ) ^ 2 +

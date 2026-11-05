@@ -159,9 +159,8 @@ theorem ready_planner_global (μ x y : ℚ) :
       readyPlannerPayoff μ x y =
         (5 / 2 : ℚ) * (x + y - 2 * readyP μ) ^ 2 +
         (5045 / 2048 : ℚ) * (x - y) ^ 2 := by
-    rw [hmu]
     dsimp [readyPlannerPayoff]
-    ring
+    linear_combination (2 * readyP μ - x - y) * hmu
   have h1 : (0 : ℚ) ≤ (5 / 2 : ℚ) * (x + y - 2 * readyP μ) ^ 2 :=
     mul_nonneg (by norm_num) (sq_nonneg _)
   have h2 : (0 : ℚ) ≤ (5045 / 2048 : ℚ) * (x - y) ^ 2 :=
@@ -177,9 +176,8 @@ theorem ready_local_global (μ x : ℚ) :
       readyLocalPayoff μ (readyN μ) (readyN μ) -
       readyLocalPayoff μ x (readyN μ) =
         (20405 / 4096 : ℚ) * (x - readyN μ) ^ 2 := by
-    rw [hmu]
     dsimp [readyLocalPayoff]
-    ring
+    linear_combination (readyN μ - x) * hmu
   have hnonneg : (0 : ℚ) ≤ (20405 / 4096 : ℚ) * (x - readyN μ) ^ 2 :=
     mul_nonneg (by norm_num) (sq_nonneg _)
   linarith
@@ -197,9 +195,8 @@ theorem loc_planner_global (μ x y : ℚ) :
   have hidentity :
       locPlannerPayoff μ (locP μ) (locP μ) - locPlannerPayoff μ x y =
         (135 / 32 : ℚ) * ((x - locP μ) ^ 2 + (y - locP μ) ^ 2) := by
-    rw [hmu]
     dsimp [locPlannerPayoff]
-    ring
+    linear_combination (2 * locP μ - x - y) * hmu
   have hnonneg : (0 : ℚ) ≤
       (135 / 32 : ℚ) * ((x - locP μ) ^ 2 + (y - locP μ) ^ 2) :=
     mul_nonneg (by norm_num) (add_nonneg (sq_nonneg _) (sq_nonneg _))
@@ -212,9 +209,8 @@ theorem loc_local_global (μ x : ℚ) :
   have hidentity :
       locLocalPayoff μ (locN μ) - locLocalPayoff μ x =
         (295 / 64 : ℚ) * (x - locN μ) ^ 2 := by
-    rw [hmu]
     dsimp [locLocalPayoff]
-    ring
+    linear_combination (locN μ - x) * hmu
   have hnonneg : (0 : ℚ) ≤ (295 / 64 : ℚ) * (x - locN μ) ^ 2 :=
     mul_nonneg (by norm_num) (sq_nonneg _)
   linarith

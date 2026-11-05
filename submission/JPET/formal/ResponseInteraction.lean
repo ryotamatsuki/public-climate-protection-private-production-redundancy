@@ -8,13 +8,15 @@ This module strengthens the *bounded*, model-specific parts of Proposition 8:
   into exact public policy payoffs, then checks the first-order coefficients;
 * verifies primitive coefficients and all six interior policy levels;
 * proves positive / zero / negative response-gap increments;
-* proves GLOBAL planner and unilateral best-response inequalities in the
-  fixed-readiness and fixed-location counterfactual games.
+* proves global planner and unilateral best-response inequalities in all
+  three policy games, including the fully endogenous benchmark;
+* reconstructs gamma=0 primitive payoffs, optimal private readiness,
+  Bayesian location cutoff and national surplus from the original primitives;
+* checks all three reduced policy games against their primitive objectives.
 
-The full endogenous policy game's global inequalities and the identity linking
-its private equilibrium to the analytically reduced surplus and probabilities
-remain external mathematical/Python obligations. This file is NOT a closed
-Lean proof of Proposition 8 or of positive-gamma/open-set results.
+The uniform-fit cutoff interpretation and the stochastic independence law
+remain economic assumptions; positive-gamma/open-set results are not proved
+in Lean. This is not a closed formalization of every stage of the full paper.
 No sorry, admit, axiom, or native_decide is used.
 -/
 
@@ -285,6 +287,193 @@ theorem full_local_global (μ x : ℝ)
         (3125 * (x + fullN μ) ^ 2 - 250 * (x + fullN μ) - 519) ≤ 0 :=
     mul_nonpos_of_nonneg_of_nonpos hnonneg (le_of_lt hP)
   linarith
+
+
+/-!
+## Primitive-to-reduced-form bridge at gamma = 0
+
+The product-market monopoly/Cournot payoff, endogenous private readiness,
+location cutoff, national material surplus and government policy objectives
+are reconstructed from the model's state-contingent primitives. Fixed-readiness
+and fixed-location counterfactual objectives are likewise checked against their
+reduced-form counterparts.
+
+The economic interpretation of the uniform location-fit distribution and the
+probabilistic independence of disaster/backup draws remains a mathematical
+model assumption, rather than a measure-theoretic Lean construction.
+-/
+
+-- With separable products, each surviving firm maximizes z * (1-z).
+theorem separable_cournot_global (z : ℝ) :
+    z * (1 - z) ≤ (1 / 4 : ℝ) := by
+  nlinarith [sq_nonneg (z - 1 / 2)]
+
+theorem separable_market_surplus :
+    (1 / 2 : ℝ) - (1 / 2 : ℝ) ^ 2 / 2 = 3 / 8 := by
+  norm_num
+
+-- Independent backup success conditional on a primary failure.
+-- The incremental sole-survivor rent is zero in this benchmark.
+noncomputable def primitiveProfit (q r : ℝ) : ℝ :=
+  (1 - q * (1 - r)) / 4 - k * r ^ 2 / 2
+
+noncomputable def privateReadiness (q : ℝ) : ℝ := q / (4 * k)
+noncomputable def continuationProfit (q : ℝ) : ℝ :=
+  (1 - q) / 4 + q ^ 2 / (32 * k)
+
+theorem readiness_square_identity (q r : ℝ) :
+    primitiveProfit q (privateReadiness q) - primitiveProfit q r =
+      (k / 2) * (r - privateReadiness q) ^ 2 := by
+  norm_num [primitiveProfit, privateReadiness, k] <;> ring
+
+theorem readiness_global_best_response (q r : ℝ) :
+    primitiveProfit q r ≤ primitiveProfit q (privateReadiness q) := by
+  have h := readiness_square_identity q r
+  have hn : (0 : ℝ) ≤ (k / 2) * (r - privateReadiness q) ^ 2 :=
+    mul_nonneg (by norm_num [k]) (sq_nonneg _)
+  linarith
+
+theorem readiness_unique_best_response (q r : ℝ)
+    (h : primitiveProfit q r = primitiveProfit q (privateReadiness q)) :
+    r = privateReadiness q := by
+  have hs := readiness_square_identity q r
+  have hk : (0 : ℝ) < k / 2 := by norm_num [k]
+  have hz : (r - privateReadiness q) ^ 2 = 0 := by
+    have hm := mul_pos_of_pos_of_pos hk
+    nlinarith [sq_nonneg (r - privateReadiness q)]
+  nlinarith [sq_nonneg (r - privateReadiness q)]
+
+theorem readiness_policy_bounds (x : ℝ)
+    (hx0 : 0 ≤ x) (hxbar : x ≤ 2 / 25) :
+    (11 / 16 : ℝ) ≤ privateReadiness (q0 - x) ∧
+      privateReadiness (q0 - x) ≤ 15 / 16 := by
+  have heq : privateReadiness (q0 - x) =
+      (15 / 16 : ℝ) - 25 * x / 8 := by
+    norm_num [privateReadiness, q0, k] <;> ring
+  rw [heq]
+  constructor <;> linarith
+
+theorem continuation_profit_formula (q : ℝ) :
+    primitiveProfit q (privateReadiness q) = continuationProfit q := by
+  norm_num [primitiveProfit, privateReadiness, continuationProfit, k] <;> ring
+
+noncomputable def primitiveMaterialSurplus (q r : ℝ) : ℝ :=
+  (3 / 8) * (1 - q * (1 - r)) - k * r ^ 2 / 2
+
+theorem continuation_surplus_formula (q : ℝ) :
+    primitiveMaterialSurplus q (privateReadiness q) = t q := by
+  norm_num [primitiveMaterialSurplus, privateReadiness, t, k] <;> ring
+
+-- At gamma=0 the deterministic A-minus-B location advantage is
+-- independent of the rival's location, and the interior uniform-fit cutoff
+-- is (H + f(q_A) - f(q_B)) / (2H).
+noncomputable def primitiveLocationCutoff (x y : ℝ) : ℝ :=
+  1 / 2 +
+    (continuationProfit (q0 - x) - continuationProfit (q0 - y)) / (2 * H)
+
+theorem primitive_location_equals_reduced (x y : ℝ) :
+    primitiveLocationCutoff x y = locationProb x y := by
+  norm_num [primitiveLocationCutoff, continuationProfit, locationProb,
+    qbar, h, q0, k, H] <;> ring
+
+theorem primitive_location_bounds (x y : ℝ)
+    (hx0 : 0 ≤ x) (hxbar : x ≤ 2 / 25)
+    (hy0 : 0 ≤ y) (hybar : y ≤ 2 / 25) :
+    (5 / 16 : ℝ) ≤ primitiveLocationCutoff x y ∧
+      primitiveLocationCutoff x y ≤ 11 / 16 := by
+  have hxprod : (0 : ℝ) ≤ x * (2 / 25 - x) :=
+    mul_nonneg hx0 (sub_nonneg.mpr hxbar)
+  have hyprod : (0 : ℝ) ≤ y * (2 / 25 - y) :=
+    mul_nonneg hy0 (sub_nonneg.mpr hybar)
+  have hx2 : x ^ 2 ≤ (4 / 625 : ℝ) := by nlinarith
+  have hy2 : y ^ 2 ≤ (4 / 625 : ℝ) := by nlinarith
+  have heq : primitiveLocationCutoff x y =
+      (1 / 2 : ℝ) + 25 / 32 * (x - y) +
+      625 / 32 * (x ^ 2 - y ^ 2) := by
+    norm_num [primitiveLocationCutoff, continuationProfit, q0, k, H] <;> ring
+  rw [heq]
+  constructor <;> nlinarith [sq_nonneg x, sq_nonneg y]
+
+noncomputable def primitiveNationalSurplus (x y : ℝ) : ℝ :=
+  2 * (primitiveLocationCutoff x y *
+        primitiveMaterialSurplus (q0 - x) (privateReadiness (q0 - x)) +
+      (1 - primitiveLocationCutoff x y) *
+        primitiveMaterialSurplus (q0 - y) (privateReadiness (q0 - y)))
+
+theorem primitive_surplus_equals_reduced (x y : ℝ) :
+    primitiveNationalSurplus x y = fullSurplus x y := by
+  norm_num [primitiveNationalSurplus, primitiveLocationCutoff,
+    primitiveMaterialSurplus, privateReadiness, continuationProfit,
+    fullSurplus, t, U, qbar, q0, k, H] <;> ring
+
+theorem primitive_planner_equals_reduced (μ x y : ℝ) :
+    primitiveNationalSurplus x y + 2 * b - c * (x ^ 2 + y ^ 2) / 2 +
+      μ * (x + y) = fullPlannerPayoff μ x y := by
+  rw [primitive_surplus_equals_reduced]
+  rfl
+
+theorem primitive_local_equals_reduced (μ x y : ℝ) :
+    primitiveNationalSurplus x y / 2 + 2 * b * primitiveLocationCutoff x y -
+      c * x ^ 2 / 2 + μ * x = fullLocalPayoff μ x y := by
+  rw [primitive_surplus_equals_reduced, primitive_location_equals_reduced]
+  rfl
+
+-- The restricted games must be re-solved from their own primitives:
+-- fixed readiness is r*=15/16, whereas fixed location is p=1/2.
+noncomputable def fixedReadiness : ℝ := 15 / 16
+noncomputable def fixedReadinessLocation (x y : ℝ) : ℝ :=
+  1 / 2 +
+    (primitiveProfit (q0 - x) fixedReadiness -
+      primitiveProfit (q0 - y) fixedReadiness) / (2 * H)
+noncomputable def fixedReadinessSurplus (x y : ℝ) : ℝ :=
+  2 * (fixedReadinessLocation x y *
+        primitiveMaterialSurplus (q0 - x) fixedReadiness +
+    (1 - fixedReadinessLocation x y) *
+        primitiveMaterialSurplus (q0 - y) fixedReadiness)
+noncomputable def primitiveReadyPlanner (μ x y : ℝ) : ℝ :=
+  fixedReadinessSurplus x y + 2 * b -
+    c * (x ^ 2 + y ^ 2) / 2 + μ * (x + y)
+noncomputable def primitiveReadyLocal (μ x y : ℝ) : ℝ :=
+  fixedReadinessSurplus x y / 2 + 2 * b * fixedReadinessLocation x y -
+    c * x ^ 2 / 2 + μ * x
+
+theorem primitive_fixed_readiness_planner (μ x y : ℝ) :
+    primitiveReadyPlanner μ x y =
+      readyPlannerPayoff μ x y + (1241 / 1600 : ℝ) := by
+  norm_num [primitiveReadyPlanner, fixedReadinessSurplus,
+    fixedReadinessLocation, primitiveMaterialSurplus, primitiveProfit,
+    fixedReadiness, readyPlannerPayoff, q0, k, H, b, c] <;> ring
+
+theorem primitive_fixed_readiness_local (μ x y : ℝ) :
+    primitiveReadyLocal μ x y =
+      readyLocalPayoff μ x y + (1241 / 3200 : ℝ) := by
+  norm_num [primitiveReadyLocal, fixedReadinessSurplus,
+    fixedReadinessLocation, primitiveMaterialSurplus, primitiveProfit,
+    fixedReadiness, readyLocalPayoff, q0, k, H, b, c] <;> ring
+
+noncomputable def primitiveFixedLocationSurplus (x y : ℝ) : ℝ :=
+  (primitiveMaterialSurplus (q0 - x) (privateReadiness (q0 - x)) +
+    primitiveMaterialSurplus (q0 - y) (privateReadiness (q0 - y)))
+noncomputable def primitiveLocPlanner (μ x y : ℝ) : ℝ :=
+  primitiveFixedLocationSurplus x y + 2 * b -
+    c * (x ^ 2 + y ^ 2) / 2 + μ * (x + y)
+noncomputable def primitiveLocLocal (μ x y : ℝ) : ℝ :=
+  primitiveFixedLocationSurplus x y / 2 + b - c * x ^ 2 / 2 + μ * x
+
+theorem primitive_fixed_location_planner (μ x y : ℝ) :
+    primitiveLocPlanner μ x y =
+      locPlannerPayoff μ x y + (1241 / 1600 : ℝ) := by
+  norm_num [primitiveLocPlanner, primitiveFixedLocationSurplus,
+    primitiveMaterialSurplus, privateReadiness,
+    locPlannerPayoff, q0, k, b, c] <;> ring
+
+theorem primitive_fixed_location_local (μ x y : ℝ) :
+    primitiveLocLocal μ x y =
+      locLocalPayoff μ x + 25 / 64 * y ^ 2 - 3 / 64 * y +
+        (1241 / 3200 : ℝ) := by
+  norm_num [primitiveLocLocal, primitiveFixedLocationSurplus,
+    primitiveMaterialSurplus, privateReadiness,
+    locLocalPayoff, q0, k, b, c] <;> ring
 
 end JPET.ResponseInteraction
 

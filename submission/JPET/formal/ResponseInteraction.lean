@@ -20,75 +20,75 @@ No sorry, admit, axiom, or native_decide is used.
 
 namespace JPET.ResponseInteraction
 
-private def q0 : ℚ := 3 / 10
-private def k : ℚ := 2 / 25
-private def H : ℚ := 1 / 100
-private def b : ℚ := 11 / 200
-private def c : ℚ := 10
+private def q0 : ℝ := 3 / 10
+private def k : ℝ := 2 / 25
+private def H : ℝ := 1 / 100
+private def b : ℝ := 11 / 200
+private def c : ℝ := 10
 
-def mu0 : ℚ := (q0 - 3 * k) / (8 * k)
-def tc : ℚ := c - 1 / (8 * k)
-def s : ℚ := c - (H + b) / (16 * H * k)
-def m : ℚ := (H * (3 * k - q0) + b * (4 * k - q0)) / (16 * H * k)
+def mu0 : ℝ := (q0 - 3 * k) / (8 * k)
+def tc : ℝ := c - 1 / (8 * k)
+def s : ℝ := c - (H + b) / (16 * H * k)
+def m : ℝ := (H * (3 * k - q0) + b * (4 * k - q0)) / (16 * H * k)
 
 theorem coefficient_values :
     mu0 = 3 / 32 ∧ tc = 135 / 16 ∧ s = 315 / 64 ∧ m = 5 / 128 := by
   norm_num [mu0, tc, s, m, q0, k, H, b, c]
 
-def qbar (x y : ℚ) : ℚ := q0 - (x + y) / 2
-def t (q : ℚ) : ℚ := 3 * (1 - q) / 8 + q ^ 2 / (16 * k)
-def U (q : ℚ) : ℚ := 1 / (32 * k) + (4 * k - q) * (3 * k - q) / (128 * H * k ^ 2)
-def h (q : ℚ) : ℚ := (4 * k - q) / (16 * k)
-def fullSurplus (x y : ℚ) : ℚ :=
+def qbar (x y : ℝ) : ℝ := q0 - (x + y) / 2
+def t (q : ℝ) : ℝ := 3 * (1 - q) / 8 + q ^ 2 / (16 * k)
+def U (q : ℝ) : ℝ := 1 / (32 * k) + (4 * k - q) * (3 * k - q) / (128 * H * k ^ 2)
+def h (q : ℝ) : ℝ := (4 * k - q) / (16 * k)
+def fullSurplus (x y : ℝ) : ℝ :=
   2 * t (qbar x y) + U (qbar x y) * (x - y) ^ 2
-def locationProb (x y : ℚ) : ℚ :=
+def locationProb (x y : ℝ) : ℝ :=
   1 / 2 + h (qbar x y) * (x - y) / (2 * H)
-def fullPlannerPayoff (μ x y : ℚ) : ℚ :=
+def fullPlannerPayoff (μ x y : ℝ) : ℝ :=
   fullSurplus x y + 2 * b - c * (x ^ 2 + y ^ 2) / 2 + μ * (x + y)
-def fullLocalPayoff (μ x y : ℚ) : ℚ :=
+def fullLocalPayoff (μ x y : ℝ) : ℝ :=
   fullSurplus x y / 2 + 2 * b * locationProb x y - c * x ^ 2 / 2 + μ * x
 
 /-! Exact deviations retain all higher-order terms. In particular, the linear
     d coefficient is the public-policy FOC, NOT a global-optimality proof. -/
-theorem full_planner_deviation (μ a d : ℚ) :
+theorem full_planner_deviation (μ a d : ℝ) :
     fullPlannerPayoff μ (a + d) a - fullPlannerPayoff μ a a =
       d * (μ - 3 / 32 - 135 * a / 16) +
       d ^ 2 * (5 * (12500 * a ^ 2 + 12500 * a * d - 500 * a +
                     3125 * d ^ 2 - 250 * d - 447) / 512) := by
   norm_num [fullPlannerPayoff, fullSurplus, qbar, t, U, q0, k, H, b, c] <;> ring
 
-theorem full_local_deviation (μ a d : ℚ) :
+theorem full_local_deviation (μ a d : ℝ) :
     fullLocalPayoff μ (a + d) a - fullLocalPayoff μ a a =
       d * (μ + 5 / 128 - 315 * a / 64) +
       d ^ 2 * (5 * (12500 * a ^ 2 + 12500 * a * d - 500 * a +
                     3125 * d ^ 2 - 250 * d - 519) / 1024) := by
   norm_num [fullLocalPayoff, fullSurplus, locationProb, qbar, t, U, h, q0, k, H, b, c] <;> ring
 
-def fullP (μ : ℚ) : ℚ := (32 * μ - 3) / 270
-def fullN (μ : ℚ) : ℚ := (128 * μ + 5) / 630
-def readyP (μ : ℚ) : ℚ := (μ + 3 / 128) / 10
-def readyN (μ : ℚ) : ℚ := (μ + 25 / 256) / 10
-def locP (μ : ℚ) : ℚ := 16 / 135 * (μ - 3 / 32)
-def locN (μ : ℚ) : ℚ := 32 / 295 * (μ - 3 / 64)
+def fullP (μ : ℝ) : ℝ := (32 * μ - 3) / 270
+def fullN (μ : ℝ) : ℝ := (128 * μ + 5) / 630
+def readyP (μ : ℝ) : ℝ := (μ + 3 / 128) / 10
+def readyN (μ : ℝ) : ℝ := (μ + 25 / 256) / 10
+def locP (μ : ℝ) : ℝ := 16 / 135 * (μ - 3 / 32)
+def locN (μ : ℝ) : ℝ := 32 / 295 * (μ - 3 / 64)
 
-theorem full_stationarity (μ : ℚ) :
+theorem full_stationarity (μ : ℝ) :
     (μ - mu0 - tc * fullP μ = 0) ∧ (μ + m - s * fullN μ = 0) := by
   constructor
   · norm_num [mu0, tc, fullP, q0, k, c] <;> ring
   · norm_num [m, s, fullN, q0, k, H, b, c] <;> ring
 
-theorem fixed_readiness_stationarity (μ : ℚ) :
+theorem fixed_readiness_stationarity (μ : ℝ) :
     μ + 3 / 128 - 10 * readyP μ = 0 ∧
     μ + 25 / 256 - 10 * readyN μ = 0 := by
   constructor <;> norm_num [readyP, readyN] <;> ring
 
-theorem fixed_location_stationarity (μ : ℚ) :
+theorem fixed_location_stationarity (μ : ℝ) :
     μ - 3 / 32 - 135 / 16 * locP μ = 0 ∧
     μ - 3 / 64 - 295 / 32 * locN μ = 0 := by
   constructor <;> norm_num [locP, locN] <;> ring
 
-theorem all_six_interior (μ : ℚ) (hlo : (3 : ℚ) / 32 < μ)
-    (hhi : μ < (1 : ℚ) / 8) :
+theorem all_six_interior (μ : ℝ) (hlo : (3 : ℝ) / 32 < μ)
+    (hhi : μ < (1 : ℝ) / 8) :
     (0 < fullP μ ∧ fullP μ < 2 / 25) ∧
     (0 < fullN μ ∧ fullN μ < 2 / 25) ∧
     (0 < readyP μ ∧ readyP μ < 2 / 25) ∧
@@ -107,49 +107,49 @@ theorem all_six_interior (μ : ℚ) (hlo : (3 : ℚ) / 32 < μ)
   · constructor <;> dsimp [locP] <;> linarith
   · constructor <;> dsimp [locN] <;> linarith
 
-def gapFull (μ : ℚ) : ℚ := fullN μ - fullP μ
-def gapReady (μ : ℚ) : ℚ := readyN μ - readyP μ
-def gapLoc (μ : ℚ) : ℚ := locN μ - locP μ
+def gapFull (μ : ℝ) : ℝ := fullN μ - fullP μ
+def gapReady (μ : ℝ) : ℝ := readyN μ - readyP μ
+def gapLoc (μ : ℝ) : ℝ := locN μ - locP μ
 
-theorem gap_full_increment (μ ν : ℚ) :
-    gapFull ν - gapFull μ = (16 / 189 : ℚ) * (ν - μ) := by
+theorem gap_full_increment (μ ν : ℝ) :
+    gapFull ν - gapFull μ = (16 / 189 : ℝ) * (ν - μ) := by
   norm_num [gapFull, fullN, fullP] <;> ring
 
-theorem gap_readiness_increment (μ ν : ℚ) :
+theorem gap_readiness_increment (μ ν : ℝ) :
     gapReady ν - gapReady μ = 0 := by
   norm_num [gapReady, readyN, readyP] <;> ring
 
-theorem gap_location_increment (μ ν : ℚ) :
-    gapLoc ν - gapLoc μ = -(16 / 1593 : ℚ) * (ν - μ) := by
+theorem gap_location_increment (μ ν : ℝ) :
+    gapLoc ν - gapLoc μ = -(16 / 1593 : ℝ) * (ν - μ) := by
   norm_num [gapLoc, locN, locP] <;> ring
 
-theorem response_interaction_signs (μ ν : ℚ) (h : μ < ν) :
+theorem response_interaction_signs (μ ν : ℝ) (h : μ < ν) :
     gapFull μ < gapFull ν ∧
     gapReady μ = gapReady ν ∧
     gapLoc ν < gapLoc μ := by
-  have hd : (0 : ℚ) < ν - μ := sub_pos.mpr h
+  have hd : (0 : ℝ) < ν - μ := sub_pos.mpr h
   constructor
   · have heq := gap_full_increment μ ν
-    have hmul : (0 : ℚ) < (16 / 189 : ℚ) * (ν - μ) :=
+    have hmul : (0 : ℝ) < (16 / 189 : ℝ) * (ν - μ) :=
       mul_pos (by norm_num) hd
     linarith
   constructor
   · have hz := gap_readiness_increment μ ν
     linarith
   · have heq := gap_location_increment μ ν
-    have hmul : (0 : ℚ) < (16 / 1593 : ℚ) * (ν - μ) :=
+    have hmul : (0 : ℝ) < (16 / 1593 : ℝ) * (ν - μ) :=
       mul_pos (by norm_num) hd
     linarith
 
 /-! Fixed-readiness exact objectives, after dropping terms constant in policy. -/
-def readyPlannerPayoff (μ x y : ℚ) : ℚ :=
+def readyPlannerPayoff (μ x y : ℝ) : ℝ :=
     (μ + 3 / 128) * (x + y) + 75 / 2048 * (x - y) ^ 2 -
       5 * (x ^ 2 + y ^ 2)
-def readyLocalPayoff (μ x y : ℚ) : ℚ :=
+def readyLocalPayoff (μ x y : ℝ) : ℝ :=
     μ * x + 3 / 256 * (x + y) + 75 / 4096 * (x - y) ^ 2 +
       11 / 128 * (x - y) - 5 * x ^ 2
 
-theorem ready_planner_global (μ x y : ℚ) :
+theorem ready_planner_global (μ x y : ℝ) :
     readyPlannerPayoff μ x y ≤
       readyPlannerPayoff μ (readyP μ) (readyP μ) := by
   have hs := (fixed_readiness_stationarity μ).1
@@ -157,17 +157,17 @@ theorem ready_planner_global (μ x y : ℚ) :
   have hidentity :
       readyPlannerPayoff μ (readyP μ) (readyP μ) -
       readyPlannerPayoff μ x y =
-        (5 / 2 : ℚ) * (x + y - 2 * readyP μ) ^ 2 +
-        (5045 / 2048 : ℚ) * (x - y) ^ 2 := by
+        (5 / 2 : ℝ) * (x + y - 2 * readyP μ) ^ 2 +
+        (5045 / 2048 : ℝ) * (x - y) ^ 2 := by
     dsimp [readyPlannerPayoff]
     linear_combination (2 * readyP μ - x - y) * hmu
-  have h1 : (0 : ℚ) ≤ (5 / 2 : ℚ) * (x + y - 2 * readyP μ) ^ 2 :=
+  have h1 : (0 : ℝ) ≤ (5 / 2 : ℝ) * (x + y - 2 * readyP μ) ^ 2 :=
     mul_nonneg (by norm_num) (sq_nonneg _)
-  have h2 : (0 : ℚ) ≤ (5045 / 2048 : ℚ) * (x - y) ^ 2 :=
+  have h2 : (0 : ℝ) ≤ (5045 / 2048 : ℝ) * (x - y) ^ 2 :=
     mul_nonneg (by norm_num) (sq_nonneg _)
   linarith
 
-theorem ready_local_global (μ x : ℚ) :
+theorem ready_local_global (μ x : ℝ) :
     readyLocalPayoff μ x (readyN μ) ≤
       readyLocalPayoff μ (readyN μ) (readyN μ) := by
   have hs := (fixed_readiness_stationarity μ).2
@@ -175,43 +175,43 @@ theorem ready_local_global (μ x : ℚ) :
   have hidentity :
       readyLocalPayoff μ (readyN μ) (readyN μ) -
       readyLocalPayoff μ x (readyN μ) =
-        (20405 / 4096 : ℚ) * (x - readyN μ) ^ 2 := by
+        (20405 / 4096 : ℝ) * (x - readyN μ) ^ 2 := by
     dsimp [readyLocalPayoff]
     linear_combination (readyN μ - x) * hmu
-  have hnonneg : (0 : ℚ) ≤ (20405 / 4096 : ℚ) * (x - readyN μ) ^ 2 :=
+  have hnonneg : (0 : ℝ) ≤ (20405 / 4096 : ℝ) * (x - readyN μ) ^ 2 :=
     mul_nonneg (by norm_num) (sq_nonneg _)
   linarith
 
 /-! Fixed-location reduced objectives with backup reoptimized and p = 1/2. -/
-def locPlannerPayoff (μ x y : ℚ) : ℚ :=
+def locPlannerPayoff (μ x y : ℝ) : ℝ :=
   (μ - 3 / 32) * (x + y) - 135 / 32 * (x ^ 2 + y ^ 2)
-def locLocalPayoff (μ x : ℚ) : ℚ :=
+def locLocalPayoff (μ x : ℝ) : ℝ :=
   (μ - 3 / 64) * x - 295 / 64 * x ^ 2
 
-theorem loc_planner_global (μ x y : ℚ) :
+theorem loc_planner_global (μ x y : ℝ) :
     locPlannerPayoff μ x y ≤ locPlannerPayoff μ (locP μ) (locP μ) := by
   have hs := (fixed_location_stationarity μ).1
   have hmu : μ = 3 / 32 + 135 / 16 * locP μ := by linarith
   have hidentity :
       locPlannerPayoff μ (locP μ) (locP μ) - locPlannerPayoff μ x y =
-        (135 / 32 : ℚ) * ((x - locP μ) ^ 2 + (y - locP μ) ^ 2) := by
+        (135 / 32 : ℝ) * ((x - locP μ) ^ 2 + (y - locP μ) ^ 2) := by
     dsimp [locPlannerPayoff]
     linear_combination (2 * locP μ - x - y) * hmu
-  have hnonneg : (0 : ℚ) ≤
-      (135 / 32 : ℚ) * ((x - locP μ) ^ 2 + (y - locP μ) ^ 2) :=
+  have hnonneg : (0 : ℝ) ≤
+      (135 / 32 : ℝ) * ((x - locP μ) ^ 2 + (y - locP μ) ^ 2) :=
     mul_nonneg (by norm_num) (add_nonneg (sq_nonneg _) (sq_nonneg _))
   linarith
 
-theorem loc_local_global (μ x : ℚ) :
+theorem loc_local_global (μ x : ℝ) :
     locLocalPayoff μ x ≤ locLocalPayoff μ (locN μ) := by
   have hs := (fixed_location_stationarity μ).2
   have hmu : μ = 3 / 64 + 295 / 32 * locN μ := by linarith
   have hidentity :
       locLocalPayoff μ (locN μ) - locLocalPayoff μ x =
-        (295 / 64 : ℚ) * (x - locN μ) ^ 2 := by
+        (295 / 64 : ℝ) * (x - locN μ) ^ 2 := by
     dsimp [locLocalPayoff]
     linear_combination (locN μ - x) * hmu
-  have hnonneg : (0 : ℚ) ≤ (295 / 64 : ℚ) * (x - locN μ) ^ 2 :=
+  have hnonneg : (0 : ℝ) ≤ (295 / 64 : ℝ) * (x - locN μ) ^ 2 :=
     mul_nonneg (by norm_num) (sq_nonneg _)
   linarith
 
@@ -220,18 +220,18 @@ theorem loc_local_global (μ x : ℚ) :
     around the symmetrical optimum. This is a *new Lean globality bridge*.
     It uses the already-reduced private surplus identity, not a derivation
     of that identity from the preceding private-game stages. -/
-theorem full_planner_global (μ x y : ℚ)
+theorem full_planner_global (μ x y : ℝ)
     (hx0 : 0 ≤ x) (hxbar : x ≤ 2 / 25)
     (hy0 : 0 ≤ y) (hybar : y ≤ 2 / 25) :
     fullPlannerPayoff μ x y ≤ fullPlannerPayoff μ (fullP μ) (fullP μ) := by
-  have hmu : μ = (3 : ℚ) / 32 + (135 / 16 : ℚ) * fullP μ := by
+  have hmu : μ = (3 : ℝ) / 32 + (135 / 16 : ℝ) * fullP μ := by
     norm_num [fullP] <;> ring
-  have hm0 : (0 : ℚ) ≤ (x + y) / 2 := by linarith
-  have hmbar : (x + y) / 2 ≤ (2 : ℚ) / 25 := by linarith
-  have hbound : (0 : ℚ) ≤
-      ((x + y) / 2) * ((2 : ℚ) / 25 - (x + y) / 2) :=
+  have hm0 : (0 : ℝ) ≤ (x + y) / 2 := by linarith
+  have hmbar : (x + y) / 2 ≤ (2 : ℝ) / 25 := by linarith
+  have hbound : (0 : ℝ) ≤
+      ((x + y) / 2) * ((2 : ℝ) / 25 - (x + y) / 2) :=
     mul_nonneg hm0 (sub_nonneg.mpr hmbar)
-  have hub : U (qbar x y) ≤ (325 : ℚ) / 512 := by
+  have hub : U (qbar x y) ≤ (325 : ℝ) / 512 := by
     norm_num [U, qbar, q0, k, H] <;> nlinarith [hbound]
   have hidentity :
       fullPlannerPayoff μ (fullP μ) (fullP μ) - fullPlannerPayoff μ x y =
@@ -239,49 +239,49 @@ theorem full_planner_global (μ x y : ℚ)
         (c / 4 - U (qbar x y)) * (x - y) ^ 2 := by
     dsimp [fullPlannerPayoff, fullSurplus, qbar, t, U, tc, q0, k, H, b, c]
     linear_combination (2 * fullP μ - x - y) * hmu
-  have htc : (0 : ℚ) ≤ tc := by norm_num [tc, c, k]
-  have hU : (0 : ℚ) ≤ c / 4 - U (qbar x y) := by
+  have htc : (0 : ℝ) ≤ tc := by norm_num [tc, c, k]
+  have hU : (0 : ℝ) ≤ c / 4 - U (qbar x y) := by
     norm_num [c] at *
     linarith
-  have h1 : (0 : ℚ) ≤ tc * ((x + y) / 2 - fullP μ) ^ 2 :=
+  have h1 : (0 : ℝ) ≤ tc * ((x + y) / 2 - fullP μ) ^ 2 :=
     mul_nonneg htc (sq_nonneg _)
-  have h2 : (0 : ℚ) ≤ (c / 4 - U (qbar x y)) * (x - y) ^ 2 :=
+  have h2 : (0 : ℝ) ≤ (c / 4 - U (qbar x y)) * (x - y) ^ 2 :=
     mul_nonneg hU (sq_nonneg _)
   linarith
 
 /-! Full-endogenous unilateral deviations are also globally dominated on
     the WHOLE policy interval. Strict negativity of the quartic remainder
     follows from a simple interval square bound, rather than just the FOC. -/
-theorem full_local_global (μ x : ℚ)
-    (hlo : (3 : ℚ) / 32 < μ) (hhi : μ < (1 : ℚ) / 8)
+theorem full_local_global (μ x : ℝ)
+    (hlo : (3 : ℝ) / 32 < μ) (hhi : μ < (1 : ℝ) / 8)
     (hx0 : 0 ≤ x) (hxbar : x ≤ 2 / 25) :
     fullLocalPayoff μ x (fullN μ) ≤
       fullLocalPayoff μ (fullN μ) (fullN μ) := by
-  have ha0 : (0 : ℚ) ≤ fullN μ := by dsimp [fullN]; linarith
-  have habar : fullN μ ≤ (2 : ℚ) / 25 := by dsimp [fullN]; linarith
-  have hz0 : (0 : ℚ) ≤ x + fullN μ := by linarith
-  have hzbar : x + fullN μ ≤ (4 : ℚ) / 25 := by linarith
-  have hbound : (0 : ℚ) ≤
-      (x + fullN μ) * ((4 : ℚ) / 25 - (x + fullN μ)) :=
+  have ha0 : (0 : ℝ) ≤ fullN μ := by dsimp [fullN]; linarith
+  have habar : fullN μ ≤ (2 : ℝ) / 25 := by dsimp [fullN]; linarith
+  have hz0 : (0 : ℝ) ≤ x + fullN μ := by linarith
+  have hzbar : x + fullN μ ≤ (4 : ℝ) / 25 := by linarith
+  have hbound : (0 : ℝ) ≤
+      (x + fullN μ) * ((4 : ℝ) / 25 - (x + fullN μ)) :=
     mul_nonneg hz0 (sub_nonneg.mpr hzbar)
-  have hP : (3125 : ℚ) * (x + fullN μ) ^ 2 -
+  have hP : (3125 : ℝ) * (x + fullN μ) ^ 2 -
       250 * (x + fullN μ) - 519 < 0 := by
     nlinarith [hbound]
-  have hmu : μ = (315 / 64 : ℚ) * fullN μ - 5 / 128 := by
+  have hmu : μ = (315 / 64 : ℝ) * fullN μ - 5 / 128 := by
     norm_num [fullN] <;> ring
   have hidentity :
       fullLocalPayoff μ x (fullN μ) -
         fullLocalPayoff μ (fullN μ) (fullN μ) =
-      (5 / 1024 : ℚ) * (x - fullN μ) ^ 2 *
+      (5 / 1024 : ℝ) * (x - fullN μ) ^ 2 *
         (3125 * (x + fullN μ) ^ 2 -
           250 * (x + fullN μ) - 519) := by
     dsimp [fullLocalPayoff, fullSurplus, locationProb, qbar, t, U, h,
       q0, k, H, b, c]
     linear_combination (x - fullN μ) * hmu
-  have hnonneg : (0 : ℚ) ≤ (5 / 1024 : ℚ) * (x - fullN μ) ^ 2 :=
+  have hnonneg : (0 : ℝ) ≤ (5 / 1024 : ℝ) * (x - fullN μ) ^ 2 :=
     mul_nonneg (by norm_num) (sq_nonneg _)
   have hnonpos :
-      (5 / 1024 : ℚ) * (x - fullN μ) ^ 2 *
+      (5 / 1024 : ℝ) * (x - fullN μ) ^ 2 *
         (3125 * (x + fullN μ) ^ 2 - 250 * (x + fullN μ) - 519) ≤ 0 :=
     mul_nonpos_of_nonneg_of_nonpos hnonneg (le_of_lt hP)
   linarith

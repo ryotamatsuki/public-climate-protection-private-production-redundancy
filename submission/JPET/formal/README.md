@@ -25,26 +25,44 @@ the original formal Theorem 1, or the article's mathematical statements.
 7. Fixed-readiness and fixed-location counterfactuals: exact
    sum-of-squares proofs of global coordinated and unilateral local
    policy optima, not just first-order stationarity.
-8. The seven key theorem dependencies are printed by Lean's
-   `#print axioms` for an explicit trust-boundary audit.
+8. **New gamma=0 primitive bridge:** proves the separable Cournot
+   profit bound; a completed-square global and unique private-readiness
+   optimum; exact optimized private profit and material surplus;
+   whole-square bounds on private readiness and the uniform-fit
+   location cutoff; exact equality between primitive expected surplus
+   and the full-endogenous reduced policy surplus.
+9. **Restricted-game bridge:** derives the fixed-readiness and
+   fixed-location policy objectives directly from the corresponding
+   restricted private response rules, verifying equality with the
+   reduced objectives up to displayed policy-independent constants.
+10. The original seven main theorem dependencies are printed by
+   Lean's `#print axioms` for an explicit trust-boundary audit.
 
 No `sorry`, `admit`, explicitly declared `axiom`, or `native_decide`
 occurs in this new proof module.
 
 ## Remaining trust boundary (IMPORTANT)
 
-The module takes the **gamma=0 private-equilibrium reduced-form
-identities** (expected surplus, primary-location response, and the
-restricted-game reduced payoffs) as mathematical definitions. The
-derivation of those identities from the five-stage model and the
-proof of the validity/interiority of private continuations are still
-in the manuscript plus independent exact Python verification.
+The new bridge derives **gamma=0** reduced policy payoffs from
+explicit state-dependent, separable-market primitives, checks the
+optimal private readiness and its policy-domain interiority, and
+verifies the location cutoff's interiority on the whole policy square.
+It also matches the two restricted policy games to their corresponding
+primitive objectives. These algebraic and inequality proofs substantially
+reduce the former private-continuation trust boundary.
 
-Therefore a green Lean check does NOT by itself provide a closed
-formalization from original economic primitives through every game
-stage to Proposition 8. Positive-gamma continuation and the gamma
-comparative static (Proposition 10), model perturbations, and the
-baseline gamma=12/25 global certificates are not re-proved here.
+This is **not a measure-theoretic formalization of the five-stage game**:
+the meaning of the uniform-fit cutoff as a Bayesian choice probability,
+the assumed conditional-independence distribution of regional shocks and
+backup draws, and the underlying economic interpretation of separable
+market surplus are taken from the manuscript, not constructed as Lean
+random variables or stochastic strategies. The specific gamma=0 witness
+is proved, not a parameter-general theorem.
+
+Positive-gamma continuation and the gamma comparative static
+(Proposition 10), model perturbations, and the baseline gamma=12/25
+global certificates are not re-proved here. The frozen ERE formal proof
+retains its own independent trust boundary.
 
 The frozen ERE Lean code also has separate explicit conditional
 hypotheses and `native_decide` trust dependencies; see

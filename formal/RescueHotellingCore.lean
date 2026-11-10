@@ -1,3 +1,5 @@
+import Mathlib
+
 /-!
 # RescueHotellingCore — Lean 4 + mathlib formalization draft
 
@@ -8,7 +10,6 @@ proof sections. This is NOT proof of successful compilation. Statements below fo
 cores or conditional implications, NOT the full extensive-form SPNE theorem.
 See FORMALIZATION_STATUS.md for the precise proof coverage.
 -/
-import Mathlib
 
 noncomputable section
 namespace RescueHotelling

@@ -134,7 +134,7 @@ theorem quadratic_closed_form_root {T B C : ℝ}
   have hrelC : C*(4*T*C+2*B*(B+S)-(B+S)^2) = 0 := by
     rw [hrel]
     ring
-  change T*(2*C/(B+S))^2 + B*(2*C/(B+S)) - C = 0
+  change T*(2*C/(B+S))*(2*C/(B+S)) + B*(2*C/(B+S)) - C = 0
   field_simp [hden]
   nlinarith [hrelC]
 

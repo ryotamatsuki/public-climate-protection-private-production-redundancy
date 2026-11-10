@@ -82,7 +82,8 @@ theorem quadratic_root_order {T B C x y : ℝ}
   rcases eq_or_lt_of_le hyx with heq | hlt
   · rw [heq] at hroot
     linarith
-  · have hh := quadratic_strict_increase hT hB hy hlt
+  · have hh : quadratic T B C y < quadratic T B C x :=
+      @quadratic_strict_increase T B C y x hT hB hy hlt
     linarith
 
 -- B5: the technology gain from additional distance is positive for d<1/2.
@@ -119,15 +120,23 @@ theorem contract_distance_gt_no_contract
 theorem quadratic_closed_form_root {T B C : ℝ}
     (hT : 0 < T) (hB : 0 < B) (hC : 0 < C) :
     quadratic T B C (2*C/(B+Real.sqrt (B*B+4*T*C))) = 0 := by
+  let S : ℝ := Real.sqrt (B*B+4*T*C)
   have hrad : 0 ≤ B*B+4*T*C := by positivity
-  have hsq := Real.sq_sqrt hrad
-  have hdenpos : 0 < B+Real.sqrt (B*B+4*T*C) :=
-    add_pos_of_pos_of_nonneg hB (Real.sqrt_nonneg _)
-  have hden : B+Real.sqrt (B*B+4*T*C) ≠ 0 := ne_of_gt hdenpos
-  have hmult := congrArg (fun z : ℝ => C*z) hsq
-  unfold quadratic
+  have hs : S*S = B*B+4*T*C := by
+    dsimp [S]
+    nlinarith [Real.sq_sqrt hrad]
+  have hdenpos : 0 < B+S := add_pos_of_pos_of_nonneg hB (by
+    dsimp [S]
+    exact Real.sqrt_nonneg _)
+  have hden : B+S ≠ 0 := ne_of_gt hdenpos
+  have hrel : 4*T*C+2*B*(B+S)-(B+S)^2 = 0 := by
+    nlinarith [hs]
+  have hrelC : C*(4*T*C+2*B*(B+S)-(B+S)^2) = 0 := by
+    rw [hrel]
+    ring
+  change T*(2*C/(B+S))^2 + B*(2*C/(B+S)) - C = 0
   field_simp [hden]
-  nlinarith [hmult]
+  nlinarith [hrelC]
 
 -- B7a: the closed-form no-contract location satisfies its own private FOC.
 theorem no_contract_distance_solves_FOC (q t c : ℝ)
@@ -207,8 +216,12 @@ theorem no_contract_excessive_distance (q t c : ℝ)
     (hc : 0 < c) (hrt : 0 < survival q*t) :
     noContractSocialDistance q t c < noContractDistance q t c := by
   have hgap := no_contract_distance_gap q t c hc hrt
-  have hn : 0 < survival q*t*(3*c+4*survival q*t) := by positivity
-  have hd : 0 < 2*(c+survival q*t)*(3*c+2*survival q*t) := by positivity
+  have hp1 : 0 < 3*c+4*survival q*t := by linarith
+  have hp2 : 0 < c+survival q*t := by linarith
+  have hp3 : 0 < 3*c+2*survival q*t := by linarith
+  have hn : 0 < survival q*t*(3*c+4*survival q*t) := mul_pos hrt hp1
+  have hd : 0 < 2*(c+survival q*t)*(3*c+2*survival q*t) :=
+    mul_pos (mul_pos (by norm_num) hp2) hp3
   have hratio : 0 < survival q*t*(3*c+4*survival q*t) /
       (2*(c+survival q*t)*(3*c+2*survival q*t)) := div_pos hn hd
   linarith
@@ -237,8 +250,8 @@ theorem welfare_cutoff_polynomial_identity (q t c v V d : ℝ) :
     welfareSlope q t c v V d -
     (rescuePrime q d*v-cutoffNumerator q t V d) =
     -contractFOC q t c V d := by
-  unfold welfareSlope cutoffNumerator contractFOC quadratic
-    rescuePrime rescue mismatch intensity survival tCoeff bCoeff cCoeff
+  dsimp [welfareSlope, cutoffNumerator, contractFOC, quadratic,
+    rescuePrime, rescue, mismatch, intensity, survival, tCoeff, bCoeff, cCoeff]
   ring
 
 theorem welfare_cutoff_at_private_FOC (q t c v V d : ℝ)

@@ -272,3 +272,7 @@ theorem strong_concavity_quadratic_bound (c g z : ℝ) (hc : 0 < c) :
   nlinarith [hs]
 
 end RescueHotelling
+#print axioms RescueHotelling.contract_FOC_decomposition
+#print axioms RescueHotelling.contract_distance_gt_no_contract
+#print axioms RescueHotelling.no_contract_excessive_distance
+#print axioms RescueHotelling.welfare_cutoff_at_private_FOC

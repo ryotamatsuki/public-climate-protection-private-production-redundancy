@@ -21,12 +21,10 @@ jobs:
           if grep -n -E '^[[:space:]]*axiom[[:space:]]' formal/RescueHotellingCore.lean; then
             echo "Custom axiom found"; exit 1
           fi
-      - name: Set up pinned Lean 4.32.1
-        uses: leanprover/lean-action@v1
-        with:
-          auto-config: false
-          use-mathlib-cache: true
-          build: false
+      - name: Install pinned Lean toolchain
+        run: |
+          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
       - name: Verify exact toolchain and mathlib revision
         run: |
           test "$(cat formal/lean-toolchain)" = "leanprover/lean4:v4.32.1"

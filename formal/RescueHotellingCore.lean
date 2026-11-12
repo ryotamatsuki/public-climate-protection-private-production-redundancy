@@ -312,8 +312,8 @@ theorem R1_excludes_contract_refusal
     (hR1 : g*g/(2*c) < H) :
     Ndeviate < N0+H := by
   have hquadratic := strong_concavity_quadratic_bound c (-g) z hc
-  have hgap : -g*z - c*z*z/2 ≤ g*g/(2*c) := by
-    nlinarith [hquadratic]
+  have hsign : (-g)*(-g) = g*g := by ring
+  rw [hsign] at hquadratic
   linarith
 
 -- Appendix B and H: optimize an unbounded quadratic superset of all
@@ -482,9 +482,12 @@ theorem no_contract_risk_slope_negative
     linarith
   have hden : 0 < 3*c+2*survival q*t := by positivity
   have hn : 0 < 9*c*t := by positivity
-  unfold noContractRiskSlope
   have hdiv : 0 < (9*c*t)/(3*c+2*survival q*t)^2 :=
     div_pos hn (pow_pos hden 2)
+  have hEq : -(9*c*t)/(3*c+2*survival q*t)^2 =
+      -((9*c*t)/(3*c+2*survival q*t)^2) := by ring
+  unfold noContractRiskSlope
+  rw [hEq]
   linarith
 
 -- Proposition 4's local reversal from the two formulae.

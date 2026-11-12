@@ -512,3 +512,146 @@ end RescueHotelling
 #print axioms RescueHotelling.contracted_G_q_increment
 #print axioms RescueHotelling.contracted_G_d_increment
 #print axioms RescueHotelling.risk_response_reversal
+
+
+
+/-!
+## Primitive-to-envelope bridges for Appendix B and Appendix H
+
+These bridges use the conditional revenue upper bounds from the price game as
+explicit hypotheses. Once those are established analytically, Lean verifies the
+entire algebraic transition from attainable option value to R2 / R2rho.
+-/
+namespace RescueHotelling
+
+def baselineCrossingK (A t c : ℝ) : ℝ := c-10*A*t/9
+def baselineCrossingB (A r t c V d : ℝ) : ℝ :=
+  r*t/2-c*d/2+A*V
+
+theorem baseline_rescue_upper_linear
+    (A u : ℝ) (hA : 0 ≤ A) (hu : 0 ≤ u) :
+    A*u*(1-u) ≤ A*u := by
+  have hs : 0 ≤ A*u*u :=
+    mul_nonneg (mul_nonneg hA hu) hu
+  nlinarith
+
+theorem baseline_contract_option_upper
+    (A u t V F rev : ℝ)
+    (hA : 0 ≤ A) (hu : 0 ≤ u) (hu1 : u ≤ 1)
+    (ht : 0 ≤ t) (hV : 0 ≤ V) (hF : 0 ≤ F)
+    (hrev : 0 ≤ rev) (hrevBound : rev ≤ 5*t*u/9) :
+    max 0 ((A*u*(1-u))*(rev+V)-F) ≤
+      A*V*u+5*A*t*u*u/9 := by
+  let a := A*u*(1-u)
+  have ha : 0 ≤ a := by
+    dsimp [a]
+    exact mul_nonneg (mul_nonneg hA hu) (sub_nonneg.mpr hu1)
+  have hAup : a ≤ A*u := baseline_rescue_upper_linear A u hA hu
+  have hsum : 0 ≤ rev+V := add_nonneg hrev hV
+  have hsum2 : 0 ≤ 5*t*u/9+V := by positivity
+  have hopen : max 0 (a*(rev+V)-F) ≤ a*(rev+V) := by
+    apply max_le
+    · exact mul_nonneg ha hsum
+    · linarith
+  have hstep : a*(rev+V) ≤ a*(5*t*u/9+V) :=
+    mul_le_mul_of_nonneg_left (by linarith) ha
+  have hstep2 : a*(5*t*u/9+V) ≤
+      (A*u)*(5*t*u/9+V) :=
+    mul_le_mul_of_nonneg_right hAup hsum2
+  calc
+    max 0 (a*(rev+V)-F)
+        ≤ a*(rev+V) := hopen
+    _ ≤ a*(5*t*u/9+V) := hstep
+    _ ≤ A*u*(5*t*u/9+V) := hstep2
+    _ = A*V*u+5*A*t*u*u/9 := by ring
+
+theorem baseline_crossing_payoff_envelope
+    (A r t c V F d u rev RA U : ℝ)
+    (hA : 0 ≤ A) (hr : 0 ≤ r)
+    (ht : 0 ≤ t) (hV : 0 ≤ V) (hF : 0 ≤ F)
+    (hu : 0 ≤ u) (hu1 : u ≤ 1)
+    (hrev : 0 ≤ rev) (hrevB : rev ≤ 5*t*u/9)
+    (hRA : RA ≤ t*u/2)
+    (hU : U ≤ r*RA-c/2*((d/2+u)*(d/2+u))+
+       max 0 ((A*u*(1-u))*(rev+V)-F)) :
+    U ≤ -c*d*d/8+
+      baselineCrossingB A r t c V d*u-
+      baselineCrossingK A t c*u*u/2 := by
+  have hopt := baseline_contract_option_upper
+    A u t V F rev hA hu hu1 ht hV hF hrev hrevB
+  have hprice : r*RA ≤ r*(t*u/2) :=
+    mul_le_mul_of_nonneg_left hRA hr
+  have htotal : U ≤ r*(t*u/2)-c/2*((d/2+u)*(d/2+u))+
+    (A*V*u+5*A*t*u*u/9) := by
+    linarith
+  unfold baselineCrossingB baselineCrossingK
+  nlinarith [htotal]
+
+theorem R2_excludes_crossing_from_primitive_bounds
+    (A r t c V F d H u rev RA U : ℝ)
+    (hA : 0 ≤ A) (hr : 0 ≤ r)
+    (ht : 0 ≤ t) (hV : 0 ≤ V) (hF : 0 ≤ F)
+    (hu : 0 ≤ u) (hu1 : u ≤ 1)
+    (hrev : 0 ≤ rev) (hrevB : rev ≤ 5*t*u/9)
+    (hRA : RA ≤ t*u/2)
+    (hU : U ≤ r*RA-c/2*((d/2+u)*(d/2+u))+
+       max 0 ((A*u*(1-u))*(rev+V)-F))
+    (hK : 0 < baselineCrossingK A t c)
+    (hR2 : (max 0 (baselineCrossingB A r t c V d))*
+       (max 0 (baselineCrossingB A r t c V d))/
+       (2*baselineCrossingK A t c) < r*t*d/2+H) :
+    U < r*t*d/2-c*d*d/8+H := by
+  have henv := baseline_crossing_payoff_envelope
+    A r t c V F d u rev RA U
+    hA hr ht hV hF hu hu1 hrev hrevB hRA hU
+  exact R2_excludes_all_crossing_relocations c r t d H
+    (baselineCrossingK A t c)
+    (baselineCrossingB A r t c V d) u U hK hu henv hR2
+
+theorem rho_crossing_payoff_envelope
+    (A rho e k r t c V F d u rev RA U : ℝ)
+    (hA : 0 ≤ A) (hrho : 0 ≤ rho) (hr : 0 ≤ r)
+    (ht : 0 ≤ t) (hV : 0 ≤ V) (hF : 0 ≤ F)
+    (hu : 0 ≤ u) (hrev : 0 ≤ rev)
+    (hrevB : rev ≤ 5*t*u/9) (hRA : RA ≤ t*u/2)
+    (ha : 0 ≤ rhoRescuePoly A rho e k u)
+    (hU : U ≤ r*RA-c/2*((d/2+u)*(d/2+u))+
+       max 0 (rhoRescuePoly A rho e k u*(rev+V)-F)) :
+    U ≤ -c*d*d/8+A*e*V+
+      rhoCrossingB A e k r t c V d*u-
+      rhoCrossingK A k t c*u*u/2 := by
+  have hopt := rho_contract_option_upper
+    A rho e k u t V F rev hA hrho hu ht hV hF hrev hrevB ha
+  have hprice : r*RA ≤ r*(t*u/2) :=
+    mul_le_mul_of_nonneg_left hRA hr
+  have htotal : U ≤ r*(t*u/2)-c/2*((d/2+u)*(d/2+u))+
+      (A*e*V+A*(k*V+5*e*t/9)*u+5*A*k*t*u*u/9) := by
+    linarith
+  unfold rhoCrossingB rhoCrossingK
+  nlinarith [htotal]
+
+theorem R2rho_excludes_crossing_from_primitive_bounds
+    (A rho e k r t c V F d H u rev RA U : ℝ)
+    (hA : 0 ≤ A) (hrho : 0 ≤ rho) (hr : 0 ≤ r)
+    (ht : 0 ≤ t) (hV : 0 ≤ V) (hF : 0 ≤ F)
+    (hu : 0 ≤ u) (hrev : 0 ≤ rev)
+    (hrevB : rev ≤ 5*t*u/9) (hRA : RA ≤ t*u/2)
+    (ha : 0 ≤ rhoRescuePoly A rho e k u)
+    (hU : U ≤ r*RA-c/2*((d/2+u)*(d/2+u))+
+       max 0 (rhoRescuePoly A rho e k u*(rev+V)-F))
+    (hK : 0 < rhoCrossingK A k t c)
+    (hR2rho : A*e*V+
+      (max 0 (rhoCrossingB A e k r t c V d))*
+      (max 0 (rhoCrossingB A e k r t c V d))/
+      (2*rhoCrossingK A k t c) < r*t*d/2+H) :
+    U < r*t*d/2-c*d*d/8+H := by
+  have henv := rho_crossing_payoff_envelope
+    A rho e k r t c V F d u rev RA U
+    hA hrho hr ht hV hF hu hrev hrevB hRA ha hU
+  exact R2rho_from_paper_envelope
+    A e k r t c V d H u U hK hu henv hR2rho
+
+end RescueHotelling
+
+#print axioms RescueHotelling.R2_excludes_crossing_from_primitive_bounds
+#print axioms RescueHotelling.R2rho_excludes_crossing_from_primitive_bounds

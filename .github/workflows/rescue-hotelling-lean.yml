@@ -1,0 +1,57 @@
+name: Rescue Hotelling v0.4.2 Lean extension
+
+on:
+  pull_request:
+    paths:
+      - 'formal/RescueHotellingCore.lean'
+      - '.github/workflows/rescue-hotelling-lean.yml'
+  workflow_dispatch:
+
+jobs:
+  rescue-hotelling-kernel:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ensure source contains no proof placeholders
+        run: |
+          if grep -n -E '(^|[^A-Za-z])(sorry|admit)([^A-Za-z]|$)' formal/RescueHotellingCore.lean; then
+            echo "Forbidden proof placeholder found"; exit 1
+          fi
+          if grep -n -E '^[[:space:]]*axiom[[:space:]]' formal/RescueHotellingCore.lean; then
+            echo "Custom axiom found"; exit 1
+          fi
+      - name: Set up pinned Lean 4.32.1
+        uses: leanprover/lean-action@v1
+        with:
+          auto-config: false
+          use-mathlib-cache: true
+          build: false
+      - name: Verify exact toolchain and mathlib revision
+        run: |
+          test "$(cat formal/lean-toolchain)" = "leanprover/lean4:v4.32.1"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          data = json.loads(Path('formal/lake-manifest.json').read_text())
+          pkg = {p['name']:p for p in data['packages']}['mathlib']
+          assert pkg['rev'] == '520045ab14e26149ee970e2e617ca04b09bde5d6'
+          print('Pinned mathlib revision:', pkg['rev'])
+          PY
+      - name: Download pinned mathlib cache
+        run: |
+          cd formal
+          lake exe cache get
+      - name: Kernel check with theorem/axiom report
+        run: |
+          set -o pipefail
+          cd formal
+          lake env lean RescueHotellingCore.lean 2>&1 | tee RESCUE_HOTELLING_LEAN_KERNEL.log
+          ! grep -E '^error:|sorryAx' RESCUE_HOTELLING_LEAN_KERNEL.log
+      - name: Upload kernel verification log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rescue-hotelling-v042-lean-evidence
+          path: formal/RESCUE_HOTELLING_LEAN_KERNEL.log
+          if-no-files-found: ignore

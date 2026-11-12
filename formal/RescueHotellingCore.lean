@@ -483,7 +483,9 @@ theorem no_contract_risk_slope_negative
   have hden : 0 < 3*c+2*survival q*t := by positivity
   have hn : 0 < 9*c*t := by positivity
   unfold noContractRiskSlope
-  exact neg_div_neg_of_pos_of_pos hn (pow_pos hden 2)
+  have hdiv : 0 < (9*c*t)/(3*c+2*survival q*t)^2 :=
+    div_pos hn (pow_pos hden 2)
+  linarith
 
 -- Proposition 4's local reversal from the two formulae.
 theorem risk_response_reversal

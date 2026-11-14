@@ -66,7 +66,7 @@ theorem crossingNoContractStrictlyWorse
     (hcost : 4*r*t < 3*c) :
     crossingNoContractPayoff r t c d u <
       disagreementPayoff r t c (symmetricRivalPosition d) d := by
-  have hEnvelope := crossingNoContractUpper r t c d u hr ht hd hd1 hu hur
+  have hEnvelope := crossingNoContractUpper r t c d u hr ht (le_of_lt hd) hd1 hu hur
   have hQuad := RescueHotelling.strong_concavity_quadratic_bound
     c (r*t/2-c*d/2) u hc
   have hBound := crossingR0FromFOC r t c d hrt hc hd hd1 hFOC hcost

@@ -148,7 +148,9 @@ theorem R2_rules_out_all_crossing_deviations
     r A t c V F d
   rw [disagreement_symmetric_payoff] at hOn
   unfold crossingK crossingL crossingLinear at *
-  nlinarith
+  have hSquare : max 0 (r*t/2+A*V-c*d/2) * max 0 (r*t/2+A*V-c*d/2) = (max 0 (r*t/2+A*V-c*d/2))^2 := by ring
+  rw [hSquare] at hQuad
+  linarith
 
 end RescueHotellingCrossing
 #print axioms RescueHotellingCrossing.R2_rules_out_all_crossing_deviations

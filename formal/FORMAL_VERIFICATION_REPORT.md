@@ -51,3 +51,12 @@ No intentionally unproved `sorry`, `admit` or new `axiom` declarations were intr
 
 ## 6. Sign-off
 A CI `success` certifies compiled Lean theorem statements only. It never certifies an unformalized paper theorem. **FULL FORMAL VERIFICATION: NOT PASS.** There is no verified counterexample to a manuscript claim yet, but the proof audit is unfinished.
+
+## 7. Final integrated Lean CI verification, 2026-11-14
+- **SUCCESS**: https://github.com/ryotamatsuki/public-climate-protection-private-production-redundancy/actions/runs/43551517529
+- Tested source commit: `3219ecc4df46d5e289a5c9d77f59117956111385`.
+- Modules: 15, theorem declarations: **102** (original 75 plus 27 new declarations across 6 new Lean modules).
+- CI job: `132314813082`, all steps successful; output 0 errors, 9 warnings (lint warnings). All modules kernel compiled; placeholder and project-axiom checks passed.
+- Exact workflow job log preserved at `formal/CI_LOG_2026-11-14_SUCCESS.txt` and GitHub Actions artifact `14096077201` (sha256: `517c692d4c86d67776cf175f5f4218812978fa0edb36ce9fb20d429cd8c28c26`).
+- No source under `paper/`, `submission/`, or any TeX/PDF altered.
+- **This is NOT 102 manuscript theorems**: many declarations certify intermediate identities or conditional lemmas. SPNE over all histories, open-box R0–R2 and 800/400-cell *Lean*-certified intervals, contracted welfare/policy and reverse theorem-matching remain outstanding. **FULL FORMAL VERIFICATION: NOT PASS.**

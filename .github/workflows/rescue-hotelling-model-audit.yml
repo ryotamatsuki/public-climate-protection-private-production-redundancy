@@ -44,7 +44,7 @@ jobs:
           set -o pipefail
           lake env lean -o RescueHotellingCore.olean RescueHotellingCore.lean 2>&1 | tee CORE_LOG.txt
           LEAN_PATH=".:$LEAN_PATH" lake env lean -o RescueHotellingModelCheck.olean RescueHotellingModelCheck.lean 2>&1 | tee EXTENDED_LOG.txt
-          LEAN_PATH=".:$LEAN_PATH" lake env lean RescueHotellingExtendedGame.lean 2>&1 | tee GAME_LOG.txt
+          LEAN_PATH=".:$LEAN_PATH" lake env lean -o RescueHotellingExtendedGame.olean RescueHotellingExtendedGame.lean 2>&1 | tee GAME_LOG.txt
           LEAN_PATH=".:$LEAN_PATH" lake env lean -o RescueHotellingLocation.olean RescueHotellingLocation.lean 2>&1 | tee LOCATION_LOG.txt
           LEAN_PATH=".:$LEAN_PATH" lake env lean -o RescueHotellingRefusal.olean RescueHotellingRefusal.lean 2>&1 | tee REFUSAL_LOG.txt
           LEAN_PATH=".:$LEAN_PATH" lake env lean -o RescueHotellingCrossing.olean RescueHotellingCrossing.lean 2>&1 | tee CROSSING_LOG.txt

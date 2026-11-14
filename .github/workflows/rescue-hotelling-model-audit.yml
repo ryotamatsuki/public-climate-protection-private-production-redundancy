@@ -1,0 +1,49 @@
+name: rescue-hotelling-model-extended-audit
+on:
+  push:
+    branches:
+      - rescue-hotelling-model-audit-2026-11-14
+    paths:
+      - 'formal/RescueHotellingModelCheck.lean'
+      - '.github/workflows/rescue-hotelling-model-audit.yml'
+  workflow_dispatch:
+jobs:
+  lean-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check pinned Lean and mathlib
+        run: |
+          test "$(cat formal/lean-toolchain)" = 'leanprover/lean4:v4.32.1'
+          test -s formal/lake-manifest.json
+      - name: Check no proof holes and custom axioms
+        run: |
+          for f in formal/RescueHotellingCore.lean formal/RescueHotellingModelCheck.lean; do
+            if grep -nE '(^|[^[:alnum:]_])(sorry|admit)([^[:alnum:]_]|$)' "$f"; then exit 1; fi
+            if grep -nE '^[[:space:]]*axiom[[:space:]]' "$f"; then exit 1; fi
+          done
+      - name: Install Lean
+        run: |
+          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Restore mathlib cache
+        working-directory: formal
+        run: lake exe cache get
+      - name: Kernel-check both proof files
+        working-directory: formal
+        shell: bash
+        run: |
+          set -o pipefail
+          lake env lean RescueHotellingCore.lean 2>&1 | tee CORE_LOG.txt
+          lake env lean RescueHotellingModelCheck.lean 2>&1 | tee EXTENDED_LOG.txt
+          ! grep -q 'sorryAx' EXTENDED_LOG.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rescue-hotelling-model-audit-lean-log
+          path: |
+            formal/CORE_LOG.txt
+            formal/EXTENDED_LOG.txt
+          if-no-files-found: ignore
+          retention-days: 30

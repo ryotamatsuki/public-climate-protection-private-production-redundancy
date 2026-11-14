@@ -32,3 +32,15 @@ Legend: **A** = exact substatement algebra, **C** = conditional narrower conclus
 
 ## Independent check requirement
 Before completion, create the converse audit: every Lean assumption must be traceable to a declared manuscript primitive or theorem-specific premise. If not traceable, report a theorem **gap** and do not silently enlarge the hypothesis set.
+
+## Stage 0 follow-up: audited additional theorems (2026-11-14)
+| Paper obligation | New Lean theorem | Scope of verified contribution | Remaining gap |
+|---|---|---|---|
+| Correlated failures and rescue delivery (Model M05/M06) | `RescueHotellingDelivery.totalProbability_eq_one`, `linear_geography_delivered_probability`, `failure_correlation_exact`, `total_contract_surplus_for_linear_geography` | exact six-outcome probability construction, common delivery factor, covariance/correlation, and identity for joint incremental surplus | complete payoff derived from consumers' actual order mass and stochastic terminal utility |
+| P2 no-contract location | `RescueHotellingNoContractGlobal.noContractGlobalBestResponse` | full [0,1] unilateral-location deviations in reduced game, incl. crossing and same-side, under explicit cost/FOC assumptions | off-path extensive-form SPNE and root/hypothesis linkage |
+| P1 contracted candidate root | `RescueHotellingRoot.closed_form_unique_admissible_root` | R0a/R0b imply positive unique interior root of stationarity quadratic | contract participation R1/R2 for stated open box, plus full SPNE |
+| Cor 1 rescue value | `RescueHotellingValue.higher_rescue_value_increases_selected_root` | strict root ordering as V rises, conditional on regular roots | derivative/IFT statement from manuscript |
+| P6 constrained no-contract welfare | `RescueHotellingWelfareGlobal.no_contract_planner_global_unique` | GLOBAL, UNIQUE maximizer of the full no-contract welfare polynomial | tie to full integral and equilibrium allocation, and rest of social-analysis results |
+| Extensive-form game objects | `RescueHotellingHistories.Primitives`, `Locations`, `PureStrategyProfile` | typed primitives, histories and contingent strategic action spaces | probability law of full histories, payoff integrals, formal SPNE predicate and theorem |
+
+**No theorem in this update is designated FULL SPNE.** The above are exact scoped sub-results only.

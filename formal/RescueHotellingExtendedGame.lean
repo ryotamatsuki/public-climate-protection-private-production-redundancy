@@ -31,7 +31,6 @@ theorem clip_le_original (z : ℝ) (hz : 0 ≤ z) :
     simp [heq, clipDemand]
   · by_cases h1 : 1 ≤ z
     · simp [clipDemand, h0, h1]
-      linarith
     · simp [clipDemand, h0, h1]
 
 def clippedProfit (td m pOther p : ℝ) : ℝ :=
@@ -122,6 +121,10 @@ theorem price_competition_nash (td m : ℝ)
     have hReflect : indifferentConsumer td (1-m) (priceRight td m)
        (priceLeft td m) = conditionalShareLeft (1-m) := by
       rw [right_is_left_after_reflection]
+      have hOther : priceLeft td m = priceRight td (1-m) := by
+        unfold priceLeft priceRight
+        ring
+      rw [hOther]
       exact price_share_left td (1-m) (ne_of_gt htd)
     apply clipping_price_best_reply td (1-m) (priceLeft td m) htd
       (by rw [priceRight_is_optimal]; exact hRPrice)

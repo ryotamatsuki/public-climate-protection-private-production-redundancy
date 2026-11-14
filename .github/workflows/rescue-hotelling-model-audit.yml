@@ -9,6 +9,7 @@ on:
       - 'formal/RescueHotellingLocation.lean'
       - 'formal/RescueHotellingRefusal.lean'
       - 'formal/RescueHotellingCrossing.lean'
+      - 'formal/RescueHotellingReducedNash.lean'
       - '.github/workflows/rescue-hotelling-model-audit.yml'
   workflow_dispatch:
 jobs:
@@ -23,7 +24,7 @@ jobs:
           test -s formal/lake-manifest.json
       - name: Check no proof holes and custom axioms
         run: |
-          for f in formal/RescueHotellingCore.lean formal/RescueHotellingModelCheck.lean formal/RescueHotellingExtendedGame.lean formal/RescueHotellingLocation.lean formal/RescueHotellingRefusal.lean formal/RescueHotellingCrossing.lean; do
+          for f in formal/RescueHotellingCore.lean formal/RescueHotellingModelCheck.lean formal/RescueHotellingExtendedGame.lean formal/RescueHotellingLocation.lean formal/RescueHotellingRefusal.lean formal/RescueHotellingCrossing.lean formal/RescueHotellingReducedNash.lean; do
             if grep -nE '(^|[^[:alnum:]_])(sorry|admit)([^[:alnum:]_]|$)' "$f"; then exit 1; fi
             if grep -nE '^[[:space:]]*axiom[[:space:]]' "$f"; then exit 1; fi
           done
@@ -44,12 +45,14 @@ jobs:
           LEAN_PATH=".:$LEAN_PATH" lake env lean RescueHotellingExtendedGame.lean 2>&1 | tee GAME_LOG.txt
           LEAN_PATH=".:$LEAN_PATH" lake env lean -o RescueHotellingLocation.olean RescueHotellingLocation.lean 2>&1 | tee LOCATION_LOG.txt
           LEAN_PATH=".:$LEAN_PATH" lake env lean -o RescueHotellingRefusal.olean RescueHotellingRefusal.lean 2>&1 | tee REFUSAL_LOG.txt
-          LEAN_PATH=".:$LEAN_PATH" lake env lean RescueHotellingCrossing.lean 2>&1 | tee CROSSING_LOG.txt
+          LEAN_PATH=".:$LEAN_PATH" lake env lean -o RescueHotellingCrossing.olean RescueHotellingCrossing.lean 2>&1 | tee CROSSING_LOG.txt
+          LEAN_PATH=".:$LEAN_PATH" lake env lean RescueHotellingReducedNash.lean 2>&1 | tee NASH_LOG.txt
           ! grep -q 'sorryAx' EXTENDED_LOG.txt
           ! grep -q 'sorryAx' GAME_LOG.txt
           ! grep -q 'sorryAx' LOCATION_LOG.txt
           ! grep -q 'sorryAx' REFUSAL_LOG.txt
           ! grep -q 'sorryAx' CROSSING_LOG.txt
+          ! grep -q 'sorryAx' NASH_LOG.txt
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -61,5 +64,6 @@ jobs:
             formal/LOCATION_LOG.txt
             formal/REFUSAL_LOG.txt
             formal/CROSSING_LOG.txt
+            formal/NASH_LOG.txt
           if-no-files-found: ignore
           retention-days: 30

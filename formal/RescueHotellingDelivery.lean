@@ -101,6 +101,53 @@ theorem linear_geography_delivered_probability (q d : ℝ) :
     unfold survival rescue intensity
     ring
 
+
+def failureCovariance (q rho : ℝ) : ℝ :=
+  bothFail q rho-q*q
+
+theorem failure_covariance_identity (q rho : ℝ) :
+    failureCovariance q rho = q*(1-q)*rho := by
+  unfold failureCovariance bothFail
+  ring
+
+theorem failure_correlation_exact (q rho : ℝ)
+    (hq0 : 0 < q) (hq1 : q < 1) :
+    failureCovariance q rho/(q*(1-q)) = rho := by
+  have hden : q*(1-q) ≠ 0 :=
+    ne_of_gt (mul_pos hq0 (by linarith))
+  rw [failure_covariance_identity]
+  field_simp [hden]
+
+def individualExpectedContractGain
+    (q rho s revenue V F : ℝ) : ℝ :=
+  (deliveryLeftProbability q rho s - (1-q))*(revenue+V)-F
+
+theorem per_firm_contract_gain_from_state_weights
+    (q rho s revenue V F : ℝ) :
+    individualExpectedContractGain q rho s revenue V F =
+      q*(1-q)*(1-rho)*s*(revenue+V)-F := by
+  unfold individualExpectedContractGain
+  rw [deliveryLeft_formula]
+  ring
+
+theorem total_contract_surplus_from_state_weights
+    (q rho s revenueA revenueB V F : ℝ) :
+    individualExpectedContractGain q rho s revenueA V F +
+      individualExpectedContractGain q rho s revenueB V F =
+      q*(1-q)*(1-rho)*s*(revenueA+revenueB+2*V)-2*F := by
+  rw [per_firm_contract_gain_from_state_weights,
+    per_firm_contract_gain_from_state_weights]
+  ring
+
+theorem total_contract_surplus_for_linear_geography
+    (q d revenueA revenueB V F : ℝ) :
+    individualExpectedContractGain q (1-d) (1-d) revenueA V F +
+      individualExpectedContractGain q (1-d) (1-d) revenueB V F =
+      jointSurplus q 0 V F d revenueA revenueB := by
+  rw [total_contract_surplus_from_state_weights]
+  unfold jointSurplus rescue intensity
+  ring
+
 end RescueHotellingDelivery
 #print axioms RescueHotellingDelivery.totalProbability_eq_one
 #print axioms RescueHotellingDelivery.linear_geography_delivered_probability

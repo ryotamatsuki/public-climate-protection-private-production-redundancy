@@ -31,7 +31,7 @@ theorem proposer_can_attain_optimal_joint_surplus_option
       proposerGain own responder transfer = max 0 (own+responder) := by
   by_cases hS : 0 ≤ own+responder
   · refine ⟨-responder, ?_⟩
-    have haccept : 0 ≤ responder + -responder := by ring
+    have haccept : 0 ≤ responder + -responder := by simp
     unfold proposerGain
     rw [if_pos haccept, max_eq_right hS]
     ring

@@ -26,7 +26,7 @@ theorem left_price_le_four_thirds_t (t d m : ℝ)
     priceLeft (t*d) m ≤ 4*t/3 := by
   have h0 : 0 ≤ 1+m := by linarith
   have hD : d*(1+m) ≤ (1+m) :=
-    (mul_le_mul_of_nonneg_right hd1 h0).trans (by ring)
+    (mul_le_mul_of_nonneg_right hd1 h0).trans (by simp)
   have hM : d*(1+m) ≤ 2 := by linarith
   have hT := mul_le_mul_of_nonneg_left hM ht
   unfold priceLeft
@@ -38,7 +38,7 @@ theorem right_price_le_four_thirds_t (t d m : ℝ)
     priceRight (t*d) m ≤ 4*t/3 := by
   have h0 : 0 ≤ 2-m := by linarith
   have hD : d*(2-m) ≤ (2-m) :=
-    (mul_le_mul_of_nonneg_right hd1 h0).trans (by ring)
+    (mul_le_mul_of_nonneg_right hd1 h0).trans (by simp)
   have hM : d*(2-m) ≤ 2 := by linarith
   have hT := mul_le_mul_of_nonneg_left hM ht
   unfold priceRight

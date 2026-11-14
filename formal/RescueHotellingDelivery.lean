@@ -119,7 +119,6 @@ theorem failure_correlation_exact (q rho : ℝ)
   have hq : q ≠ 0 := ne_of_gt hq0
   have h1 : 1-q ≠ 0 := ne_of_gt (by linarith)
   field_simp [hden,hq,h1]
-  ring
 
 def individualExpectedContractGain
     (q rho s revenue V F : ℝ) : ℝ :=

@@ -116,7 +116,10 @@ theorem failure_correlation_exact (q rho : ℝ)
   have hden : q*(1-q) ≠ 0 :=
     ne_of_gt (mul_pos hq0 (by linarith))
   rw [failure_covariance_identity]
-  field_simp [hden]
+  have hq : q ≠ 0 := ne_of_gt hq0
+  have h1 : 1-q ≠ 0 := ne_of_gt (by linarith)
+  field_simp [hden,hq,h1]
+  ring
 
 def individualExpectedContractGain
     (q rho s revenue V F : ℝ) : ℝ :=

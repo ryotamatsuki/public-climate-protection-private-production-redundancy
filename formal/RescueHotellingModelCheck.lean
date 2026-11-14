@@ -57,7 +57,7 @@ theorem candidate_conditional_revenue_right (td m : ℝ) :
 
 theorem symmetric_price (td : ℝ) :
     priceLeft td (1/2) = td ∧ priceRight td (1/2) = td := by
-  constructor <;> unfold priceLeft priceRight <;> ring
+  constructor <;> dsimp [priceLeft, priceRight] <;> ring
 
 def linearDemandRevenue (td m pOther p : ℝ) : ℝ :=
   p * (m + (pOther - p) / (2 * td))
@@ -111,7 +111,9 @@ theorem refusal_envelope_bridge (c g z H : ℝ)
     (hc : 0 < c) (hR1 : g * g / (2*c) < H) :
     -g*z-c*z*z/2 < H := by
   have h := RescueHotelling.strong_concavity_quadratic_bound c (-g) z hc
-  nlinarith
+  have hsq : (-g)*(-g) = g*g := by ring
+  rw [hsq] at h
+  linarith
 
 theorem across_envelope_bridge (K L u benefit : ℝ)
     (hK : 0 < K) (hR2 : L * L / (2*K) < benefit) :

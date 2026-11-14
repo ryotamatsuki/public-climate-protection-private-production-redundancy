@@ -61,7 +61,7 @@ theorem closed_form_unique_admissible_root
     add_pos_of_pos_of_nonneg hB (Real.sqrt_nonneg _)
   have hroot : contractFOC q t c V (candidateDistance q t c V) = 0 := by
     change quadratic T B C (2*C/(B+Real.sqrt (B^2+4*T*C))) = 0
-    exact quadratic_closed_form_root hT hB hC
+    simpa only [pow_two] using (quadratic_closed_form_root hT hB hC)
   have hpos : 0 < candidateDistance q t c V := by
     change 0 < 2*C/(B+Real.sqrt (B^2+4*T*C))
     exact div_pos (by positivity) hDen

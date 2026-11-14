@@ -7,6 +7,7 @@ on:
       - 'formal/RescueHotellingModelCheck.lean'
       - 'formal/RescueHotellingExtendedGame.lean'
       - 'formal/RescueHotellingLocation.lean'
+      - 'formal/RescueHotellingRefusal.lean'
       - '.github/workflows/rescue-hotelling-model-audit.yml'
   workflow_dispatch:
 jobs:
@@ -21,7 +22,7 @@ jobs:
           test -s formal/lake-manifest.json
       - name: Check no proof holes and custom axioms
         run: |
-          for f in formal/RescueHotellingCore.lean formal/RescueHotellingModelCheck.lean formal/RescueHotellingExtendedGame.lean formal/RescueHotellingLocation.lean; do
+          for f in formal/RescueHotellingCore.lean formal/RescueHotellingModelCheck.lean formal/RescueHotellingExtendedGame.lean formal/RescueHotellingLocation.lean formal/RescueHotellingRefusal.lean; do
             if grep -nE '(^|[^[:alnum:]_])(sorry|admit)([^[:alnum:]_]|$)' "$f"; then exit 1; fi
             if grep -nE '^[[:space:]]*axiom[[:space:]]' "$f"; then exit 1; fi
           done
@@ -40,10 +41,12 @@ jobs:
           lake env lean -o RescueHotellingCore.olean RescueHotellingCore.lean 2>&1 | tee CORE_LOG.txt
           LEAN_PATH=".:$LEAN_PATH" lake env lean -o RescueHotellingModelCheck.olean RescueHotellingModelCheck.lean 2>&1 | tee EXTENDED_LOG.txt
           LEAN_PATH=".:$LEAN_PATH" lake env lean RescueHotellingExtendedGame.lean 2>&1 | tee GAME_LOG.txt
-          LEAN_PATH=".:$LEAN_PATH" lake env lean RescueHotellingLocation.lean 2>&1 | tee LOCATION_LOG.txt
+          LEAN_PATH=".:$LEAN_PATH" lake env lean -o RescueHotellingLocation.olean RescueHotellingLocation.lean 2>&1 | tee LOCATION_LOG.txt
+          LEAN_PATH=".:$LEAN_PATH" lake env lean RescueHotellingRefusal.lean 2>&1 | tee REFUSAL_LOG.txt
           ! grep -q 'sorryAx' EXTENDED_LOG.txt
           ! grep -q 'sorryAx' GAME_LOG.txt
           ! grep -q 'sorryAx' LOCATION_LOG.txt
+          ! grep -q 'sorryAx' REFUSAL_LOG.txt
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -53,5 +56,6 @@ jobs:
             formal/EXTENDED_LOG.txt
             formal/GAME_LOG.txt
             formal/LOCATION_LOG.txt
+            formal/REFUSAL_LOG.txt
           if-no-files-found: ignore
           retention-days: 30

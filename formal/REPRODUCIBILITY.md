@@ -28,3 +28,9 @@ Inspect each `#print axioms` output. Lean's standard logical axioms (`propext`, 
 For all numerical certificates, verify the interval partition and exact outward rational comparisons rather than trusting figure samples or floating-point logs.
 
 This repository audit is not declared FULL FORMAL VERIFICATION until all entries in `FORMAL_PROOF_OBLIGATIONS.md` and `UNRESOLVED_PROOF_OBLIGATIONS.md` are closed.
+
+## Final checked CI snapshot (2026-11-14)
+- Successful run: https://github.com/ryotamatsuki/public-climate-protection-private-production-redundancy/actions/runs/43551517529
+- Run source SHA: `3219ecc4df46d5e289a5c9d77f59117956111385`.
+- Full GitHub job log committed as `formal/CI_LOG_2026-11-14_SUCCESS.txt`.
+- 15 Lean modules and 102 theorem declarations accepted; no `sorry`, `admit`, arbitrary project `axiom`, or `sorryAx` seen in checked modules. Individual source- and CI-audit still required before declaring full manuscript equivalence.

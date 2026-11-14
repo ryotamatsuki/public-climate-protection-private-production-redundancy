@@ -30,13 +30,13 @@ jobs:
       - name: Restore mathlib cache
         working-directory: formal
         run: lake exe cache get
-      - name: Kernel-check both proof files
+      - name: Kernel-check original and extended proof modules
         working-directory: formal
         shell: bash
         run: |
           set -o pipefail
-          lake env lean RescueHotellingCore.lean 2>&1 | tee CORE_LOG.txt
-          lake env lean RescueHotellingModelCheck.lean 2>&1 | tee EXTENDED_LOG.txt
+          lake env lean -o RescueHotellingCore.olean RescueHotellingCore.lean 2>&1 | tee CORE_LOG.txt
+          LEAN_PATH=".:$LEAN_PATH" lake env lean RescueHotellingModelCheck.lean 2>&1 | tee EXTENDED_LOG.txt
           ! grep -q 'sorryAx' EXTENDED_LOG.txt
       - uses: actions/upload-artifact@v4
         if: always()

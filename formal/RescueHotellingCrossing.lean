@@ -147,7 +147,7 @@ theorem R2_rules_out_all_crossing_deviations
   have hOn := agreement_at_candidate_equals_disagreement_plus_H
     r A t c V F d
   rw [disagreement_symmetric_payoff] at hOn
-  unfold crossingK crossingL crossingLinear acrossQuadratic at *
+  unfold crossingK crossingL crossingLinear at *
   nlinarith
 
 end RescueHotellingCrossing
